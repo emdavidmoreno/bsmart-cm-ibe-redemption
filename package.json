@@ -1,0 +1,37 @@
+{
+  "name": "@everymundo/bsmart-cm-ibe",
+  "version": "1.0.0",
+  "description": "Booksmart CopaAir Internal Booking Engine(IBE) flow",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "cd _server && node server.js"
+  },
+  "keywords": [
+    "copa",
+    "everymundo",
+    "ibe",
+    "booksmart"
+  ],
+  "author": "devs@everymundo",
+  "license": "ISC",
+  "directories": {
+    "build": "_server/public/app/modules",
+    "deploy": "_server/public/app/modules",
+    "deploy_production": "../booksmart_prod",
+    "frontend": "src",
+    "config": "./",
+    "backend": "server"
+  },
+  "dependencies": {
+    "@everymundo/bsmart-components": "^1.0.1",
+    "@everymundo/bsmart-core": "^1.0.0",
+    "@everymundo/bsmart-lib": "^1.0.0",
+    "@everymundo/bsmart-tasks": "^1.0.4",
+    "@everymundo/em-static-server--hapi": "^1.0.0",
+    "grunt": "^1.0.1",
+    "hapi": "^16.0.1",
+    "inert": "^4.0.3"
+  },
+  "devDependencies": {}
+}
