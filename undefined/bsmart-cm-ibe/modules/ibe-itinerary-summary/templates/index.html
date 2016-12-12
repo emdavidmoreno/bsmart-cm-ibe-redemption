@@ -1,0 +1,236 @@
+
+<div id="booksmart">
+  <div class="l-book-smart">
+    <div data-ng-controller="AppController" class="m-book-smart">
+      <nav class="m-top-bar brand-bar"><a rel="nofollow" href="https://www.copaair.com/" class="logo"><img src="//smart-prepro.securitytrfx.com/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo" class="logo--image"/></a><i class="menu"></i></nav>
+      <div class="m-sidebar-menu">
+        <div class="accordion"><a href="https://www.copaair.com/" class="accordion-item-title-without-icon">{{ 'LABEL_HOME' | translate }}</a></div>
+        <div class="accordion">
+          <h3 data-ng-click="" class="accordion-item-title">{{ 'LABEL_LANGUAGE' | translate }} ({{main.languageOptions[main.language].name}})<i class="icon-action"></i></h3>
+          <div class="accordion-item-content">
+            <select data-ng-model="main.language" data-ng-change="main.onChangeLanguage()" data-ng-options="key as value.name for (key, value) in main.languageOptions"></select>
+          </div>
+        </div>
+        <div class="accordion"><a href="http://www.copaair.com/sites/cc/en/informacion-de-viaje/pages/condiciones-generales-de-equipaje.aspx" target="_blank" class="accordion-item-title-without-icon">{{ 'LABEL_BAGAGGE_POLICE' | translate }}</a></div>
+        <div class="accordion"><a href="https://www.copaair.com/sites/cc/en/informacion-de-viaje/pages/cargo-equipaje-socios-codigo-compartido.aspx" target="_blank" class="accordion-item-title-without-icon">{{ 'LABEL_PARTNER_BAGAGGE_POLICE' | translate }}</a></div>
+        <div class="accordion"><a href="{{main.menuItems.privacyPolicy.link}}" target="_blank" class="accordion-item-title">{{ main.menuItems.privacyPolicy.label }}<i class="icon-action"></i></a></div>
+        <div class="accordion">
+          <h3 data-ng-click="loadDesktopVersionAction()" class="accordion-item-title">{{ 'LABEL_DESKTOP_VERSION' | translate }}<i class="icon-action"></i></h3>
+        </div>
+      </div>
+      <div class="m-sidebar-menu-wrapper"></div>
+      <div ng-cloak="ng-cloak" class="l-mini-summary">
+        <div ng-if="showMiniSummary" class="l-mini-summary-top"><span>{{main.miniSummary.location[0].user_input_origin_airport_code}}</span><i class="direction-going"></i><span>{{main.miniSummary.location[0].user_input_destination_airport_code}}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'Round Trip'" class="journey-type">{{ 'LABEL_ROUND_TRIP' | translate }}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'One Way'" class="journey-type">{{ 'LABEL_ONE_WAY' | translate }}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'Multi City'" class="journey-type">{{ 'LABEL_MULTI_CITY' | translate }}</span></div>
+        <div ng-if="showMiniSummary" class="l-mini-summary-bottom"><span>{{main.miniSummary.departure[0].user_input_date| date:'MMMM d'}}</span><span ng-if="main.miniSummary.return[0]"> - {{main.miniSummary.return[0].user_input_date| date:'MMMM d'}}</span><span ng-if="main.miniSummary.user_input_journey_type == 'Multi City'"> - {{main.miniSummary.departure[main.miniSummary.departure.length - 1].user_input_date| date:'MMMM d'}}</span><span> | {{main.miniSummary.passengers.user_input_adults + main.miniSummary.passengers.user_input_children + main.miniSummary.passengers.user_input_infants}}</span><i class="passengers"></i></div>
+        <div ng-if="showMiniSummary &amp;&amp; showMiniSummaryPrice" class="price">{{main.miniSummary.total_price.currency_code}} {{ (main.miniSummary.total_price.cash) | number:2 }}</div>
+        <div ng-if="!showMiniSummary" class="message"><i class="icon--checked"></i>{{ 'LABEL_BOOK_YOUR_TRIP' | translate }}</div>
+        <div ng-if="showMiniSummary &amp;&amp; !showMiniSummaryPrice &amp;&amp; main.selectedChooseCurrency  &amp;&amp; main.chooseCurrency.length &gt; 0" class="currency">
+          <select data-ng-model="main.selectedChooseCurrency" data-ng-change="main.onChangeChooseCurrency(main.selectedChooseCurrency)" data-ng-options="option.shortName  for option in main.chooseCurrency track by option.value" class="select--safari-friendly--white"></select>
+        </div>
+      </div>
+      <ul ng-if="showMiniSummary" class="l-stepper">
+        <li ng-repeat="step in stepper.steps" ng-class="{'active': step.state == 'active', 'done': step.state == 'done'}"></li>
+      </ul>
+      <section ng-if="main.user" class="m-card login">
+        <div class="content">
+          <p>{{ 'LABEL_WELCOME' | translate }},<strong> {{main.user.username}}</strong> {{main.user.connectMilesNumber}}</p>
+        </div>
+      </section>
+      <div class="l-body">
+        <div ng-controller="ItinerarySummaryController" class="m-itinerary-summary">
+          <div ng-cloak="ng-cloak" class="l-messages">
+            <div data-ng-repeat="message in []" data-ng-class="{error: message.type == 'error'}" class="m-message">
+              <p>{{message.content}}</p>
+            </div>
+          </div>
+          <section>
+            <h3>{{'LABEL_ITINERARY_SUMMARY'| translate}}</h3>
+            <div>
+              <header class="title">
+                <h4 class="title-text"></h4>
+              </header>
+              <div data-ng-repeat="location in ui.locations" class="content">
+                <div data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak="ng-cloak" class="m-header"><strong>{{$index + 1}}</strong><span>
+                    {{location.extra_info.geo.origin_city_name}}
+                    ({{location.user_input_origin_airport_code}})
+                    - {{location.extra_info.geo.destination_city_name}}
+                    ({{location.user_input_destination_airport_code}})</span></div>
+                <div>
+                  <div data-ng-class="{'itinerary-summary--no-dividers': ui.user_input_journey_type != 'Multi City'}" ng-cloak="ng-cloak" class="m-itinerary-summary">
+                    <div data-ng-repeat="flight in location.departure.dates[0].flights" class="itinerary-summary-flight itinerary-summary-flight--departure">
+                      <div class="title">
+                        <div data-ng-if="ui.user_input_journey_type != 'Multi City'" class="title-text title-text--primary">{{ 'LABEL_FLIGHT_OUTBOUND' | translate }}</div>
+                        <div class="title-text title-text--fareclass pull-right {{location.departure.availableClasses[0].cssClass}}">{{ flight.info.classes[0].name }}<span data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true" class="text--linkify">({{flight.info.classes[0].sellingClass.text}})</span></div>
+                      </div>
+                      <div class="flight-list-title">{{location.departure.dates[0].date | date:'MMMM d, y'}}</div>
+                      <div data-ng-repeat="flightItem in flight">
+                        <div data-ng-repeat="flight_list_item in flightItem.flight_list" class="flight-list">
+                          <div class="flight">
+                            <div class="l-flight-detail">
+                              <div class="flight-detail flight-detail--origin"><span class="location">{{flight_list_item.origin_airport_code}}</span><span class="time"> {{flight_list_item.departure_time | simpledate}}<sup data-ng-repeat="dec in flight_list_item.disclaimer" data-ng-if="dec.field == 'departure_time'">{{location.disclaimer_mapping[dec.id].symbol}}</sup></span></div><i class="flight-direction"></i><span data-ng-if="flight_list_item.duration &amp;&amp; flight_list_item.duration &gt;= 0" class="flight-duration--center">{{flight_list_item.duration | duration}}</span>
+                              <div class="flight-detail flight-detail--destination"><span class="location">{{flight_list_item.destination_airport_code}}</span><span class="time"> {{flight_list_item.arrival_time | simpledate}}<sup data-ng-repeat="dec in flight_list_item.disclaimer" data-ng-if="dec.field == 'arrival_time'">{{location.disclaimer_mapping[dec.id].symbol}}</sup></span></div>
+                            </div>
+                            <div data-ng-click="flight_list_item.onclick()" class="flight-number text-primary">{{flight_list_item.number}}<sup data-ng-repeat="dec in flight_list_item.disclaimer" data-ng-if="dec.field == 'flight_number'">{{ui.disclaimer_mapping[dec.id].symbol}}</sup></div>
+                          </div>
+                          <div data-ng-repeat="disc in flight_list_item.disclaimer | unique: 'id'" class="declaimer"><sup>{{ui.disclaimer_mapping[disc.id].symbol}}</sup>{{ui.disclaimer_mapping[disc.id].text}}</div><br/>
+                        </div>
+                      </div>
+                    </div>
+                    <div data-ng-repeat="flight in location.return.dates[0].flights" class="itinerary-summary-flight itinerary-summary-flight--return">
+                      <div class="title">
+                        <div data-ng-if="ui.user_input_journey_type=='Round Trip'" class="title-text title-text--primary">{{ 'LABEL_FLIGHT_INBOUND' | translate }}</div>
+                        <div class="title-text title-text--fareclass pull-right {{location.return.availableClasses[0].cssClass}}">{{flight.info.classes[0].name}}<span data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false" class="text--linkify">({{flight.info.classes[0].sellingClass.text}})</span></div>
+                      </div>
+                      <div class="flight-list-title">{{location.return.dates[0].date | date:'MMMM d, y'}}</div>
+                      <div data-ng-repeat="flightItem in flight">
+                        <div data-ng-repeat="flight_list_item in flightItem.flight_list" class="flight-list">
+                          <div class="flight">
+                            <div class="l-flight-detail">
+                              <div class="flight-detail flight-detail--origin"><span class="location">{{flight_list_item.origin_airport_code}}</span><span class="time"> {{flight_list_item.departure_time | simpledate}}<sup data-ng-repeat="dec in flight_list_item.disclaimer" data-ng-if="dec.field == 'departure_time'">{{location.disclaimer_mapping[dec.id].symbol}}</sup></span></div><i class="flight-direction"></i><span data-ng-if="flight_list_item.duration &amp;&amp; flight_list_item.duration &gt;= 0" class="flight-duration--center">{{flight_list_item.duration | duration}}</span>
+                              <div class="flight-detail flight-detail--destination"><span class="location">{{flight_list_item.destination_airport_code}}</span><span class="time"> {{flight_list_item.arrival_time | simpledate}}<sup data-ng-repeat="dec in flight_list_item.disclaimer" data-ng-if="dec.field == 'arrival_time'">{{location.disclaimer_mapping[dec.id].symbol}}</sup></span></div>
+                            </div>
+                            <div data-ng-click="flight_list_item.onclick()" class="flight-number text-primary">{{flight_list_item.number}}<sup data-ng-repeat="dec in flight_list_item.disclaimer" data-ng-if="dec.field == 'flight_number'">{{ui.disclaimer_mapping[dec.id].symbol}}</sup></div>
+                          </div>
+                          <div data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'" class="declaimer"><sup>{{ui.disclaimer_mapping[dec.id].symbol}}</sup>{{ui.disclaimer_mapping[dec.id].text}}</div><br/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div data-jqui-dialog="data-jqui-dialog" data-bs-open-dialog="{{ui.sellingClass.openDialog}}" data-bs-close-from-inner="ui.sellingClass.openDialog" class="dialog-container">
+                  <div class="m-selling-class-dialog">
+                    <div class="m-dialog-head"><span data-ng-if="ui.sellingClass.isDeparture">{{location.departure.selectedClassIndex.name}}</span><span data-ng-click="ui.sellingClass.openDialog=false" class="close">X</span><span data-ng-if="!ui.sellingClass.isDeparture">{{location.return.selectedClassIndex.name}}</span></div>
+                    <div class="m-dialog-body">
+                      <div data-ng-if="ui.sellingClass.isLoading" class="m-loader m-loader--dialog-internal">
+                        <div class="icon--pure-css"></div>
+                      </div>
+                      <div data-ng-if="!ui.sellingClass.isLoading" data-ng-bind-html="ui.sellingClass.html"></div>
+                    </div>
+                  </div>
+                </div>
+                <div data-jqui-dialog="data-jqui-dialog" data-bs-open-dialog="{{ui.flightDetails.openDialog}}" data-bs-close-from-inner="ui.flightDetails.openDialog" class="dialog-container">
+                  <div class="m-flight-details-dialog">
+                    <div class="m-dialog-head"><span>{{ui.flightDetails.data.dialogTitle}}</span><span data-ng-click="ui.flightDetails.openDialog=false" class="close">X</span></div>
+                    <div class="m-dialog-body">
+                      <div data-ng-if="ui.flightDetails.isLoading" class="m-loader m-loader--dialog-internal">
+                        <div class="icon--pure-css">Loading</div>
+                      </div>
+                      <table data-ng-if="ui.flightDetails.data.flight">
+                        <tbody>
+                          <tr>
+                            <td>{{ui.flightDetails.data.flight.optText}}</td>
+                            <td>{{ui.flightDetails.data.flight.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.airLine.optText}}</td>
+                            <td>{{ui.flightDetails.data.airLine.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.from.optText}}</td>
+                            <td>{{ui.flightDetails.data.from.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.timeTotal.optText}}</td>
+                            <td>{{ui.flightDetails.data.timeTotal.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.to.optText}}</td>
+                            <td>{{ui.flightDetails.data.to.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.timeFlying.optText}}</td>
+                            <td>{{ui.flightDetails.data.timeFlying.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.date.optText}}</td>
+                            <td>{{ui.flightDetails.data.date.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.equipment.optText}}</td>
+                            <td>{{ui.flightDetails.data.equipment.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.depart.optText}}</td>
+                            <td>{{ui.flightDetails.data.depart.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.timeGround.optText}}</td>
+                            <td>{{ui.flightDetails.data.timeGround.valueText}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ui.flightDetails.data.arrive.optText}}</td>
+                            <td>{{ui.flightDetails.data.arrive.valueText}}</td>
+                          </tr>
+                          <tr data-ng-if="ui.flightDetails.data.rating.optText">
+                            <td>{{ui.flightDetails.data.rating.optText}}</td>
+                            <td ng-bind-html="ui.flightDetails.data.rating.valueText | sanitize"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div data-bs-itinerary-pricing-card-per-passenger="data-bs-itinerary-pricing-card-per-passenger" data-ui="ui"></div>
+          <div data-bs-itinerary-pricing-card="data-bs-itinerary-pricing-card" data-ui="ui"></div>
+          <section data-ng-if="ui.tavelInsurance &amp;&amp; ui.tavelInsurance.display.head" class="m-insurance">
+            <h2>{{ui.tavelInsurance.display.head}}</h2>
+            <div data-ng-bind-html="ui.insuranceIcon | sanitize" class="insurance-icon"></div>
+            <div class="m-card">
+              <div class="content">
+                <div class="m-insurance-option">
+                  <input type="radio" value="1" name="InsurancePurchaseBS" data-ng-model="ui.tavelInsurance.accept" data-ng-change="ui.tavelInsurance.setAccept()"/>
+                  <label>{{ui.tavelInsurance.display.textAccept.text}}<a href="{{ui.tavelInsurance.display.textAccept.link}}" target="_blank">{{ui.tavelInsurance.display.textAccept.linkText}}</a></label>
+                </div>
+                <div class="m-insurance-option">
+                  <input type="radio" value="0" name="InsurancePurchaseBS" data-ng-model="ui.tavelInsurance.accept" data-ng-change="ui.tavelInsurance.setNoAccept()"/>
+                  <label>{{ui.tavelInsurance.display.textNoAccept}}</label>
+                </div>
+              </div>
+              <div data-ng-if="ui.insurancePrice &gt; 0" class="content">
+                <div class="price">{{ ui.insurance.totalPriceMerch | number:2 }}</div>
+              </div>
+            </div>
+          </section>
+          <section data-ng-if="ui.showPayment &amp;&amp; ui.payment.info.toPay.head != '' &amp;&amp; ui.payment.info.reserveAndHold.head != ''">
+            <h2>{{ 'LABEL_CHOOSE_PAYMENT_TYPE' | translate }}</h2>
+            <div class="m-card">
+              <div class="content">
+                <div>
+                  <label>
+                    <input type="radio" value="1" name="paymentType" checked="checked" data-ng-model="ui.payment.name" data-ng-change="ui.selectPaymentProceedToPay()"/>{{ ui.payment.info.toPay.head }}
+                  </label>
+                  <div data-ng-if="ui.payment.name == &quot;1&quot;" class="m-panel choose-payment-type--pay">
+                    <div data-ng-bind-html="ui.payment.info.toPay.desc | sanitize" class="content content--border-bottom content--border-dashed content--small-vertical-padding margin-bottom-sm margin-top-sm"></div>
+                  </div>
+                </div>
+                <div>
+                  <label>
+                    <input type="radio" value="0" name="paymentType" data-ng-model="ui.payment.name" data-ng-change="ui.selectPaymentReserveAndHold()"/>{{ ui.payment.info.reserveAndHold.head }}
+                  </label>
+                  <div data-ng-if="ui.payment.name == &quot;0&quot;" class="m-panel">
+                    <div data-ng-bind-html="ui.payment.info.reserveAndHold.desc | sanitize" class="content content--border-bottom content--border-dashed content--small-vertical-padding margin-bottom-sm margin-top-sm"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div data-ng-repeat="message in ui.messages" ng-cloak="ng-cloak" class="m-card m-card--muted">
+              <header class="title">
+                <h4 class="title-text title-text--normal"><i class="title-icon"></i>{{message.head}}</h4>
+              </header>
+              <div class="content"><span>{{message.body}}</span></div>
+            </div>
+          </section>
+          <div ng-show="ui.showContinueButton" class="l-action">
+            <button type="button" data-ng-click="continueButtonAction()">{{ 'LABEL_CONTINUE' | translate }}</button>
+          </div>
+        </div>
+      </div>
+      <footer><img src="//smart-prepro.securitytrfx.com/app/modules/bsmart-cm-ibe/assets/images/star-alliance.png" alt="Logo" class="logo--image"/></footer>
+    </div>
+  </div>
+</div>

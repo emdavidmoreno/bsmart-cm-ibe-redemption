@@ -1,0 +1,12 @@
+
+<div data-jqui-dialog="data-jqui-dialog" data-bs-open-dialog="{{ui.sellingClass.openDialog}}" data-bs-close-from-inner="ui.sellingClass.openDialog" class="dialog-container">
+  <div class="m-selling-class-dialog">
+    <div class="m-dialog-head"><span data-ng-if="ui.sellingClass.isDeparture">{{location.departure.selectedClassIndex.name}}</span><span data-ng-click="ui.sellingClass.openDialog=false" class="close">X</span><span data-ng-if="!ui.sellingClass.isDeparture">{{location.return.selectedClassIndex.name}}</span></div>
+    <div class="m-dialog-body">
+      <div data-ng-if="ui.sellingClass.isLoading" class="m-loader m-loader--dialog-internal">
+        <div class="icon--pure-css"></div>
+      </div>
+      <div data-ng-if="!ui.sellingClass.isLoading" data-ng-bind-html="ui.sellingClass.html"></div>
+    </div>
+  </div>
+</div>

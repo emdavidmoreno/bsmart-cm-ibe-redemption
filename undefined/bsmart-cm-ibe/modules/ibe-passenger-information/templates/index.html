@@ -1,0 +1,196 @@
+
+<div id="booksmart">
+  <div class="l-book-smart">
+    <div data-ng-controller="AppController" class="m-book-smart">
+      <nav class="m-top-bar brand-bar"><a rel="nofollow" href="https://www.copaair.com/" class="logo"><img src="//smart-prepro.securitytrfx.com/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo" class="logo--image"/></a><i class="menu"></i></nav>
+      <div class="m-sidebar-menu">
+        <div class="accordion"><a href="https://www.copaair.com/" class="accordion-item-title-without-icon">{{ 'LABEL_HOME' | translate }}</a></div>
+        <div class="accordion">
+          <h3 data-ng-click="" class="accordion-item-title">{{ 'LABEL_LANGUAGE' | translate }} ({{main.languageOptions[main.language].name}})<i class="icon-action"></i></h3>
+          <div class="accordion-item-content">
+            <select data-ng-model="main.language" data-ng-change="main.onChangeLanguage()" data-ng-options="key as value.name for (key, value) in main.languageOptions"></select>
+          </div>
+        </div>
+        <div class="accordion"><a href="http://www.copaair.com/sites/cc/en/informacion-de-viaje/pages/condiciones-generales-de-equipaje.aspx" target="_blank" class="accordion-item-title-without-icon">{{ 'LABEL_BAGAGGE_POLICE' | translate }}</a></div>
+        <div class="accordion"><a href="https://www.copaair.com/sites/cc/en/informacion-de-viaje/pages/cargo-equipaje-socios-codigo-compartido.aspx" target="_blank" class="accordion-item-title-without-icon">{{ 'LABEL_PARTNER_BAGAGGE_POLICE' | translate }}</a></div>
+        <div class="accordion"><a href="{{main.menuItems.privacyPolicy.link}}" target="_blank" class="accordion-item-title">{{ main.menuItems.privacyPolicy.label }}<i class="icon-action"></i></a></div>
+        <div class="accordion">
+          <h3 data-ng-click="loadDesktopVersionAction()" class="accordion-item-title">{{ 'LABEL_DESKTOP_VERSION' | translate }}<i class="icon-action"></i></h3>
+        </div>
+      </div>
+      <div class="m-sidebar-menu-wrapper"></div>
+      <div ng-cloak="ng-cloak" class="l-mini-summary">
+        <div ng-if="showMiniSummary" class="l-mini-summary-top"><span>{{main.miniSummary.location[0].user_input_origin_airport_code}}</span><i class="direction-going"></i><span>{{main.miniSummary.location[0].user_input_destination_airport_code}}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'Round Trip'" class="journey-type">{{ 'LABEL_ROUND_TRIP' | translate }}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'One Way'" class="journey-type">{{ 'LABEL_ONE_WAY' | translate }}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'Multi City'" class="journey-type">{{ 'LABEL_MULTI_CITY' | translate }}</span></div>
+        <div ng-if="showMiniSummary" class="l-mini-summary-bottom"><span>{{main.miniSummary.departure[0].user_input_date| date:'MMMM d'}}</span><span ng-if="main.miniSummary.return[0]"> - {{main.miniSummary.return[0].user_input_date| date:'MMMM d'}}</span><span ng-if="main.miniSummary.user_input_journey_type == 'Multi City'"> - {{main.miniSummary.departure[main.miniSummary.departure.length - 1].user_input_date| date:'MMMM d'}}</span><span> | {{main.miniSummary.passengers.user_input_adults + main.miniSummary.passengers.user_input_children + main.miniSummary.passengers.user_input_infants}}</span><i class="passengers"></i></div>
+        <div ng-if="showMiniSummary &amp;&amp; showMiniSummaryPrice" class="price">{{main.miniSummary.total_price.currency_code}} {{ (main.miniSummary.total_price.cash) | number:2 }}</div>
+        <div ng-if="!showMiniSummary" class="message"><i class="icon--checked"></i>{{ 'LABEL_BOOK_YOUR_TRIP' | translate }}</div>
+        <div ng-if="showMiniSummary &amp;&amp; !showMiniSummaryPrice &amp;&amp; main.selectedChooseCurrency  &amp;&amp; main.chooseCurrency.length &gt; 0" class="currency">
+          <select data-ng-model="main.selectedChooseCurrency" data-ng-change="main.onChangeChooseCurrency(main.selectedChooseCurrency)" data-ng-options="option.shortName  for option in main.chooseCurrency track by option.value" class="select--safari-friendly--white"></select>
+        </div>
+      </div>
+      <ul ng-if="showMiniSummary" class="l-stepper">
+        <li ng-repeat="step in stepper.steps" ng-class="{'active': step.state == 'active', 'done': step.state == 'done'}"></li>
+      </ul>
+      <section ng-if="main.user" class="m-card login">
+        <div class="content">
+          <p>{{ 'LABEL_WELCOME' | translate }},<strong> {{main.user.username}}</strong> {{main.user.connectMilesNumber}}</p>
+        </div>
+      </section>
+      <div class="l-body">
+        <div data-ng-controller="PassengerInformationController" class="m-passenger-information">
+          <div data-ng-cloak="data-ng-cloak" class="l-messages">
+            <div data-ng-repeat="message in ui.messages" data-ng-class="{error: message.type == 'error'}" class="m-message"><i></i>
+              <p>{{message.content}}</p>
+            </div>
+          </div>
+          <section>
+            <div data-ng-repeat="message in ui.infoMessages" data-ng-if="message != null &amp;&amp; message.bodyType === 'read_more'" data-ng-class="{'m-card--read-more' : message.openMoreInfo}" ng-cloak="ng-cloak" class="m-card {{message.cssClass}}">
+              <header class="title">
+                <h4 class="title-text title-text--normal"><i class="title-icon"></i>{{message.head}}</h4>
+              </header>
+              <div class="content {{message.contentClass}}">
+                <p data-ng-if="!message.isHtml">{{message.body}}</p>
+                <p data-ng-if="message.isHtml" data-ng-bind-html="message.body" class="trunk-text"></p>
+              </div>
+              <div data-ng-if="message.bodyType === 'read_more'" class="actions text-right"><span data-ng-if="message.openMoreInfo" data-ng-click="message.openMoreInfo = !message.openMoreInfo" class="action-item action-item--text">{{'LABEL_READ_MORE' | translate}}</span></div>
+            </div>
+          </section>
+          <div data-bs-itinerary-pricing-card-per-passenger="data-bs-itinerary-pricing-card-per-passenger" data-ui="ui"></div>
+          <div data-bs-itinerary-pricing-card="data-bs-itinerary-pricing-card" data-ui="ui"></div>
+          <section data-ng-cloak="data-ng-cloak">
+            <h2>{{'LABEL_PASSENGER_INFO' | translate}}</h2>
+            <div data-ng-repeat="passenger in ui.passengers track by $index" class="m-card">
+              <header class="title">
+                <h4 class="title-text">{{passenger.type}}</h4>
+              </header>
+              <div class="content">
+                <form class="form-horizontal">
+                  <div ng-if="$parent.main.user" class="form-group md">
+                    <label class="pi-field-required">{{'LABEL_AUTO_FILL_OPTIONS' | translate}}</label>
+                    <select data-ng-disabled="ui.isInactive" data-ng-model="passenger.autoFillSelectedOption" data-ng-change="passenger.setAutoFillOption(passenger.autoFillSelectedOption)" data-ng-options="option.name for option in passenger.autoFillOptions() track by option.value" class="md form-control"></select>
+                  </div>
+                  <div ng-show="passenger.autoFillSelectedOption.value !=-1" data-ng-class="{'show-field-error': ui.errors[$index].title }" class="form-group md">
+                    <label class="pi-field-required">{{'LABEL_TITLE' | translate}}</label>
+                    <select data-ng-disabled="ui.isInactive" data-ng-model="passenger.title" data-ng-change="passenger.setTitle(passenger.title)" data-ng-options="option.name for option in passenger.titleOptions() track by option.value" class="md form-control"></select><span class="text-message">{{ui.errors[$index].title}}</span>
+                  </div>
+                  <div ng-show="passenger.autoFillSelectedOption.value !=-1" data-ng-class="{'show-field-error': ui.errors[$index].firstName }" class="form-group md">
+                    <label class="col-sm-2 control-label pi-field-required">{{'LABEL_FIRST_NAME' | translate}}</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="{{'LABEL_FIRST_NAME_EXAMPLE' | translate}}" data-ng-disabled="ui.isInactive" data-ng-model="passenger.firstName" data-ng-change="passenger.setFirstName(passenger.firstName)" class="md form-control"/><span class="text-message">{{ui.errors[$index].firstName}}</span>
+                    </div>
+                  </div>
+                  <div ng-show="passenger.autoFillSelectedOption.value !=-1" data-ng-class="{'show-field-error': ui.errors[$index].lastName }" class="form-group md">
+                    <label class="col-sm-2 control-label pi-field-required">{{'LABEL_LAST_NAME' | translate}}</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="{{'LABEL_LAST_NAME_EXAMPLE' | translate}}" data-ng-disabled="ui.isInactive" data-ng-model="passenger.lastName" data-ng-change="passenger.setlastName(passenger.lastName)" class="md form-control"/><span class="text-message">{{ui.errors[$index].lastName}}</span>
+                    </div>
+                  </div>
+                  <div ng-show="passenger.autoFillSelectedOption.value != -1" data-ng-if="passenger.age !== undefined" data-ng-class="{'show-field-error': ui.errors[$index].travellerAge }" class="form-group md">
+                    <label class="col-sm-2 control-label control-label pi-field-required">{{'LABEL_AGE' | translate}}</label>
+                    <div class="col-sm-5">
+                      <select data-ng-disabled="ui.isInactive" data-ng-options="n for n in [] | range:2:11:1" data-ng-model="passenger.age" data-ng-change="passenger.setAge(passenger.age)" class="md form-control"></select><span class="text-message">{{ui.errors[$index].travellerAge}}</span>
+                    </div>
+                  </div>
+                  <div ng-show="passenger.autoFillSelectedOption.value !=-1" class="form-group md">
+                    <label>{{'LABEL_FREQUENT_FLYER' | translate}}</label>
+                    <select data-ng-disabled="ui.isInactive" data-ng-model="passenger.freqFlyer" data-ng-change="passenger.setFreqFlyer(passenger.freqFlyer)" data-ng-options="option.name for option in passenger.freqFlyerOptions() track by option.value" class="md form-control"></select>
+                  </div>
+                  <div ng-show="passenger.freqFlyer.value &amp;&amp; passenger.autoFillSelectedOption.value !=-1" class="form-group md">
+                    <label class="col-sm-2 control-label">{{'LABEL_MEMBERSHIP' | translate}}</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="Membership #" data-ng-disabled="ui.isInactive" data-ng-model="passenger.memberShip" data-ng-change="passenger.setMemberShip(passenger.memberShip)" class="md form-control"/>
+                    </div>
+                  </div>
+                  <div data-ng-if="passenger.argTaxId.exist &amp;&amp; passenger.autoFillSelectedOption.value !=-1" class="form-group md">
+                    <label>{{ passenger.argTaxId.taxIdCodeLabel }}</label>
+                    <select data-ng-disabled="ui.isInactive" data-ng-model="passenger.argTaxId.taxIdCode" data-ng-change="passenger.argTaxId.setTaxIdCode(passenger.argTaxId.taxIdCode)" data-ng-options="option.name for option in passenger.argTaxId.taxIdCodeOptions() track by option.value" class="md form-control"></select>
+                  </div>
+                  <div data-ng-if="passenger.argTaxId.exist &amp;&amp; passenger.autoFillSelectedOption.value !=-1 &amp;&amp; (passenger.argTaxId.taxIdCode.value !== '0' &amp;&amp; passenger.argTaxId.taxIdCode.value !== '')" class="form-group md">
+                    <label class="col-sm-2 control-label">{{ passenger.argTaxId.taxIdNumberLabel }}</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="" data-ng-disabled="ui.isInactive" data-ng-model="passenger.argTaxId.taxIdNumber" data-ng-change="passenger.argTaxId.setTaxIdNumber(passenger.argTaxId.taxIdNumber)" class="md form-control"/>
+                    </div>
+                  </div>
+                  <div data-ng-if="passenger.argTaxId.exist &amp;&amp; passenger.autoFillSelectedOption.value !=-1 &amp;&amp; (passenger.argTaxId.taxIdCode.value === '0')" class="form-group md">
+                    <label>{{ passenger.argTaxId.taxIdCountryLabel }}</label>
+                    <select data-ng-disabled="ui.isInactive" data-ng-model="passenger.argTaxId.taxIdCountry" data-ng-change="passenger.argTaxId.setTaxIdCountry(passenger.argTaxId.taxIdCountry)" data-ng-options="option.name for option in passenger.argTaxId.taxIdCountryOptions() track by option.value" class="md form-control"></select>
+                  </div>
+                  <div data-ng-if="passenger.needSFI &amp;&amp; passenger.autoFillSelectedOption.value !=-1" class="form-group md">
+                    <label class="col-md-3 control-label pi-field-required">{{'LABEL_GENDER' | translate}}</label>
+                    <div class="col-md-9">
+                      <label class="radio-inline">
+                        <input type="radio" value="M" data-ng-disabled="ui.isInactive" data-ng-model="passenger.gender" data-ng-change="passenger.setGender(passenger.gender)"/>{{'LABEL_MALE' | translate}}
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" value="F" data-ng-disabled="ui.isInactive" data-ng-model="passenger.gender" data-ng-change="passenger.setGender(passenger.gender)"/>{{'LABEL_FEMALE' | translate}}
+                      </label>
+                    </div>
+                  </div>
+                  <hr data-ng-if="(passenger.showBirthDate || passenger.needSFI)"/>
+                  <div data-ng-if="(passenger.showBirthDate || passenger.needSFI) &amp;&amp; passenger.autoFillSelectedOption.value !=-1" data-ng-class="{'show-field-error': (ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate) }" class="form-group md col-sm-3 inline-select">
+                    <label class="pi-field-required">{{'LABEL_BIRTHDAY' | translate}}</label><br/>
+                    <select data-ng-disabled="ui.isInactive" data-ng-options="option.name for option in ui.months track by option.no" data-ng-model="passenger.birthMonth" data-ng-change="passenger.setBirthMonth(passenger.birthMonth.no)" class="md form-control"></select>
+                    <select data-ng-disabled="ui.isInactive" data-ng-model="passenger.birthDay" data-ng-change="passenger.setBirthDay(passenger.birthDay)" data-ng-options="option for option in passenger.days track by option" class="md form-control"></select>
+                    <select data-ng-disabled="ui.isInactive" data-ng-model="passenger.birthYear" data-ng-change="passenger.setBirthYear(passenger.birthYear)" data-ng-options="option for option in passenger.years track by option" class="md form-control"></select><span class="text-message">{{ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate}}</span>
+                  </div>
+                  <div data-ng-if="passenger.autoFillSelectedOption.value !=-1 &amp;&amp; passenger.needSFI" class="form-group md">
+                    <label class="col-sm-2 control-label">{{'LABEL_REDRESS_NUMBER' | translate}}</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="#4545 54" data-ng-disabled="ui.isInactive" data-ng-model="passenger.redressNumber" data-ng-change="passenger.setRedressNumber(passenger.redressNumber)" class="md form-control"/>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+          <section ng-cloak="ng-cloak">
+            <h2>{{'LABEL_CONTACT_INFORMATION' | translate}}</h2>
+            <div class="m-card">
+              <div class="content">
+                <div data-ng-class="{'show-field-error': ui.errors[21].emailAddress }"><span class="text-message margin-bottom-sm">{{ui.errors[21].emailAddress}}</span></div>
+                <div data-ng-class="{'show-field-error': ui.errors[0].emailAddress || ui.errors[21].emailAddress }" class="form-group md">
+                  <label class="col-sm-2 control-label pi-field-required">{{'LABEL_EMAIL' | translate}}</label>
+                  <div class="col-sm-10">
+                    <input type="email" placeholder="{{'LABEL_EMAIL_EXAMPLE' | translate}}" data-ng-disabled="ui.isInactive" data-ng-model="ui.contactInfo.email" data-ng-change="ui.contactInfo.setEmail(ui.contactInfo.email)" class="md form-control"/><span class="text-message">{{ui.errors[0].emailAddress}}</span>
+                  </div>
+                </div>
+                <div data-ng-class="{'show-field-error': ui.errors[0].confirmEmail || ui.errors[21].emailAddress }" class="form-group md">
+                  <label class="col-sm-2 control-label pi-field-required">{{'LABEL_CONFIRM_EMAIL' | translate}}</label>
+                  <div class="col-sm-10">
+                    <input type="email" placeholder="{{'LABEL_EMAIL_EXAMPLE' | translate}}" data-ng-disabled="ui.isInactive" data-ng-model="ui.contactInfo.confirmEmail" data-ng-change="ui.contactInfo.setConfirmEmail(ui.contactInfo.confirmEmail)" class="md form-control"/><span class="text-message">{{ui.errors[0].confirmEmail}}</span>
+                  </div>
+                </div>
+                <div data-ng-class="{'show-field-error': ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']}" class="form-group md">
+                  <label class="col-sm-2 control-label control-label--block pi-field-required">{{'LABEL_PHONE_NUMBER' | translate}}</label>
+                  <div class="col-sm-3 phone-country-code">
+                    <input type="tel" placeholder="{{'LABEL_COUNTRY_CODE' | translate}}" data-ng-disabled="ui.isInactive" data-ng-model="ui.contactInfo.telCode" data-ng-change="ui.contactInfo.setTelCode(ui.contactInfo.telCode)" class="md form-control"/>
+                  </div>
+                  <div class="col-sm-9 phone-number">
+                    <input type="tel" placeholder="{{'LABEL_NUMBER' | translate}}" data-ng-disabled="ui.isInactive" data-ng-model="ui.contactInfo.telNumber" data-ng-change="ui.contactInfo.setTelNumber(ui.contactInfo.telNumber)" class="md form-control"/>
+                  </div><span data-ng-if="ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']" class="text-message">{{ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']}}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div data-ng-repeat="message in ui.infoMessages" data-ng-if="message != null &amp;&amp; message.bodyType !== 'read_more'" data-ng-class="{'m-card--read-more' : message.openMoreInfo}" ng-cloak="ng-cloak" class="m-card {{message.cssClass}}">
+              <header class="title">
+                <h4 class="title-text title-text--normal"><i class="title-icon"></i>{{message.head}}</h4>
+              </header>
+              <div class="content {{message.contentClass}}">
+                <p data-ng-if="!message.isHtml">{{message.body}}</p>
+                <p data-ng-if="message.isHtml" data-ng-bind-html="message.body" class="trunk-text"></p>
+              </div>
+              <div data-ng-if="message.bodyType === 'read_more'" class="actions text-right"><span data-ng-if="message.openMoreInfo" data-ng-click="message.openMoreInfo = !message.openMoreInfo" class="action-item action-item--text">{{'LABEL_READ_MORE' | translate}}</span></div>
+            </div>
+          </section>
+          <div bs-card-ref-id="bs-card-ref-id"></div>
+          <div ng-show="ui.showContinueButton" class="l-action">
+            <button type="button" data-ng-disabled="ui.isInactive" data-ng-click="continueButtonAction()">{{'LABEL_CONTINUE' | translate}}</button>
+          </div>
+        </div>
+      </div>
+      <footer><img src="//smart-prepro.securitytrfx.com/app/modules/bsmart-cm-ibe/assets/images/star-alliance.png" alt="Logo" class="logo--image"/></footer>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,168 @@
+
+<div id="booksmart">
+  <div class="l-book-smart">
+    <div data-ng-controller="AppController" class="m-book-smart">
+      <nav class="m-top-bar brand-bar"><a rel="nofollow" href="https://www.copaair.com/" class="logo"><img src="//smart-prepro.securitytrfx.com/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo" class="logo--image"/></a><i class="menu"></i></nav>
+      <div class="m-sidebar-menu">
+        <div class="accordion"><a href="https://www.copaair.com/" class="accordion-item-title-without-icon">{{ 'LABEL_HOME' | translate }}</a></div>
+        <div class="accordion">
+          <h3 data-ng-click="" class="accordion-item-title">{{ 'LABEL_LANGUAGE' | translate }} ({{main.languageOptions[main.language].name}})<i class="icon-action"></i></h3>
+          <div class="accordion-item-content">
+            <select data-ng-model="main.language" data-ng-change="main.onChangeLanguage()" data-ng-options="key as value.name for (key, value) in main.languageOptions"></select>
+          </div>
+        </div>
+        <div class="accordion"><a href="http://www.copaair.com/sites/cc/en/informacion-de-viaje/pages/condiciones-generales-de-equipaje.aspx" target="_blank" class="accordion-item-title-without-icon">{{ 'LABEL_BAGAGGE_POLICE' | translate }}</a></div>
+        <div class="accordion"><a href="https://www.copaair.com/sites/cc/en/informacion-de-viaje/pages/cargo-equipaje-socios-codigo-compartido.aspx" target="_blank" class="accordion-item-title-without-icon">{{ 'LABEL_PARTNER_BAGAGGE_POLICE' | translate }}</a></div>
+        <div class="accordion"><a href="{{main.menuItems.privacyPolicy.link}}" target="_blank" class="accordion-item-title">{{ main.menuItems.privacyPolicy.label }}<i class="icon-action"></i></a></div>
+        <div class="accordion">
+          <h3 data-ng-click="loadDesktopVersionAction()" class="accordion-item-title">{{ 'LABEL_DESKTOP_VERSION' | translate }}<i class="icon-action"></i></h3>
+        </div>
+      </div>
+      <div class="m-sidebar-menu-wrapper"></div>
+      <div ng-cloak="ng-cloak" class="l-mini-summary">
+        <div ng-if="showMiniSummary" class="l-mini-summary-top"><span>{{main.miniSummary.location[0].user_input_origin_airport_code}}</span><i class="direction-going"></i><span>{{main.miniSummary.location[0].user_input_destination_airport_code}}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'Round Trip'" class="journey-type">{{ 'LABEL_ROUND_TRIP' | translate }}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'One Way'" class="journey-type">{{ 'LABEL_ONE_WAY' | translate }}</span><span data-ng-if="main.miniSummary.user_input_journey_type === 'Multi City'" class="journey-type">{{ 'LABEL_MULTI_CITY' | translate }}</span></div>
+        <div ng-if="showMiniSummary" class="l-mini-summary-bottom"><span>{{main.miniSummary.departure[0].user_input_date| date:'MMMM d'}}</span><span ng-if="main.miniSummary.return[0]"> - {{main.miniSummary.return[0].user_input_date| date:'MMMM d'}}</span><span ng-if="main.miniSummary.user_input_journey_type == 'Multi City'"> - {{main.miniSummary.departure[main.miniSummary.departure.length - 1].user_input_date| date:'MMMM d'}}</span><span> | {{main.miniSummary.passengers.user_input_adults + main.miniSummary.passengers.user_input_children + main.miniSummary.passengers.user_input_infants}}</span><i class="passengers"></i></div>
+        <div ng-if="showMiniSummary &amp;&amp; showMiniSummaryPrice" class="price">{{main.miniSummary.total_price.currency_code}} {{ (main.miniSummary.total_price.cash) | number:2 }}</div>
+        <div ng-if="!showMiniSummary" class="message"><i class="icon--checked"></i>{{ 'LABEL_BOOK_YOUR_TRIP' | translate }}</div>
+        <div ng-if="showMiniSummary &amp;&amp; !showMiniSummaryPrice &amp;&amp; main.selectedChooseCurrency  &amp;&amp; main.chooseCurrency.length &gt; 0" class="currency">
+          <select data-ng-model="main.selectedChooseCurrency" data-ng-change="main.onChangeChooseCurrency(main.selectedChooseCurrency)" data-ng-options="option.shortName  for option in main.chooseCurrency track by option.value" class="select--safari-friendly--white"></select>
+        </div>
+      </div>
+      <ul ng-if="showMiniSummary" class="l-stepper">
+        <li ng-repeat="step in stepper.steps" ng-class="{'active': step.state == 'active', 'done': step.state == 'done'}"></li>
+      </ul>
+      <section ng-if="main.user" class="m-card login">
+        <div class="content">
+          <p>{{ 'LABEL_WELCOME' | translate }},<strong> {{main.user.username}}</strong> {{main.user.connectMilesNumber}}</p>
+        </div>
+      </section>
+      <div class="l-body">
+        <div data-ng-controller="ExternalBookingController" class="m-ibe-external-booking-mask">
+          <div ng-cloak="ng-cloak" class="l-messages">
+            <div data-ng-repeat="message in ui.messages" data-ng-class="{error: message.type == 'error'}" class="m-message"><i></i>
+              <p>{{message.content}}</p>
+            </div>
+          </div>
+          <div ng-cloak="ng-cloak" class="l-flight-type-group">
+            <button type="button" value="RT" data-ng-model="ui.flightType.value" data-ng-click="ui.flightType.change(&quot;RT&quot;)" data-ng-class="{'btn--activated': ui.flightType.value === 'RT'}" class="btn btn-default">{{ 'LABEL_ROUND_TRIP' | translate }}</button>
+            <button type="button" value="OW" data-ng-model="ui.flightType.value" data-ng-click="ui.flightType.change(&quot;OW&quot;)" data-ng-class="{'btn--activated': ui.flightType.value === 'OW'}" class="btn btn-default">{{ 'LABEL_ONE_WAY' | translate }}</button>
+            <button type="button" value="MC" data-ng-model="ui.flightType.value" data-ng-click="ui.flightType.change(&quot;MC&quot;)" data-ng-class="{'btn--activated': ui.flightType.value === 'MC'}" class="btn btn-default">{{ 'LABEL_MULTI_CITY' | translate }}</button>
+          </div>
+          <div data-ng-if="ui.flightType.value != 'MC'" data-ng-repeat="location in ui.locations.list|limitTo:1" class="l-flight-search">
+            <div data-ng-class="{'show-field-error': ui.errors[$index].origin }" ng-cloak="ng-cloak" class="flight-location flight-location--from">
+              <div class="left-inner-addon"><i></i>
+                <input type="text" placeholder="{{ &quot;LABEL_FROM&quot; | translate }}" data-ng-model="location.origin.locationName" data-jqui-autocomplete="data-jqui-autocomplete" data-bs-update-location="ui.locations.onChangeLocationOrigin" data-bs-location-index="{{$index}}" class="form-control"/>
+              </div><span class="text-message">{{ui.errors[$index].origin}}</span>
+            </div>
+            <div data-ng-class="{'show-field-error': ui.errors[$index].destination }" ng-cloak="ng-cloak" class="flight-location flight-location--to">
+              <div class="left-inner-addon"><i></i>
+                <input type="text" placeholder="{{ &quot;LABEL_TO&quot; | translate }}" data-ng-model="location.destination.locationName" data-jqui-autocomplete="data-jqui-autocomplete" data-bs-update-location="ui.locations.onChangeLocationDestination" data-bs-location-index="{{$index}}" class="form-control"/>
+              </div><span class="text-message">{{ui.errors[$index].destination}}</span>
+            </div>
+            <div>
+              <div data-ng-class="{'show-field-error': ui.errors[$index].departDate}" ng-cloak="ng-cloak" class="flight-date">
+                <div class="right-inner-addon"><i></i>
+                  <input type="text" placeholder="{{ &quot;LABEL_DEPARTURE_DATE&quot; | translate }}" id="fromOrigDate" data-ng-model="location.date.origin" data-ng-change="ui.locations.onChangeLocationDate(location, $index, true)" data-jqui-datepicker="data-jqui-datepicker" data-dp-is-from-date="true" data-dp-sibling-date="#toDestDate" class="form-control"/>
+                </div><span class="text-message">{{ui.errors[$index].departDate}}</span>
+              </div>
+              <div data-ng-if="ui.flightType.value == 'RT'" data-ng-class="{'show-field-error': ui.errors[$index].returnDate}" ng-cloak="ng-cloak" class="flight-date">
+                <div class="right-inner-addon"><i></i>
+                  <input type="text" placeholder="{{ &quot;LABEL_ARRIVAL_DATE&quot; | translate }}" id="toDestDate" data-ng-model="location.date.destination" data-ng-change="ui.locations.onChangeLocationDate(location, $index, false)" data-jqui-datepicker="data-jqui-datepicker" data-dp-is-from-date="false" data-dp-sibling-date="#fromOrigDate" class="form-control"/>
+                </div><span class="text-message">{{ui.errors[$index].returnDate}}</span>
+              </div>
+            </div>
+          </div>
+          <div data-ng-if="ui.flightType.value == 'MC'" data-ng-repeat="location in ui.locations.list | limitTo: ui.locations.list.length : 1" ng-cloak="ng-cloak" class="l-flight-search">
+            <div data-ng-class="{'first-element':$first}" class="flight-title"><span class="flight-title-content">{{'LABEL_FLIGHT' | translate}} {{$index + 1}}</span><i data-ng-class="{'icon--expanded': location.ui.expanded}" data-ng-click="ui.locations.expandAction(location)" class="icon-action"></i></div>
+            <div data-ng-class="{'show-field-error': ui.errors[$index + 1].origin }" data-ng-show="location.ui.expanded" class="flight-location">
+              <div data-ng-show="location.ui.expanded" class="left-inner-addon"><i></i>
+                <input type="text" placeholder="{{ &quot;LABEL_FROM&quot; | translate }}" data-ng-model="location.origin.locationName" data-jqui-autocomplete="data-jqui-autocomplete" data-bs-update-location="ui.locations.onChangeLocationOrigin" data-bs-location-index="{{$index+1}}" class="form-control"/>
+              </div><span data-ng-show="location.ui.expanded" class="text-message">{{ui.errors[$index].origin}}</span>
+            </div>
+            <div data-ng-class="{'show-field-error': ui.errors[$index + 1].destination }" data-ng-show="location.ui.expanded" class="flight-location flight-location--to">
+              <div class="left-inner-addon"><i></i>
+                <input type="text" placeholder="{{ &quot;LABEL_TO&quot; | translate }}" data-ng-model="location.destination.locationName" data-jqui-autocomplete="data-jqui-autocomplete" data-bs-update-location="ui.locations.onChangeLocationDestination" data-bs-location-index="{{$index+1}}" class="form-control"/>
+              </div><span class="text-message">{{ui.errors[$index].destination}}</span>
+            </div>
+            <div data-ng-show="location.ui.expanded" class="flight-date">
+              <div data-ng-class="{'show-field-error': ui.errors[$index + 1].departDate }" class="right-inner-addon"><i></i>
+                <input type="text" placeholder="{{ &quot;LABEL_DEPARTURE_DATE&quot; | translate }}" data-dp-id="dp_{{$index}}" data-ng-model="location.date.origin" data-ng-change="ui.locations.onChangeLocationDate(location, $index + 1, true)" data-dp-total-amount="{{ui.locations.list.length}}" data-dp-current-element="dp_{{$index}}" data-jqui-datepicker="data-jqui-datepicker" class="form-control"/><span class="text-message">{{ui.errors[$index].departDate}}</span>
+              </div>
+            </div>
+            <hr/>
+          </div>
+          <div ng-cloak="ng-cloak" class="l-cabin-type-group">
+            <label data-ng-click="ui.cabinType.change('Economy')" data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}">
+              <input type="radio" data-ng-model="ui.cabinType.value" value="Economy" data-ng-change="ui.cabinType.change()" class="radio--custom"/>
+              <label>{{ 'LABEL_CABIN_ECONOMY' | translate }}</label>
+            </label>
+            <label ng-click="ui.cabinType.change('Business')" data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}">
+              <input type="radio" data-ng-model="ui.cabinType.value" value="Business" class="radio--custom"/>
+              <label>{{ 'LABEL_CABIN_BUSINESS' | translate }}</label>
+            </label>
+          </div>
+          <div ng-cloak="ng-cloak" data-ng-class="{'show-field-error': ui.errors.guestTypes }" class="l-passengers">
+            <select data-ng-show="!passengersExtraOptionsSelected" data-ng-model="ui.passengers.adults" data-ng-change="ui.passengers.onChangeAdults()" class="select--safari-friendly">
+              <option value="1">1 {{ 'LABEL_ADULT' | translate }}</option>
+              <option value="2">2 {{ 'LABEL_ADULTS' | translate }}</option>
+              <option value="3">3 {{ 'LABEL_ADULTS' | translate }}</option>
+              <option value="4">4 {{ 'LABEL_ADULTS' | translate }}</option>
+              <option value="5">5 {{ 'LABEL_ADULTS' | translate }}</option>
+              <option value="6">6 {{ 'LABEL_ADULTS' | translate }}</option>
+              <option value="7">7 {{ 'LABEL_ADULTS' | translate }}</option>
+              <option value="8">8 {{ 'LABEL_ADULTS' | translate }}</option>
+            </select>
+            <p data-ng-show="!passengersExtraOptionsSelected"><a data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected">{{ 'LABEL_PASSENGER_QUESTION' | translate }}</a></p>
+            <div data-ng-show="passengersExtraOptionsSelected" class="l-extra-options">
+              <label>{{ 'LABEL_PASSENGER_ADULT' | translate }}<br/><br/>
+                <select data-ng-model="ui.passengers.adults" data-ng-change="ui.passengers.onChangeAdults()">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                </select>
+              </label>
+              <label>{{ 'LABEL_PASSENGER_CHILD' | translate }}<br/><br/>
+                <select data-ng-model="ui.passengers.children" data-ng-change="ui.passengers.onChangeChildren()">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                </select>
+              </label>
+              <label>{{ 'LABEL_PASSENGER_INFANT' | translate }}<br/><br/>
+                <select data-ng-model="ui.passengers.infants" data-ng-change="ui.passengers.onChangeInfants()">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                </select>
+              </label><span class="text-message">{{ ui.errors.guestTypes }}</span>
+            </div>
+          </div>
+          <div ng-cloak="ng-cloak" data-ng-if="ui.flightType.value != 'MC'" class="l-promo-code">
+            <input type="text" placeholder="{{ &quot;LABEL_PROMO_CODE&quot; | translate }}" data-ng-model="ui.promo_code.value" data-ng-change="ui.promo_code.change()" class="form-control"/>
+          </div>
+          <div ng-cloak="ng-cloak" class="l-action">
+            <button type="button" data-ng-click="submitFormAction()">{{ 'LABEL_SEARCH' | translate }}</button>
+          </div>
+        </div>
+      </div>
+      <footer><img src="//smart-prepro.securitytrfx.com/app/modules/bsmart-cm-ibe/assets/images/star-alliance.png" alt="Logo" class="logo--image"/></footer>
+    </div>
+  </div>
+</div>
