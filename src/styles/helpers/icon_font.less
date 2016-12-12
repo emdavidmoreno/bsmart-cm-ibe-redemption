@@ -1,0 +1,102 @@
+@import "@{snippets_path}/helpers/icon_font.less";
+
+//-- Overwrite the default icon_font settings
+
+@icon-font-path: '../../../assets/fonts';
+@icon-font-family: 'fontello';
+@icon-font-name: 'fontello';
+
+//-- Create sugar shortcuts based in the used font
+.iconFontContent (@pseudo, @a) when (@a = 'icon-right-small') {
+  ._makePseudoContent(@pseudo, '\e800');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-left-small') {
+  ._makePseudoContent(@pseudo, '\e801');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-hamburguer') {
+  ._makePseudoContent(@pseudo, '\e802');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-location') {
+  ._makePseudoContent(@pseudo, '\e803');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-calendar') {
+  ._makePseudoContent(@pseudo, '\e804');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-globe') {
+  ._makePseudoContent(@pseudo, '\e805');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-angle-right') {
+  ._makePseudoContent(@pseudo, '\e806');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-angle-left') {
+  ._makePseudoContent(@pseudo, '\e807');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-cancel') {
+  ._makePseudoContent(@pseudo, '\e808');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-flight') {
+  ._makePseudoContent(@pseudo, '\e809');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-down-circled2') {
+  ._makePseudoContent(@pseudo, '\e80a');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-user') {
+  ._makePseudoContent(@pseudo, '\e80b');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-attention') {
+  ._makePseudoContent(@pseudo, '\e80c');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-info-circled') {
+  ._makePseudoContent(@pseudo, '\e80d');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-ok-circled') {
+  ._makePseudoContent(@pseudo, '\e80e');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-right-dir') {
+  ._makePseudoContent(@pseudo, '\e80f');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-left-dir') {
+  ._makePseudoContent(@pseudo, '\e810');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-calendar-1') {
+  ._makePseudoContent(@pseudo, '\e811');
+}
+
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-angle-down') {
+  ._makePseudoContent(@pseudo, '\e813');
+}
+
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-angle-circled-right') {
+  ._makePseudoContent(@pseudo, '\e815');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-angle-circled-down') {
+  ._makePseudoContent(@pseudo, '\e817');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-down-dir') {
+  ._makePseudoContent(@pseudo, '\e818');
+}
+
+.iconFontContent (@pseudo, @a) when (@a = 'icon-slim-right') {
+  ._makePseudoContent(@pseudo, '\e880');
+}

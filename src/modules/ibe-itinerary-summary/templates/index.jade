@@ -1,0 +1,186 @@
+extends ../../../templates/layout.jade
+
+block body
+  div.m-itinerary-summary(ng-controller="ItinerarySummaryController")
+    .l-messages(ng-cloak)
+      .m-message(data-ng-repeat="message in []"
+        data-ng-class="{error: message.type == 'error'}")
+        p {{message.content}}
+    section
+      h3
+        | {{'LABEL_ITINERARY_SUMMARY'| translate}}
+      div
+        header.title
+          h4.title-text
+        .content(data-ng-repeat="location in ui.locations")
+          div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak)
+            strong {{$index + 1}}
+            span
+              | {{location.extra_info.geo.origin_city_name}}
+              | ({{location.user_input_origin_airport_code}})
+              | - {{location.extra_info.geo.destination_city_name}}
+              | ({{location.user_input_destination_airport_code}})
+          div
+            .m-itinerary-summary(
+              data-ng-class="{'itinerary-summary--no-dividers': ui.user_input_journey_type != 'Multi City'}"
+              ng-cloak
+            )
+              .itinerary-summary-flight.itinerary-summary-flight--departure(
+                data-ng-repeat="flight in location.departure.dates[0].flights")
+                .title
+                  .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type != 'Multi City'")
+                    | {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
+                  div(class="title-text title-text--fareclass pull-right {{location.departure.availableClasses[0].cssClass}}")
+                    | {{ flight.info.classes[0].name }}
+                    span.text--linkify(data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true")
+                      | ({{flight.info.classes[0].sellingClass.text}})
+                .flight-list-title
+                    | {{location.departure.dates[0].date | date:'MMMM d, y'}}
+                div(data-ng-repeat="flightItem in flight")
+                  .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
+                    .flight
+                      .l-flight-detail
+                        .flight-detail.flight-detail--origin
+                          span.location
+                            | {{flight_list_item.origin_airport_code}}
+                          span.time
+                            |  {{flight_list_item.departure_time | simpledate}}
+                            sup(
+                              data-ng-repeat="dec in flight_list_item.disclaimer"
+                              data-ng-if="dec.field == 'departure_time'")
+                              | {{location.disclaimer_mapping[dec.id].symbol}}
+                        i.flight-direction
+                        span.flight-duration--center(
+                          data-ng-if="flight_list_item.duration && flight_list_item.duration >= 0")
+                          | {{flight_list_item.duration | duration}}
+                        .flight-detail.flight-detail--destination
+                          span.location
+                            | {{flight_list_item.destination_airport_code}}
+                          span.time
+                            |  {{flight_list_item.arrival_time | simpledate}}
+                            sup(
+                              data-ng-repeat="dec in flight_list_item.disclaimer"
+                              data-ng-if="dec.field == 'arrival_time'")
+                              | {{location.disclaimer_mapping[dec.id].symbol}}
+                      .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
+                        | {{flight_list_item.number}}
+                        sup(
+                          data-ng-repeat="dec in flight_list_item.disclaimer"
+                          data-ng-if="dec.field == 'flight_number'")
+                          | {{ui.disclaimer_mapping[dec.id].symbol}}
+              .itinerary-summary-flight.itinerary-summary-flight--return(
+                data-ng-repeat="flight in location.return.dates[0].flights")
+                .title
+                  .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
+                    | {{ 'LABEL_FLIGHT_INBOUND' | translate }}
+                  div(class="title-text title-text--fareclass pull-right {{location.return.availableClasses[0].cssClass}}")
+                    | {{flight.info.classes[0].name}}
+                    span.text--linkify(data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
+                      | ({{flight.info.classes[0].sellingClass.text}})
+                .flight-list-title
+                    | {{location.return.dates[0].date | date:'MMMM d, y'}}
+                div(data-ng-repeat="flightItem in flight")
+                  .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
+                    .flight
+                      .l-flight-detail
+                        .flight-detail.flight-detail--origin
+                          span.location
+                            | {{flight_list_item.origin_airport_code}}
+                          span.time
+                            |  {{flight_list_item.departure_time | simpledate}}
+                            sup(
+                              data-ng-repeat="dec in flight_list_item.disclaimer"
+                              data-ng-if="dec.field == 'departure_time'")
+                              | {{location.disclaimer_mapping[dec.id].symbol}}
+                        i.flight-direction
+                        span.flight-duration--center(
+                          data-ng-if="flight_list_item.duration && flight_list_item.duration >= 0")
+                          | {{flight_list_item.duration | duration}}
+                        .flight-detail.flight-detail--destination
+                          span.location
+                            | {{flight_list_item.destination_airport_code}}
+                          span.time
+                            |  {{flight_list_item.arrival_time | simpledate}}
+                            sup(
+                              data-ng-repeat="dec in flight_list_item.disclaimer"
+                              data-ng-if="dec.field == 'arrival_time'")
+                              | {{location.disclaimer_mapping[dec.id].symbol}}
+                      .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
+                        | {{flight_list_item.number}}
+                        sup(
+                          data-ng-repeat="dec in flight_list_item.disclaimer"
+                          data-ng-if="dec.field == 'flight_number'")
+                          | {{ui.disclaimer_mapping[dec.id].symbol}}
+            .disclaimers(data-ng-if="ui.disclaimer_mapping")
+              .declaimer(data-ng-repeat="dec in location.disclaimers | unique: 'id'")
+                sup
+                  | {{ ui.disclaimer_mapping[dec.id].symbol }}
+                | {{ ui.disclaimer_mapping[dec.id].text }}
+          include ../../../templates/partials/sellingClassDialog.jade
+          include ../../../templates/partials/flightDetailsDialog.jade
+          
+    div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui")
+    div(data-bs-itinerary-pricing-card data-ui="ui")
+    
+    section.m-insurance(data-ng-if="ui.tavelInsurance && ui.tavelInsurance.display.head")
+      h2
+        | {{ui.tavelInsurance.display.head}}
+      .insurance-icon(data-ng-bind-html="ui.insuranceIcon | sanitize")
+      .m-card
+        .content
+          .m-insurance-option
+            input(type="radio" value="1" name="InsurancePurchaseBS"
+              data-ng-model="ui.tavelInsurance.accept"
+              data-ng-change="ui.tavelInsurance.setAccept()")
+            label
+              | {{ui.tavelInsurance.display.textAccept.text}}
+              a(
+                href="{{ui.tavelInsurance.display.textAccept.link}}"
+                target="_blank"
+              )
+                | {{ui.tavelInsurance.display.textAccept.linkText}}
+          .m-insurance-option
+            input(type="radio" value="0" name="InsurancePurchaseBS"
+              data-ng-model="ui.tavelInsurance.accept"
+              data-ng-change="ui.tavelInsurance.setNoAccept()")
+            label
+              | {{ui.tavelInsurance.display.textNoAccept}}
+
+        .content(data-ng-if="ui.insurancePrice > 0")
+          .price
+            | {{ ui.insurance.totalPriceMerch | number:2 }}
+    section(data-ng-if="ui.showPayment && ui.payment.info.toPay.head != '' && ui.payment.info.reserveAndHold.head != ''")
+      h2
+        | {{ 'LABEL_CHOOSE_PAYMENT_TYPE' | translate }}
+      .m-card
+        .content
+          div
+            label
+              input(type="radio" value="1" name="paymentType" checked
+                data-ng-model="ui.payment.name"
+                data-ng-change="ui.selectPaymentProceedToPay()")
+              | {{ ui.payment.info.toPay.head }}
+            .m-panel.choose-payment-type--pay(data-ng-if='ui.payment.name == "1"')
+              .content.content--border-bottom.content--border-dashed.content--small-vertical-padding.margin-bottom-sm.margin-top-sm(
+                data-ng-bind-html="ui.payment.info.toPay.desc | sanitize")
+          div
+            label
+              input(type="radio" value="0" name="paymentType"
+                data-ng-model="ui.payment.name"
+                data-ng-change="ui.selectPaymentReserveAndHold()")
+              | {{ ui.payment.info.reserveAndHold.head }}
+            .m-panel(data-ng-if='ui.payment.name == "0"')
+              .content.content--border-bottom.content--border-dashed.content--small-vertical-padding.margin-bottom-sm.margin-top-sm(
+                data-ng-bind-html="ui.payment.info.reserveAndHold.desc | sanitize")
+    section
+      .m-card.m-card--muted(data-ng-repeat="message in ui.messages" ng-cloak)
+        header.title
+          h4.title-text.title-text--normal
+            i.title-icon
+            | {{message.head}}
+        .content
+          span
+            | {{message.body}}
+    .l-action(ng-show="ui.showContinueButton")
+      button(type="button" data-ng-click='continueButtonAction()')
+        | {{ 'LABEL_CONTINUE' | translate }}

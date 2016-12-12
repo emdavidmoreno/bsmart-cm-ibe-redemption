@@ -1,0 +1,48 @@
+'use strict';
+
+// add new properties to the angular configuration
+require.config({
+  context: 'bs1.0.0',
+  paths: {
+    angular: '../../lib/angular/angular.min',
+    lodash: '../../lib/lodash/lodash.min',
+    assetsLoaderService: 'core/services/assetsLoaderService',
+    statsService: 'core/services/statsService'
+  },
+  shim: {
+    angular: {
+      exports: 'angular'
+    }
+  }
+});
+
+/*global require*/
+define([
+  'require',
+  'angular',
+  'lodash',
+  './config',
+  'assetsLoaderService',
+], function(require, angular, _, Config, assetsLoaderService) {
+
+  var instance = {};
+
+  instance.init = function(actionConfig) {
+
+    // We need intialize controller and other assets here
+
+    // loading css
+    assetsLoaderService.loadCSS(Config.getConfig().stylesFilesPath);
+
+    // this require is here instead to be in the define because we want
+    // load the css before the scripts to COVER
+    // the interface as soon as posible
+    require(['./app'], function(App) {
+      App.init(Config.getConfig(), actionConfig);
+
+      // intializing angular
+      angular.bootstrap(document, ['responsiveBookingEngine']);
+    });
+  };
+  return instance;
+});

@@ -1,0 +1,282 @@
+extends ../../../templates/layout.jade
+
+block body
+  div.m-passenger-information(data-ng-controller="PassengerInformationController")
+    .l-messages(data-ng-cloak)
+      .m-message(data-ng-repeat="message in ui.messages"
+        data-ng-class="{error: message.type == 'error'}")
+        i
+        p {{message.content}}
+    section
+      div(
+        class="m-card {{message.cssClass}}"
+        data-ng-repeat="message in ui.infoMessages"
+        data-ng-if="message != null && message.bodyType === 'read_more'"
+        data-ng-class="{'m-card--read-more' : message.openMoreInfo}" ng-cloak)
+        header.title
+          h4.title-text.title-text--normal
+            i.title-icon
+            | {{message.head}}
+        div(class="content {{message.contentClass}}")
+          p(data-ng-if="!message.isHtml")
+            | {{message.body}}
+          p.trunk-text(
+            data-ng-if="message.isHtml"
+            data-ng-bind-html="message.body")
+        .actions.text-right(data-ng-if="message.bodyType === 'read_more'")
+          span.action-item.action-item--text(data-ng-if="message.openMoreInfo" data-ng-click="message.openMoreInfo = !message.openMoreInfo")
+            | {{'LABEL_READ_MORE' | translate}}
+
+    div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui")
+    div(data-bs-itinerary-pricing-card data-ui="ui")
+
+    section(data-ng-cloak)
+      h2
+        | {{'LABEL_PASSENGER_INFO' | translate}}
+      .m-card(data-ng-repeat="passenger in ui.passengers track by $index")
+        header.title
+          h4.title-text
+            | {{passenger.type}}
+        .content
+          form.form-horizontal
+            .form-group.md(ng-if="$parent.main.user")
+                label.pi-field-required
+                  | {{'LABEL_AUTO_FILL_OPTIONS' | translate}}
+                select.md.form-control(
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-model="passenger.autoFillSelectedOption"
+                  data-ng-change="passenger.setAutoFillOption(passenger.autoFillSelectedOption)"
+                  data-ng-options="option.name for option in passenger.autoFillOptions() track by option.value")
+            .form-group.md(ng-show="passenger.autoFillSelectedOption.value !=-1" data-ng-class="{'show-field-error': ui.errors[$index].title }")
+                label.pi-field-required
+                  | {{'LABEL_TITLE' | translate}}
+                select.md.form-control(
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-model="passenger.title"
+                  data-ng-change="passenger.setTitle(passenger.title)"
+                  data-ng-options="option.name for option in passenger.titleOptions() track by option.value")
+                span.text-message
+                  | {{ui.errors[$index].title}}
+            .form-group.md(ng-show="passenger.autoFillSelectedOption.value !=-1" data-ng-class="{'show-field-error': ui.errors[$index].firstName }")
+              label.col-sm-2.control-label.pi-field-required
+                | {{'LABEL_FIRST_NAME' | translate}}
+              .col-sm-10
+                input.md.form-control(
+                  type='text'
+                  placeholder="{{'LABEL_FIRST_NAME_EXAMPLE' | translate}}"
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-model='passenger.firstName'
+                  data-ng-change="passenger.setFirstName(passenger.firstName)")
+                span.text-message
+                  | {{ui.errors[$index].firstName}}
+            .form-group.md(ng-show="passenger.autoFillSelectedOption.value !=-1"
+              data-ng-class="{'show-field-error': ui.errors[$index].lastName }")
+              label.col-sm-2.control-label.pi-field-required
+                | {{'LABEL_LAST_NAME' | translate}}
+              .col-sm-10
+                input.md.form-control(
+                  type='text'
+                  placeholder="{{'LABEL_LAST_NAME_EXAMPLE' | translate}}"
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-model='passenger.lastName'
+                  data-ng-change="passenger.setlastName(passenger.lastName)")
+                span.text-message
+                  | {{ui.errors[$index].lastName}}
+            .form-group.md(
+              ng-show="passenger.autoFillSelectedOption.value != -1"
+              data-ng-if="passenger.age !== undefined"
+              data-ng-class="{'show-field-error': ui.errors[$index].travellerAge }")
+              label.col-sm-2.control-label.control-label.pi-field-required
+                | {{'LABEL_AGE' | translate}}
+              .col-sm-5
+                select.md.form-control(
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-options="n for n in [] | range:2:11:1"
+                  data-ng-model="passenger.age"
+                  data-ng-change="passenger.setAge(passenger.age)")
+                span.text-message
+                  | {{ui.errors[$index].travellerAge}}
+            .form-group.md(ng-show="passenger.autoFillSelectedOption.value !=-1")
+                label
+                  | {{'LABEL_FREQUENT_FLYER' | translate}}
+                select.md.form-control(
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-model="passenger.freqFlyer"
+                  data-ng-change="passenger.setFreqFlyer(passenger.freqFlyer)"
+                  data-ng-options="option.name for option in passenger.freqFlyerOptions() track by option.value")
+            .form-group.md(ng-show="passenger.freqFlyer.value && passenger.autoFillSelectedOption.value !=-1")
+              label.col-sm-2.control-label
+                | {{'LABEL_MEMBERSHIP' | translate}}
+              .col-sm-10
+                input.md.form-control(
+                  type='text'
+                  placeholder='Membership #'
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-model='passenger.memberShip'
+                  data-ng-change="passenger.setMemberShip(passenger.memberShip)")
+            .form-group.md(
+              data-ng-if="passenger.argTaxId.exist && passenger.autoFillSelectedOption.value !=-1"
+              )
+              label
+                | {{ passenger.argTaxId.taxIdCodeLabel }}
+              select.md.form-control(
+                data-ng-disabled="ui.isInactive"
+                data-ng-model="passenger.argTaxId.taxIdCode"
+                data-ng-change="passenger.argTaxId.setTaxIdCode(passenger.argTaxId.taxIdCode)"
+                data-ng-options="option.name for option in passenger.argTaxId.taxIdCodeOptions() track by option.value")
+            .form-group.md(
+              data-ng-if="passenger.argTaxId.exist && passenger.autoFillSelectedOption.value !=-1 && (passenger.argTaxId.taxIdCode.value !== '0' && passenger.argTaxId.taxIdCode.value !== '')"
+              )
+              label.col-sm-2.control-label
+                | {{ passenger.argTaxId.taxIdNumberLabel }}
+              .col-sm-10
+                input.md.form-control(
+                  type='text'
+                  placeholder=''
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-model='passenger.argTaxId.taxIdNumber'
+                  data-ng-change="passenger.argTaxId.setTaxIdNumber(passenger.argTaxId.taxIdNumber)")
+            .form-group.md(
+              data-ng-if="passenger.argTaxId.exist && passenger.autoFillSelectedOption.value !=-1 && (passenger.argTaxId.taxIdCode.value === '0')"
+              )
+              label
+                | {{ passenger.argTaxId.taxIdCountryLabel }}
+              select.md.form-control(
+                data-ng-disabled="ui.isInactive"
+                data-ng-model="passenger.argTaxId.taxIdCountry"
+                data-ng-change="passenger.argTaxId.setTaxIdCountry(passenger.argTaxId.taxIdCountry)"
+                data-ng-options="option.name for option in passenger.argTaxId.taxIdCountryOptions() track by option.value")
+
+            .form-group.md(
+              data-ng-if="passenger.needSFI && passenger.autoFillSelectedOption.value !=-1")
+              label.col-md-3.control-label.pi-field-required
+                | {{'LABEL_GENDER' | translate}}
+              .col-md-9
+                label.radio-inline
+                  input(
+                    type='radio'
+                    value='M'
+                    data-ng-disabled="ui.isInactive"
+                    data-ng-model="passenger.gender"
+                    data-ng-change="passenger.setGender(passenger.gender)")
+                  | {{'LABEL_MALE' | translate}}
+                label.radio-inline
+                  input(
+                    type='radio'
+                    value='F'
+                    data-ng-disabled="ui.isInactive"
+                    data-ng-model="passenger.gender"
+                    data-ng-change="passenger.setGender(passenger.gender)")
+                  | {{'LABEL_FEMALE' | translate}}
+            hr(data-ng-if="(passenger.showBirthDate || passenger.needSFI)")
+            .form-group.md.col-sm-3.inline-select(
+              data-ng-if="(passenger.showBirthDate || passenger.needSFI) && passenger.autoFillSelectedOption.value !=-1"
+              data-ng-class= "{'show-field-error': (ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate) }")
+              label.pi-field-required
+               | {{'LABEL_BIRTHDAY' | translate}}
+              br
+              select.md.form-control(
+                data-ng-disabled="ui.isInactive"
+                data-ng-options="option.name for option in ui.months track by option.no"
+                data-ng-model="passenger.birthMonth"
+                data-ng-change="passenger.setBirthMonth(passenger.birthMonth.no)")
+              select.md.form-control(
+                data-ng-disabled="ui.isInactive"
+                data-ng-model="passenger.birthDay"
+                data-ng-change="passenger.setBirthDay(passenger.birthDay)"
+                data-ng-options="option for option in passenger.days track by option")
+              select.md.form-control(
+                data-ng-disabled="ui.isInactive"
+                data-ng-model="passenger.birthYear"
+                data-ng-change="passenger.setBirthYear(passenger.birthYear)"
+                data-ng-options="option for option in passenger.years track by option")
+              span.text-message
+                | {{ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate}}
+            .form-group.md(
+              data-ng-if="passenger.autoFillSelectedOption.value !=-1 && passenger.needSFI")
+              label.col-sm-2.control-label()
+                | {{'LABEL_REDRESS_NUMBER' | translate}}
+              .col-sm-10
+                input.md.form-control(
+                  type='text'
+                  placeholder='#4545 54'
+                  data-ng-disabled="ui.isInactive"
+                  data-ng-model="passenger.redressNumber"
+                  data-ng-change="passenger.setRedressNumber(passenger.redressNumber)")
+    section(ng-cloak)
+      h2
+        | {{'LABEL_CONTACT_INFORMATION' | translate}}
+      div.m-card
+        .content
+          div(data-ng-class="{'show-field-error': ui.errors[21].emailAddress }")
+            span.text-message.margin-bottom-sm()
+              | {{ui.errors[21].emailAddress}}
+          .form-group.md(data-ng-class="{'show-field-error': ui.errors[0].emailAddress || ui.errors[21].emailAddress }")
+            label.col-sm-2.control-label.pi-field-required
+              | {{'LABEL_EMAIL' | translate}}
+            .col-sm-10
+              input.md.form-control(
+                type='email'
+                placeholder="{{'LABEL_EMAIL_EXAMPLE' | translate}}"
+                data-ng-disabled="ui.isInactive"
+                data-ng-model="ui.contactInfo.email"
+                data-ng-change="ui.contactInfo.setEmail(ui.contactInfo.email)")
+              span.text-message
+                | {{ui.errors[0].emailAddress}}
+          .form-group.md(data-ng-class="{'show-field-error': ui.errors[0].confirmEmail || ui.errors[21].emailAddress }")
+            label.col-sm-2.control-label.pi-field-required
+              | {{'LABEL_CONFIRM_EMAIL' | translate}}
+            .col-sm-10
+              input.md.form-control(
+                type='email'
+                placeholder="{{'LABEL_EMAIL_EXAMPLE' | translate}}"
+                data-ng-disabled="ui.isInactive"
+                data-ng-model="ui.contactInfo.confirmEmail"
+                data-ng-change="ui.contactInfo.setConfirmEmail(ui.contactInfo.confirmEmail)")
+              span.text-message
+                | {{ui.errors[0].confirmEmail}}
+          .form-group.md(data-ng-class="{'show-field-error': ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']}")
+            label.col-sm-2.control-label.control-label--block.pi-field-required
+              | {{'LABEL_PHONE_NUMBER' | translate}}
+            .col-sm-3.phone-country-code
+              input.md.form-control(
+                type='tel'
+                placeholder="{{'LABEL_COUNTRY_CODE' | translate}}"
+                data-ng-disabled="ui.isInactive"
+                data-ng-model="ui.contactInfo.telCode"
+                data-ng-change="ui.contactInfo.setTelCode(ui.contactInfo.telCode)")
+            .col-sm-9.phone-number
+              input.md.form-control(
+                type='tel'
+                placeholder="{{'LABEL_NUMBER' | translate}}"
+                data-ng-disabled="ui.isInactive"
+                data-ng-model="ui.contactInfo.telNumber"
+                data-ng-change="ui.contactInfo.setTelNumber(ui.contactInfo.telNumber)")
+            span.text-message(data-ng-if="ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']")
+              | {{ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']}}
+    section
+      div(
+        class="m-card {{message.cssClass}}"
+        data-ng-repeat="message in ui.infoMessages"
+        data-ng-if="message != null && message.bodyType !== 'read_more'"
+        data-ng-class="{'m-card--read-more' : message.openMoreInfo}" ng-cloak)
+        header.title
+          h4.title-text.title-text--normal
+            i.title-icon
+            | {{message.head}}
+        div(class="content {{message.contentClass}}")
+          p(data-ng-if="!message.isHtml")
+            | {{message.body}}
+          p.trunk-text(
+            data-ng-if="message.isHtml"
+            data-ng-bind-html="message.body")
+        .actions.text-right(data-ng-if="message.bodyType === 'read_more'")
+          span.action-item.action-item--text(data-ng-if="message.openMoreInfo" data-ng-click="message.openMoreInfo = !message.openMoreInfo")
+            | {{'LABEL_READ_MORE' | translate}}
+    div(bs-card-ref-id)
+    .l-action(ng-show="ui.showContinueButton")
+      button(
+        type="button"
+        data-ng-disabled="ui.isInactive"
+        data-ng-click='continueButtonAction()')
+        | {{'LABEL_CONTINUE' | translate}}

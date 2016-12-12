@@ -1,0 +1,76 @@
+.dialog-container(data-jqui-dialog
+  data-bs-open-dialog="{{ui.flightDetails.openDialog}}"
+  data-bs-close-from-inner="ui.flightDetails.openDialog")
+    .m-flight-details-dialog
+      .m-dialog-head
+        span
+          | {{ui.flightDetails.data.dialogTitle}}
+        span.close(data-ng-click="ui.flightDetails.openDialog=false")
+          | X
+      .m-dialog-body
+        div.m-loader.m-loader--dialog-internal(
+          data-ng-if="ui.flightDetails.isLoading"
+          )
+          div.icon--pure-css
+            | Loading
+        table(data-ng-if="ui.flightDetails.data.flight")
+          tbody
+            tr
+              td
+                | {{ui.flightDetails.data.flight.optText}}
+              td
+                | {{ui.flightDetails.data.flight.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.airLine.optText}}
+              td
+                | {{ui.flightDetails.data.airLine.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.from.optText}}
+              td
+                | {{ui.flightDetails.data.from.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.timeTotal.optText}}
+              td
+                | {{ui.flightDetails.data.timeTotal.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.to.optText}}
+              td
+                | {{ui.flightDetails.data.to.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.timeFlying.optText}}
+              td
+                | {{ui.flightDetails.data.timeFlying.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.date.optText}}
+              td
+                | {{ui.flightDetails.data.date.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.equipment.optText}}
+              td
+                | {{ui.flightDetails.data.equipment.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.depart.optText}}
+              td
+                | {{ui.flightDetails.data.depart.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.timeGround.optText}}
+              td
+                | {{ui.flightDetails.data.timeGround.valueText}}
+            tr
+              td
+                | {{ui.flightDetails.data.arrive.optText}}
+              td
+                | {{ui.flightDetails.data.arrive.valueText}}
+            tr(data-ng-if="ui.flightDetails.data.rating.optText")
+              td
+                | {{ui.flightDetails.data.rating.optText}}
+              td(ng-bind-html="ui.flightDetails.data.rating.valueText | sanitize")

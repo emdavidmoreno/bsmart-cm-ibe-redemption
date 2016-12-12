@@ -1,0 +1,94 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+  // ------------------------------
+  // Libraries
+  //-------------------------------
+
+  @jquery-ui_path: '../../../_lib/jquery-ui/styles';
+  @import (inline) "@{jquery-ui_path}/datepicker/bootstrap.css";
+  @import (inline) '@{jquery-ui_path}/core.css';
+  @import (inline) '@{jquery-ui_path}/theme.css';
+  @import (inline) '@{jquery-ui_path}/dialog.css';
+
+  // ------------------------------
+  // Parent
+  //-------------------------------
+
+  @import '../../../styles/index.less';
+
+  // ------------------------------
+  // Blocks
+  //-------------------------------
+
+  @import '../../../styles/blocks/itinerary-summary.less';
+  @import '../../../styles/blocks/flight-options.less';
+  @import '../../../styles/blocks/classes-dialog.less';
+
+
+  // ------------------------------
+  // Helpers
+  //-------------------------------
+
+  // ------------------------------
+  // External Variables
+  //
+  // "Overwrite block and helper
+  // variables"
+  //-------------------------------
+
+
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+
+//TODO: We should move it to another var
+.l-messages{
+	margin-bottom: 9px;
+}
+
+.m-itinerary-summary {
+  .choose-payment-type--pay {
+    img {
+      margin: -10px 0 -3px 1px!important;
+      position: relative!important;
+      width: 16px!important;
+      height: 16px!important;
+    }
+  }
+}
+
+.m-inurance-detail {
+  font-size: 0.8em;
+  font-style: italic;
+}
+.m-insurance {
+  h2 {
+    display: inline-block;
+  }
+  .insurance-icon {
+    display: inline-block;
+    margin-left: 1em;
+  }
+  .m-insurance-option {
+    display: table;
+
+    input, label {
+      display: table-cell;
+    }
+  }
+}

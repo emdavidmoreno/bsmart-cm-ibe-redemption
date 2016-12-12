@@ -1,0 +1,257 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+@itinerary-summary-title__padding: 8px 8px;
+@itinerary-summary-title__font-size: @font-size-h5;
+@itinerary-summary-title-text--primary__color: #0E4A81;
+
+@itinerary-summary-flight__color: #666666;
+@itinerary-summary-flight__background-color: @light-blue;
+@itinerary-summary-title__background-color: transparent;
+
+@itinerary-summary-flight__background-color: white;
+@itinerary-summary-flight__box-shadow: none;
+@itinerary-summary-flight__border: solid 2px #0060A9;
+
+
+
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+
+.m-itinerary-summary{
+
+    position: relative;
+    font-size: 13px;
+
+  > .title{
+    padding: @itinerary-summary-title__padding;
+    margin: 0px;
+    background-color: @itinerary-summary-title__background-color;
+    color: @dark-blue;
+    margin-bottom: 15px;
+    padding: 3px 0px;
+    font-size: @itinerary-summary-title__font-size;
+    font-weight: bold;
+  }
+
+  .m-header{
+    padding: 8px 13px;
+    background-color: @light-blue;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 9px;
+    //TODO: Thats wrong
+    margin-left: -10px;
+    color: #666666;
+    strong{
+      background: @dark-blue;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+  }
+
+  .itinerary-summary-flight{
+
+    border: @itinerary-summary-flight__border;
+    color: #666666;
+    margin-bottom: 10px;
+    background-color: @itinerary-summary-flight__background-color;
+    box-shadow: @itinerary-summary-flight__box-shadow;
+    padding: 10px;
+
+    .title{
+      .clearfix();
+      margin-bottom: 13px;
+    }
+
+    .title-text{
+      float: left;
+      font-size: 15px;
+      font-weight: bold;
+      &.title-text--primary{
+        color: @itinerary-summary-title-text--primary__color;
+      }
+      &.title-text--secondary{
+        color: #9D9D9D;
+        font-weight: normal;
+        margin-left: 10px;
+      }
+      &.title-text--fareclass{
+        font-weight: normal;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .close-icon {
+    cursor: pointer;
+    .iconFontSetupStyles(before);
+    font-size: 1.1em;
+    position: absolute;
+    right: 1%;
+    margin-top: -6px;
+  }
+
+  .close-icon:before {
+    width: auto;
+    text-decoration: underline;
+  }
+
+  .close-text{
+    position: absolute;
+    right: 8px;
+    color: #075896;
+    width: auto;
+    text-decoration: underline;
+    color: #075896;
+    cursor: pointer;
+    margin-top: 0px;
+  }
+
+  .flight-list-title{
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .flight-list {
+
+  }
+
+  .flight {
+    display: inline-block;
+    min-width: 100%;
+    position: relative;
+    padding: 4px 0px;
+    .l-flight-detail{
+      width: 79%;
+      position: relative;
+      float: left;
+      min-width: 218px;
+    }
+    .flight-detail {
+      .time {
+        margin-right: 10px;
+        // font-weight: bold;
+        sup{
+          top: 11px;
+          font-size: 9px;
+          right: 7px;
+        }
+      }
+      .location {
+        display: block;
+        font-weight: bold;
+      }
+
+      &.flight-detail--origin{
+        float: left;
+      }
+
+      &.flight-detail--destination{
+        float: right;
+      }
+    }
+    .flight-direction {
+      .iconFontSetupStyles(after);
+      .iconFontContent(after, 'icon-slim-right');
+      position: absolute;
+      left: 50%;
+      margin-left: -34px;
+      font-size: 34px;
+      margin-top: -15px;
+      font-weight: bold;
+    }
+
+    .flight-duration {
+      float: right;
+    }
+
+    .flight-duration--center{
+      position: absolute;
+      left: 50%;
+      top: 16px;
+      display: inline-block;
+      text-align: center;
+      margin-left: -30px;
+    }
+
+    .flight-number {
+      float: right;
+      text-decoration: underline;
+      sup {
+        position: absolute;
+        font-size: 9px;
+      }
+    }
+  }
+
+  .stops {
+    margin-top: 3px;
+    display: inline-block;
+  }
+
+  .price {
+    text-align: right;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .cash{
+    &.price--deleted{
+      display: block;
+    }
+  }
+  .price--deleted {
+    text-decoration: line-through;
+    font-size: 12px;
+    color: #A8A8A8;
+  }
+
+  .disclaimers {
+    &:not(:empty) {
+      padding-top: 10px;
+    }
+    sup{
+      margin-right: 3px;
+      font-size: 9px;
+    }
+  }
+
+  &.itinerary-summary--no-dividers{
+    .itinerary-summary-flight--departure{
+      border-bottom: none;
+      margin-bottom: 0px;
+      padding-bottom: 10px;
+    }
+    .itinerary-summary-flight--return{
+      border-top: none;
+    }
+  }
+
+  .itinerary-summary-flight--disable{
+    border-style: dashed;
+    border-color: #DADADA;
+    color: #949494;
+    border-width: 2px;
+    min-height: 92px;
+  }
+}

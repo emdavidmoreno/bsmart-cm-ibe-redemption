@@ -1,0 +1,224 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+// default cards
+
+@card__background-color: white;
+@card-title__background-color: #4D80A6;
+@card-title__color: white;
+@card-title-icon__content: 'icon-info-circled';
+
+@card-content__color: #666;
+@card-content__border-color: #d9d9d9;
+
+// muted cards
+@card--muted-title__background-color: #C1BFBF;
+@card--muted-title__color: #333333;
+@card--muted-title-icon__color: @dark-blue;
+
+// warning cards
+@card--warning-title__background-color: #C2732D;
+
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+
+.m-card{
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  background-color: @card__background-color;
+  > .title{
+    background-color: @card-title__background-color;
+    color: @card-title__color;
+    padding: 8px 8px;
+    margin: 0px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .title-text{
+  }
+
+  .title-text--right{
+    float: right;
+  }
+
+  .title-text--left{}
+  .title-text--normal{
+    font-weight: normal;
+  }
+
+  .title-icon{
+    .iconFontSetupStyles(before);
+    .iconFontContent(before, @card-title-icon__content);
+    font-size: 20px;
+    margin-top: -3px;
+  }
+
+  .ok-icon{
+    .iconFontSetupStyles(before);
+    .iconFontContent(before, 'icon-ok-circled');
+    font-size: 20px;
+  }
+
+  .content{
+    padding: 19px 8px;
+    border: solid 1px @card-content__border-color;
+    text-align: left;
+    color: @card-content__color;
+    font-size: 13px;
+    border-bottom: 0px;
+    &.content--no-vertical-padding{
+      padding: initial;
+    }
+
+    &.content--no-bottom-padding{
+      padding-bottom: 0px;
+    }
+
+    &.content--small-vertical-padding{
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    &.content--flat{
+      border: none;
+    }
+    &.content--border-bottom{
+      border-bottom: solid 1px @card-content__border-color;
+    }
+    &.content--border-dashed{
+      border-style: dashed;
+    }
+  }
+
+  .media{}
+  .supporting-text{}
+  .actions{
+    border: solid 1px @card-content__border-color;
+    padding: 11px 8px;
+    border-top: 0px;
+  }
+  .action-item{
+    font-size: 13px;
+
+    &.action-item--text{
+      text-transform: uppercase;
+      color: @card--warning-title__background-color;
+    }
+  }
+
+  // non shadow card
+  &.m-card--flat{
+    box-shadow: none;
+  }
+
+  &.m-card--bordered{
+    border: 1px solid #D0D1D1;
+  }
+
+  &.m-card--bordered-dashed{
+    border: 1px dashed #D0D1D1;
+  }
+
+  &.m-card--no-background{
+    background-color: initial;
+  }
+
+  &.m-card--background-mutted{
+    background-color: @card--muted-title__background-color;
+  }
+
+  &.m-card--muted{
+    > .title{
+      background-color: @card--muted-title__background-color;
+      color: @card--muted-title__color;
+    }
+    .title-icon{
+        color:@card--muted-title-icon__color;
+    }
+  }
+  &.m-card--primary {}
+  &.m-card--success {}
+  &.m-card--info {}
+  &.m-card--warning {
+    > .title{
+      background-color: @card--warning-title__background-color;
+    }
+  }
+  &.m-card--danger {}
+}
+
+.m-card + .m-card{
+  margin-top: 10px;
+}
+
+// Alignment
+.text-left           { text-align: left; }
+.text-right          { text-align: right; }
+.text-center         { text-align: center; }
+.text-justify        { text-align: justify; }
+.text-nowrap         { white-space: nowrap; }
+
+// Transformation
+.text-lowercase      { text-transform: lowercase; }
+.text-uppercase      { text-transform: uppercase; }
+.text-capitalize     { text-transform: capitalize; }
+
+.text-size--medium{ font-size: 16px; }
+
+
+.m-card--read-more {
+  /* styles for '...' */
+  .trunk-text {
+    /* hide text if it more than N lines  */
+    overflow: hidden;
+    /* for set '...' in absolute position */
+    position: relative;
+    /* use this value to count block height */
+    line-height: 1.2em;
+    /* max-height = line-height (1.2) * lines max number (3) */
+    max-height: 3.6em;
+    /* fix problem when last visible word doesn't adjoin right side  */
+    text-align: justify;
+    /* place for '...' */
+    margin-right: -2px;
+    padding-right: 1em;
+  }
+  /* create the ... */
+  .trunk-text:before {
+    /* points in the end */
+    content: '...';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of block */
+    right: 0;
+    bottom: 0;
+  }
+  /* hide ... if we have text, which is less than or equal to max lines */
+  .trunk-text:after {
+    /* points in the end */
+    content: '';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of text */
+    right: 0;
+    /* set width and height */
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    /* bg color = bg color under block */
+    background: white;
+  }
+}

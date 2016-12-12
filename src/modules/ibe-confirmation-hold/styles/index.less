@@ -1,0 +1,221 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+  // ------------------------------
+  // Libraries
+  //-------------------------------
+
+  @jquery-ui_path: '../../../_lib/jquery-ui/styles';
+  @import (inline) '@{jquery-ui_path}/core.css';
+  @import (inline) '@{jquery-ui_path}/theme.css';
+  @import (inline) '@{jquery-ui_path}/dialog.css';
+
+  @import "../../../_lib/bootstrap/less/forms.less";
+  @import "../../../_lib/bootstrap/less/buttons.less";
+
+  // ------------------------------
+  // Parent
+  //-------------------------------
+
+  @import '../../../styles/index.less';
+
+  // ------------------------------
+  // Blocks
+  //-------------------------------
+
+  @import '../../../styles/blocks/itinerary-summary.less';
+  @import '../../../styles/blocks/flight-options.less';
+  @import '../../../styles/blocks/classes-dialog.less';
+
+
+  // ------------------------------
+  // Helpers
+  //-------------------------------
+
+  // ------------------------------
+  // External Variables
+  //
+  // "Overwrite block and helper
+  // variables"
+  //-------------------------------
+
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+
+//TODO: We should move it to another var
+.l-messages{
+  margin-bottom: 9px;
+}
+
+.m-passenger-information{
+
+}
+
+.m-confirmation-number {
+  font-weight: bolder;
+  font-size: 1.5em;
+  margin-top: -4px;
+}
+
+.control-label--block{
+  display: block;
+}
+
+.phone-country-code{
+  display: inline-block;
+  width: 30%;
+}
+
+.phone-number{
+  display: inline-block;
+}
+
+input[type="text"], input[type="password"], select {
+    height: initial;
+}
+
+.form-horizontal .form-group {
+  margin-left: 0px;
+    margin-right: 0px;
+}
+
+.inline-select .form-control{
+  width:auto;
+  display:inline-block;
+}
+
+.form-control.md{
+  font-size: 14px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  border:none;
+  border-bottom:1px solid #C3C3C3;
+  box-shadow: none;
+}
+
+.form-group.md{
+  // color: #004982;
+}
+
+.form-control.md{
+  &::-webkit-input-placeholder {
+  font-size: 12px !important;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+  font-size: 12px !important;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+  font-size: 12px !important;
+  }
+
+  &:-ms-input-placeholder {
+  font-size: 12px !important;
+  }
+}
+
+select.form-control.md{
+  padding: 10px 10px 2px 5px;
+}
+
+.inline-select .form-control.md{
+  display:inline-block;
+}
+
+.form-control.md:focus{
+  border-bottom: 3px solid @dark-blue;
+}
+
+.form-control--right{
+  height: 20px;
+  width: 7%;
+  float: right;
+}
+
+.form-control.md.form-control--focused{
+   border-bottom: 3px solid #004982;
+}
+
+
+.positionable-iframe-container{
+  position: absolute;
+    left: 0px;
+    z-index: 4000;
+    visibility: visible;
+
+    .formIframeField{
+      height: 18.5px;
+      top: 0px;
+    }
+
+  &.card-number.formInAreaIframeOuter{
+    width: 90%;
+  }
+
+  .iframe-mask{
+      background: white;
+      z-index: 88888888888888;
+  }
+
+  .iframe-mask--top{
+      position: relative;
+      height: 1px;
+  }
+
+  .iframe-mask--left{
+      height: 19px;
+      width: 1px;
+      position: absolute;
+      left: 0px;
+  }
+
+  .iframe-mask--right{
+      height: 19px;
+      width: 1px;
+      position: absolute;
+      right: 0px;
+  }
+
+  .iframe-mask--layer{
+      width: 100%;
+      height: 30px;
+      margin-top: -7px;
+      position: absolute;
+      padding: 5px 0px 0px 7px;
+      color: #969292;
+  }
+}
+
+.card-number{
+}
+
+.security-code{
+}
+
+.btn-sm{
+  border-radius: 0px;
+  font-weight: bold;
+}
+
+.l-action{
+  .btn{
+      padding: 6px 0px;
+    text-decoration: none;
+  }
+}

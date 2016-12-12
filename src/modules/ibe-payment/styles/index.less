@@ -1,0 +1,297 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+  // ------------------------------
+  // Libraries
+  //-------------------------------
+
+  @import "../../../_lib/bootstrap/less/forms.less";
+	@jquery-ui_path: '../../../_lib/jquery-ui/styles';
+  @import (inline) '@{jquery-ui_path}/core.css';
+  @import (inline) '@{jquery-ui_path}/theme.css';
+  @import (inline) '@{jquery-ui_path}/dialog.css';
+
+  // ------------------------------
+  // Parent
+  //-------------------------------
+
+  @import '../../../styles/index.less';
+
+  // ------------------------------
+  // Blocks
+  //-------------------------------
+
+  @import '../../../styles/blocks/itinerary-summary.less';
+  @import '../../../styles/blocks/flight-options.less';
+  @import '../../../styles/blocks/classes-dialog.less';
+
+
+  // ------------------------------
+  // Helpers
+  //-------------------------------
+
+  // ------------------------------
+  // External Variables
+  //
+  // "Overwrite block and helper
+  // variables"
+  //-------------------------------
+
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+
+//TODO: We should move it to another var
+.l-messages{
+  margin-bottom: 9px;
+}
+
+.m-passenger-information{
+
+}
+
+.control-label--block{
+  display: block;
+}
+
+.phone-country-code{
+  display: inline-block;
+  width: 30%;
+}
+
+.phone-number{
+  display: inline-block;
+}
+
+input[type="text"], input[type="password"], select {
+    height: initial;
+}
+
+.form-horizontal .form-group {
+  margin-left: 0px;
+    margin-right: 0px;
+}
+
+.inline-select .form-control{
+  width:auto;
+  display:inline-block;
+}
+
+.form-control.md{
+  font-size: 14px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  border:none;
+  border:1px solid #C3C3C3;
+  box-shadow: none;
+}
+
+.form-group.md{
+  // color: #004982;
+}
+
+.field-required::after {
+  content: '*';
+  color: red;
+  margin-left: 5px;
+}
+
+.form-control.md{
+  &::-webkit-input-placeholder {
+  font-size: 12px !important;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+  font-size: 12px !important;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+  font-size: 12px !important;
+  }
+
+  &:-ms-input-placeholder {
+  font-size: 12px !important;
+  }
+}
+
+select.form-control.md{
+  padding: 10px 10px 2px 5px;
+  &:after{
+    background-color: red;
+  }
+}
+
+.inline-select .form-control.md{
+  display:inline-block;
+  background-position: 93% center;
+}
+
+.form-control.md:focus{
+  border-bottom: 3px solid @dark-blue;
+}
+
+.form-control--right {
+  height: 20px;
+  width: 7%;
+  float: right;
+}
+
+.inline-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #C3C3C3;
+}
+
+.inline-label {
+  margin-left: 5px;
+  display: inline;
+}
+
+
+.form-control.md.form-control--focused{
+   border-bottom: 3px solid #004982;
+}
+
+
+.positionable-iframe-container{
+  position: absolute;
+    left: 0px;
+    z-index: 508;
+    visibility: visible;
+
+    .formIframeField{
+      height: 18.5px;
+      top: 0px;
+    }
+
+  &.card-number.formInAreaIframeOuter .formInput,
+  &.security-code.formInAreaIframeOuter .formInput{
+    // z-index: 0;
+    // display: none;
+  }
+  &.card-number.formInAreaIframeOuter{
+    width: 84%;
+  }
+
+  &.security-code.formInAreaIframeOuter{
+    width: 30%!important;
+    min-width: 100px;
+  }
+
+  .iframe-mask{
+      background: white;
+      z-index: 88888888888888;
+  }
+
+  .iframe-mask--top{
+      position: relative;
+      height: 1px;
+  }
+
+  .iframe-mask--left{
+    height: 0px;
+    width: 0px;
+    position: absolute;
+    left: 0px;
+  }
+
+  .iframe-mask--right{
+      height: 0px;
+      width: 0px;
+      position: absolute;
+      right: 0px;
+  }
+
+  .iframe-mask--layer{
+    width: 100%;
+    height: 30px;
+    margin-top: -11px;
+    position: absolute;
+    padding: 9px 0px 0px 6px;
+    color: #969292;
+  }
+}
+
+.card-number{
+}
+
+.security-code{
+}
+
+
+.defaultDialogFrame {
+  width: auto!important;
+}
+
+.inline-links-container{
+  margin-top: 10px!important;
+  a:nth-child(1){
+    margin-right: 10px;
+  }
+}
+
+.input-bottom-label{
+  margin-top: 10px;
+}
+
+.currency-equivalent-total{
+    border: 1px dashed #B5B5B5;
+    padding: 6px 3px;
+    color: #797979;
+  .price{
+    font-weight: bold;
+    margin-top: 5px;
+  }
+}
+
+.agreement-container{
+  position: relative;
+  .inline-checkbox{
+    margin-top: 1px;
+    position: absolute;
+  }
+  .inline-label{
+    display: inline-block;
+    margin-left: 30px;
+  }
+}
+
+.js-security-code{
+  input.form-control{
+    width: 40%;
+  }
+}
+
+#airFareRulesPopUpOuter{
+  position: absolute!important;
+}
+
+#fareRulesDetailsBodyBlock{
+  height: 237px!important;
+  overflow-y: scroll;
+}
+
+#paymentTermsAndConditions .print {
+  position: relative;
+  left: 10vw;
+}
+
+#paymentTermsAndConditionsOuter,
+#paymentTermsAndConditionsOuterTable,
+#paymentTermsAndConditions {
+  width: 98vw;
+}

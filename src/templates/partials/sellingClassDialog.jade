@@ -1,0 +1,16 @@
+.dialog-container(data-jqui-dialog
+  data-bs-open-dialog="{{ui.sellingClass.openDialog}}"
+  data-bs-close-from-inner="ui.sellingClass.openDialog")
+    .m-selling-class-dialog
+      .m-dialog-head
+        span(data-ng-if="ui.sellingClass.isDeparture")
+          | {{location.departure.selectedClassIndex.name}}
+        span.close(data-ng-click="ui.sellingClass.openDialog=false")
+          | X
+        span(data-ng-if="!ui.sellingClass.isDeparture")
+          | {{location.return.selectedClassIndex.name}}
+      .m-dialog-body
+        div.m-loader.m-loader--dialog-internal(data-ng-if="ui.sellingClass.isLoading")
+          div.icon--pure-css
+        div(data-ng-if="!ui.sellingClass.isLoading"
+          data-ng-bind-html="ui.sellingClass.html")

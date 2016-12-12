@@ -1,0 +1,168 @@
+extends ../../../templates/layout.jade
+
+block body
+  div.m-passenger-information(data-ng-controller="ConfirmationHoldController")
+    .l-messages(data-ng-cloak)
+      .m-message(data-ng-repeat="message in ui.messages"
+        data-ng-class="{error: message.type == 'error'}")
+        i
+        p {{message.content}}
+    section(data-ng-cloak)
+      h2
+        | {{'LABEL_ITENERARY_CONFIRMATION'| translate}}
+      .m-card.m-card--flat.m-card--bordered-dashed(data-ng-if="ui.confirmation.thanks_message")
+        .content.content--medium-vertical-padding.content--flat
+          p
+            span.text-primary.text-size--medium
+              |  {{ui.confirmation.thanks_message}}
+            i.ok-icon.pull-right.text-primary
+      .m-card.m-card--flat.m-card--background-mutted
+        .content
+          p.text-uppercase
+            strong
+              | {{ui.confirmation.label}}
+            span.pull-right.m-confirmation-number
+              | {{ui.confirmation.number}}
+    section
+      div
+        header.title
+          h4.title-text
+        div(data-ng-repeat="location in ui.locations")
+          div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak)
+            strong {{$index + 1}}
+            span
+              | {{location.extra_info.geo.origin_city_name}}
+              | ({{location.user_input_origin_airport_code}})
+              | - {{location.extra_info.geo.destination_city_name}}
+              | ({{location.user_input_destination_airport_code}})
+          .m-itinerary-summary(ng-cloak data-ng-class="{'itinerary-summary--no-dividers': ui.user_input_journey_type=='Round Trip'}")
+            .itinerary-summary-flight.itinerary-summary-flight--departure(
+              data-ng-repeat="flight in location.departure.dates[0].flights"
+            )
+              .title
+                .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type!='Multi City'")
+                  | {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
+                 div(class="title-text title-text--fareclass pull-right {{location.departure.availableClasses[0].cssClass}}")
+                  | {{flight.info.classes[0].name}}
+                  span.text--linkify(data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true")
+                    | ({{flight.info.classes[0].sellingClass.text}})
+              div {{location.departure.dates[0].date | date:'MMMM d, y'}}
+              div(data-ng-repeat="flightItem in flight")
+                .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
+                  .flight
+                    .l-flight-detail
+                      .flight-detail.flight-detail--origin
+                        span.location
+                          | {{flight_list_item.origin_airport_code}}
+                        span.time
+                          |  {{flight_list_item.departure_time |simpledate}}
+                      i.flight-direction
+                      span.flight-duration--center(data-ng-if="flight_list_item.duration && flight_list_item.duration >= 0")
+                        | {{flight_list_item.duration | duration}}
+                      .flight-detail.flight-detail--destination
+                        span.location
+                          | {{flight_list_item.destination_airport_code}}
+                        span.time
+                          |  {{flight_list_item.arrival_time |simpledate}}
+                    .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
+                      | {{flight_list_item.number}}
+                      sup(
+                        data-ng-repeat="dec in flight_list_item.disclaimer"
+                        data-ng-if="dec.field == 'flight_number'")
+                        | {{ui.disclaimer_mapping[dec.id].symbol}}
+                .price(data-ng-if="flightItem.info.classes[0].price.cash")
+                  | {{ui.total_price.currency_code}} {{flightItem.info.classes[0].price.cash}}
+            .itinerary-summary-flight.itinerary-summary-flight--return(
+              data-ng-repeat="flight in location.return.dates[0].flights"
+            )
+              .title
+                .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
+                  | {{ 'LABEL_FLIGHT_INBOUND' | translate }}
+                 div(class="title-text title-text--fareclass pull-right {{location.return.availableClasses[0].cssClass}}")
+                  | {{flight.info.classes[0].name}}
+                  span.text--linkify(data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
+                    | ({{flight.info.classes[0].sellingClass.text}})
+              div {{location.return.dates[0].date | date:'MMMM d, y'}}
+              div(data-ng-repeat="flightItem in flight")
+                .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
+                  .flight
+                    .l-flight-detail
+                      .flight-detail.flight-detail--origin
+                        span.location
+                          | {{flight_list_item.origin_airport_code}}
+                        span.time
+                          |  {{flight_list_item.departure_time |simpledate}}
+                      i.flight-direction
+                      span.flight-duration--center(data-ng-if="flight_list_item.duration && flight_list_item.duration >= 0")
+                        | {{flight_list_item.duration | duration}}
+                      .flight-detail.flight-detail--destination
+                        span.location
+                          | {{flight_list_item.destination_airport_code}}
+                        span.time
+                          |  {{flight_list_item.arrival_time |simpledate}}
+                    .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
+                      | {{flight_list_item.number}}
+                      sup(
+                        data-ng-repeat="dec in flight_list_item.disclaimer"
+                        data-ng-if="dec.field == 'flight_number'")
+                        | {{ui.disclaimer_mapping[dec.id].symbol}}
+                .price(data-ng-if="flightItem.info.classes[0].price.cash")
+                  | {{ui.total_price.currency_code}} {{flightItem.info.classes[0].price.cash}}
+            .disclaimers(data-ng-if="ui.disclaimer_mapping && location.disclaimers")
+              .declaimer(data-ng-repeat="dec in location.disclaimers | unique: 'id'")
+                sup
+                  | {{ ui.disclaimer_mapping[dec.id].symbol }}
+                | {{ ui.disclaimer_mapping[dec.id].text }}
+          include ../../../templates/partials/sellingClassDialog.jade
+          include ../../../templates/partials/flightDetailsDialog.jade
+    section(data-ng-cloak)
+      h3  {{'LABEL_PASSENGERS' | translate}}
+      .m-card.m-card--flat.m-card--bordered
+        .content.content--small-vertical-padding(data-ng-repeat="passenger in ui.passengers_info")
+          p
+            span
+              | {{passenger.name}}
+    div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui")
+    div(data-bs-itinerary-pricing-card data-ui="ui")
+    section(data-ng-if="ui.confirmation.card_charged_message && ui.confirmation.card_charged_amount")
+      .m-card.m-card--flat.m-card--bordered.m-card--muted(ng-cloak)
+        .content
+          span
+            | {{ui.confirmation.card_charged_message}}
+        header.title
+          h4.title-text.title-text--normal
+            | {{ 'LABEL_TOTAL' | translate }}
+            strong.title-text--right
+              | {{ui.confirmation.card_charged_amount}}
+    section(data-ng-cloak)
+      .m-card.m-card--flat.m-card--bordered
+        .content
+          p
+            strong {{ui.contact_info.itinerary_copy_label}}
+          form.form-horizontal
+            .form-group.md(data-ng-class="{'show-field-error': ui.errors[0].emailAddress }")
+              .col-sm-10
+                input.md.form-control(
+                  data-ng-model="ui.contact_info.itinerary_copy_email"
+                  data-ng-change="setItineraryCopyEmail(ui.contact_info.itinerary_copy_email)"
+                  type='text'
+                  placeholder="{{ 'LABEL_EMAIL' | translate }}")
+              span.text-message(ng-show="ui.errors[0].emailAddress")
+                | {{ui.errors[0].emailAddress}}
+            p(class="text-success" data-ng-show="ui.confirmation.email_sended_message") {{ui.confirmation.email_sended_message}}
+            p(class="text-right")
+              button(class="btn btn-primary btn-sm btn-warning" type="button" data-ng-click='sendItineraryCopyAction()')
+                | {{ 'LABEL_SEND' | translate }}
+    section
+      .m-card.m-card--flat.m-card--bordered.m-card--muted(data-ng-repeat="message in ui.infoMessages" ng-cloak)
+        header.title
+          h4.title-text.title-text--normal
+            i.title-icon
+            | {{message.head}}
+        .content
+          span
+            | {{message.body}}
+    div(bs-card-ref-id)
+    .l-action(ng-show="ui.showContinueButton")
+      a(class="btn btn-primary btn-block" href="{{ui.continueButton.href}}")
+        | {{ 'LABEL_NEW_SEARCH' | translate }}

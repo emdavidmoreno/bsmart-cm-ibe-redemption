@@ -1,0 +1,513 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+  // ------------------------------
+  // Libraries
+  //-------------------------------
+
+  @jquery-ui_path: '../../../_lib/jquery-ui/styles';
+  @import (inline) "@{jquery-ui_path}/datepicker/bootstrap.css";
+
+  // ------------------------------
+  // Parent
+  //-------------------------------
+
+  @import '../../../styles/index.less';
+
+  // ------------------------------
+  // Blocks
+  //-------------------------------
+
+  // ------------------------------
+  // Helpers
+  //-------------------------------
+
+  // ------------------------------
+  // External Variables
+  //
+  // "Overwrite block and helper
+  // variables"
+  //-------------------------------
+
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+@flight-type-group-btn--activated__border-color: #0060A9;
+@flight-type-group-btn--activated__color: #0060A9;
+
+
+@m-flight-options-h4__background-color: #eb8600;
+@m-top-bar-info-bar__background-color: #EB8600;
+@m-available-dates-selected-date__background-color: #FFE8CA;
+
+@flight-location-input__color: #304761;
+
+@cabin-type-group-radio__border: #D4D4D4;
+@cabin-type-group-radio__background-color: @bs-brand-primary;
+@cabin-type--selected__color: @bs-brand-primary;
+
+@flight-title-content__border-color: @bs-brand-primary;
+@flight-title-content__color: @bs-brand-primary;
+
+
+
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+
+
+
+// ----------------------------------------------
+// booking
+//-----------------------------------------------
+.l-flight-type-group{
+    padding: 19px 0px;
+    border-bottom: 1px dotted #c2c2c2;
+    text-align: center;
+  .btn {
+    .btn();
+    margin-right: 6px;
+    @media (max-width: 375px) {
+      padding: 6px 4px;
+      font-size: 1.1em;
+    }
+    @media (max-width: 300px) {
+      width: 100%;
+      margin-bottom: 3px;
+    }
+    font-family: @font-family-base;
+
+  }
+  .btn-default{
+    .btn-default();
+  }
+
+  .btn--activated,
+  .btn--activated:focus,
+  .btn--activated:hover,
+  .btn--activated:active,
+  .btn--activated:active:hover {
+    border-color: @flight-type-group-btn--activated__border-color;
+    color: @flight-type-group-btn--activated__color;
+    background-color: white;
+    outline: none;
+      border-width: 1px;
+      box-shadow: none;
+  }
+
+}
+
+.l-flight-search{
+  top: 16px;
+  position: relative;
+  .flight-title{
+    font-size: 15px;
+    padding: 16px 0px;
+    &.first-element{
+      padding-top: 0px;
+    }
+    span{
+    }
+    span.circle {
+      width: 21px;
+      height: 21px;
+      text-align: center;
+      line-height: 21px;
+      border-radius: 15.5px;
+      background: #004982;
+      margin: 0 8.5px;
+      display: inline-block;
+      color: white;
+      position: relative;
+    }
+
+    .flight-title-content{
+      color: @flight-title-content__color;
+    }
+
+    .icon-action {
+      float: right;
+      color: @flight-title-content__color;
+      .iconFontSetupStyles(before);
+      border: 1px solid;
+      padding: 2px;
+      .iconFontContent(before, 'icon-angle-right');
+    }
+
+    .icon--collapsed{
+    }
+
+    .icon--expanded{
+      .iconFontContent(before, 'icon-angle-down');
+      border: none;
+    }
+  }
+
+  .right-inner-addon {
+      position: relative;
+    input {
+        padding-right: 32px;
+          .form-control();
+    }
+    i {
+        position: absolute;
+        right: 0px;
+        padding: 8px 12px;
+        pointer-events: none;
+          .iconFontSetupStyles(before);
+          font-size: 18px;
+          color: @dark-blue;
+    }
+  }
+
+  .left-inner-addon {
+      position: relative;
+    input {
+          .form-control();
+        padding-left: 38px;
+        text-transform: uppercase;
+
+      /* Different color for some fields */
+
+      &::-webkit-input-placeholder,
+      &:-moz-placeholder,
+      &::-moz-placeholder,
+      &:-ms-input-placeholder {
+        color: @flight-location-input__color;
+      }
+    }
+
+    i {
+        position: absolute;
+         pointer-events: none;
+          .iconSetupStyles(30px, 25px);
+          font-size: 18px;
+          color: @dark-blue;
+        top: 5px;
+        left: 4px;
+    }
+  }
+  .flight-location{
+    input{
+      color: @flight-location-input__color;
+    }
+    margin-bottom: 5px;
+    i{
+      .iconMake('icon-depart');
+    }
+    &.flight-location--to{
+      i{
+        .iconMake('icon-return');
+      }
+    }
+  }
+
+  .flight-location + .flight-location{
+    margin-bottom: 15px;
+  }
+
+  .flight-date{
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 5px;
+    input{
+      text-transform: uppercase;
+    }
+    i{
+      .iconFontContent(before, 'icon-calendar');
+      color: #304761;
+    }
+  }
+  hr{
+    border-bottom: 1px dotted #c2c2c2;
+    border-top: 0px;
+  }
+}
+
+.l-cabin-type-group{
+  position: relative;
+  padding: 15px 0px;
+  margin-top: 15px;
+  label{
+    font-size: 13px;
+  }
+  .cabin-type--selected{
+    color: @cabin-type--selected__color;
+  }
+  .radio--custom[type="radio"]:not(:checked)+label,
+  .radio--custom[type="radio"]:checked+label {
+      position: relative;
+      padding-left: 35px;
+      cursor: pointer;
+      display: inline-block;
+      height: 25px;
+      line-height: 25px;
+      font-size: 1rem;
+      transition: .28s ease;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      font-size: 13px;
+
+      &:before,
+      &:after{
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 4px;
+        width: 16px;
+        height: 16px;
+        z-index: 0;
+        transition: .28s ease;
+        border-radius: 50%;
+        border: 2px solid @cabin-type-group-radio__border;
+        background: white;
+      }
+    &:before{
+    }
+    &:after{
+      background-color: @cabin-type-group-radio__background-color;
+        z-index: 0;
+        transform: scale(0.7);
+    }
+  }
+  .radio--custom[type="radio"]:checked,
+  .radio--custom[type="radio"]:not(:checked) {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+  }
+
+  .radio--custom[type="radio"]:not(:checked)+label:after {
+      z-index: -1;
+      -webkit-transform: scale(0);
+      transform: scale(0)
+  }
+}
+
+.l-passengers{
+  > select{
+    .form-control();
+  }
+  .l-extra-options{
+    margin-bottom: 15px;
+    label{
+      padding: 0px 7px;
+    }
+
+    select{
+      .form-control();
+      margin-bottom: 15px;
+    }
+
+    label:last-child select{
+      margin-bottom: 0px;
+    }
+
+  }
+  p{
+    font-size: 13px;
+    padding: 15px 8px;
+  }
+}
+
+.l-promo-code{
+  input{
+      .form-control();
+  }
+  padding-bottom: 18px;
+  border-bottom: 1px dotted #c2c2c2;
+}
+
+.text-message {
+  display: none;
+  visibility: hidden;
+}
+
+.show-field-error {
+  .text-message {
+    font-size: 12px;
+    padding-left: 5px;
+    color: @border-color-error;
+    display: block;
+    visibility: visible;
+  }
+
+  div input, select {
+    margin-top: 5px;
+    border-style: solid;
+    border-color: @color-error !important;
+    border-width: 2px !important;
+  }
+}
+
+// ----------------------------------------------
+// datepicker
+//-----------------------------------------------
+
+.ui-datepicker{
+  border-radius: 0px;
+    width: 99%;
+    padding: 10px 0px;
+    padding-top: 0px;
+
+
+  .ui-datepicker-calendar{
+    thead{
+      background: #AAAAAB;
+    }
+
+    th, td{
+      border: 1px solid white;
+    }
+
+    th{
+      font-size: 14px;
+    }
+
+    td{
+      border-radius: 0px;
+      border: 0;
+        padding: 9px 1px;
+        line-height: 14px;
+        background: #DBDAD8;
+        border: 1px solid white;
+        a {
+        color: #1F6AAC;
+        font-size: 13px;
+        }
+    }
+
+  }
+
+  .ui-datepicker-header {
+      padding: 8px 0px;
+    background-color: #666666;
+    margin-bottom: 0px;
+  }
+
+  .ui-datepicker-year{
+    color: white;
+  }
+
+  .ui-datepicker-next, .ui-datepicker-prev{
+    .iconFontSetupStyles(before);
+    font-size: 30px;
+    height: 20px;
+    margin-top: -3px;
+      color: white;
+      width: initial;
+  }
+
+  .ui-datepicker-prev {
+      .iconFontContent(before, 'icon-left-dir');
+  }
+
+  .ui-datepicker-next {
+      .iconFontContent(before, 'icon-right-dir');
+  }
+
+   /*==========  Module variables LESS ==========*/
+
+  @trfx-booking-input-datepicker-disabled__color: #CCCACA;
+  @trfx-booking-input-datepicker-disabled__background: @gray-lighter;
+  @trfx-booking-datepicker-weekday-name__color: white;
+
+  /*==========  General styles =================*/
+
+   .ui-datepicker-calendar thead tr th span{
+     color: @trfx-booking-datepicker-weekday-name__color;
+   }
+
+  td .ui-state-default {
+      border: 0;
+      background: 0 0;
+      margin-bottom: 0;
+      padding: 6px;
+      color: #505050;
+      text-align: center;
+      filter: none;
+      display: inline-block;
+  }
+
+  .ui-datepicker-unselectable.ui-state-disabled{
+    background: @trfx-booking-input-datepicker-disabled__background;
+    span{
+      display: block;
+      color: @trfx-booking-input-datepicker-disabled__color!important;
+    }
+  }
+
+  td.ui-datepicker-current-day{
+    background-color: @bs-brand-primary;
+    a{
+      color: white;
+    }
+  }
+
+  td.ui-datepicker-middle-days{
+    a{
+      color: white;
+    }
+  }
+}
+
+// ----------------------------------------------
+// autocomplete
+//-----------------------------------------------
+
+.ui-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 160px;
+  width: 160px;
+  padding: 4px 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+
+  .ui-menu-item {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+    text-transform: uppercase;
+
+    &.ui-state-hover, &.ui-state-active, &.ui-state-focus{
+      color: #ffffff;
+      text-decoration: none;
+      background-color: @bs-brand-primary;
+      border-radius: 0px;
+      background-image: none;
+    }
+  }
+}

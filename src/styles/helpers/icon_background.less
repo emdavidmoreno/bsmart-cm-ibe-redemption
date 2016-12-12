@@ -1,0 +1,14 @@
+@import "@{snippets_path}/helpers/icon_background.less";
+
+//-- Overwrite the default icon_font settings
+
+
+//-- Create sugar shortcuts based in the used font
+
+.iconMake (@a) when (@a = 'icon-depart') {
+  background-image: url('@{icon-images-path}/depart-mobile.png');
+}
+
+.iconMake (@a) when (@a = 'icon-return') {
+  background-image: url('@{icon-images-path}/return-mobile.png');
+}

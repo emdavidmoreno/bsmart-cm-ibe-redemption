@@ -1,0 +1,148 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+  // ------------------------------
+  // Libraries
+  //-------------------------------
+
+  @import "../../../_lib/bootstrap/less/forms.less";
+
+
+  // ------------------------------
+  // Parent
+  //-------------------------------
+
+  @import '../../../styles/index.less';
+
+  // ------------------------------
+  // Blocks
+  //-------------------------------
+
+  @import (reference) "../../../styles/blocks/flight-options.less";
+
+  // ------------------------------
+  // Helpers
+  //-------------------------------
+
+  // ------------------------------
+  // External Variables
+  //
+  // "Overwrite block and helper
+  // variables"
+  //-------------------------------
+
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+
+//TODO: We should move it to another var
+.l-messages{
+  margin-bottom: 9px;
+}
+
+.m-passenger-information{
+
+}
+
+.control-label--block{
+  display: block;
+}
+
+.phone-country-code{
+  display: inline-block;
+  width: 30%;
+}
+
+.phone-number{
+  display: inline-block;
+}
+
+input[type="text"], input[type="password"], select {
+    height: initial;
+}
+
+.form-horizontal .form-group {
+  margin-left: 0px;
+    margin-right: 0px;
+}
+
+.pi-field-required::after {
+  content: '*';
+  color: red;
+  margin-left: 5px;
+}
+
+.inline-select .form-control{
+  width:auto;
+  display:inline-block;
+}
+
+.form-control.md{
+  font-size: 14px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  border:none;
+  border-bottom:1px solid #C3C3C3;
+  box-shadow: none;
+}
+
+.form-group.md{
+  // color: #004982;
+}
+
+.form-control.md{
+  &::-webkit-input-placeholder {
+  font-size: 12px !important;
+  color: #B9B9B9;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+  font-size: 12px !important;
+  color: #B9B9B9;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+  font-size: 12px !important;
+  color: #B9B9B9;
+  }
+
+  &:-ms-input-placeholder {
+  font-size: 12px !important;
+  color: #B9B9B9;
+  }
+}
+
+select.form-control.md{
+  padding: 10px 10px 2px 5px;
+}
+
+.inline-select .form-control.md{
+  display:inline-block;
+}
+
+.form-control.md:focus{
+  border-bottom: 3px solid @dark-blue;
+}
+
+.tsa-privacy-notice{
+  .content p{
+    display: inline;
+    &:nth-child(2){
+      margin-left: 3px;
+    }
+  }
+}

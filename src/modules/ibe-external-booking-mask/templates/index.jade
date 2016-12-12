@@ -1,0 +1,231 @@
+extends ../../../templates/layout.jade
+
+block body
+  .m-ibe-external-booking-mask(data-ng-controller="ExternalBookingController")
+    .l-messages(ng-cloak)
+      .m-message(data-ng-repeat="message in ui.messages"
+        data-ng-class="{error: message.type == 'error'}")
+        i
+        p {{message.content}}
+    .l-flight-type-group(ng-cloak)
+      button(type="button" class="btn btn-default" value='RT'
+        data-ng-model='ui.flightType.value'
+        data-ng-click='ui.flightType.change("RT")'
+        data-ng-class="{'btn--activated': ui.flightType.value === 'RT'}"
+      )
+        | {{ 'LABEL_ROUND_TRIP' | translate }}
+      button(type="button" class="btn btn-default"  value='OW'
+        data-ng-model='ui.flightType.value'
+        data-ng-click='ui.flightType.change("OW")'
+        data-ng-class="{'btn--activated': ui.flightType.value === 'OW'}"
+      )
+        | {{ 'LABEL_ONE_WAY' | translate }}
+      button(type="button" class="btn btn-default" value="MC"
+        data-ng-model='ui.flightType.value'
+        data-ng-click='ui.flightType.change("MC")'
+        data-ng-class="{'btn--activated': ui.flightType.value === 'MC'}"
+      )
+        | {{ 'LABEL_MULTI_CITY' | translate }}
+    .l-flight-search(
+      data-ng-if="ui.flightType.value != 'MC'",
+      data-ng-repeat="location in ui.locations.list|limitTo:1")
+      .flight-location.flight-location--from(
+        data-ng-class="{'show-field-error': ui.errors[$index].origin }" ng-cloak)
+        .left-inner-addon
+          i
+          input.form-control(type='text'
+            placeholder='{{ "LABEL_FROM" | translate }}'
+            data-ng-model='location.origin.locationName'
+            data-jqui-autocomplete
+            data-bs-update-location='ui.locations.onChangeLocationOrigin'
+            data-bs-location-index='{{$index}}')
+        span.text-message
+          | {{ui.errors[$index].origin}}
+      .flight-location.flight-location--to(
+        data-ng-class="{'show-field-error': ui.errors[$index].destination }" ng-cloak)
+        .left-inner-addon
+          i
+          input.form-control(type='text'
+            placeholder='{{ "LABEL_TO" | translate }}'
+            data-ng-model='location.destination.locationName'
+            data-jqui-autocomplete
+            data-bs-update-location='ui.locations.onChangeLocationDestination'
+            data-bs-location-index='{{$index}}')
+        span.text-message
+          | {{ui.errors[$index].destination}}
+      div
+        .flight-date(
+          data-ng-class="{'show-field-error': ui.errors[$index].departDate}" ng-cloak)
+          .right-inner-addon
+            i
+            input.form-control(type='text',
+              placeholder='{{ "LABEL_DEPARTURE_DATE" | translate }}'
+              id='fromOrigDate'
+              data-ng-model='location.date.origin'
+              data-ng-change='ui.locations.onChangeLocationDate(location, $index, true)'
+              data-jqui-datepicker
+              data-dp-is-from-date='true'
+              data-dp-sibling-date='#toDestDate')
+          span.text-message
+            | {{ui.errors[$index].departDate}}
+        .flight-date(
+          data-ng-if="ui.flightType.value == 'RT'"
+          data-ng-class="{'show-field-error': ui.errors[$index].returnDate}"
+          ng-cloak)
+          .right-inner-addon
+            i
+            input.form-control(type='text'
+              placeholder='{{ "LABEL_ARRIVAL_DATE" | translate }}'
+              id='toDestDate'
+              data-ng-model='location.date.destination'
+              data-ng-change='ui.locations.onChangeLocationDate(location, $index, false)'
+              data-jqui-datepicker
+              data-dp-is-from-date='false'
+              data-dp-sibling-date='#fromOrigDate')
+          span.text-message
+            | {{ui.errors[$index].returnDate}}
+    .l-flight-search(data-ng-if="ui.flightType.value == 'MC'"
+      data-ng-repeat="location in ui.locations.list | limitTo: ui.locations.list.length : 1"
+      ng-cloak)
+      .flight-title(data-ng-class="{'first-element':$first}")
+        span.flight-title-content
+          | {{'LABEL_FLIGHT' | translate}} {{$index + 1}}
+        i.icon-action(
+          data-ng-class="{'icon--expanded': location.ui.expanded}"
+          data-ng-click="ui.locations.expandAction(location)")
+      .flight-location(
+        data-ng-class="{'show-field-error': ui.errors[$index + 1].origin }"
+        data-ng-show="location.ui.expanded")
+        .left-inner-addon(data-ng-show="location.ui.expanded")
+          i
+          input.form-control(type='text'
+            placeholder='{{ "LABEL_FROM" | translate }}'
+            data-ng-model='location.origin.locationName'
+            data-jqui-autocomplete
+            data-bs-update-location='ui.locations.onChangeLocationOrigin'
+            data-bs-location-index='{{$index+1}}')
+        span.text-message(data-ng-show="location.ui.expanded")
+          | {{ui.errors[$index].origin}}
+      .flight-location.flight-location--to(
+        data-ng-class="{'show-field-error': ui.errors[$index + 1].destination }"
+        data-ng-show="location.ui.expanded")
+        .left-inner-addon
+          i
+          input.form-control(type='text'
+            placeholder='{{ "LABEL_TO" | translate }}'
+            data-ng-model='location.destination.locationName'
+            data-jqui-autocomplete
+            data-bs-update-location='ui.locations.onChangeLocationDestination'
+            data-bs-location-index='{{$index+1}}')
+        span.text-message
+          | {{ui.errors[$index].destination}}
+      .flight-date(
+        data-ng-show="location.ui.expanded"
+      )
+        .right-inner-addon(
+          data-ng-class="{'show-field-error': ui.errors[$index + 1].departDate }")
+          i
+          input.form-control(type='text'
+            placeholder='{{ "LABEL_DEPARTURE_DATE" | translate }}'
+            data-dp-id="dp_{{$index}}"
+            data-ng-model='location.date.origin'
+            data-ng-change='ui.locations.onChangeLocationDate(location, $index + 1, true)'
+            data-dp-total-amount="{{ui.locations.list.length}}"
+            data-dp-current-element="dp_{{$index}}"
+            data-jqui-datepicker)
+          span.text-message
+            | {{ui.errors[$index].departDate}}
+      hr
+    .l-cabin-type-group(ng-cloak)
+      label(data-ng-click="ui.cabinType.change('Economy')" 
+        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}")
+        input.radio--custom(type='radio' data-ng-model='ui.cabinType.value' value='Economy'
+          data-ng-change='ui.cabinType.change()')
+        label
+          | {{ 'LABEL_CABIN_ECONOMY' | translate }}
+      label(ng-click="ui.cabinType.change('Business')" 
+        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
+        input.radio--custom(type='radio' data-ng-model='ui.cabinType.value' value='Business')
+        label
+          | {{ 'LABEL_CABIN_BUSINESS' | translate }}
+    .l-passengers(ng-cloak data-ng-class="{'show-field-error': ui.errors.guestTypes }")
+      select.select--safari-friendly(data-ng-show="!passengersExtraOptionsSelected"
+      data-ng-model='ui.passengers.adults' data-ng-change='ui.passengers.onChangeAdults()')
+        option(value="1")
+          | 1 {{ 'LABEL_ADULT' | translate }}
+        option(value="2")
+          | 2 {{ 'LABEL_ADULTS' | translate }}
+        option(value="3")
+          | 3 {{ 'LABEL_ADULTS' | translate }}
+        option(value="4")
+          | 4 {{ 'LABEL_ADULTS' | translate }}
+        option(value="5")
+          | 5 {{ 'LABEL_ADULTS' | translate }}
+        option(value="6")
+          | 6 {{ 'LABEL_ADULTS' | translate }}
+        option(value="7")
+          | 7 {{ 'LABEL_ADULTS' | translate }}
+        option(value="8")
+          | 8 {{ 'LABEL_ADULTS' | translate }}
+      p(data-ng-show="!passengersExtraOptionsSelected")
+        a(data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected")
+          | {{ 'LABEL_PASSENGER_QUESTION' | translate }}
+      .l-extra-options(data-ng-show='passengersExtraOptionsSelected')
+        label
+          | {{ 'LABEL_PASSENGER_ADULT' | translate }}
+          br
+          br
+          select(
+            data-ng-model='ui.passengers.adults'
+            data-ng-change='ui.passengers.onChangeAdults()')
+            option 1
+            option 2
+            option 3
+            option 4
+            option 5
+            option 6
+            option 7
+            option 8
+        label
+          | {{ 'LABEL_PASSENGER_CHILD' | translate }}
+          br
+          br
+          select(
+            data-ng-model='ui.passengers.children'
+            data-ng-change='ui.passengers.onChangeChildren()')
+            option 0
+            option 1
+            option 2
+            option 3
+            option 4
+            option 5
+            option 6
+            option 7
+            option 8
+        label()
+          | {{ 'LABEL_PASSENGER_INFANT' | translate }}
+          br
+          br
+          select(
+            data-ng-model='ui.passengers.infants'
+            data-ng-change='ui.passengers.onChangeInfants()')
+            option 0
+            option 1
+            option 2
+            option 3
+            option 4
+            option 5
+            option 6
+            option 7
+            option 8
+        span.text-message
+          | {{ ui.errors.guestTypes }}
+    .l-promo-code(ng-cloak data-ng-if="ui.flightType.value != 'MC'")
+      input.form-control(type='text'
+        placeholder='{{ "LABEL_PROMO_CODE" | translate }}'
+        data-ng-model='ui.promo_code.value',
+        data-ng-change='ui.promo_code.change()'
+        )
+    .l-action(ng-cloak)
+      button(type="button" data-ng-click='submitFormAction()')
+        | {{ 'LABEL_SEARCH' | translate }}
