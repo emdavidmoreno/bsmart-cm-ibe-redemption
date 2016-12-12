@@ -19,6 +19,8 @@
     "build": "_server/public/app/modules",
     "deploy": "_server/public/app/modules",
     "deploy_production": "../booksmart_prod",
+    "deploy_repo_path": "../booksmart",
+    "deploy_repo_modules_path":"../booksmart/app/modules",
     "frontend": "src",
     "config": "./",
     "backend": "server"
