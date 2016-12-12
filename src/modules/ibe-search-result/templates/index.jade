@@ -60,6 +60,11 @@ block body
                   data-ng-if="dec.field == 'flight_number'")
                   | {{location.disclaimer_mapping[dec.id].symbol}}
                 include ../../../templates/partials/flightDetailsDialog.jade
+            .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
+              sup
+                | {{location.disclaimer_mapping[dec.id].symbol}}
+              | {{location.disclaimer_mapping[dec.id].text}}
+            br
           .price(data-ng-if="location.departure.summary.price >= 0")
             span(data-ng-if="ui.total_price.currency_code >= 0")
               | {{ui.total_price.currency_code}}
@@ -69,13 +74,7 @@ block body
               data-ng-class="{'price--deleted': location.departure.summary.cash_after_discount > 0}"
               data-ng-if="location.departure.summary.price > -1")
               |  {{location.departure.summary.price | number:2 }}
-          .disclaimers(
-            data-ng-if="location.departure.summary.show && location.departure.summary.disclaimers.length > 0")
-            div
-              .declaimer(data-ng-repeat="dec in location.departure.summary.disclaimers")
-                sup
-                  | {{location.disclaimer_mapping[dec.id].symbol}}
-                | {{location.disclaimer_mapping[dec.id].text}}
+
       div.m-flights
         div.m-departure(data-ng-show="location.departure.show" ng-cloak)
           .m-flight-options
@@ -208,6 +207,11 @@ block body
                   data-ng-repeat="dec in flight.disclaimer"
                   data-ng-if="dec.field == 'flight_number'")
                   | {{location.disclaimer_mapping[dec.id].symbol}}
+            .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
+              sup
+                | {{location.disclaimer_mapping[dec.id].symbol}}
+              | {{location.disclaimer_mapping[dec.id].text}}
+            br
           .price(data-ng-if="location.return.summary.price >= 0")
             span(data-ng-if="ui.total_price.currency_code >= 0")
 
@@ -218,12 +222,6 @@ block body
               data-ng-class="{'price--deleted': location.return.summary.cash_after_discount > 0}"
               data-ng-if="location.return.summary.price > -1")
               |  {{location.return.summary.price | number:2 }}
-          .disclaimers(data-ng-if="location.return.summary.show && location.return.summary.disclaimers.length > 0")
-            div
-              .declaimer(data-ng-repeat="dec in location.return.summary.disclaimers")
-                sup
-                  | {{location.disclaimer_mapping[dec.id].symbol}}
-                | {{location.disclaimer_mapping[dec.id].text}}
       div.m-flights
         div.m-return(data-ng-if="location.return" data-ng-show="location.return.show" ng-cloak)
           .m-flight-options.m-inbound-flight-options
