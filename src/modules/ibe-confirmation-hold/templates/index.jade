@@ -71,8 +71,6 @@ block body
                         data-ng-if="dec.field == 'flight_number'")
                         | {{ui.disclaimer_mapping[dec.id].symbol}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
-                    sup
-                      | {{ui.disclaimer_mapping[dec.id].symbol}}
                     | {{ui.disclaimer_mapping[dec.id].text}}
                   br
                 .price(data-ng-if="flightItem.info.classes[0].price.cash")
@@ -112,8 +110,6 @@ block body
                         data-ng-if="dec.field == 'flight_number'")
                         | {{ui.disclaimer_mapping[dec.id].symbol}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
-                    sup
-                      | {{ui.disclaimer_mapping[dec.id].symbol}}
                     | {{ui.disclaimer_mapping[dec.id].text}}
                   br
                 .price(data-ng-if="flightItem.info.classes[0].price.cash")
