@@ -61,8 +61,6 @@ block body
                   | {{location.disclaimer_mapping[dec.id].symbol}}
                 include ../../../templates/partials/flightDetailsDialog.jade
             .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
-              sup
-                | {{location.disclaimer_mapping[dec.id].symbol}}
               | {{location.disclaimer_mapping[dec.id].text}}
             br
           .price(data-ng-if="location.departure.summary.price >= 0")
@@ -208,10 +206,7 @@ block body
                   data-ng-if="dec.field == 'flight_number'")
                   | {{location.disclaimer_mapping[dec.id].symbol}}
             .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
-              sup
-                | {{location.disclaimer_mapping[dec.id].symbol}}
               | {{location.disclaimer_mapping[dec.id].text}}
-            br
           .price(data-ng-if="location.return.summary.price >= 0")
             span(data-ng-if="ui.total_price.currency_code >= 0")
 
@@ -285,7 +280,6 @@ block body
                       span(data-ng-repeat="dec in fInfo.disclaimer"
                         data-ng-if="dec.field == 'flight_number'")
                         | {{location.disclaimer_mapping[dec.id].text}}
-                    br
                   span.stops(data-ng-if="flight.info.flight_list.length > 1")
                     | {{flight.info.flight_list.length - 1}} {{ 'LABEL_FLIGHT_STOPS' | translate }}
                   span.stops(data-ng-if="flight.info.flight_list.length <= 1")

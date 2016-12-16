@@ -69,8 +69,6 @@ block body
                           data-ng-if="dec.field == 'flight_number'")
                           | {{ui.disclaimer_mapping[dec.id].symbol}}
                     .declaimer(data-ng-repeat="disc in flight_list_item.disclaimer | unique: 'id'")
-                      sup
-                        | {{ui.disclaimer_mapping[disc.id].symbol}}
                       | {{ui.disclaimer_mapping[disc.id].text}}
                     br
               .itinerary-summary-flight.itinerary-summary-flight--return(
@@ -117,8 +115,6 @@ block body
                           data-ng-if="dec.field == 'flight_number'")
                           | {{ui.disclaimer_mapping[dec.id].symbol}}
                     .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
-                      sup
-                        | {{ui.disclaimer_mapping[dec.id].symbol}}
                       | {{ui.disclaimer_mapping[dec.id].text}}
                     br
           include ../../../templates/partials/sellingClassDialog.jade
