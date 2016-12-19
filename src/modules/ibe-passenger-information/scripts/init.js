@@ -5,7 +5,6 @@ require.config({
   context: 'bs1.0.0',
   paths: {
     angular: '../../lib/angular/angular.min',
-    lodash: '../../lib/lodash/lodash.min',
     assetsLoaderService: 'core/services/assetsLoaderService',
     statsService: 'core/services/statsService'
   },
