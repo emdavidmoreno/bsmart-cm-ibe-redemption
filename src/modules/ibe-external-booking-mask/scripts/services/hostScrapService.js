@@ -697,8 +697,8 @@ define(['jquery'], function($) {
           var body = $el.find(SELECTOR_ERROR_BODY_BLOCK).text().trim();
           if(head !== '' && body !== ''){
             var message = {
-              type: $el.find(SELECTOR_ERROR_HEAD_BLOCK).text().toLowerCase(),
-              content: $el.find(SELECTOR_ERROR_BODY_BLOCK).text().trim()
+              type: head.toLowerCase(),
+              content: body,
             };
             messages.push(message);
           }
