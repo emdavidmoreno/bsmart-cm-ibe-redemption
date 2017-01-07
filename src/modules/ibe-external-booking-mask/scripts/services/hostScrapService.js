@@ -392,6 +392,15 @@ define(['jquery'], function($) {
     };
 
     /**
+     * Is selected
+     *
+     * @return {Boolean} Return true if some checkbox is selected
+     */
+    HostScrapService.prototype.isFlightTypeSelected = function() {
+      return $(this._selectors.flightType.selected).length > 0;
+    };
+
+    /**
      * Set the selected flight to host
      *
      * @param {String} flightValue  RT | OW | MC

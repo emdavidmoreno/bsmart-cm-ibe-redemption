@@ -49,7 +49,9 @@ define([
 
       $scope.passengersExtraOptionsSelected = 0;
 
-      hostScrapService.setHostFlightType('RT');
+      if(!hostScrapService.isFlightTypeSelected()) {
+        hostScrapService.setHostFlightType('RT');
+      }
 
       // UI
       var ui = {
@@ -150,7 +152,8 @@ define([
 
       $scope.ui = ui;
 
-      if($scope.ui.passengers.children > 0 || $scope.ui.passengers.infants > 0){
+      if($scope.ui.passengers.children > 0 ||
+        $scope.ui.passengers.infants > 0) {
         $scope.passengersExtraOptionsSelected = 1;
       }
 
@@ -283,7 +286,7 @@ define([
         }
       }
 
-      function clearErrorsHelper(){
+      function clearErrorsHelper() {
         $scope.ui.errors = {};
       }
 
