@@ -66,10 +66,6 @@ block body
                           |  {{flight_list_item.arrival_time |simpledate}}
                     .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
                       | {{flight_list_item.number}}
-                      sup(
-                        data-ng-repeat="dec in flight_list_item.disclaimer"
-                        data-ng-if="dec.field == 'flight_number'")
-                        | {{ui.disclaimer_mapping[dec.id].symbol}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
                     | {{ui.disclaimer_mapping[dec.id].text}}
                   br
@@ -105,10 +101,6 @@ block body
                           |  {{flight_list_item.arrival_time |simpledate}}
                     .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
                       | {{flight_list_item.number}}
-                      sup(
-                        data-ng-repeat="dec in flight_list_item.disclaimer"
-                        data-ng-if="dec.field == 'flight_number'")
-                        | {{ui.disclaimer_mapping[dec.id].symbol}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
                     | {{ui.disclaimer_mapping[dec.id].text}}
                   br

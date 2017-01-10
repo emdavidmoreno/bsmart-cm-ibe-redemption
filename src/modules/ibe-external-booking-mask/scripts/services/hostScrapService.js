@@ -680,6 +680,35 @@ define(['jquery'], function($) {
     HostScrapService.prototype.setReturn = function() {
     };
 
+    /**
+     * @return jQuery.Deferred
+     */
+    HostScrapService.prototype.getDefaultErrorMessages = function () {
+      var deferred = $.Deferred();
+      var SELECTOR_ERROR_BLOCK = '#errorBlock';
+      var SELECTOR_ERROR_HEAD_BLOCK = '.errorHeader span';
+      var SELECTOR_ERROR_BODY_BLOCK = '.errorBody .errorText p';
+      var messages = [];
+      setTimeout(function(){
+        var $errorBlocks = $(SELECTOR_ERROR_BLOCK);
+        $errorBlocks.each(function(index, el) {
+          var $el = $(el);
+          var head = $el.find(SELECTOR_ERROR_HEAD_BLOCK).text();
+          var body = $el.find(SELECTOR_ERROR_BODY_BLOCK).text().trim();
+          if(head !== '' && body !== ''){
+            var message = {
+              type: head.toLowerCase(),
+              content: body,
+            };
+            messages.push(message);
+          }
+        });
+        deferred.resolve(messages);
+      }, 1500);
+      return deferred;
+    };
+
+
     return new HostScrapService();
   }
 

@@ -1,3 +1,5 @@
+'use strict';
+
 // add new properties to the angular configuration
 require.config({
   context: "bs1.0.0",
@@ -35,9 +37,13 @@ define([
     // the interface as soon as posible
     require(['./app'], function(App) {
       App.init(Config.getConfig(), actionConfig);
-
-      // intializing angular
-      angular.bootstrap(document, ['responsiveBookingEngine']);
+      var element = angular.element(document);
+      //This will be truthy if initialized and falsey otherwise.
+      var isInitialized = element.injector();
+      if(!isInitialized) {
+        // intializing angular
+        angular.bootstrap(document, ['responsiveBookingEngine']);
+      }
     });
   };
   return instance;
