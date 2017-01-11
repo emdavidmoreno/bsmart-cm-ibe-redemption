@@ -152,6 +152,8 @@ define([
 
       $scope.ui = ui;
 
+      syncDefaultErrorMessages();
+
       if($scope.ui.passengers.children > 0 ||
         $scope.ui.passengers.infants > 0) {
         $scope.passengersExtraOptionsSelected = 1;
@@ -236,6 +238,15 @@ define([
           }
         });
         $scope.$apply();
+      }
+
+      function syncDefaultErrorMessages(){
+        var deferred = hostScrapService.getDefaultErrorMessages();
+        deferred.done(function(value) {
+         $timeout(function() {
+            $scope.ui.messages = value;
+          }, 0);
+        });
       }
 
       function addMessageToInput(propertyName, message) {
