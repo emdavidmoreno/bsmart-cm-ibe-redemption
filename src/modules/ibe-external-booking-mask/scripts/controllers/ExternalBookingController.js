@@ -49,7 +49,9 @@ define([
 
       $scope.passengersExtraOptionsSelected = 0;
 
-      hostScrapService.setHostFlightType('RT');
+      if(!hostScrapService.isFlightTypeSelected()) {
+        hostScrapService.setHostFlightType('RT');
+      }
 
       // UI
       var ui = {
@@ -150,7 +152,10 @@ define([
 
       $scope.ui = ui;
 
-      if($scope.ui.passengers.children > 0 || $scope.ui.passengers.infants > 0){
+      syncDefaultErrorMessages();
+
+      if($scope.ui.passengers.children > 0 ||
+        $scope.ui.passengers.infants > 0) {
         $scope.passengersExtraOptionsSelected = 1;
       }
 
@@ -235,6 +240,15 @@ define([
         $scope.$apply();
       }
 
+      function syncDefaultErrorMessages(){
+        var deferred = hostScrapService.getDefaultErrorMessages();
+        deferred.done(function(value) {
+         $timeout(function() {
+            $scope.ui.messages = value;
+          }, 0);
+        });
+      }
+
       function addMessageToInput(propertyName, message) {
         var locationList = ui.locations.list;
         /**
@@ -283,7 +297,7 @@ define([
         }
       }
 
-      function clearErrorsHelper(){
+      function clearErrorsHelper() {
         $scope.ui.errors = {};
       }
 
