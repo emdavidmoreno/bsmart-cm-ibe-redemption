@@ -98,7 +98,7 @@ define([
       // binding functions
       //-------------------------------------------------------
       main = {
-        language: wrapperInstance.actionVariables.lang,
+        language: wrapperInstance.actionVariables.lang || model.geo.language.lang,
         locale: model.geo.language.site_edition,
         languageOptions: hostScrapService.getAvailableLanguages(),
         onChangeLanguage: function() {
