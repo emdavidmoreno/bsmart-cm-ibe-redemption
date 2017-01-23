@@ -6,7 +6,7 @@ personalRepoUrl: git@github.com:davidxll/booksmart.git
 
 # write here your personal configuration
 dev:
- host: 10.0.1.25:4443
+ host: 10.0.1.143:4443
  backend_host: 45.55.73.28:4445
 
 devremote:
