@@ -377,7 +377,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
      $translateProvider.preferredLanguage('en');
      $translateProvider.useSanitizeValueStrategy('escape');
 
-     tmhDynamicLocaleProvider.localeLocationPattern('//@@HOST/lib/angular/i18n/angular-locale_{{locale}}.js');
+     tmhDynamicLocaleProvider.localeLocationPattern('//@@HOST/app/modules/bsmart-cm-ibe/lib/angular/i18n/angular-locale_{{locale}}.js');
    }
 
   angularConfig.$inject = ['$translateProvider', 'tmhDynamicLocaleProvider'];
