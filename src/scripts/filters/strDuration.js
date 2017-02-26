@@ -12,11 +12,11 @@ define([], function() {
       var hours;
       if(!isNaN(duration) || duration > 0) {
         // get hours from duration
-        hours = (duration / 60).toFixed(2);
-        // split hours and minutes
-        hours = hours.split('.');
+        hours = Math.floor(duration / 60);
+        // get mins
+        var mins = Math.floor(duration % 60);
         // return format '00h 00m'
-        return hours[0] + 'h ' + hours[1] + 'm';
+        return `${hours}h ${mins}m`;
       } else {
         return '00h 00m';
       }
