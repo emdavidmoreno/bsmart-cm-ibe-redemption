@@ -32,7 +32,7 @@
 
     // basic bsmart configuration
     Bs.conf = {
-        assetsMap: @@JS_CODE--app/core/assets-mapping.json,
+        assetsMap: JSON.parse('@@JS_CODE--app/core/assets-mapping.json'),
         caos: 0,
         isProd: 1,
         restoreInterface: 1,
