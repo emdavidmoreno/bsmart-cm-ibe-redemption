@@ -148,7 +148,8 @@ block body
                 data-ng-options="option.name for option in passenger.argTaxId.taxIdCountryOptions() track by option.value")
 
             .form-group.md(
-              data-ng-if="passenger.needSFI && passenger.autoFillSelectedOption.value !=-1")
+              data-ng-if="passenger.needSFI && passenger.autoFillSelectedOption.value !=-1"
+              data-ng-class= "{'show-field-error': ui.errors[$index]['genderMale'] }")
               label.col-md-3.control-label.pi-field-required
                 | {{'LABEL_GENDER' | translate}}
               .col-md-9
@@ -168,6 +169,8 @@ block body
                     data-ng-model="passenger.gender"
                     data-ng-change="passenger.setGender(passenger.gender)")
                   | {{'LABEL_FEMALE' | translate}}
+                span.text-message
+                  | {{ui.errors[$index]['genderMale']}}
             hr(data-ng-if="(passenger.showBirthDate || passenger.needSFI)")
             .form-group.md.col-sm-3.inline-select(
               data-ng-if="(passenger.showBirthDate || passenger.needSFI) && passenger.autoFillSelectedOption.value !=-1"
