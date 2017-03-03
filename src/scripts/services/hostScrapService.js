@@ -5,7 +5,7 @@ define([], function() {
     var hostScrapService = {};
     var LOGIN_NODE_SELECTOR = '#login strong:nth-child(2)';
     var PRIVACY_POLICY_SELECTOR = '#legal .last .customerService';
-    
+
 
     hostScrapService.getUserInfo = function() {
       var user;
@@ -30,21 +30,30 @@ define([], function() {
      *  {Boolean} Object.langType.selected
      */
     hostScrapService.getAvailableLanguages = function() {
-      var langs = {
+      let langs = {
          'Português' : 'pt',
          'Español': 'es',
          'English': 'en'
        };
 
-      var avLangs = {};
-      $('.languageSelector :not(.delim)').each(function(index, elem) {
-        var $el = $(elem);
-        var text = $el.text().trim();
-        avLangs[langs[text]] = { name: text };
-        if( $el.is('span') ) {
-          avLangs[langs[text]].selected = true;
-        }
-      });
+      let avLangs = {};
+      $('.languageSelector :not(.delim):not(.wcag-offscreen)')
+        .each(function(index, elem) {
+          let $el = $(elem);
+          if(!$el.is('input')) {
+            let text = $el.text().trim()
+            let hasWcag = $el.has('.wcag-offscreen')
+            if(hasWcag.length) {
+              text = text.replace(
+                hasWcag.find('.wcag-offscreen').text().trim(),
+                '').trim()
+            }
+            avLangs[langs[text]] = { name: text }
+            if( $el.is('span') ) {
+              avLangs[langs[text]].selected = true
+            }
+          }
+        });
 
       return avLangs;
     };
