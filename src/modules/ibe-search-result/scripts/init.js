@@ -41,8 +41,29 @@ define([
       //This will be truthy if initialized and falsey otherwise.
       var isInitialized = element.injector();
       if(!isInitialized) {
+        function shouldSetTimer() {
+          var result = true;
+          $("#AIR_SEARCH_RESULT_CONTEXT_ID0 .colCost_CM_PROMO").each(function(i, e) {
+            if(i > 0 && !$(e).hasClass("colCostNotAvail")) {
+              result = false;
+              return;
+            }
+          })
+          return result;
+        }
+        // this is a quick fix for a critical bug. https://everymundo.atlassian.net/browse/BSMART-687
+        if(shouldSetTimer()) {
+          var timer = setInterval(function() {
+            if($(".colCostSelected").length > 1) {
+              angular.bootstrap(document, ['responsiveBookingEngine']);
+              clearInterval(timer);
+            }
+          }, 100)
+        }
+        else {
+          angular.bootstrap(document, ['responsiveBookingEngine']);
+        }
         // intializing angular
-        angular.bootstrap(document, ['responsiveBookingEngine']);
       }
     });
   };
