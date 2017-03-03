@@ -52,9 +52,10 @@ define([
           return result;
         }
         // this is a quick fix for a critical bug. https://everymundo.atlassian.net/browse/BSMART-687
+        // if(shouldSetTimer()) {
         if(shouldSetTimer()) {
           var timer = setInterval(function() {
-            if($(".colCostSelected").length > 1) {
+            if($(".colCostSelected").length > 0) {
               angular.bootstrap(document, ['responsiveBookingEngine']);
               clearInterval(timer);
             }
