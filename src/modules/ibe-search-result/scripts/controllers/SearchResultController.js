@@ -58,7 +58,7 @@ define([
 
       // the model that is used to populated the view model
       // the actual values are just for example purposes
-      // we are taking the values from the farenet API
+      // we are taking the values from the Farenet API
       var model = {
         locations : [{
           user_input_origin_airport_code: 'Miami',
@@ -209,7 +209,7 @@ define([
         user_input_journey_type: 'Round Trip',
       };
 
-      // allow to farenet bring back the prices html nodes to
+      // allow to Farenet bring back the prices html nodes to
       Farenet.verbose = 1;
       // populate the model with the Farenet values
       model = Farenet.parse();
@@ -651,6 +651,8 @@ define([
           });
 
         }
+        console.log($(".colCostSelected"))
+        console.log(availableClasses)
         return availableClasses;
       }
 
