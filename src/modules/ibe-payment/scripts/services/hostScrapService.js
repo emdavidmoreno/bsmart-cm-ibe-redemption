@@ -15,11 +15,15 @@
 
     var TB_TERMS_CONDITIONS_LABEL_SELECTOR =
       '#tbTermsConditions label[for="acceptTermsAndConditionsCheckBox"]';
+    var TB_TERMS_CONDITIONS_CHECKBOX_SELECTOR =
+      '#acceptTermsAndConditionsCheckBox';
 
     var HAZARDOUS_MATERIALS_AGREEMENT_MESSAGE_SELECTOR =
       '.hazardousMaterialsAgreement .textBlock';
     var HAZARDOUS_MATERIALS_AGREEMENT_LABEL_SELECTOR =
       '.hazardousMaterialsAgreement label[for="acceptHazardousMaterialsCheckBox"]';
+    var HAZARDOUS_MATERIALS_CHECKBOX_SELECTOR =
+      '#acceptHazardousMaterialsCheckBox';
 
     var PAYMENT_CREDITCARD_POS_ELECTOR =
       'input[type="checkbox"][name="formOfPayment(CREDITCARD_POS).selected"]';
@@ -43,10 +47,12 @@
     };
 
     hostScrapService.acceptHazardousMaterials = function () {
-      updateHazardousMaterials();
+      // updateHazardousMaterials();
+      $(HAZARDOUS_MATERIALS_CHECKBOX_SELECTOR).click()
     };
     hostScrapService.acceptTermsAndConditions = function () {
-      updateTermsAndConditions();
+      // updateTermsAndConditions();
+      $(TB_TERMS_CONDITIONS_CHECKBOX_SELECTOR).click()
     };
     // $('input[type=text][name="formOfPayment(CREDITCARD_POS).documentNumber"]').closest('#rowDocumentNumber').is(':visible')
     var SELECTOR_ROW_DOCUMENT_NUMBER = '#rowDocumentNumber';
