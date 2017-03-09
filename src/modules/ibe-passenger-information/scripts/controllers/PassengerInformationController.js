@@ -168,6 +168,7 @@ define([
           validationHelper(value.errors);
           $timeout(function() {
             $scope.$parent.showLoading = false;
+            $("#pgButtonProceed").click(); // FIX ME: move me to a service
           }, 0);
         });
       };
