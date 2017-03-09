@@ -83,7 +83,8 @@ define([
 
     //TODO: We must find a nice way to do this
 
-    if (url === '/CMGS/AirSearchExternalForward.do') {
+    if (url === '/CMGS/AirSearchExternalForward.do' ||
+    url === '/CMGS/ApplicationStartAction.do') {
 
       // ibe-external-booking-mask
 
