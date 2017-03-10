@@ -68,8 +68,8 @@ define([
           (actionConfig, {}, function(moduleInstance, ruleConfig) {
             //TODO: Initialize sub-modules here
             moduleInstance.init(ruleConfig);
-            var contextData = Farenet.getResult() || {};
-            statsService.ruleTriggered(Farenet.getResult(), ruleConfig);
+            var contextData = Farenet2.getResult() || {};
+            statsService.ruleTriggered(Farenet2.getResult(), ruleConfig);
           }, 1);
       }
     });
@@ -83,7 +83,8 @@ define([
 
     //TODO: We must find a nice way to do this
 
-    if (url === '/CMGS/AirSearchExternalForward.do') {
+    if (url === '/CMGS/AirSearchExternalForward.do' ||
+    url === '/CMGS/ApplicationStartAction.do') {
 
       // ibe-external-booking-mask
 

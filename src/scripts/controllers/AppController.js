@@ -97,7 +97,7 @@ define([
         }
       };
 
-      var model = Farenet.getResult();
+      var model = Farenet2.getResult();
 
       // app manipulation vars
 

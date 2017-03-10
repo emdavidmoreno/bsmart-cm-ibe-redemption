@@ -162,7 +162,7 @@ define([
       // sync the ui height to garanty footer correct positioning
       appHostProxyService.syncHeight($timeout);
 
-      statsService.ruleShowed(Farenet.getResult(), wrapperInstance.actionConfig);
+      statsService.ruleShowed(Farenet2.getResult(), wrapperInstance.actionConfig);
       //-------------------------------------------------------
       // binding functions
       //-------------------------------------------------------

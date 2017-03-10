@@ -44,9 +44,9 @@ define([
       var instance = this;
 
       // allow to farenet bring back the prices html nodes to
-      Farenet.verbose = 1;
+      Farenet2.verbose = 1;
       // populate the model with the Farenet values
-      var model = Farenet.parse();
+      var model = Farenet2.parse();
 
       // view model
       var ui = {
@@ -141,7 +141,7 @@ define([
       // app manipulation vars
       $scope.$parent.showLoading = false;
 
-      statsService.ruleShowed(Farenet.getResult(), wrapperInstance.actionConfig);
+      statsService.ruleShowed(Farenet2.getResult(), wrapperInstance.actionConfig);
 
 
       //-------------------------------------------------------
