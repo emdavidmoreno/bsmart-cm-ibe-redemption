@@ -23,7 +23,11 @@ define([
       var args = [].slice.call(arguments);
       popupManager.__showSessionExpiration.apply(popupManager, args);
       // predefine session dialog width
-      $('#sessionExpirationPopupDialog').css('width', '80vw');
+      $("#sessionExpirationPopupDialog a").attr("href", "https://bookings.copaair.com/CMGS/AirSearchExternalForward.do")
+      $("#sessionExpirationPopupDialogTitle").parent().remove();
+      $("div.dialogFooter").css({'background' : '#0162a9' });
+      $("#tbSessionExp").find(".textBody div.textBlock").css({'font-size': '14px'}) 
+      $("#sessionExpirationPopupDialog").css({'width': '80vw'});
     };
 
     popupManager.__showSessionInactive = popupManager.showSessionInactive;
@@ -31,7 +35,10 @@ define([
       var args = [].slice.call(arguments);
       popupManager.__showSessionInactive.apply(popupManager, args);
       // predefine session dialog width
-      $('#sessionInactivePopupDialog').css('width', '80vw');
+      $("#sessionInactivePopupDialogTitle").parent().remove();
+      $("div.dialogFooter").css({'background' : '#0162a9' });
+      $("#tbSessionExp").find(".textBody div.textBlock").css({'font-size': '14px'}) 
+      $("#sessionInactivePopupDialog").css({'width': '80vw'});
     };
   };
 
