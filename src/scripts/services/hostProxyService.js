@@ -4,7 +4,7 @@ define([], function() {
   function hostProxyService() {
     var hostProxyService = {};
 
-    hostProxyService.submitFormAction = function(formActionNodeSelector, context){
+    hostProxyService.submitFormAction = function(formActionNodeSelector, context, clb){
       var deferred = $.Deferred();
 
       // mocking a function to get the results
@@ -24,40 +24,58 @@ define([], function() {
         hostProxyService.mockProcessPurchaseValidationErrorResult();
       }
 
-      $(hostProxyService).on('searchFormValidationErrors', function(event, data){
+      function triggerSuccessData(data) {
+        if(clb) {
+          // error, success
+          clb(null, data)
+        } else {
+          deferred.resolve(data);
+        }
+      }
+
+      function triggerErrorData(data) {
+        if(clb) {
+          // error, success
+          clb(data, null)
+        } else {
+          deferred.reject(data);
+        }
+      }
+
+      $('body').on('searchFormValidationErrors', function(event, data){
         window.processAirFlightSearchFormValidationErrors =
           data.originalFunction;
-        deferred.resolve(data);
+        triggerSuccessData(data);
       });
 
-      $(hostProxyService).on('processResult:fail', function(event, data){
+      $('body').on('processResult:fail', function(event, data){
         window.formManager.processResult =
           data.originalFunction;
-        deferred.resolve(data);
+        triggerSuccessData(data);
       });
 
-      $(hostProxyService).on('processValidationResult', function(event, data){
+      $('body').on('processValidationResult', function(event, data){
         window.formManager.processValidationResult =
           data.originalFunction;
-        deferred.resolve(data);
+        triggerSuccessData(data);
       });
 
-      $(hostProxyService).on('processPurchaseValidationErrorResult', function(event, data){
+      $('body').on('processPurchaseValidationErrorResult', function(event, data){
         window.processPurchaseValidationErrorResult =
           data.originalFunction;
-        deferred.resolve(data);
+        triggerSuccessData(data);
       });
 
-      $(hostProxyService).on('processValidationResponse', function(event, data){
+      $('body').on('processValidationResponse', function(event, data){
         window.processValidationResponse =
           data.originalFunction;
-        deferred.reject(data);
+        triggerErrorData(data);
       });
 
-      $(hostProxyService).on('processSend', function(event, data){
+      $('body').on('processSend', function(event, data){
         window.processSend =
           data.originalFunction;
-        deferred.resolve(data);
+        triggerSuccessData(data);
       });
 
       $(formActionNodeSelector).click();
@@ -90,13 +108,13 @@ define([], function() {
           }
 
           // trigger an event at the end
-          $( hostProxyService ).trigger( 'searchFormValidationErrors',
+          $('body').trigger( 'searchFormValidationErrors',
             [{errors: errors, config: config, originalFunction: processAirFlightSearchFormValidationErrors}]);
       };
 
       // overwrite the original function
       window.processAirFlightSearchFormValidationErrors =
-        customFunction;
+        customFunction.bind(window);
     };
 
     hostProxyService.mockInvokeBusinessAction = function() {
@@ -140,7 +158,7 @@ define([], function() {
           }
       };
       // overwrite the original function
-      window.formManager.invokeBusinessAction = customFunction;
+      window.formManager.invokeBusinessAction = customFunction.bind(window.formManager);
     };
 
     hostProxyService.mockProcessValidationResult = function(){
@@ -169,11 +187,11 @@ define([], function() {
           }
 
           // trigger an event at the end
-          $( hostProxyService ).trigger( 'processValidationResult',
+          $('body').trigger( 'processValidationResult',
             [{errors: response, config: config, originalFunction: originalFunction}]);
         };
 
-        window.formManager.processValidationResult = customFunction;
+        window.formManager.processValidationResult = customFunction.bind(window.formManager);
     };
 
     hostProxyService.mockProcessResult = function(){
@@ -220,14 +238,14 @@ define([], function() {
                     eval(response.webstatisticsCall);
                 }
                 // trigger an event at the end
-                $( hostProxyService ).trigger( 'processResult:fail',
+                $('body').trigger( 'processResult:fail',
                   [{errors: response.errors, originalFunction: originalFunction}]);
             }
         }
       };
       // overwrite the original function
       window.formManager.processResult =
-        customFunction;
+        customFunction.bind(window.formManager);
     };
 
     hostProxyService.mockProcessPurchaseValidationErrorResult = function(){
@@ -267,13 +285,13 @@ define([], function() {
         }
 
         // trigger an event at the end
-        $( hostProxyService ).trigger( 'processPurchaseValidationErrorResult',
+        $('body').trigger( 'processPurchaseValidationErrorResult',
           [{errors: response, config: config, originalFunction: originalFunction}]);
 
       }
       // overwrite the original function
       window.processPurchaseValidationErrorResult =
-        customFunction;
+        customFunction.bind(window);
     };
 
     hostProxyService.mockProcessValidationResultConfirmationPage = function() {
@@ -291,7 +309,7 @@ define([], function() {
               hideCommonErrorBlock: isSendItineraryFromPopup
             });
             // trigger an event at the end
-            $( hostProxyService ).trigger( 'processValidationResponse',
+            $('body').trigger( 'processValidationResponse',
               [{errors: response, config: config, originalFunction: originalFunction}]);
           }
           else
@@ -313,7 +331,7 @@ define([], function() {
           }
 
       };
-       window.processValidationResponse = customFunction;
+       window.processValidationResponse = customFunction.bind(window);
     };
 
     hostProxyService.mockProcessSentConfirmationPage = function(){
@@ -349,11 +367,11 @@ define([], function() {
           input.enabled = true;
           input.disabled = false;
           // trigger an event at the end
-          $( hostProxyService ).trigger( 'processSend',
+          $('body').trigger( 'processSend',
             [{contentData: tContentData.contentData, config: config, originalFunction: originalFunction}]);
       };
 
-       window.processSend = customFunction;
+       window.processSend = customFunction.bind(window);
     };
 
 

@@ -162,14 +162,15 @@ define([
 
       $scope.continueButtonAction = function(){
         var formActionNodeSelector = hostProxyService.getFormActionNodeSelector();
-        var deferred = appHostProxyService.submitFormAction(formActionNodeSelector, 'passengerInformation');
         $scope.$parent.showLoading = true;
-        deferred.done(function(value) {
-          validationHelper(value.errors);
-          $timeout(function() {
-            $scope.$parent.showLoading = false;
-          }, 0);
-        });
+        var deferred = appHostProxyService
+          .submitFormAction(
+            formActionNodeSelector, 'passengerInformation', function(error, value) {
+              validationHelper(value.errors);
+              $timeout(function() {
+                $scope.$parent.showLoading = false;
+              }, 0);
+           });
       };
 
       //-------------------------------------------------------
@@ -472,10 +473,10 @@ define([
        * @return {[type]}        [description]
        */
       function validationHelper(errors) {
-        var validationErrors = errors.validationErrors;
+        var validationErrors = errors.validationErrors || [];
         ui.errors = [];
 
-        if(!validationErrors && errors.length > 0){
+        if(!validationErrors.length && errors.length > 0){
           validationErrors = [];
           $.each(errors, function(){
             validationErrors.push({
