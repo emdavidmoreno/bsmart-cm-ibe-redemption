@@ -10,6 +10,9 @@
           div.accordion
             a.accordion-item-title-without-icon(href="https://www.copaair.com/")
               | {{ 'LABEL_HOME' | translate }}
+          div.accordion(data-ng-if="isLoginAvailable")
+            h3.accordion-item-title(data-ng-click="openLoginDialog()")
+              | {{'LABEL_LOGIN' | translate}}
           div.accordion
             h3.accordion-item-title(data-ng-click="")
               | {{ 'LABEL_LANGUAGE' | translate }} ({{main.languageOptions[main.language].name}})

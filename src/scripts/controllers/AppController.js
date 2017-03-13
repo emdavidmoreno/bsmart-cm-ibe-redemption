@@ -170,6 +170,12 @@ define([
         location.reload(true);
       };
 
+      $scope.openLoginDialog = function(){
+        $("#loginLinkFromLoginBlock").click();
+      };
+
+      $scope.isLoginAvailable = $("#loginLinkFromLoginBlock").length > 0;
+
       //-------------------------------------------------------
       // Helpers
       //-------------------------------------------------------

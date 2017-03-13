@@ -126,6 +126,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_EMAIL_EXAMPLE: 'user@email.com',
        LABEL_COUNTRY_CODE: 'country code',
        LABEL_NUMBER: 'telephone number',
+       LABEL_LOGIN: 'Login'
       });
 
 
@@ -248,7 +249,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_LAST_NAME_EXAMPLE: 'Apellido(s)',
        LABEL_EMAIL_EXAMPLE: 'usuario@email.com',
        LABEL_COUNTRY_CODE: 'cód. país',
-       LABEL_NUMBER: 'número de teléfono'
+       LABEL_NUMBER: 'número de teléfono',
+       LABEL_LOGIN: 'Entrar'
      });
 
      // portuguees translations
@@ -370,7 +372,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_LAST_NAME_EXAMPLE: 'Último nome',
        LABEL_EMAIL_EXAMPLE: 'nome de usuário@email.com',
        LABEL_COUNTRY_CODE: 'código de país',
-       LABEL_NUMBER: 'número de telefone'
+       LABEL_NUMBER: 'número de telefone',
+       LABEL_LOGIN: 'Acceda a su cuenta'
      });
 
      // set default language
