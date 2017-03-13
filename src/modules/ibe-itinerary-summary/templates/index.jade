@@ -22,7 +22,7 @@ block body
               | ({{location.user_input_destination_airport_code}})
           div
             .m-itinerary-summary(
-              data-ng-class="{'itinerary-summary--no-dividers': ui.user_input_journey_type != 'Multi City'}"
+              data-ng-class="{'itinerary-summary--no-dividers': ui.user_input_journey_type == 'Round Trip'}"
               ng-cloak
             )
               .itinerary-summary-flight.itinerary-summary-flight--departure(
@@ -111,10 +111,10 @@ block body
                     br
           include ../../../templates/partials/sellingClassDialog.jade
           include ../../../templates/partials/flightDetailsDialog.jade
-          
+
     div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui")
     div(data-bs-itinerary-pricing-card data-ui="ui")
-    
+
     section.m-insurance(data-ng-if="ui.tavelInsurance && ui.tavelInsurance.display.head")
       h2
         | {{ui.tavelInsurance.display.head}}
