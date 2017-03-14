@@ -1,6 +1,6 @@
 {
   "name": "@everymundo/bsmart-cm-ibe",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "Booksmart CopaAir Internal Booking Engine(IBE) flow",
   "main": "index.js",
   "scripts": {
