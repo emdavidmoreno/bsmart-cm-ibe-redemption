@@ -133,6 +133,7 @@
         text: $option.text().split('\n')[0],
         link: $option.find('a').attr('href'),
         linkText: $option.find('a').text().trim()
+          .replace($option.find('a span.wcag-offscreen').text(), '').trim()
       };
 
       return {
