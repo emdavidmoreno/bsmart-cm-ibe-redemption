@@ -72,6 +72,22 @@ define([], function() {
       return menuItems;
     };
 
+    hostScrapService.isLoginAvailable = function() {
+      return $("#loginLinkFromLoginBlock").length > 0 || $(".linkLogout").length > 0;
+    };
+
+    hostScrapService.loginLabel= function() {
+      return $("#loginLinkFromLoginBlock").text() || $(".linkLogout").text()
+    }
+
+    hostScrapService.openLoginDialog = function(){
+      if ($("#loginLinkFromLoginBlock").length > 0) {
+        $("#loginLinkFromLoginBlock").click();
+      }
+      else {
+        $(".linkLogout").click();
+      }
+    };
 
     return hostScrapService;
   }

@@ -123,7 +123,10 @@ define([
           return: model.return,
         },
         user: hostScrapService.getUserInfo(),
-        menuItems: hostScrapService.getMenuItems()
+        menuItems: hostScrapService.getMenuItems(),
+        isLoginAvailable: hostScrapService.isLoginAvailable(),
+        loginLabel: hostScrapService.loginLabel(),
+        openLoginDialog: hostScrapService.openLoginDialog,
       };
 
       $translate.use(main.language);
@@ -169,12 +172,6 @@ define([
         }
         location.reload(true);
       };
-
-      $scope.openLoginDialog = function(){
-        $("#loginLinkFromLoginBlock").click();
-      };
-
-      $scope.isLoginAvailable = $("#loginLinkFromLoginBlock").length > 0;
 
       //-------------------------------------------------------
       // Helpers
