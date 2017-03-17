@@ -10,7 +10,7 @@ define([
   'tmhDynamicLocale'
 ], function($, angular, hostUIService, hostScrapService, hostProxyService) {
   var wrapperInstance = {};
-
+  Bs.jq = $;
   wrapperInstance.init = function(config, actionConfig) {
     wrapperInstance.config = config;
     wrapperInstance.actionConfig = actionConfig;
@@ -22,12 +22,13 @@ define([
     popupManager.showSessionExpiration = function() {
       var args = [].slice.call(arguments);
       popupManager.__showSessionExpiration.apply(popupManager, args);
-      // predefine session dialog width
-      $("#sessionExpirationPopupDialog a").attr("href", "https://bookings.copaair.com/CMGS/AirSearchExternalForward.do")
       $("#sessionExpirationPopupDialogTitle").parent().remove();
       $("div.dialogFooter").css({'background' : '#0162a9' });
       $("#tbSessionExp").find(".textBody div.textBlock").css({'font-size': '14px'}) 
       $("#sessionExpirationPopupDialog").css({'width': '80vw'});
+      if(Bs){
+          $(Bs).trigger('expirationpopupready');
+       }  
     };
 
     popupManager.__showSessionInactive = popupManager.showSessionInactive;
@@ -37,7 +38,7 @@ define([
       // predefine session dialog width
       $("#sessionInactivePopupDialogTitle").parent().remove();
       $("div.dialogFooter").css({'background' : '#0162a9' });
-      $("#tbSessionExp").find(".textBody div.textBlock").css({'font-size': '14px'}) 
+      $("#tbSessionExp").find(".textBody div.textBlock").css({'font-size': '14px'}); 
       $("#sessionInactivePopupDialog").css({'width': '80vw'});
     };
   };
