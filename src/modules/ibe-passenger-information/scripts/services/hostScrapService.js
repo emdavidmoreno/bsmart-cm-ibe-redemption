@@ -78,6 +78,7 @@
       'input[name="travellersInfo[0].mobilePhone.phoneNumber"]';
 
     var SECURITY_FLIGHT_INFORMATION = '#prefixAPDP_' + S_INDEX;
+    console.log("S_INDEX"+S_INDEX);
 
     /**
      * @param {string} selector
@@ -871,6 +872,21 @@
     hostScrapService.isInactive = function() {
       return $('#fadeOut').is('.inactiveFadeOut');
     };
+
+    hostScrapService.genderExist = function(index){
+     var val  = $("#idPassenger"+(index + 1)+"APD_GenderTitle").length;
+     return val;
+    }
+
+    hostScrapService.dobExist = function(index){
+     var val  = $("#idPassenger"+(index + 1)+"APD_DOBTitle").length;
+     return val;
+    }
+
+    hostScrapService.redressNumberExist = function(index){
+     var val  = $("#idPassenger"+(index + 1)+"APD_RedressNumberTitle").length;
+     return val;
+    }
 
     return hostScrapService;
   }
