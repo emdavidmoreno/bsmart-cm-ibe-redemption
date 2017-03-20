@@ -228,16 +228,19 @@ define([
             firstName: hostScrapService.getPassengerFirstName(index),
             lastName: hostScrapService.getPassengerLastName(index),
             gender: hostScrapService.getPassengerCheckedGender(index),
+            genderExist: hostScrapService.genderExist(index),
             freqFlyer: hostScrapService.getPassengerFreqFlyer(index),
             memberShip: hostScrapService.getPassengerMemberShip(index),
             suffix: hostScrapService.getPassengerSuffix(index),
             showBirthDate: hostScrapService.showBirthDate(index),
+            dobExist: hostScrapService.dobExist(index),
             birthMonth: hostScrapService.getPassengerBirthMonth(index),
             birthDay: hostScrapService.getPassengerBirthDay(index),
             birthYear: hostScrapService.getPassengerBirthYear(index),
             age: hostScrapService.getPassengerAge(index),
             infoArea: hostScrapService.getPassengerInfoArea(index),
             redressNumber: hostScrapService.getPassengerRedressNumber(index),
+            redressNumberExist: hostScrapService.redressNumberExist(index),
             years: years.sort(
               function(a,b) {
                 return b - a;
