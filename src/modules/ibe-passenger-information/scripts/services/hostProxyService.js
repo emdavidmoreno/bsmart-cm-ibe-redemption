@@ -5,7 +5,7 @@
       var hostProxyService = {};
       var scrapSelectors = {
         generalActions: {
-          continueButton: '#pgButtonProceed'
+          continueButton: '#pgButtonProceed span span'
         }
       };
 
