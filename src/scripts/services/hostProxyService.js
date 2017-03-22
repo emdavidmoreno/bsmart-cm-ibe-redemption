@@ -78,7 +78,8 @@ define([], function() {
         triggerSuccessData(data);
       });
 
-      $(formActionNodeSelector).click();
+     // $(formActionNodeSelector).click();
+      checkDoubleSubmition(confirmTravellerProceed);
       return deferred;
     };
 
