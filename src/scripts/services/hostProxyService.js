@@ -80,7 +80,8 @@ define([], function() {
         triggerSuccessData(data);
       });
 
-      passengerContext ? checkDoubleSubmition(confirmTravellerProceed): $(formActionNodeSelector).click();
+      //passengerContext ? checkDoubleSubmition(confirmTravellerProceed): $(formActionNodeSelector).click();
+      $(formActionNodeSelector).click();
       return deferred;
     };
 

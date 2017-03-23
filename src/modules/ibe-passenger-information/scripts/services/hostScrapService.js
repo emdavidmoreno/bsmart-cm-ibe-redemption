@@ -874,17 +874,17 @@
     };
 
     hostScrapService.genderExist = function(index){
-     var val  = $("#idPassenger"+(index + 1)+"APD_GenderTitle").length;
+     var val  = $("#idPassenger"+(index + 1)+"APD_GenderTitle").length || $('#SECUREFLIGHT-GENDER-'+index).length;
      return val;
     }
 
     hostScrapService.dobExist = function(index){
-     var val  = $("#idPassenger"+(index + 1)+"APD_DOBTitle").length;
+     var val  = $("#idPassenger"+(index + 1)+"APD_DOBTitle").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-'+index).length;
      return val;
     }
 
     hostScrapService.redressNumberExist = function(index){
-     var val  = $("#idPassenger"+(index + 1)+"APD_RedressNumberTitle").length;
+     var val  = $("#idPassenger"+(index + 1)+"APD_RedressNumberTitle").length || $('#SECUREFLIGHT-REDRESS_NUMBER-'+index).length;
      return val;
     }
 
