@@ -160,6 +160,7 @@ define([
 
       $scope.showMenu = function(){
         hostUIService.showMenu();
+        $('body').trigger('bsready');
       };
 
       $scope.hideMenu = function(){
