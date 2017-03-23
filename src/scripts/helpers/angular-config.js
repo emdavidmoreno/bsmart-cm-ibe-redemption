@@ -126,7 +126,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_EMAIL_EXAMPLE: 'user@email.com',
        LABEL_COUNTRY_CODE: 'country code',
        LABEL_NUMBER: 'telephone number',
-       LABEL_LOGIN: 'Login'
+       LABEL_LOGIN: 'Login',
+       LABEL_MMB: 'Manage your booking',
       });
 
 
@@ -250,7 +251,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_EMAIL_EXAMPLE: 'usuario@email.com',
        LABEL_COUNTRY_CODE: 'cód. país',
        LABEL_NUMBER: 'número de teléfono',
-       LABEL_LOGIN: 'Entrar'
+       LABEL_LOGIN: 'Entrar',
+       LABEL_MMB:'Maneje su reserva',     
      });
 
      // portuguees translations
@@ -373,7 +375,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_EMAIL_EXAMPLE: 'nome de usuário@email.com',
        LABEL_COUNTRY_CODE: 'código de país',
        LABEL_NUMBER: 'número de telefone',
-       LABEL_LOGIN: 'Acceda a su cuenta'
+       LABEL_LOGIN: 'Acceda a su cuenta',
+       LABEL_MMB:'Administre a sua reserva',
      });
 
      // set default language
