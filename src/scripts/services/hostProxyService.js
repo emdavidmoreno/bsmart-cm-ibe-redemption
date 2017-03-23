@@ -6,6 +6,7 @@ define([], function() {
 
     hostProxyService.submitFormAction = function(formActionNodeSelector, context, clb){
       var deferred = $.Deferred();
+      var passengerContext = false;
 
       // mocking a function to get the results
       hostProxyService.mockProcessAirFlightSearchFormValidationErrors();
@@ -14,6 +15,7 @@ define([], function() {
 
       if(context && context === 'passengerInformation'){
         hostProxyService.mockProcessValidationResult();
+        passengerContext = true;
       }
       if(context && context === 'confirmationPage'){
         hostProxyService.mockProcessValidationResultConfirmationPage();
@@ -78,8 +80,7 @@ define([], function() {
         triggerSuccessData(data);
       });
 
-      $(formActionNodeSelector).click();
-     // checkDoubleSubmition(confirmTravellerProceed);
+      passengerContext ? checkDoubleSubmition(confirmTravellerProceed): $(formActionNodeSelector).click();
       return deferred;
     };
 
