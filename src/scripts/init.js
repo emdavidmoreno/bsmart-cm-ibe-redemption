@@ -37,11 +37,12 @@ define([
   'angular-translate',
   'tmhDynamicLocale',
   'statsService'
-], function(require, angular, Config, loadModuleService, angularConfig, translateHelper, dinamicLocaleHelper, statsService) {
+], function (require, angular, Config, loadModuleService, angularConfig, translateHelper, dinamicLocaleHelper, statsService) {
 
   var instance = {};
+  console.log("cargo el inits");
 
-  instance.init = function(actionConfig) {
+  instance.init = function (actionConfig) {
     //-----------------------------------------------------------
     // Load the AppController here
     //-----------------------------------------------------------
@@ -52,20 +53,20 @@ define([
       ['pascalprecht.translate', 'tmh.dynamicLocale'])
       .config(angularConfig);
 
-    require(['./app'], function(App) {
+    require(['./app'], function (App) {
 
       // load main app
       App.init(Config.getConfig(), actionConfig);
 
       // conditional loading of submodules
       actionConfig.mainFilePath =
-        getSubmodulePathByUrl(actionConfig.variables[0].url,actionConfig);
+        getSubmodulePathByUrl(actionConfig.variables[0].url, actionConfig);
 
       // if there are not modules just stop loading this action
       if (actionConfig.mainFilePath) {
         // load submodule
         loadModuleService.loadModule
-          (actionConfig, {}, function(moduleInstance, ruleConfig) {
+          (actionConfig, {}, function (moduleInstance, ruleConfig) {
             //TODO: Initialize sub-modules here
             moduleInstance.init(ruleConfig);
             var contextData = Farenet2.getResult() || {};
@@ -84,7 +85,7 @@ define([
     //TODO: We must find a nice way to do this
 
     if (url === '/CMGS/AirSearchExternalForward.do' ||
-    url === '/CMGS/ApplicationStartAction.do') {
+      url === '/CMGS/ApplicationStartAction.do') {
 
       // ibe-external-booking-mask
 
@@ -125,6 +126,11 @@ define([
       // ibe-confirmation-hold
 
       subModulePath = 'modules/ibe-confirmation-hold/';
+    }
+
+    else if(url === '/CMGS/AirFullFareForward.do'){
+       console.log("LLEGO A AQUI")
+       subModulePath = 'modules/ibe-flexible-dates/';
     }
 
 
