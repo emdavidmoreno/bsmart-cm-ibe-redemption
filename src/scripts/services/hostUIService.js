@@ -52,6 +52,17 @@ define([], function() {
         $('.m-loader').hide();
       }
 
+
+     hostUIService.sumPositiveNumbers = function (){
+         var sum =0; 
+         for(var i=0;i<arguments.length;i++){
+            if(arguments[i] != -1)
+              sum += arguments[i];
+         }
+       return sum;
+      }
+       
+
       return hostUIService;
     }
     angular
