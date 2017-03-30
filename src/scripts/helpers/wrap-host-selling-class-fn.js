@@ -21,7 +21,7 @@ define([], function() {
   };
 
   // jshint -W117
-  var __fillFareRuleTabCallback = fillFareRuleTabCallback;
+  var __fillFareRuleTabCallback = fillFareRuleTabCallback ;
   var __fillFareRuleTabCallbackError = fillFareRuleTabCallbackError;
 
   /**
