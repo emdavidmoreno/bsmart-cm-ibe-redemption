@@ -99,7 +99,7 @@ define([
       };
       console.log("LLEGO AQUI");
       var model = Farenet2.getResult();
-
+    
       // app manipulation vars
 
       //-------------------------------------------------------
@@ -119,6 +119,7 @@ define([
           user_input_journey_type: model.user_input_journey_type,
           location: model.geo.location,
           passengers: model.passengers,
+          count_passengers:hostUIService.sumPositiveNumbers(model.passengers.user_input_adults, model.passengers.user_input_children, model.passengers.user_input_infants),
           departure: model.departure,
           total_price: model.total_price,
           return: model.return,

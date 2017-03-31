@@ -173,7 +173,7 @@ block body
                   | {{ui.errors[$index]['genderMale']}}
             hr(data-ng-if="passenger.dobExist")
             .form-group.md.col-sm-3.inline-select(
-              data-ng-show="passenger.dobExist"
+              data-ng-if="passenger.dobExist && passenger.autoFillSelectedOption.value !=-1"
               data-ng-class= "{'show-field-error': (ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate) }")
               label.pi-field-required
                | {{'LABEL_BIRTHDAY' | translate}}
