@@ -58,7 +58,7 @@
             span(ng-if="main.miniSummary.user_input_journey_type == 'Multi City'")
               |  - {{main.miniSummary.departure[main.miniSummary.departure.length - 1].user_input_date| date:'MMMM d'}}
             span
-              |  | {{main.miniSummary.count_passengers}}
+              |  | {{main.miniSummary.passengers.user_input_adults + main.miniSummary.passengers.user_input_children + main.miniSummary.passengers.user_input_infants}}
             i.passengers
           div.price(ng-if="showMiniSummary && showMiniSummaryPrice") {{main.miniSummary.total_price.currency_code}} {{ (main.miniSummary.total_price.cash) | number:2 }}
           div.message(ng-if="!showMiniSummary")
