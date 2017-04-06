@@ -53,7 +53,7 @@ define(['./helpers/scrapHelper'], function(helper) {
     },
     template:
     `<div class="flexible-dates-prices table-responsive">
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th> </th>
