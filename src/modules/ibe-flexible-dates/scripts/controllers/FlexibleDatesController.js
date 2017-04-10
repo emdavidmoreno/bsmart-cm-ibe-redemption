@@ -15,9 +15,11 @@ define([
   'statsService',
   'lodash',
   '../../../../components/complex/bs-flexible-dates-prices/index.component',
+  '../../../../components/complex/bs-btn-continue/index.component',
 ], function($, angular, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
-  jquiDialog, statsService, _, bsFlexibleDatesPricesComponent) {
+  jquiDialog, statsService, _, bsFlexibleDatesPricesComponent,
+  bsBtnContinueComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -107,6 +109,9 @@ define([
         .directive('jquiDialog', jquiDialog)
         .component('bsFlexibleDatesPricesComponent',
           bsFlexibleDatesPricesComponent
+        )
+        .component('bsBtnContinueComponent',
+          bsBtnContinueComponent
         )
         .controller('FlexibleDatesController', FlexibleDatesController)
   })({})
