@@ -15,9 +15,11 @@ define([
   'statsService',
   'lodash',
   '../../../../components/complex/bs-flexible-dates-prices/index.component',
+  '../../../../components/complex/bs-btn-continue/index.component',
 ], function($, angular, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
-  jquiDialog, statsService, _, bsFlexibleDatesPricesComponent) {
+  jquiDialog, statsService, _, bsFlexibleDatesPricesComponent,
+  bsBtnContinueComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -63,7 +65,7 @@ define([
       }
 
       $scope.$parent.showMiniSummary = true
-      $scope.$parent.stepper.goToStep(0)
+      $scope.$parent.stepper.goToStep(1)
 
       // allow to farenet bring back the prices html nodes to
       Farenet2.verbose = 1
@@ -71,6 +73,8 @@ define([
       let model = Farenet2.parse()
       let ui = {
         model,
+        pageTitle: hostScrapService.getPageTitle(),
+        commentBlock: hostScrapService.getCommentBlock(),
       }
 
       $scope.ui = ui
@@ -105,6 +109,9 @@ define([
         .directive('jquiDialog', jquiDialog)
         .component('bsFlexibleDatesPricesComponent',
           bsFlexibleDatesPricesComponent
+        )
+        .component('bsBtnContinueComponent',
+          bsBtnContinueComponent
         )
         .controller('FlexibleDatesController', FlexibleDatesController)
   })({})

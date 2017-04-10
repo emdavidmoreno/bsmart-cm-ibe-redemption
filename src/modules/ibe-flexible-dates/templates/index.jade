@@ -1,6 +1,9 @@
 extends ../../../templates/layout.jade
 
 block body
-  div.m-search-results(data-ng-controller="FlexibleDatesController")
-    p {{"Hola Mundo"}}
+  div.m-flexible-dates(data-ng-controller="FlexibleDatesController")
+    h1.m-page-title {{ ui.pageTitle }}
+    .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")
     bs-flexible-dates-prices-component(data-farenet-model="ui.model")
+    bs-btn-continue-component(data-btn-host-selector=".pageButtonArea .button2" btn-classes="btn-return")
+    bs-btn-continue-component(data-btn-host-selector="#pgButtonSelect" btn-classes="btn-next")

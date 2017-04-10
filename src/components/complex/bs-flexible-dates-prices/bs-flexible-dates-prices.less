@@ -1,2 +1,36 @@
 
-   @import '../../../_lib/bootstrap/less/tables.less';
+@import '../../../_lib/bootstrap/less/tables.less';
+
+bs-flexible-dates-prices-component {
+  .selected-price {
+    background-color: #C3A124 !important;
+  }
+  .lower-prices {
+    color: #03BA00 !important;
+  }
+  .flexible-dates {
+    background-color: #005FAB;
+    color: white;
+    font-weight: 400;
+
+    span {
+      display: block;
+      text-align: center;
+    }
+
+    span:nth-child(2) {
+      font-size: 1rem
+    }
+  }
+  .flexible-dates-price {
+    text-align: center;
+    span {
+      line-height: 3;
+    }
+  }
+
+  .flexible-dates-price.selected-price {
+    background-color: #C3A124 !important;
+    color: black !important;
+  }
+}
