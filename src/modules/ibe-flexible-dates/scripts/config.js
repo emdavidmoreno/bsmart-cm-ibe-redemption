@@ -10,7 +10,7 @@ define([], function() {
     },
     stylesFilesPath: [
     '//@@HOST/app/modules/bsmart-cm-ibe/modules/' +
-      'ibe-search-result/styles/@@FILE_PATH--app--css/modules/bsmart-cm-ibe/modules/ibe-flexible-dates/styles/index.css',
+      'ibe-flexible-dates/styles/@@FILE_PATH--app--css/modules/bsmart-cm-ibe/modules/ibe-flexible-dates/styles/index.css',
     ]
   };
   instance.getConfig = function() {
