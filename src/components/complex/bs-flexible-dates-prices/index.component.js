@@ -74,7 +74,7 @@ define(['./helpers/scrapHelper'], function(helper) {
        * @return {String[]}
        */
       const getFormatedDateAsArray = function(date) {
-        return $filter('date')(getTime(date), 'MMM dd').split(' ')
+           return $filter('date')(date, 'MMM dd').split(' ')
       }
 
       for(let [k, v] of Object.entries(matrix)) {
