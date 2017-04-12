@@ -12,7 +12,9 @@ define(['./helpers/scrapHelper'], function(helper) {
    * @param {Object} [$timeout]
    * @param {Function} [$filter]
    */
-  function FlexibleDatesPricesController($scope, $element, $attrs, $timeout, $filter) {
+  function FlexibleDatesPricesController(
+    $scope, $element, $attrs, $timeout, $filter
+    ) {
     let ctrl = this
     /**
      * On change handler
@@ -74,7 +76,7 @@ define(['./helpers/scrapHelper'], function(helper) {
        * @return {String[]}
        */
       const getFormatedDateAsArray = function(date) {
-           return $filter('date')(date, 'MMM dd').split(' ')
+        return $filter('date')(date, 'MMM dd').split(' ')
       }
 
       for(let [k, v] of Object.entries(matrix)) {
