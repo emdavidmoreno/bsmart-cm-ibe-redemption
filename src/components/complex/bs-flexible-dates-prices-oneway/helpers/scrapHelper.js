@@ -21,27 +21,18 @@ define(['jquery'], function($jq) {
      $(SELECTOR_CELLS).each((index, el) => {
         let $el = $(el)
         let mprice = "N/D"
-        let isSelected = false
-
-      
+        let isSelected = false   
 
         if(!$el.is('.notAvail')) {
            mprice = $el.has('div.colPrice').text().trim()
            isSelected = $el.is('.selected')
         }
        
-       
- 
-      
-      prices.push({
-            price:mprice,
-            isSelected,
-            jqElement: $el,
-            onClick: function() {
-              this.jqElement[0].click()
-            },
-          })
+        if (index % 7 == 0) {
+                   prices.push([]);
+         }
 
+       prices[prices.length -1].push({price:mprice, isSelected, jqElement: $el, onClick: function() {this.jqElement[0].click()}})
 
       })
       let priceCalendar = {m_days:days,m_prices:prices}

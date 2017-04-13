@@ -30,8 +30,7 @@ define(['./helpers/scrapHelper'], function(helper) {
      */
     ctrl.$onInit = function() {
      ctrl.priceCalendar = ctrl.helper.getTableData();
-     ctrl.fillPricesByWeek()
-   
+    
       ctrl.cellClick = function(cell) {
         if(cell.price === "N/D") return
 
@@ -40,19 +39,6 @@ define(['./helpers/scrapHelper'], function(helper) {
        
       }
     }
-
-    ctrl.fillPricesByWeek = function(){
-          for (var i = 0; i <  ctrl.priceCalendar.m_prices.length; i++) {
-                if (i % 7 == 0) {
-                    ctrl.weeks.push([]);
-                }
-                ctrl.weeks[ctrl.weeks.length-1].push(ctrl.priceCalendar.m_prices[i]);
-            }
-
-    }
-    
-
-
  
   }
 
@@ -83,12 +69,12 @@ define(['./helpers/scrapHelper'], function(helper) {
           </tr>
         </thead>
         <tbody>
-          <tr   data-ng-repeat="week in $ctrl.weeks track by $index" >
-             <td data-ng-repeat="priceByDay in week track by $index"
-              data-ng-click="$ctrl.cellClick(priceByDay)"
-              data-ng-class="{'selected-price': priceByDay.isSelected}"
+          <tr   data-ng-repeat="week in $ctrl.priceCalendar.m_prices track by $index" >
+             <td data-ng-repeat="day in week track by $index"
+              data-ng-click="$ctrl.cellClick(day)"
+              data-ng-class="{'selected-price': day.isSelected}"
               class='flexible-dates-price'>
-              <span>{{ priceByDay.price }}</span>
+              <span>{{ day.price }}</span>
             </td>
           </tr>
         </tbody>
