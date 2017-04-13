@@ -120,6 +120,9 @@ define([
     } else if(url === '/CMGS/AirFullFareForward.do') {
       subModulePath = 'modules/ibe-flexible-dates/'
     }
+    else if(url === '/CMGS/AirOneWayCombinableCalendarForwardAction.do') {
+      subModulePath = 'modules/ibe-flexible-dates-oneway-cc/'
+    }
 
 
     return modulePath + subModulePath
