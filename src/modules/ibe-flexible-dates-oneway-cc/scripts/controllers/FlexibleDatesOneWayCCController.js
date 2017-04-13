@@ -75,8 +75,10 @@ define([
         model,
         pageTitle: hostScrapService.getPageTitle(),
         commentBlock: hostScrapService.getCommentBlock(),
+        message:hostScrapService.getMsg()
       }
-
+      
+     
       $scope.ui = ui
 
       // app manipulation vars

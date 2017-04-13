@@ -3,6 +3,7 @@
 
   const SELECTOR_PAGE_TITLE = '.pageTitleArea'
   const SELECTOR_PAGE_COMMENT_BLOCK = '.flightSelectionFaresCalendar .commentBlock'
+  const SELECTOR_TEXT_MESSAGE = '#warningText'
 
   /**
    * Scrap Service for module Ibe Flexible Dates Controller
@@ -24,6 +25,10 @@
      */
     hostScrapService.getCommentBlock = function() {
       return $(SELECTOR_PAGE_COMMENT_BLOCK).html()
+    }
+
+    hostScrapService.getMsg = function() {
+      return $(SELECTOR_TEXT_MESSAGE).text().trim()
     }
 
     return hostScrapService
