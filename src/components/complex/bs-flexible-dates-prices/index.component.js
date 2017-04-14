@@ -12,7 +12,9 @@ define(['./helpers/scrapHelper'], function(helper) {
    * @param {Object} [$timeout]
    * @param {Function} [$filter]
    */
-  function FlexibleDatesPricesController($scope, $element, $attrs, $timeout, $filter) {
+  function FlexibleDatesPricesController(
+    $scope, $element, $attrs, $timeout, $filter
+    ) {
     let ctrl = this
     /**
      * On change handler

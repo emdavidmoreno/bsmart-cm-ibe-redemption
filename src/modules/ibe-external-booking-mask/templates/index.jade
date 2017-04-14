@@ -136,18 +136,19 @@ block body
           span.text-message
             | {{ui.errors[$index].departDate}}
       hr
-    .l-cabin-type-group(ng-cloak)
-      label(data-ng-click="ui.cabinType.change('Economy')" 
-        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}")
-        input.radio--custom(type='radio' data-ng-model='ui.cabinType.value' value='Economy'
-          data-ng-change='ui.cabinType.change()')
+    .l-cabin-type-group(ng-cloak data-ng-if="ui.flightType.value != 'MC'")
+      label(data-ng-click="ui.flexible.change(false)"
+        data-ng-class="{'cabin-type--selected': ui.flexible.value === false}")
+        input.radio--custom(type='radio' data-ng-model='ui.flexible.value'
+          data-ng-change='ui.flexible.change(false)' data-ng-value="false")
         label
-          | {{ 'LABEL_CABIN_ECONOMY' | translate }}
-      label(ng-click="ui.cabinType.change('Business')" 
-        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
-        input.radio--custom(type='radio' data-ng-model='ui.cabinType.value' value='Business')
+          | {{ ui.flexible.strictDateText }}
+      label(ng-click="ui.flexible.change(true)"
+        data-ng-class="{'cabin-type--selected': ui.flexible.value === true}")
+        input.radio--custom(type='radio' data-ng-model='ui.flexible.value'
+           data-ng-change='ui.flexible.change(true)' data-ng-value="true")
         label
-          | {{ 'LABEL_CABIN_BUSINESS' | translate }}
+          | {{ ui.flexible.flexibleDateText }}
     .l-passengers(ng-cloak data-ng-class="{'show-field-error': ui.errors.guestTypes }")
       select.select--safari-friendly(data-ng-show="!passengersExtraOptionsSelected"
       data-ng-model='ui.passengers.adults' data-ng-change='ui.passengers.onChangeAdults()')
@@ -220,6 +221,19 @@ block body
             option 8
         span.text-message
           | {{ ui.errors.guestTypes }}
+    .l-cabin-type-group(ng-cloak)
+      label(data-ng-click="ui.cabinType.change('Economy')"
+        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}")
+        input.radio--custom(type='radio' data-ng-model='ui.cabinType.value' value='Economy'
+          data-ng-change='ui.cabinType.change()')
+        label
+          | {{ 'LABEL_CABIN_ECONOMY' | translate }}
+      label(ng-click="ui.cabinType.change('Business')"
+        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
+        input.radio--custom(type='radio' data-ng-model='ui.cabinType.value' value='Business')
+        label
+          | {{ 'LABEL_CABIN_BUSINESS' | translate }}
+
     .l-promo-code(ng-cloak data-ng-if="ui.flightType.value != 'MC'")
       input.form-control(type='text'
         placeholder='{{ "LABEL_PROMO_CODE" | translate }}'
