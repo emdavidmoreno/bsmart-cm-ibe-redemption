@@ -26,10 +26,10 @@ module.exports = {
                     },
                     shim: {},
                     include: [
-                        './modules/ibe-flexible-dates/scripts/init',
-                        './modules/ibe-flexible-dates/scripts/app'
+                        './modules/ibe-flexible-dates-oneway/scripts/init',
+                        './modules/ibe-flexible-dates-oneway/scripts/app'
                     ],
-                    out: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe/modules/ibe-flexible-dates/module.dist.js',
+                    out: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe/modules/ibe-flexible-dates-oneway/module.dist.js',
                     error: function (done, err) {
                         console.log(err);
                         done();
