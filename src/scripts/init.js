@@ -96,8 +96,7 @@ define([
       subModulePath = 'modules/ibe-external-booking-mask/'
     } else if (url === '/CMGS/AirFareFamiliesForward.do' ||
       url === '/CMGS/AirAvailabilitySearchForward.do' ||
-      url === '/CMGS/AirLowFareSearchExternal.do' ||
-      url === '/CMGS/AirFareFamiliesFlexibleForward.do') {
+      url === '/CMGS/AirLowFareSearchExternal.do'  ) {
       // ibe-search-result
 
       subModulePath = 'modules/ibe-search-result/'
@@ -122,6 +121,9 @@ define([
     }
     else if(url === '/CMGS/AirOneWayCombinableCalendarForwardAction.do') {
       subModulePath = 'modules/ibe-flexible-dates-oneway-cc/'
+    }
+    else if(url === '/CMGS/AirFareFamiliesFlexibleForward.do') {
+      subModulePath = 'modules/ibe-flexible-dates-oneway/'
     }
 
 
