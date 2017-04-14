@@ -165,7 +165,7 @@ define([
         flexible: Object.assign({},
           hostScrapService.getFlexibleSearchTexts(),
           {
-            value: hostScrapService.isFlexible(),
+            value: hostScrapService.isFlexible() || false,
             change: function(value) {
               $scope.ui.flexible.value = value
               hostScrapService.setFlexible(value)

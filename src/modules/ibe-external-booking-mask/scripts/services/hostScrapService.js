@@ -459,7 +459,7 @@ define(['jquery'], function($) {
     }
 
     HostScrapService.prototype.isFlexible = function() {
-      return $('#flightSearchOptionsGroup input:checked').val()
+      return ($('#flightSearchOptionsGroup input:checked').val() === 'true')
     }
 
     HostScrapService.prototype.setFlexible = function(isFlexible) {
