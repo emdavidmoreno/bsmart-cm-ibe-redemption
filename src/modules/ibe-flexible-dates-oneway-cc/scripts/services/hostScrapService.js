@@ -2,7 +2,7 @@
   'use strict'
 
   const SELECTOR_PAGE_TITLE = '.pageTitleArea'
-  const SELECTOR_PAGE_COMMENT_BLOCK = '.flightSelectionFaresCalendar .commentBlock'
+  const SELECTOR_PAGE_COMMENT_BLOCK = '.introTextArea p'
   const SELECTOR_TEXT_MESSAGE = '#warningText'
 
   /**
