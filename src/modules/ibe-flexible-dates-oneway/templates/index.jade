@@ -1,7 +1,7 @@
 extends ../../../templates/layout.jade
 
 block body
-  div.m-flexible-dates(data-ng-controller="FlexibleDatesController")
+  div.m-flexible-dates(data-ng-controller="FlexibleDatesOneWayController")
    div.container-fluid
      h1.m-page-title {{ ui.pageTitle }}
      .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")
