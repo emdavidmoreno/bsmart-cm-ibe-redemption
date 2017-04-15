@@ -12,10 +12,11 @@ define(['./helpers/scrapHelper'], function(helper) {
    * @param {Object} [$timeout]
    * @param {Function} [$filter]
    */
-  function FlexibleDatesPricesOneWayController($scope, $element, $attrs, $timeout, $filter) {
+  function FlexibleDatesPricesOneWayController(
+    $scope, $element, $attrs, $timeout, $filter) {
     let ctrl = this
-    ctrl.helper = helper;
-    ctrl.weeks = [];
+    ctrl.helper = helper
+    ctrl.weeks = []
 
     /**
      * On change handler
@@ -29,17 +30,14 @@ define(['./helpers/scrapHelper'], function(helper) {
      * Init component
      */
     ctrl.$onInit = function() {
-     ctrl.priceCalendar = ctrl.helper.getTableData();
-    
-      ctrl.cellClick = function(cell) {
-        if(cell.price === "N/D") return
+      ctrl.priceCalendar = ctrl.helper.getTableData()
 
-         cell.onClick()
-         cell.isSelected = true
-       
+      ctrl.cellClick = function(cell) {
+        if(cell.price === 'N/D') return
+        cell.onClick()
+        cell.isSelected = true
       }
     }
- 
   }
 
   FlexibleDatesPricesOneWayController.$inject = [
@@ -60,7 +58,7 @@ define(['./helpers/scrapHelper'], function(helper) {
         <thead>
           <tr>
             <th
-              data-ng-repeat=" day in  $ctrl.priceCalendar.m_days"
+              data-ng-repeat=" day in $ctrl.priceCalendar.m_days"
               class="flexible-dates">
               <span>
                 {{day}}
