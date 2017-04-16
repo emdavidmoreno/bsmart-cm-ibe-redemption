@@ -14,11 +14,11 @@ define([
   '../../../../scripts/directives/jqui-dialog',
   'statsService',
   'lodash',
-  '../../../../components/complex/bs-flexible-dates-prices/index.component',
+  '../../../../components/complex/bs-flexible-dates-calendar-area/index.component', // eslint-disable-line
   '../../../../components/complex/bs-btn-continue/index.component',
 ], function($, angular, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
-  jquiDialog, statsService, _, bsFlexibleDatesPricesComponent,
+  jquiDialog, statsService, _, bsFlexibleDatesCalendarAreaComponent,
   bsBtnContinueComponent) {
   let wrapperInstance = {}
 
@@ -75,6 +75,12 @@ define([
         model,
         pageTitle: hostScrapService.getPageTitle(),
         commentBlock: hostScrapService.getCommentBlock(),
+        states: {},
+        updateStates: (states) => {
+          $timeout(() => {
+            $scope.ui.states = angular.merge({}, $scope.ui.states, states)
+          }, 0)
+        },
       }
 
       $scope.ui = ui
@@ -107,13 +113,14 @@ define([
         .filter('sanitize', sanitize)
         .filter('unique', collUnique)
         .directive('jquiDialog', jquiDialog)
-        .component('bsFlexibleDatesPricesComponent',
-          bsFlexibleDatesPricesComponent
+        .component('bsFlexibleDatesCalendarAreaComponent',
+          bsFlexibleDatesCalendarAreaComponent
         )
         .component('bsBtnContinueComponent',
           bsBtnContinueComponent
         )
-        .controller('FlexibleDatesOneWayController', FlexibleDatesOneWayController)
+        .controller('FlexibleDatesOneWayController',
+          FlexibleDatesOneWayController)
   })({})
 
   return wrapperInstance
