@@ -59,7 +59,11 @@ define([
           openDialog: false,
           data: {},
         }
-        hostUIService = hostUIService()
+
+        if(typeof hostUIService === 'function') {
+          hostUIService = hostUIService()
+        }
+
         hostUIService.setHandlerSellingClass(function(error, response) {
           if(error) {
             console.log('[error] Loading Selling Class Info')
@@ -211,6 +215,12 @@ define([
         }
       }, 0)
     }
+        // watch view states
+    $scope.$watch('$ctrl.states', function(newState, oldState) {
+      if(newState && newState.updateView === true) {
+        ctrl.scrapHost()
+      }
+    })
   }
   SearchResultController.$inject = ['$scope', '$timeout', '$sce']
 
@@ -222,7 +232,7 @@ define([
   return {
     bindings: {
       // object with states for the component
-      states: '<',
+      states: '<?',
     },
 
     template:

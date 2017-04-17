@@ -80,6 +80,11 @@ define([
         updateStates: (states) => {
           $timeout(() => {
             $scope.ui.states = angular.merge({}, $scope.ui.states, states)
+            if(states.showLoading) {
+              $scope.$parent.showLoading = true
+            } else if(states.showLoading === false) {
+              $scope.$parent.showLoading = false
+            }
           }, 0)
         },
       }

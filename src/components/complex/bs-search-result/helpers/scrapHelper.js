@@ -284,8 +284,6 @@ define([
           })
         })
       }
-      console.log($('.colCostSelected'))
-      console.log(availableClasses)
       return availableClasses
     }
     return ui

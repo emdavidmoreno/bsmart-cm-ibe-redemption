@@ -121,12 +121,18 @@ define(['./helpers/scrapHelper',
     function setupUI() {
       bindHostFunctions.bindFn(
         () => {
-          updateStates({showLoading: true})
+          updateStates({
+            showLoading: true,
+            updateView: null,
+          })
         },
         () => {
           $timeout(() => {
             scrapHostUI(true)
-            updateStates({showLoading: false})
+            updateStates({
+              showLoading: false,
+              updateView: true,
+            })
           }, 50)
         }
         )

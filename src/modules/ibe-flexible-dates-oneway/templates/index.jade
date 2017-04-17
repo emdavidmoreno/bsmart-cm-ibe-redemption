@@ -10,7 +10,9 @@ block body
           data-farenet-model="ui.model"
           data-states="ui.states"
           data-update-states="ui.updateStates(states)")
-        bs-search-result-component()
+        bs-search-result-component(
+          data-states="ui.states"
+        )
      div.row.margin-bottom-md()
         div.col-md-12
            bs-btn-continue-component(data-btn-host-selector="#pgButtonNewSearch" btn-classes="btn-return")
