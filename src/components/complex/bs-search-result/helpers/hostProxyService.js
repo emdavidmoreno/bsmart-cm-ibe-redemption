@@ -1,5 +1,11 @@
-(function() {
+define([
+  'jquery',
+  './hostUIService',
+  './hostProxyService',
+], () => {
   /**
+   * hostProxyService
+   *
    * @return {Object}
    */
   function hostProxyService() {
@@ -21,7 +27,7 @@
     return hostProxyService
   }
 
-  angular
-      .module('responsiveBookingEngine')
-      .factory('hostProxyService', hostProxyService)
-})()
+  hostProxyService.$inject = []
+
+  return hostProxyService
+})

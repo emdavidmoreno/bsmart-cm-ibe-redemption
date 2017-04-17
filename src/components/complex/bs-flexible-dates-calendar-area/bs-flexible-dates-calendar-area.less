@@ -1,0 +1,59 @@
+
+@import '../../../_lib/bootstrap/less/mixins/grid-framework.less';
+@import '../../../_lib/bootstrap/less/mixins/grid.less';
+@import '../../../_lib/bootstrap/less/grid.less';
+
+bs-flexible-dates-calendar-area-component {
+  .m-container {
+    max-width: 80vw;
+    margin: 0 auto;
+  }
+  .m-container .m-tab-info {
+    display: inline-block;
+    width: 5rem;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #CFD0D0;
+    margin-left: 0.2rem;
+  }
+
+  .m-container .m-tab-info.m-tab-selected {
+    border-color: #0060a9;
+  }
+
+  .m-container .m-tab-info span {
+    text-align: center;
+    display: block;
+  }
+
+  .m-container .m-tab-info .m-lower-price {
+    margin: 0.4rem;
+  }
+
+  .m-container .m-tab-info span:nth-child(1) {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem
+  }
+
+  .m-container .m-tab-info span:nth-child(2) {
+    font-size: 2rem;
+    margin-bottom: 0.3rem
+  }
+  .m-prev, .m-container, .m-next {
+    display: inline-block
+  }
+  .m-prev, .m-next {
+    width: 1rem;
+  }
+  .m-prev span, .m-next span {
+    font-size: 2rem;
+  }
+  .m-prev span:after {
+    content: "\276E";
+    color: #0060a9;
+  }
+  .m-next span:after {
+    content: "\276F";
+    color: #0060a9;
+  }
+}

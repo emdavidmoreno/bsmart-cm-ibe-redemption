@@ -5,10 +5,15 @@ block body
    div.container-fluid
      h1.m-page-title {{ ui.pageTitle }}
      .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")
-     div.row.margin-bottom-md()       
-        bs-flexible-dates-prices-component(data-farenet-model="ui.model")
-        
      div.row.margin-bottom-md()
-        div.col-md-12    
-           bs-btn-continue-component(data-btn-host-selector=".pageButtonArea .button2" btn-classes="btn-return")
-           bs-btn-continue-component(data-btn-host-selector="#pgButtonSelect" btn-classes="btn-next")
+        bs-flexible-dates-calendar-area-component(
+          data-farenet-model="ui.model"
+          data-states="ui.states"
+          data-update-states="ui.updateStates(states)")
+        bs-search-result-component(
+          data-states="ui.states"
+        )
+     div.row.margin-bottom-md()
+        div.col-md-12
+           bs-btn-continue-component(data-btn-host-selector="#pgButtonNewSearch" btn-classes="btn-return")
+           bs-btn-continue-component(data-btn-host-selector="#pgButtonNext" btn-classes="btn-next")

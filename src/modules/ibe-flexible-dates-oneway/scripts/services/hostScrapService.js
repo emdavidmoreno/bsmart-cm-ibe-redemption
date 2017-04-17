@@ -2,7 +2,8 @@
   'use strict'
 
   const SELECTOR_PAGE_TITLE = '.pageTitleArea'
-  const SELECTOR_PAGE_COMMENT_BLOCK = '.flightSelectionFaresCalendar .commentBlock'
+  const SELECTOR_PAGE_COMMENT_BLOCK =
+    '.flightSelectionFaresCalendar .commentBlock'
 
   /**
    * Scrap Service for module Ibe Flexible Dates Controller
