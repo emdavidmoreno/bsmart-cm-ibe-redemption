@@ -95,6 +95,35 @@ define([
       $scope.$parent.showLoading = false
 
 
+
+
+       // SliderBar Currency
+      $scope.main.chooseCurrency = (function() {
+        return hostScrapService.getChooseCurrencyOptions();
+      })();
+      $scope.main.selectedChooseCurrency = (function() {
+        var strValue = hostScrapService.getChooseCurrency();
+        var value = null;
+        $scope.main.chooseCurrency.forEach(function(el) {
+          if (el.value === strValue) {
+            value = el;
+          }
+        });
+        if (!value) {
+          value = $scope.main.chooseCurrency[0];
+        }
+        return value;
+      })();
+      $scope.main.onChangeChooseCurrency = function(selected) {
+        $scope.$parent.hideMenu();
+        $scope.$parent.showLoading = true;
+        appHostProxyService.mockProcessAirFlightSearchFormValidationErrors();
+        appHostProxyService.mockInvokeBusinessAction();
+        appHostProxyService.mockProcessResult();
+        hostScrapService.getSetChooseCurrency(selected);
+      };
+
+
       // -------------------------------------------------------
       // listeners
       // -------------------------------------------------------
