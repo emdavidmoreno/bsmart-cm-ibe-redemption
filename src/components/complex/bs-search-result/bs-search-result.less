@@ -1,0 +1,99 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+@itinerary-summary-title__padding: 8px 8px;
+@itinerary-summary-title__font-size: @font-size-h5;
+@itinerary-summary-title-text--primary__color: #0E4A81;
+
+@itinerary-summary-flight__color: #666666;
+@itinerary-summary-flight__background-color: @light-blue;
+@itinerary-summary-title__background-color: transparent;
+
+@itinerary-summary-flight__background-color: white;
+@itinerary-summary-flight__box-shadow: none;
+@itinerary-summary-flight__border: solid 2px #0060A9;
+@m-select-flight-class-level1: #7FA4C0;
+@m-select-flight-class-level2: #3F77A0;
+@m-select-flight-class-level3: #184982;
+@m-select-flight-class-level4: #C57032;
+@m-select-flight-class-level5: #9F4C25;
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+.m-search-results{
+  .m-flight-selection{
+    .l-header{
+      position: relative;
+      top: 20px;
+    }
+    .m-header{
+      padding: 8px 13px;
+        background-color: @dark-blue;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        width: 100%;
+        margin-top: 12px;
+        //TODO: Thats wrong
+        margin-left: -10px;
+
+        strong{
+          background: white;
+          color: @dark-blue;
+          padding: 3px 8px;
+          border-radius: 12px;
+        }
+    }
+    .m-flights{
+      top: 3px;
+      position: relative;
+    }
+    .flight-selling-class {
+      font-size: 14px;
+      position: absolute;
+      right: 6px;
+      top: 10px;
+    }
+    .flight-price {
+      font-size: 16px;
+      position: absolute;
+      bottom: 10px;
+      right: 6px;
+    }
+  }
+
+  .m-flight-selection.done{
+    .m-header{
+      background-color: @light-blue;
+      color: #666666;
+        strong{
+          background: @dark-blue;
+          color: white;
+        }
+    }
+  }
+
+  .m-flight-selection + .m-flight-selection{
+      top: 10px;
+      position: relative;
+  }
+}
+
+.ui-widget-overlay {
+    background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x;
+    opacity: 0.1;
+    filter: Alpha(Opacity=10);
+}
