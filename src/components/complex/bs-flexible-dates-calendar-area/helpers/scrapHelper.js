@@ -1,7 +1,8 @@
 define(['jquery'], function($jq) {
   'use strict'
   // selectors
-  const TABS_DATE_SELECTOR = '#bodyBlock_0 .calendarTabsArea [role="listitem"]'
+  // eslint-disable-next-line
+  const TABS_DATE_SELECTOR = '#bodyBlock_0 .calendarTabsArea [role="listitem"],#bodyBlock_0 .calendarTabsArea [role="tab"]'
   /**
    * @return {String}
    */
