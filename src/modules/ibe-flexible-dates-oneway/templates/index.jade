@@ -1,0 +1,25 @@
+extends ../../../templates/layout.jade
+
+block body
+  div.m-flexible-dates(data-ng-controller="FlexibleDatesOneWayController")
+    .l-messages(ng-cloak)
+       .m-message(ng-if="ui.message"
+         data-ng-class="{error:true}")
+         i
+         p {{ui.message}}
+   div.container
+     h1.m-page-title {{ ui.pageTitle }}
+     .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")
+     div.row.margin-bottom-md()
+        bs-flexible-dates-calendar-area-component(
+          data-farenet-model="ui.model"
+          data-states="ui.states"
+          data-update-states="ui.updateStates(states)")
+        bs-search-result-component(
+          data-states="ui.states"
+        )
+
+      div.row.margin-bottom-md()
+        bs-btn-continue-component(data-btn-host-selector="#pgButtonNewSearch" btn-classes="btn-return")
+        bs-btn-continue-component(data-btn-host-selector="#pgButtonNext" btn-classes="btn-next")
+  

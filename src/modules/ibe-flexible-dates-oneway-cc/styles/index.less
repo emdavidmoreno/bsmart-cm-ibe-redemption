@@ -1,0 +1,144 @@
+//************************************************
+//
+// Import
+//
+//************************************************
+
+  // ------------------------------
+  // Libraries
+  //-------------------------------
+
+  @jquery-ui_path: '../../../_lib/jquery-ui/styles';
+
+  @import (inline) '@{jquery-ui_path}/core.css';
+  @import (inline) '@{jquery-ui_path}/theme.css';
+  @import (inline) '@{jquery-ui_path}/dialog.css';
+
+
+  // ------------------------------
+  // Parent
+  //-------------------------------
+
+  @import '../../../styles/index.less';
+
+  // ------------------------------
+  // Blocks
+  //-------------------------------
+
+  @import '../../../styles/blocks/flight-options.less';
+  @import '../../../styles/blocks/classes-dialog.less';
+  @import '../../../styles/blocks/itinerary-summary.less';
+
+  // ------------------------------
+  // Helpers
+  //-------------------------------
+  @import "../../../src/components/complex/bs-flexible-dates-prices-oneway/bs-flexible-dates-prices.less";
+  @import "../../../components/complex/bs-btn-continue/bs-btn-continue.component.less";
+
+  // ------------------------------
+  // External Variables
+  //
+  // "Overwrite block and helper
+  // variables"
+  //-------------------------------
+
+
+//************************************************
+//
+// Variables
+//
+// "Create new variables here"
+//************************************************
+
+
+//************************************************
+//
+//  Styles
+//
+//************************************************
+
+//TODO: We should move it to another var
+.l-messages{
+  margin-bottom: 9px;
+}
+
+.m-flexible-dates {
+  .m-page-title {
+    margin-top: 0.7rem;
+    color: #0060a9;
+  }
+
+  .m-page-comment-block {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    text-align: justify;
+  }
+
+  .m-page-comment-block a {
+    color: #c3a124
+  }
+
+  .m-flight-selection {
+    .l-header{
+      position: relative;
+      top: 20px;
+    }
+    .m-header {
+      padding: 8px 13px;
+        background-color: @dark-blue;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        width: 100%;
+        margin-top: 12px;
+        //TODO: Thats wrong
+        margin-left: -10px;
+
+        strong{
+          background: white;
+          color: @dark-blue;
+          padding: 3px 8px;
+          border-radius: 12px;
+        }
+    }
+    .m-flights{
+      top: 3px;
+      position: relative;
+    }
+    .flight-selling-class {
+      font-size: 14px;
+      position: absolute;
+      right: 6px;
+      top: 10px;
+    }
+    .flight-price {
+      font-size: 16px;
+      position: absolute;
+      bottom: 10px;
+      right: 6px;
+    }
+  }
+
+  .m-flight-selection.done {
+    .m-header{
+      background-color: @light-blue;
+      color: #666666;
+        strong{
+          background: @dark-blue;
+          color: white;
+        }
+    }
+  }
+
+  .m-flight-selection + .m-flight-selection{
+      top: 10px;
+      position: relative;
+  }
+}
+
+.ui-widget-overlay {
+    background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x;
+    opacity: 0.1;
+    filter: Alpha(Opacity=10);
+}
