@@ -16,10 +16,11 @@ define([
   'lodash',
   '../../../../components/complex/bs-flexible-dates-calendar-area/index.component', // eslint-disable-line
   '../../../../components/complex/bs-btn-continue/index.component',
+  '../../../../components/complex/bs-search-result/index.component',
 ], function($, angular, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
   jquiDialog, statsService, _, bsFlexibleDatesCalendarAreaComponent,
-  bsBtnContinueComponent) {
+  bsBtnContinueComponent, bsSearchResultComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -118,6 +119,9 @@ define([
         )
         .component('bsBtnContinueComponent',
           bsBtnContinueComponent
+        )
+        .component('bsSearchResultComponent',
+          bsSearchResultComponent
         )
         .controller('FlexibleDatesOneWayController',
           FlexibleDatesOneWayController)
