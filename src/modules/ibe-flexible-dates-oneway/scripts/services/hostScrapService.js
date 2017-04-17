@@ -6,6 +6,7 @@
   const SELECTOR_CHOOSE_CURRENCY = '#idChangeCurrency'
   const SELECTOR_CHOOSE_CURRENCY_OPTIONS =
       SELECTOR_CHOOSE_CURRENCY + ' option';
+  const SELECTOR_TEXT_MESSAGE = '.bodyText p'   
 
   /**
    * Scrap Service for module Ibe Flexible Dates Controller
@@ -41,6 +42,11 @@
       $(SELECTOR_CHOOSE_CURRENCY).val(selected.value);
       $(SELECTOR_CHOOSE_CURRENCY).change();
     };
+
+    hostScrapService.getMsg = function() {
+      console.log($(SELECTOR_TEXT_MESSAGE).text().trim())
+      return $(SELECTOR_TEXT_MESSAGE).text().trim()
+    }
 
     /**
      * @return {Object[]} options list

@@ -67,6 +67,7 @@ define([
 
       $scope.$parent.showMiniSummary = true
       $scope.$parent.stepper.goToStep(1)
+    
 
       // allow to farenet bring back the prices html nodes to
       Farenet2.verbose = 1
@@ -76,6 +77,7 @@ define([
         model,
         pageTitle: hostScrapService.getPageTitle(),
         commentBlock: hostScrapService.getCommentBlock(),
+        message:hostScrapService.getMsg(),
         states: {},
         updateStates: (states) => {
           $timeout(() => {
@@ -90,7 +92,7 @@ define([
       }
 
       $scope.ui = ui
-
+     console.log( $scope.ui.message)
       // app manipulation vars
       $scope.$parent.showLoading = false
 
