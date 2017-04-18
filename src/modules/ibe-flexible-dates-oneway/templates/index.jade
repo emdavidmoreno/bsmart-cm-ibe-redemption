@@ -3,10 +3,10 @@ extends ../../../templates/layout.jade
 block body
   div.m-flexible-dates(data-ng-controller="FlexibleDatesOneWayController")
     .l-messages(ng-cloak)
-       .m-message(ng-if="ui.message"
-         data-ng-class="{error:true}")
+       .m-message(data-ng-repeat="message in ui.messages"
+       class="info")
          i
-         p {{ui.message}}
+         p {{message.content}}
     div.container
       h1.m-page-title {{ ui.pageTitle }}
       .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")

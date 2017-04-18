@@ -75,7 +75,7 @@ define([
         model,
         pageTitle: hostScrapService.getPageTitle(),
         commentBlock: hostScrapService.getCommentBlock(),
-        message: hostScrapService.getMsg(),
+        messages: hostScrapService.getDefaultInfoMessages(),
         states: {},
         updateStates: (states) => {
           $timeout(() => {
@@ -90,7 +90,7 @@ define([
       }
 
       $scope.ui = ui
-      console.log( $scope.ui.message)
+     
       // app manipulation vars
       $scope.$parent.showLoading = false
 
