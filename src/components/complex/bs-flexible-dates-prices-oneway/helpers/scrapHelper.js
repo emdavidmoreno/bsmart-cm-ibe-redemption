@@ -17,11 +17,11 @@ define(['jquery'], function($jq) {
       $(SELECTOR_CELLS).each((index, el) => {
         let $el = $(el)
         let mprice = 'N/D'
-        let isSelected = false
+        let isSelected = $el.is('.selected')
 
         if(!$el.is('.notAvail')) {
           mprice = $el.has('div.colPrice').text().trim()
-          isSelected = $el.is('.selected')
+         
         }
 
         if (index % 7 == 0) {

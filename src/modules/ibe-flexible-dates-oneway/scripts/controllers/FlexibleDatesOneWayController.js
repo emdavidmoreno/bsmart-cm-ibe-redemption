@@ -74,22 +74,22 @@ define([
       // populate the model with the Farenet values
       let model = Farenet2.parse()
       let ui = {
-        model,
-        pageTitle: hostScrapService.getPageTitle(),
-        commentBlock: hostScrapService.getCommentBlock(),
-        message:hostScrapService.getMsg(),
-        states: {},
-        updateStates: (states) => {
-          $timeout(() => {
-            $scope.ui.states = angular.merge({}, $scope.ui.states, states)
-            if(states.showLoading) {
-              $scope.$parent.showLoading = true
-            } else if(states.showLoading === false) {
-              $scope.$parent.showLoading = false
-            }
-          }, 0)
-        },
-      }
+       model,
+       pageTitle: hostScrapService.getPageTitle(),
+       commentBlock: hostScrapService.getCommentBlock(),
+       message:hostScrapService.getMsg(),
+       states: {},
+       updateStates: (states) => {
+         $timeout(() => {
+           $scope.ui.states = angular.merge({}, $scope.ui.states, states)
+           if(states.showLoading) {
+             $scope.$parent.showLoading = true
+           } else if(states.showLoading === false) {
+             $scope.$parent.showLoading = false
+           }
+         }, 0)
+       },
+     }
 
       $scope.ui = ui
      console.log( $scope.ui.message)
