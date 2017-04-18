@@ -45,24 +45,24 @@
     }
 
 
-    hostScrapService.getDefaultInfoMessages = function () {    
-      let messages = []   
-        let $infoBlocks = $(SELECTOR_INFO_MESSAGE)
-        console.log("$infoBlocks",$infoBlocks.length)
-        $infoBlocks.each(function (index, el) {
-          let $el = $(el)
-          let body = $el.text().trim()
-          if (body !== '') {
-            console.log(body)
-            let message = {
-              content: body,
-            }
-            messages.push(message)
-
+    hostScrapService.getDefaultInfoMessages = function () {
+      let messages = []
+      let $infoBlocks = $(SELECTOR_INFO_MESSAGE)
+      console.log("$infoBlocks", $infoBlocks.length)
+      $infoBlocks.each(function (index, el) {
+        let $el = $(el)
+        let body = $el.text().trim()
+        if (body !== '') {
+          console.log(body)
+          let message = {
+            content: body,
           }
-        }) 
-        return messages  
-      
+          messages.push(message)
+
+        }
+      })
+      return messages
+
     }
 
 
