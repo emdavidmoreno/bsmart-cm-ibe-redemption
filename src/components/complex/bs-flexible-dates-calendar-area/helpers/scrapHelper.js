@@ -97,6 +97,7 @@ define(['jquery'], function($jq) {
         isDisabledTab,
         selected,
         lowerPrice,
+        isPriceText: isNaN(lowerPrice),
         hostTab: $elem,
         onClick: function() {
           if(!this.isDisabledTab && !this.selected) {

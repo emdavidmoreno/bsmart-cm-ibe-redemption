@@ -108,6 +108,9 @@ define(['./helpers/scrapHelper',
     }
 
     ctrl.tabClick = function(tab) {
+      if(tab.isDisabledTab) {
+        return
+      }
       ctrl.tabsInfo.forEach((t) => {
         t.selected = false
       })
@@ -194,12 +197,10 @@ define(['./helpers/scrapHelper',
 
   return {
     bindings: {
-      // farenet model
-      farenetModel: '<',
       // view states
       states: '<',
       // update state props
-      updateStates: '&?',
+      updateStates: '&',
     },
     /* eslint-disable max-len */
     template:
@@ -216,7 +217,8 @@ define(['./helpers/scrapHelper',
           <span data-ng-repeat="d in tab.date">
             {{ d }}
           </span>
-          <span class="m-lower-price"> {{ tab.lowerPrice }} </span>
+          <span class="m-lower-price" data-ng-if="!tab.isPriceText"> {{ tab.lowerPrice | currency: ""}} </span>
+          <span class="m-lower-price" data-ng-if="tab.isPriceText"> {{ tab.lowerPrice }} </span>
         </div>
       </div>
       <div class="m-next" data-ng-click="$ctrl.showNextTab()" data-ng-hide="$ctrl.isLastTab"><span></span></div>

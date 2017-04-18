@@ -2,11 +2,12 @@
   'use strict'
 
   const SELECTOR_PAGE_TITLE = '.pageTitleArea'
-  const SELECTOR_PAGE_COMMENT_BLOCK = '.flightSelectionFaresCalendar .commentBlock'
+  const SELECTOR_PAGE_COMMENT_BLOCK =
+    '.flightSelectionFaresCalendar .commentBlock'
   const SELECTOR_CHOOSE_CURRENCY = '#idChangeCurrency'
   const SELECTOR_CHOOSE_CURRENCY_OPTIONS =
-      SELECTOR_CHOOSE_CURRENCY + ' option';
-  const SELECTOR_TEXT_MESSAGE = '.bodyText p'   
+      SELECTOR_CHOOSE_CURRENCY + ' option'
+  const SELECTOR_TEXT_MESSAGE = '.bodyText p'
 
   /**
    * Scrap Service for module Ibe Flexible Dates Controller
@@ -31,17 +32,17 @@
     }
 
 
-     hostScrapService.getChooseCurrency = function() {
-      return $(SELECTOR_CHOOSE_CURRENCY).val();
-    };
+    hostScrapService.getChooseCurrency = function() {
+      return $(SELECTOR_CHOOSE_CURRENCY).val()
+    }
 
     /**
-     * @param {String} value Selected Currency by BS
+     * @param {String} selected Selected Currency by BS
      */
     hostScrapService.getSetChooseCurrency = function(selected) {
-      $(SELECTOR_CHOOSE_CURRENCY).val(selected.value);
-      $(SELECTOR_CHOOSE_CURRENCY).change();
-    };
+      $(SELECTOR_CHOOSE_CURRENCY).val(selected.value)
+      $(SELECTOR_CHOOSE_CURRENCY).change()
+    }
 
     hostScrapService.getMsg = function() {
       console.log($(SELECTOR_TEXT_MESSAGE).text().trim())
@@ -52,33 +53,31 @@
      * @return {Object[]} options list
      */
     hostScrapService.getChooseCurrencyOptions = function() {
-      var options = [];
-      var $elems = $(SELECTOR_CHOOSE_CURRENCY_OPTIONS);
+      let options = []
+      let $elems = $(SELECTOR_CHOOSE_CURRENCY_OPTIONS)
       $elems.each(function(index, el) {
-        var $el = $(el);
-        var attrS = $el.attr('selected');
-        var isSelected = (typeof attrS !== typeof undefined && attrS !== false);
+        let $el = $(el)
+        let attrS = $el.attr('selected')
+        let isSelected = (typeof attrS !== typeof undefined && attrS !== false)
         options.push({
           name: $el.text(),
           value: $el.attr('value'),
           shortName: extractCurrencyFromName($el.text()),
-          isSelected: isSelected
-        });
-      });
-      return options;
-    };
-
-    function extractCurrencyFromName(name){
-      var regExp = /\(([^)]+)\)/;
-      var matches = regExp.exec(name);
-      return matches[1];
+          isSelected: isSelected,
+        })
+      })
+      return options
     }
-
-
-
-
-
-
+    /**
+     *
+     * @param {String} name
+     * @return {String}
+     */
+    function extractCurrencyFromName(name) {
+      let regExp = /\(([^)]+)\)/
+      let matches = regExp.exec(name)
+      return matches[1]
+    }
 
     return hostScrapService
   }

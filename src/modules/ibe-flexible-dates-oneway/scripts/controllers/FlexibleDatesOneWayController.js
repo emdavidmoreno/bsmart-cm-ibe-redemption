@@ -67,63 +67,59 @@ define([
 
       $scope.$parent.showMiniSummary = true
       $scope.$parent.stepper.goToStep(1)
-    
-
       // allow to farenet bring back the prices html nodes to
       Farenet2.verbose = 1
       // populate the model with the Farenet values
       let model = Farenet2.parse()
       let ui = {
-       model,
-       pageTitle: hostScrapService.getPageTitle(),
-       commentBlock: hostScrapService.getCommentBlock(),
-       message:hostScrapService.getMsg(),
-       states: {},
-       updateStates: (states) => {
-         $timeout(() => {
-           $scope.ui.states = angular.merge({}, $scope.ui.states, states)
-           if(states.showLoading) {
-             $scope.$parent.showLoading = true
-           } else if(states.showLoading === false) {
-             $scope.$parent.showLoading = false
-           }
-         }, 0)
-       },
-     }
+        model,
+        pageTitle: hostScrapService.getPageTitle(),
+        commentBlock: hostScrapService.getCommentBlock(),
+        message: hostScrapService.getMsg(),
+        states: {},
+        updateStates: (states) => {
+          $timeout(() => {
+            $scope.ui.states = angular.merge({}, $scope.ui.states, states)
+            if(states.showLoading) {
+              $scope.$parent.showLoading = true
+            } else if(states.showLoading === false) {
+              $scope.$parent.showLoading = false
+            }
+          }, 0)
+        },
+      }
 
       $scope.ui = ui
-     console.log( $scope.ui.message)
+      console.log( $scope.ui.message)
       // app manipulation vars
       $scope.$parent.showLoading = false
 
 
-
-
        // SliderBar Currency
       $scope.main.chooseCurrency = (function() {
-        return hostScrapService.getChooseCurrencyOptions();
-      })();
+        return hostScrapService.getChooseCurrencyOptions()
+      })()
       $scope.main.selectedChooseCurrency = (function() {
-        var strValue = hostScrapService.getChooseCurrency();
-        var value = null;
+        let strValue = hostScrapService.getChooseCurrency()
+        let value = null
         $scope.main.chooseCurrency.forEach(function(el) {
           if (el.value === strValue) {
-            value = el;
+            value = el
           }
-        });
+        })
         if (!value) {
-          value = $scope.main.chooseCurrency[0];
+          value = $scope.main.chooseCurrency[0]
         }
-        return value;
-      })();
+        return value
+      })()
       $scope.main.onChangeChooseCurrency = function(selected) {
-        $scope.$parent.hideMenu();
-        $scope.$parent.showLoading = true;
-        appHostProxyService.mockProcessAirFlightSearchFormValidationErrors();
-        appHostProxyService.mockInvokeBusinessAction();
-        appHostProxyService.mockProcessResult();
-        hostScrapService.getSetChooseCurrency(selected);
-      };
+        $scope.$parent.hideMenu()
+        $scope.$parent.showLoading = true
+        appHostProxyService.mockProcessAirFlightSearchFormValidationErrors()
+        appHostProxyService.mockInvokeBusinessAction()
+        appHostProxyService.mockProcessResult()
+        hostScrapService.getSetChooseCurrency(selected)
+      }
 
 
       // -------------------------------------------------------
