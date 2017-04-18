@@ -217,7 +217,7 @@ define(['./helpers/scrapHelper',
           <span data-ng-repeat="d in tab.date">
             {{ d }}
           </span>
-          <span class="m-lower-price" data-ng-if="!tab.isPriceText"> {{ tab.lowerPrice | currency}} </span>
+          <span class="m-lower-price" data-ng-if="!tab.isPriceText"> {{ tab.lowerPrice | currency: ""}} </span>
           <span class="m-lower-price" data-ng-if="tab.isPriceText"> {{ tab.lowerPrice }} </span>
         </div>
       </div>
