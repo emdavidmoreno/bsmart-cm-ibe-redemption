@@ -387,6 +387,8 @@
           .iconFontContent(before, 'icon-attention');
         }
       }
+
+   
       margin-left: -10px;
       width: 100%;
       p{
@@ -400,7 +402,37 @@
         color: @color-error;
       }
     }
-  }
+    }
+
+
+  .l-messages {
+    .m-message {      
+     &.info {
+       margin-top: 3px;
+       margin-bottom: 2px;
+       font-size: 12px;
+       color: #31708f;
+       background-color: #d9edf7;
+       border-color: #bce8f1;
+
+      i{
+          .iconFontSetupStyles(before);
+          .iconFontContent(before, 'icon-info-circled');
+          color: #0060A9;
+       } 
+    
+     }    
+ 
+    }
+    }
+
+    
+
+
+   
+
+
+ 
 
 
   //---------------------------------------------

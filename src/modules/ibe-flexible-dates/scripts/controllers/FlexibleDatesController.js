@@ -16,91 +16,92 @@ define([
   'lodash',
   '../../../../components/complex/bs-flexible-dates-prices/index.component',
   '../../../../components/complex/bs-btn-continue/index.component',
-], function($, angular, hostScrapService, hostProxyService,
+], function ($, angular, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
   jquiDialog, statsService, _, bsFlexibleDatesPricesComponent,
   bsBtnContinueComponent) {
-  let wrapperInstance = {}
+    let wrapperInstance = {}
 
-  wrapperInstance.init = function(config, actionConfig) {
-    wrapperInstance.config = config
-    wrapperInstance.actionConfig = actionConfig
-  };
+    wrapperInstance.init = function (config, actionConfig) {
+      wrapperInstance.config = config
+      wrapperInstance.actionConfig = actionConfig
+    };
 
-  /**
-   * Angular Controller
-   * @author devs@everymundo.com
-   */
-  (function() {
     /**
-     * FlexibleDates Angular controller
-     *
-     * @param {Object} $scope
-     * @param {Object} hostScrapService
-     * @param {Object} hostProxyService
-     * @param {Function} $timeout
-     * @param {Object} appHostProxyService
-     * @param {Function} $filter
-     * @param {Function} $sce
-     *
-     * @return {Object}
+     * Angular Controller
+     * @author devs@everymundo.com
      */
-    function FlexibleDatesController(
-      $scope,
-      hostScrapService,
-      hostProxyService,
-      $timeout,
-      appHostProxyService,
-      $filter,
-      $sce
-    ) {
-      let instance = this
+    (function () {
+      /**
+       * FlexibleDates Angular controller
+       *
+       * @param {Object} $scope
+       * @param {Object} hostScrapService
+       * @param {Object} hostProxyService
+       * @param {Function} $timeout
+       * @param {Object} appHostProxyService
+       * @param {Function} $filter
+       * @param {Function} $sce
+       *
+       * @return {Object}
+       */
+      function FlexibleDatesController(
+        $scope,
+        hostScrapService,
+        hostProxyService,
+        $timeout,
+        appHostProxyService,
+        $filter,
+        $sce
+      ) {
+        let instance = this
 
-      // -------------------------------------------------------
-      // starting code
-      // -------------------------------------------------------
+        // -------------------------------------------------------
+        // starting code
+        // -------------------------------------------------------
 
-      instance.init = function() {
-        console.log('FlexibleDatesController init')
+        instance.init = function () {
+          console.log('FlexibleDatesController init')
+        }
+
+        $scope.$parent.showMiniSummary = true
+        $scope.$parent.stepper.goToStep(1)
+
+        // allow to farenet bring back the prices html nodes to
+        Farenet2.verbose = 1
+        // populate the model with the Farenet values
+        let model = Farenet2.parse()
+        let ui = {
+          model,
+          pageTitle: hostScrapService.getPageTitle(),
+          messages: hostScrapService.getDefaultInfoMessages(),
+          commentBlock: hostScrapService.getCommentBlock(),
+        }
+
+        $scope.ui = ui
+
+        // app manipulation vars
+        $scope.$parent.showLoading = false
+
+
+        // -------------------------------------------------------
+        // listeners
+        // -------------------------------------------------------
+        instance.init()
+        return instance
       }
 
-      $scope.$parent.showMiniSummary = true
-      $scope.$parent.stepper.goToStep(1)
+      FlexibleDatesController.$inject = [
+        '$scope',
+        'hostScrapService',
+        'hostProxyService',
+        '$timeout',
+        'appHostProxyService',
+        '$filter',
+        '$sce',
+      ]
 
-      // allow to farenet bring back the prices html nodes to
-      Farenet2.verbose = 1
-      // populate the model with the Farenet values
-      let model = Farenet2.parse()
-      let ui = {
-        model,
-        pageTitle: hostScrapService.getPageTitle(),
-        commentBlock: hostScrapService.getCommentBlock(),
-      }
-
-      $scope.ui = ui
-
-      // app manipulation vars
-      $scope.$parent.showLoading = false
-
-
-      // -------------------------------------------------------
-      // listeners
-      // -------------------------------------------------------
-      instance.init()
-      return instance
-    }
-
-    FlexibleDatesController.$inject = [
-      '$scope',
-      'hostScrapService',
-      'hostProxyService',
-      '$timeout',
-      'appHostProxyService',
-      '$filter',
-      '$sce',
-    ]
-
-    angular
+      angular
         .module('responsiveBookingEngine')
         .filter('duration', strDuration)
         .filter('simpledate', strSimpleDate)
@@ -108,13 +109,13 @@ define([
         .filter('unique', collUnique)
         .directive('jquiDialog', jquiDialog)
         .component('bsFlexibleDatesPricesComponent',
-          bsFlexibleDatesPricesComponent
+        bsFlexibleDatesPricesComponent
         )
         .component('bsBtnContinueComponent',
-          bsBtnContinueComponent
+        bsBtnContinueComponent
         )
         .controller('FlexibleDatesController', FlexibleDatesController)
-  })({})
+    })({})
 
-  return wrapperInstance
-})
+    return wrapperInstance
+  })
