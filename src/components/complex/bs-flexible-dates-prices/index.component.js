@@ -113,6 +113,7 @@ define(['./helpers/scrapHelper'], function(helper) {
         cells.outboundDates[msOutboundDate].cellInfo.push(
           Object.assign({}, v, {
             inboundDate: msInboundDate,
+            isPriceText: isNaN(v.price),
             onClick: function() {
               if(!this.isNotAvail) {
                 this.cell[0].click()
@@ -169,7 +170,8 @@ define(['./helpers/scrapHelper'], function(helper) {
               data-ng-class="{'selected-price': cell.isSelected, 'lower-prices': cell.price == $ctrl.lowestPrice}"
               data-ng-if="!cell.format"
               class='flexible-dates-price'>
-              <span>{{ cell.price }}</span>
+              <span data-ng-if="!cell.isPriceText">{{ cell.price | currency : "" }}</span>
+              <span data-ng-if="cell.isPriceText">{{ cell.price }}</span>
             </td>
           </tr>
         </tbody>
