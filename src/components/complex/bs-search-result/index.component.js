@@ -24,6 +24,7 @@ define([
     let ctrl = this
     // let hostUIService = hostUIService()
     ctrl.helper = helperDefault
+    ctrl.hostProxyService = hostProxyService
     ctrl.ui = {}
     /**
      * Init component
@@ -115,7 +116,9 @@ define([
             }
 
             // click the price trought the host service
-            hostProxyService = hostProxyService()
+
+            hostProxyService = ctrl.hostProxyService.getHostProxyService()
+            console.log(hostProxyService)
             hostProxyService.selectFlightAction(infoClass.htmlNode)
 
             // populate the location summary

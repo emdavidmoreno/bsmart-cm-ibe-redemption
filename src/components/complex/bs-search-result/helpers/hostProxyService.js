@@ -3,12 +3,9 @@ define([
   './hostUIService',
   './hostProxyService',
 ], () => {
-  /**
-   * hostProxyService
-   *
-   * @return {Object}
-   */
-  function hostProxyService() {
+  'use strict'
+
+  function getHostProxyService() {
     let hostProxyService = {}
     let scrapSelectors = {
       generalActions: {
@@ -16,18 +13,26 @@ define([
       },
     }
 
-    hostProxyService.selectFlightAction = function(priceNode) {
+    hostProxyService.selectFlightAction = function (priceNode) {
       $(priceNode).find('input').click()
     }
 
-    hostProxyService.getFormActionNodeSelector = function() {
+    hostProxyService.getFormActionNodeSelector = function () {
       return scrapSelectors.generalActions.continueButton
     }
 
     return hostProxyService
   }
 
-  hostProxyService.$inject = []
 
-  return hostProxyService
+  return {
+    getHostProxyService: getHostProxyService,
+  }
 })
+
+
+
+
+
+
+
