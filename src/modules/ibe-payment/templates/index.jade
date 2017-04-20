@@ -375,6 +375,14 @@ block body
                 data-ng-change="ui.payment.setBaPostalCode(ui.payment.baPostalCode)")
               span.text-message
                 | {{ ui.partialErrors.baPostalCode }}
+            .col-sm-10
+              input.inline-checkbox(
+                type='checkbox' 
+                data-ng-model="ui.agreements.saveCreditCard" 
+                data-ng-checked="ui.agreements.saveCreditCard"
+                data-ng-change="ui.agreements.checkedSaveCreditCard()")
+              label.inline-label(ng-bind-html="ui.static_messages.saveCreditCardLabel.content | sanitize")
+                     
     section(ng-show="ui.showPaymentInformation")
       h2
         | {{'LABEL_TERM_CONDITION' | translate}}
