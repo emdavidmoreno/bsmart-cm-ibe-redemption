@@ -58,13 +58,11 @@
 
     hostScrapService.acceptTermsAndConditions = function () {
       // updateTermsAndConditions();
-     
       $(TB_TERMS_CONDITIONS_CHECKBOX_SELECTOR).click()
     };
 
     hostScrapService.checkedSaveCreditCard = function () {
-       console.log("Se dipara por primera vez")
-       $(SAVE_CHECKBOX_SELECTOR).click()
+      $(SAVE_CHECKBOX_SELECTOR).click()
     };
 
 
