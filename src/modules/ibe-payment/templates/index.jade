@@ -162,7 +162,7 @@ block body
         div.content
          .form-group.md(data-ng-class="{'show-field-error': ui.partialErrors.cardType }" data-ng-if="ui.isCreditCardsSaved")
             label.col-sm-2.control-label.field-required
-              | {{ui.creditCardLabel}} 
+              | {{'LABEL_CARD_SAVED' | translate}} 
             .col-sm-10
               select.md.form-control(
                 data-ng-model="ui.payment.saved_card_select"
