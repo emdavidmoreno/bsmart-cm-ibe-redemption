@@ -32,6 +32,10 @@
     var PAYMENT_BANKTRANSFERS_ELECTOR =
       'input[type="checkbox"][name="formOfPayment(BANKTRANSFERS).selected"]';
 
+    var SELECTOR_CREDIT_CARDS_SAVED = '#paymentMethod';
+
+    var SELECTOR_SAVED_CREDIT_CARD_LABEL = '#idSavedCardsLabel';
+
     var agreements = {
       TERMS_CONDITIONS: '[name=acceptTermsAndConditions]',
       HAZARDOUS_MATERIALS: '[name=acceptHazardousMaterials]',
@@ -49,6 +53,10 @@
       console.log(agreements[agreeType])
       console.log($elem.val())
       return $elem.val();
+    };
+
+    hostScrapService.isCreditCardsSaved = function () {
+       return $(SELECTOR_CREDIT_CARDS_SAVED).length
     };
 
     hostScrapService.acceptHazardousMaterials = function () {
@@ -73,6 +81,7 @@
 
     // ----------------------------------------------------------
     var creditCardSelectors = {
+      SAVED_CARD_SELECT:'select[name="paymentMethod"]',
       CARD_TYPE: 'select[name="formOfPayment(CREDITCARD_POS).type"]',
       CARD_ISSUING_COUNTRY_SELECT: 'select[name="formOfPayment(CREDITCARD_POS).issuingCountrySelect"]',
       CARD_CURRENCY_SELECT: 'select[name="formOfPayment(CREDITCARD_POS).currencySelect"]',
@@ -230,6 +239,7 @@
 
     // ------------------------ CREDITCARD -----------------
     var ccInputTypes = {
+      SAVED_CARD_SELECT: 'SAVED_CARD_SELECT',
       CARD_TYPE: 'CARD_TYPE',
       CARD_ISSUING_COUNTRY_SELECT: 'CARD_ISSUING_COUNTRY_SELECT',
       CARD_CURRENCY_SELECT: 'CARD_CURRENCY_SELECT',
@@ -261,6 +271,11 @@
     hostScrapService.getCreditCardInputsSelectorsType = function () {
       return ccInputTypes;
     };
+
+    hostScrapService.getCreditCardLabel = function () {
+      return $(SELECTOR_SAVED_CREDIT_CARD_LABEL).text().trim();
+    };
+
 
     /**
      * @param {String} ccInputType field that you need value, the value of this

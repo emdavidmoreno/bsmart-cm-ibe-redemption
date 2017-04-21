@@ -110,13 +110,14 @@ define([
           },
           isPaymentCreditCardPosChecked: hostScrapService.isPaymentCreditCardPosChecked(),
           isPaymentBankTransferChecked: hostScrapService.isPaymentBankTransferChecked(),
+          isCreditCardsSaved:hostScrapService.isCreditCardsSaved(),
           togglePaymentCreditCardPos: hostScrapService.togglePaymentCreditCardPos,
           togglePaymentBankTransfer: hostScrapService.togglePaymentBankTransfer,
           payment: buildCreditCardInfo(),
           agreements: buildAgreements(),
           partialErrors: {},
           card_images: hostScrapService.getCardImages(),
-
+          creditCardLabel: hostScrapService.getCreditCardLabel()
         };
 
         ui.total_price.base_fare = getBaseFare(model);
@@ -192,6 +193,7 @@ define([
           if (!value) {
             value = options[0];
           }
+          
           return value;
         };
 
@@ -200,6 +202,8 @@ define([
           var inputsType = hostScrapService.getCreditCardInputsSelectorsType();
           var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_TYPE);
           $scope.ui.payment.cardType = getSelectedOption(v, $scope.ui.payment.cardTypes);
+          var v = hostScrapService.getCreditCardValueByInput(inputsType.SAVED_CARD_SELECT);
+          $scope.ui.payment.saved_card_select = getSelectedOption(v, $scope.ui.payment.savedCards);
           v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
           $scope.ui.payment.cardCountry = getSelectedOption(v, $scope.ui.payment.cardIssuingCountries);
           v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_CURRENCY_SELECT);
@@ -501,6 +505,8 @@ define([
             // lists
             cardTypes:
             hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_TYPE),
+            savedCards:
+            hostScrapService.getCreditCardSelectOptionsByInput(inputsType.SAVED_CARD_SELECT),
             cardIssuingCountries:
             hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT),
             cardCurrencies:
@@ -537,6 +543,13 @@ define([
                   hostUIService.syncPosition();
                 }, 2);
               }, 1000);
+              $timeout(function () {
+                hostUIService.syncPosition();
+              }, 2);
+            },
+            setSavedCardsList: function (value) {
+              hostScrapService.setCreditCardValueByInput(inputsType.SAVED_CARD_SELECT, value);
+              ui.partialErrors.savedCardSelect = null;
               $timeout(function () {
                 hostUIService.syncPosition();
               }, 2);
