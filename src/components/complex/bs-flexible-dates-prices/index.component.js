@@ -167,7 +167,7 @@ define(['./helpers/scrapHelper'], function(helper) {
             <td
               data-ng-repeat="cell in rowValue.cellInfo"
               data-ng-click="$ctrl.cellClick(cell, rowValue)"
-              data-ng-class="{'selected-price': cell.isSelected, 'lower-prices': cell.price == $ctrl.lowestPrice}"
+              data-ng-class="{'selected-price': cell.isSelected, 'lower-prices': cell.price == $ctrl.lowestPrice, 'm-have-price': !cell.isPriceText}"
               data-ng-if="!cell.format"
               class='flexible-dates-price'>
               <span data-ng-if="!cell.isPriceText">{{ cell.price | currency : "" }}</span>
