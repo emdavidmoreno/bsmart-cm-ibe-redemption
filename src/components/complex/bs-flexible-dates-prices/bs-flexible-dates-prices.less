@@ -8,6 +8,27 @@ bs-flexible-dates-prices-component {
   .lower-prices {
     color: #03BA00 !important;
   }
+  .m-return-label {
+    margin-left: 3rem;
+    font-size: 1rem;
+    color: #005fab;
+    font-weight: bold;
+  }
+
+  .m-depart-label {
+    font-size: 0.7rem;
+    color: #005fab;
+    font-weight: bold;
+  }
+  .m-depart-label span {
+    display: block;
+    text-align: center;
+  }
+
+  .m-depart-label span:nth-child(2) {
+      font-size: 1.2rem;
+  }
+
   .flexible-dates {
     background-color: #005FAB;
     color: white;
@@ -32,5 +53,24 @@ bs-flexible-dates-prices-component {
   .flexible-dates-price.selected-price {
     background-color: #C3A124 !important;
     color: black !important;
+  }
+
+  .m-btn {
+    float: right;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: white;
+    background: #005fab;
+    border-radius: 70px;
+    width: 1.3rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .m-btn span:after {
+    content: '\003E' // >
+  }
+
+  .m-btn-left span:after {
+    content: '\003C'  // <
   }
 }
