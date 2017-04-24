@@ -36,6 +36,8 @@
 
     var SELECTOR_SAVED_CREDIT_CARD_LABEL = '#idSavedCardsLabel';
 
+    var SELECTOR_EDIT_CARD_OPTIONS = '#paymentCardRow .creditCardMaintenanceLinks a';
+
     var agreements = {
       TERMS_CONDITIONS: '[name=acceptTermsAndConditions]',
       HAZARDOUS_MATERIALS: '[name=acceptHazardousMaterials]',
@@ -56,7 +58,10 @@
     };
 
     hostScrapService.isCreditCardsSaved = function () {
-       return $(SELECTOR_CREDIT_CARDS_SAVED).length
+      return $(SELECTOR_CREDIT_CARDS_SAVED).length
+    };
+    hostScrapService.ifExistEditOption = function () {
+      return $(SELECTOR_EDIT_CARD_OPTIONS).length
     };
 
     hostScrapService.acceptHazardousMaterials = function () {
@@ -81,7 +86,7 @@
 
     // ----------------------------------------------------------
     var creditCardSelectors = {
-      SAVED_CARD_SELECT:'select[name="paymentMethod"]',
+      SAVED_CARD_SELECT: 'select[name="paymentMethod"]',
       CARD_TYPE: 'select[name="formOfPayment(CREDITCARD_POS).type"]',
       CARD_ISSUING_COUNTRY_SELECT: 'select[name="formOfPayment(CREDITCARD_POS).issuingCountrySelect"]',
       CARD_CURRENCY_SELECT: 'select[name="formOfPayment(CREDITCARD_POS).currencySelect"]',

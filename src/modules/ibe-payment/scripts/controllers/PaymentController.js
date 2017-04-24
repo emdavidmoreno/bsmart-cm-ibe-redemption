@@ -110,7 +110,8 @@ define([
           },
           isPaymentCreditCardPosChecked: hostScrapService.isPaymentCreditCardPosChecked(),
           isPaymentBankTransferChecked: hostScrapService.isPaymentBankTransferChecked(),
-          isCreditCardsSaved:hostScrapService.isCreditCardsSaved(),
+          isCreditCardsSaved: hostScrapService.isCreditCardsSaved(),
+          ifExistEditOption: hostScrapService.ifExistEditOption(),
           togglePaymentCreditCardPos: hostScrapService.togglePaymentCreditCardPos,
           togglePaymentBankTransfer: hostScrapService.togglePaymentBankTransfer,
           payment: buildCreditCardInfo(),
@@ -193,7 +194,7 @@ define([
           if (!value) {
             value = options[0];
           }
-          
+
           return value;
         };
 
@@ -273,6 +274,22 @@ define([
             }, 2000);
           }, 0);
 
+        };
+
+        $scope.ui.editableMode = function () {          
+          $scope.ui.isCreditCardsSaved = 0;
+          editPaymentCard();
+          $timeout(function () {
+            hostUIService.syncIframeFields();
+          }, 2000);
+        };
+
+        $scope.ui.returnFromEditableMode = function () {          
+          $scope.ui.isCreditCardsSaved = 1;
+          selectPaymentFromProfile();
+          $timeout(function () {
+            hostUIService.syncIframeFields();
+          }, 2000);
         };
 
         $scope.continueButtonAction = function () {
@@ -520,8 +537,7 @@ define([
             states:
             hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_STATE_DISPLAY),
             installmentsOptions:
-            hostScrapService.getCreditCardSelectOptionsByInput(inputsType.INSTALLMENTS),
-
+            hostScrapService.getCreditCardSelectOptionsByInput(inputsType.INSTALLMENTS),           
             // setters
             setDocumentNumber: function (value) {
               hostScrapService.setCreditCardValueByInput(inputsType.DOCUMENT_NUMBER, value);
@@ -926,6 +942,11 @@ define([
             hostScrapService.getAgreementsValueByInput('HAZARDOUS_MATERIALS'),
             saveCreditCard:
             hostScrapService.getAgreementsValueByInput('CREDIT_CARD'),
+            checkBoxCreditCardStatus:function () {
+              var value = hostScrapService.getAgreementsValueByInput('CREDIT_CARD');
+              return value;
+
+            },
             checkedSaveCreditCard: function () {
               hostScrapService.checkedSaveCreditCard()
               //ui.partialErrors.termsConditions = null;
