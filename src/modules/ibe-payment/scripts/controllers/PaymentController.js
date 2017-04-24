@@ -276,7 +276,7 @@ define([
 
         };
 
-        $scope.ui.editableMode = function () {          
+        $scope.ui.editableMode = function () {
           $scope.ui.isCreditCardsSaved = 0;
           editPaymentCard();
           $timeout(function () {
@@ -284,7 +284,7 @@ define([
           }, 2000);
         };
 
-        $scope.ui.returnFromEditableMode = function () {          
+        $scope.ui.returnFromEditableMode = function () {
           $scope.ui.isCreditCardsSaved = 1;
           selectPaymentFromProfile();
           $timeout(function () {
@@ -537,7 +537,7 @@ define([
             states:
             hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_STATE_DISPLAY),
             installmentsOptions:
-            hostScrapService.getCreditCardSelectOptionsByInput(inputsType.INSTALLMENTS),           
+            hostScrapService.getCreditCardSelectOptionsByInput(inputsType.INSTALLMENTS),
             // setters
             setDocumentNumber: function (value) {
               hostScrapService.setCreditCardValueByInput(inputsType.DOCUMENT_NUMBER, value);
@@ -942,7 +942,7 @@ define([
             hostScrapService.getAgreementsValueByInput('HAZARDOUS_MATERIALS'),
             saveCreditCard:
             hostScrapService.getAgreementsValueByInput('CREDIT_CARD'),
-            checkBoxCreditCardStatus:function () {
+            checkBoxCreditCardStatus: function () {
               var value = hostScrapService.getAgreementsValueByInput('CREDIT_CARD');
               return value;
 
