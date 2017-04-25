@@ -130,6 +130,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_NUMBER: 'telephone number',
        LABEL_LOGIN: 'Login',
        LABEL_MMB: 'Manage your booking',
+       LABEL_EXACT_DATE: 'Exact date',
+       LABEL_FLEXIBLE_DATE: 'Flexible Dates',
       });
 
 
@@ -257,6 +259,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_NUMBER: 'número de teléfono',
        LABEL_LOGIN: 'Entrar',
        LABEL_MMB:'Maneje su reserva',
+       LABEL_EXACT_DATE: 'Fechas Exactas',
+       LABEL_FLEXIBLE_DATE: 'Fechas Flexibles',
      });
 
      // portuguees translations
@@ -383,6 +387,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_NUMBER: 'número de telefone',
        LABEL_LOGIN: 'Acceda a su cuenta',
        LABEL_MMB:'Administre a sua reserva',
+       LABEL_EXACT_DATE: 'Datas Exatas',
+       LABEL_FLEXIBLE_DATE: 'Datas Flexíveis',
      });
 
      // set default language

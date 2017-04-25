@@ -136,19 +136,21 @@ block body
           span.text-message
             | {{ui.errors[$index].departDate}}
       hr
-    .l-cabin-type-group(ng-cloak data-ng-if="ui.flightType.value != 'MC'")
-      label(data-ng-click="ui.flexible.change(false)"
-        data-ng-class="{'cabin-type--selected': ui.flexible.value === false}")
-        input.radio--custom(type='radio' data-ng-model='ui.flexible.value'
-          data-ng-change='ui.flexible.change(false)' data-ng-value="false")
-        label
-          | {{ ui.flexible.strictDateText }}
-      label(ng-click="ui.flexible.change(true)"
-        data-ng-class="{'cabin-type--selected': ui.flexible.value === true}")
-        input.radio--custom(type='radio' data-ng-model='ui.flexible.value'
-           data-ng-change='ui.flexible.change(true)' data-ng-value="true")
-        label
-          | {{ ui.flexible.flexibleDateText }}
+
+    .l-flexible-type-group(ng-cloak data-ng-if="ui.flightType.value != 'MC'")
+      button(type="button" class="btn btn-default" value='ED'
+        data-ng-model='ui.flexible.value'
+        data-ng-click='ui.flexible.change(false)'
+        data-ng-class="{'btn--activated': ui.flexible.value === false}"
+      )
+        | {{ 'LABEL_EXACT_DATE' | translate }}
+      button(type="button" class="btn btn-default"  value='FD'
+        data-ng-model='ui.flexible.value'
+        data-ng-click='ui.flexible.change(true)'
+        data-ng-class="{'btn--activated': ui.flexible.value === true}"
+      )
+        | {{ 'LABEL_FLEXIBLE_DATE' | translate }}
+
     .l-passengers(ng-cloak data-ng-class="{'show-field-error': ui.errors.guestTypes }")
       select.select--safari-friendly(data-ng-show="!passengersExtraOptionsSelected"
       data-ng-model='ui.passengers.adults' data-ng-change='ui.passengers.onChangeAdults()')
