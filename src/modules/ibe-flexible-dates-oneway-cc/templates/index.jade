@@ -4,7 +4,7 @@ block body
   div.m-flexible-dates(data-ng-controller="FlexibleDatesOneWayCCController")
     .l-messages(ng-cloak)
       .m-message(ng-if="ui.message"
-        data-ng-class="{info:true}")
+        class="error")
         i
         p {{ui.message}}
     div.container-fluid

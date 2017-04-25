@@ -1,7 +1,7 @@
-(function() {
+(function () {
   'use strict';
 
-  function hostScrapService(){
+  function hostScrapService() {
     var hostScrapService = {};
     var REVIEW_ITINERARY_DISCLAIMER_SELECTOR = '.reviewItineraryDisclaimer';
 
@@ -18,6 +18,8 @@
     var TB_TERMS_CONDITIONS_CHECKBOX_SELECTOR =
       '#acceptTermsAndConditionsCheckBox';
 
+    var SAVE_CHECKBOX_SELECTOR = '#savePaymentCardCheckBox'
+
     var HAZARDOUS_MATERIALS_AGREEMENT_MESSAGE_SELECTOR =
       '.hazardousMaterialsAgreement .textBlock';
     var HAZARDOUS_MATERIALS_AGREEMENT_LABEL_SELECTOR =
@@ -30,30 +32,53 @@
     var PAYMENT_BANKTRANSFERS_ELECTOR =
       'input[type="checkbox"][name="formOfPayment(BANKTRANSFERS).selected"]';
 
+    var SELECTOR_CREDIT_CARDS_SAVED = '#paymentMethod';
+
+    var SELECTOR_SAVED_CREDIT_CARD_LABEL = '#idSavedCardsLabel';
+
+    var SELECTOR_EDIT_CARD_OPTIONS = '#paymentCardRow .creditCardMaintenanceLinks a';
+
     var agreements = {
       TERMS_CONDITIONS: '[name=acceptTermsAndConditions]',
       HAZARDOUS_MATERIALS: '[name=acceptHazardousMaterials]',
+      CREDIT_CARD: '[name=savePaymentCard]'
     };
     /**
      * @param {String} agreeType field that you need value, the value of this
      *    param is key in object agreeTypes
      */
-    hostScrapService.getAgreementsValueByInput = function(agreeType) {
+    hostScrapService.getAgreementsValueByInput = function (agreeType) {
       if (!agreements.hasOwnProperty(agreeType)) {
         return null;
       }
-      var $elem = $(creditCardSelectors[agreeType]);
+      var $elem = $(agreements[agreeType]);
+      console.log(agreements[agreeType])
+      console.log($elem.val())
       return $elem.val();
+    };
+
+    hostScrapService.isCreditCardsSaved = function () {
+      return $(SELECTOR_CREDIT_CARDS_SAVED).length
+    };
+    hostScrapService.ifExistEditOption = function () {
+      return $(SELECTOR_EDIT_CARD_OPTIONS).length
     };
 
     hostScrapService.acceptHazardousMaterials = function () {
       // updateHazardousMaterials();
       $(HAZARDOUS_MATERIALS_CHECKBOX_SELECTOR).click()
     };
+
     hostScrapService.acceptTermsAndConditions = function () {
       // updateTermsAndConditions();
       $(TB_TERMS_CONDITIONS_CHECKBOX_SELECTOR).click()
     };
+
+    hostScrapService.checkedSaveCreditCard = function () {
+      $(SAVE_CHECKBOX_SELECTOR).click()
+    };
+
+
     // $('input[type=text][name="formOfPayment(CREDITCARD_POS).documentNumber"]').closest('#rowDocumentNumber').is(':visible')
     var SELECTOR_ROW_DOCUMENT_NUMBER = '#rowDocumentNumber';
     var SELECTOR_ROW_INSTALLMENTS = '#rowInstallments';
@@ -61,8 +86,9 @@
 
     // ----------------------------------------------------------
     var creditCardSelectors = {
+      SAVED_CARD_SELECT: 'select[name="paymentMethod"]',
       CARD_TYPE: 'select[name="formOfPayment(CREDITCARD_POS).type"]',
-      CARD_ISSUING_COUNTRY_SELECT : 'select[name="formOfPayment(CREDITCARD_POS).issuingCountrySelect"]',
+      CARD_ISSUING_COUNTRY_SELECT: 'select[name="formOfPayment(CREDITCARD_POS).issuingCountrySelect"]',
       CARD_CURRENCY_SELECT: 'select[name="formOfPayment(CREDITCARD_POS).currencySelect"]',
       CARDHOLDER_NAME: 'input[type=text][name="formOfPayment(CREDITCARD_POS).cardHolderName"]',
       CARD_NUMBER: 'input[type=text][name="ccn"]',
@@ -72,7 +98,7 @@
       SECURITY_CODE: 'input[type=text][name="cvv"]',
       SECURITY_CODE_INPUT: 'input[name="formOfPayment(CREDITCARD_POS).securityCode"]',
       CARDHOLDER_PHONE_CC:
-        'input[type=text][name="formOfPayment(CREDITCARD_POS).cardHolderPhone.phoneNumberCountryCode"]',
+      'input[type=text][name="formOfPayment(CREDITCARD_POS).cardHolderPhone.phoneNumberCountryCode"]',
       CARDHOLDER_PHONE_NUMBER: 'input[type=text][name="formOfPayment(CREDITCARD_POS).cardHolderPhone.phoneNumber"]',
       CARDHOLDER_EMAIL: 'input[type=text][name="formOfPayment(CREDITCARD_POS).cardHolderEmail"]',
       BA_ADDRESS_LINE_1: 'input[type=text][name="formOfPayment(CREDITCARD_POS).billingAddress.addressLine1"]',
@@ -104,12 +130,14 @@
       BA_POSTAL_CODE: 'input[type=text][name="commonAddress.postalCode"]'
     };
 
+    var PAYMENT_CARD_LABEL = '#savePaymentCardLabel';
+
     // -----------------------------
     /**
      * Return the text value of the Disclaimer
      * @return {string}
      */
-    hostScrapService.getReviewItineraryDisclaimer = function() {
+    hostScrapService.getReviewItineraryDisclaimer = function () {
       var $bs = $(REVIEW_ITINERARY_DISCLAIMER_SELECTOR);
       return $bs.html();
     };
@@ -118,7 +146,7 @@
      * Return the text value of the Billing Info
      * @return {string}
      */
-    hostScrapService.getfbBillingInfoMessage = function() {
+    hostScrapService.getfbBillingInfoMessage = function () {
       var $bs = $(FB_BILLING_INFO_MESSAGE_SELECTOR);
       var html = $bs.html();
       html = replaceAll(html, '<br>', '<br><br>');
@@ -129,17 +157,17 @@
      * Return the text value of the TermsConditions
      * @return {string}
      */
-    hostScrapService.getTbTermsConditionsMessage = function() {
+    hostScrapService.getTbTermsConditionsMessage = function () {
       var $bs = $(TB_TERMS_CONDITIONS_MESSAGE_SELECTOR);
       var $links = $(TB_TERMS_CONDITIONS_LINKS_SELECTOR);
-      return $bs.html() + '<p class="inline-links-container">'+ $links.html() + '</p>';
+      return $bs.html() + '<p class="inline-links-container">' + $links.html() + '</p>';
     };
 
     /**
      * Return the text value of the TermsConditions
      * @return {string}
      */
-    hostScrapService.getTbTermsConditionsLabel= function() {
+    hostScrapService.getTbTermsConditionsLabel = function () {
       var $bs = $(TB_TERMS_CONDITIONS_LABEL_SELECTOR);
       return $bs.html();
     };
@@ -148,7 +176,7 @@
      * Return the text value of the TermsConditions
      * @return {string}
      */
-    hostScrapService.getHazardousMaterialsAgreementMessage= function() {
+    hostScrapService.getHazardousMaterialsAgreementMessage = function () {
       var $bs = $(HAZARDOUS_MATERIALS_AGREEMENT_MESSAGE_SELECTOR);
       return $bs.html();
     };
@@ -157,7 +185,7 @@
      * Return the text value of the TermsConditions
      * @return {string}
      */
-    hostScrapService.getHazardousMaterialsAgreementLabel= function() {
+    hostScrapService.getHazardousMaterialsAgreementLabel = function () {
       var $bs = $(HAZARDOUS_MATERIALS_AGREEMENT_LABEL_SELECTOR);
       return $bs.html();
     };
@@ -166,16 +194,21 @@
      * Return true if payment credit card pos is active
      * @return {boolean}
      */
-    hostScrapService.isPaymentCreditCardPosChecked = function() {
+    hostScrapService.isPaymentCreditCardPosChecked = function () {
       var $elem = $(PAYMENT_CREDITCARD_POS_ELECTOR);
       return $elem.is(':checked');
+    };
+
+    hostScrapService.getSaveCreditCardLabel = function () {
+      var $elem = $(PAYMENT_CARD_LABEL);
+      return $elem.html();
     };
 
     /**
      * Return true if payment credit card pos is active
      * @return {boolean}
      */
-    hostScrapService.isPaymentBankTransferChecked = function() {
+    hostScrapService.isPaymentBankTransferChecked = function () {
       var $elem = $(PAYMENT_BANKTRANSFERS_ELECTOR);
       return $elem.is(':checked');
     };
@@ -183,9 +216,9 @@
     /**
      * Toggle credit card activation
      */
-    hostScrapService.togglePaymentCreditCardPos = function() {
+    hostScrapService.togglePaymentCreditCardPos = function () {
       var $elem = $(PAYMENT_CREDITCARD_POS_ELECTOR);
-      if(!$elem.is(':checked')) {
+      if (!$elem.is(':checked')) {
         $elem.prop('checked', 'checked');
         multiplePaymentView.onClickCheckBox($elem, 'CREDITCARD', 'CREDITCARD_POS');
       }
@@ -194,9 +227,9 @@
     /**
      * Toggle bank transfer activation
      */
-    hostScrapService.togglePaymentBankTransfer = function() {
+    hostScrapService.togglePaymentBankTransfer = function () {
       var $elem = $(PAYMENT_BANKTRANSFERS_ELECTOR);
-      if(!$elem.is(':checked')) {
+      if (!$elem.is(':checked')) {
         $elem.prop('checked', 'checked');
       } else {
         $elem.prop('checked', false);
@@ -205,14 +238,15 @@
     };
 
     function replaceAll(string, search, replacement) {
-        var target = string;
-        return target.replace(new RegExp(search, 'g'), replacement);
+      var target = string;
+      return target.replace(new RegExp(search, 'g'), replacement);
     }
 
     // ------------------------ CREDITCARD -----------------
     var ccInputTypes = {
+      SAVED_CARD_SELECT: 'SAVED_CARD_SELECT',
       CARD_TYPE: 'CARD_TYPE',
-      CARD_ISSUING_COUNTRY_SELECT : 'CARD_ISSUING_COUNTRY_SELECT',
+      CARD_ISSUING_COUNTRY_SELECT: 'CARD_ISSUING_COUNTRY_SELECT',
       CARD_CURRENCY_SELECT: 'CARD_CURRENCY_SELECT',
       CARDHOLDER_NAME: 'CARDHOLDER_NAME',
       CARD_NUMBER: 'CARD_NUMBER',
@@ -239,15 +273,20 @@
      * @return {Object} this object contain the selectors index for looking
      *    fields
      */
-    hostScrapService.getCreditCardInputsSelectorsType = function() {
+    hostScrapService.getCreditCardInputsSelectorsType = function () {
       return ccInputTypes;
     };
+
+    hostScrapService.getCreditCardLabel = function () {
+      return $(SELECTOR_SAVED_CREDIT_CARD_LABEL).text().trim();
+    };
+
 
     /**
      * @param {String} ccInputType field that you need value, the value of this
      *    param is key in object ccInputTypes
      */
-    hostScrapService.getCreditCardValueByInput = function(ccInputType) {
+    hostScrapService.getCreditCardValueByInput = function (ccInputType) {
       if (!creditCardSelectors.hasOwnProperty(ccInputType)) {
         return null;
       }
@@ -260,7 +299,7 @@
      *    param is key in object ccInputTypes
      * @param {String} value to set the Input
      */
-    hostScrapService.setCreditCardValueByInput = function(ccInputType, value) {
+    hostScrapService.setCreditCardValueByInput = function (ccInputType, value) {
       if (!creditCardSelectors.hasOwnProperty(ccInputType)) {
         return;
       }
@@ -273,7 +312,7 @@
      * @param {String} ccInputType field that you need value, the value of this
      *    param is key in object ccInputTypes
      */
-    hostScrapService.getCreditCardSelectOptionsByInput = function(ccInputType) {
+    hostScrapService.getCreditCardSelectOptionsByInput = function (ccInputType) {
       var options = [];
       if (!creditCardSelectors.hasOwnProperty(ccInputType) &&
         ccInputType.startsWith('select[')) {
@@ -281,7 +320,7 @@
       }
 
       var $elems = $(creditCardSelectors[ccInputType] + ' option');
-      $elems.each(function(index, el) {
+      $elems.each(function (index, el) {
         options.push({
           name: $(el).text(),
           value: $(el).attr('value')
@@ -296,7 +335,7 @@
       var namePos = selectorValue.indexOf(strNamePattern);
       var closeNamePos = selectorValue.lastIndexOf(closeNamePatter);
 
-      if ((namePos === -1 || closeNamePos === -1) && namePos <  closeNamePos) {
+      if ((namePos === -1 || closeNamePos === -1) && namePos < closeNamePos) {
         return '';
       }
       namePos += strNamePattern.length;
@@ -307,10 +346,10 @@
      * @param {String} fieldAttr
      * @return {String} Return types by fieldAttr
      */
-    hostScrapService.getTypeByFieldAttrName = function(fieldAttr) {
+    hostScrapService.getTypeByFieldAttrName = function (fieldAttr) {
       var key = '';
       var ccsValue = '';
-      for(var it in creditCardSelectors) {
+      for (var it in creditCardSelectors) {
         ccsValue = extractNameValueFromSelector(creditCardSelectors[it]);
         if (ccsValue === fieldAttr) {
           key = it;
@@ -318,10 +357,10 @@
         }
       }
 
-      if(key === '') {
+      if (key === '') {
         for (var iH in hiddenInputs) {
           ccsValue = hiddenInputs[iH];
-          if(ccsValue === fieldAttr) {
+          if (ccsValue === fieldAttr) {
             key = iH;
             break;
           }
@@ -329,7 +368,7 @@
       }
 
       if (key === '') {
-        for(var itA in agreements) {
+        for (var itA in agreements) {
           ccsValue = agreements[itA];
           if (ccsValue.indexOf(fieldAttr) !== -1) {
             key = itA;
@@ -344,10 +383,10 @@
     /**
      * @return {Boolean} True if the rowDocumentNumber is visible
      */
-    hostScrapService.isVisibleRootDoument = function() {
+    hostScrapService.isVisibleRootDoument = function () {
       var isVisible = false;
       // isVisible = $(SELECTOR_ROW_DOCUMENT_NUMBER).is(':visible');
-      if($(SELECTOR_ROW_DOCUMENT_NUMBER).length > 0 && $(SELECTOR_ROW_DOCUMENT_NUMBER).css('display') !== 'none'){
+      if ($(SELECTOR_ROW_DOCUMENT_NUMBER).length > 0 && $(SELECTOR_ROW_DOCUMENT_NUMBER).css('display') !== 'none') {
         isVisible = true;
       }
       return isVisible;
@@ -356,10 +395,10 @@
     /**
      * @return {Boolean} True if the rowDocumentNumber is visible
      */
-    hostScrapService.isVisibleRootDocumentId = function() {
+    hostScrapService.isVisibleRootDocumentId = function () {
       var isVisible = false;
       // isVisible = $(SELECTOR_ROW_DOCUMENT_ID).is(':visible');
-      if($(SELECTOR_ROW_DOCUMENT_ID).length > 0 && $(SELECTOR_ROW_DOCUMENT_ID).css('display') !== 'none'){
+      if ($(SELECTOR_ROW_DOCUMENT_ID).length > 0 && $(SELECTOR_ROW_DOCUMENT_ID).css('display') !== 'none') {
         isVisible = true;
       }
       return isVisible;
@@ -368,10 +407,10 @@
     /**
      * @return {Boolean} True if the rowInstallments is visible
      */
-    hostScrapService.isVisibleRootInstallments = function() {
+    hostScrapService.isVisibleRootInstallments = function () {
       var isVisible = false;
       // isVisible = $(SELECTOR_ROW_INSTALLMENTS).is(':visible');
-      if($(SELECTOR_ROW_INSTALLMENTS).length > 0 && $(SELECTOR_ROW_INSTALLMENTS).css('display') !== 'none'){
+      if ($(SELECTOR_ROW_INSTALLMENTS).length > 0 && $(SELECTOR_ROW_INSTALLMENTS).css('display') !== 'none') {
         isVisible = true;
       }
       return isVisible;
@@ -384,10 +423,10 @@
      * @param {String} message message sended by the backend
      * @return {String | null}
      */
-    hostScrapService.checkCopaError = function(inputType, message) {
+    hostScrapService.checkCopaError = function (inputType, message) {
       var $errorElemn = $('[name="' + inputType + '"]').closest('tr').prev();
       var msg = message;
-      if($errorElemn.length > 0 && $errorElemn.is('.errorNoticeOuter')) {
+      if ($errorElemn.length > 0 && $errorElemn.is('.errorNoticeOuter')) {
         msg = $errorElemn.find('.errorNotice span').text().trim();
       }
       return msg;
@@ -407,7 +446,7 @@
      * @return {Object} this object contain the selectors index for looking
      *    fields
      */
-    hostScrapService.getBankTransferInputsSelectorsType = function() {
+    hostScrapService.getBankTransferInputsSelectorsType = function () {
       return btInputTypes;
     };
 
@@ -415,7 +454,7 @@
      * @param {String} btInputType field that you need value, the value of this
      *    param is key in object btInputTypes
      */
-    hostScrapService.getBankTransferValueByInput = function(btInputType) {
+    hostScrapService.getBankTransferValueByInput = function (btInputType) {
       if (!banktransferSelectors.hasOwnProperty(btInputType)) {
         return null;
       }
@@ -428,7 +467,7 @@
      *    param is key in object btInputTypes
      * @param {String} value to set the Input
      */
-    hostScrapService.setBankTransferValueByInput = function(btInputType, value) {
+    hostScrapService.setBankTransferValueByInput = function (btInputType, value) {
       if (!banktransferSelectors.hasOwnProperty(btInputType)) {
         return;
       }
@@ -441,7 +480,7 @@
      * @param {String} btInputType field that you need value, the value of this
      *    param is key in object btInputTypes
      */
-    hostScrapService.getBankTransferSelectOptionsByInput = function(btInputType) {
+    hostScrapService.getBankTransferSelectOptionsByInput = function (btInputType) {
       var options = [];
       if (!banktransferSelectors.hasOwnProperty(btInputType) &&
         btInputType.startsWith('select[')) {
@@ -449,7 +488,7 @@
       }
 
       var $elems = $(banktransferSelectors[btInputType] + ' option');
-      $elems.each(function(index, el) {
+      $elems.each(function (index, el) {
         options.push({
           name: $(el).text(),
           value: $(el).attr('value')
@@ -465,10 +504,10 @@
     var SELECTOR_PASSENGERS_INFO_BIRTHDATE = 'td:nth-child(3) div';
     var SELECTOR_PASSENGERS_INFO_FREQUENT_FLYER_NUMBER = 'td:nth-child(4) div';
 
-    hostScrapService.getPassengersInfo = function(){
+    hostScrapService.getPassengersInfo = function () {
       var passengers_info = [];
       var passengerInfoNodes = $(SELECTOR_PASSENGERS_INFO);
-      $(passengerInfoNodes).each(function(index, value){
+      $(passengerInfoNodes).each(function (index, value) {
         var name = $(this).find(SELECTOR_PASSENGERS_INFO_NAME).text().trim();
         var type = $(this).find(SELECTOR_PASSENGERS_INFO_TYPE).text().trim();
         var birthdate = $(this).find(SELECTOR_PASSENGERS_INFO_BIRTHDATE).text().trim();
@@ -489,14 +528,14 @@
     // ----------------------- Card images --------------------
     var SELECTOR_CREDIT_CARDS_IMAGES = '.creditCardsArea';
 
-    hostScrapService.getCardImages = function() {
+    hostScrapService.getCardImages = function () {
       var $node = $(SELECTOR_CREDIT_CARDS_IMAGES);
-      if($node.length < 1){
+      if ($node.length < 1) {
         $node = $($('.multiplePaymentItemHeader .colDescr div')[0]);
-        if($node){
+        if ($node) {
           return $node.html();
         }
-      } else{
+      } else {
         return $node.html();
       }
     };
@@ -506,6 +545,6 @@
   }
 
   angular
-      .module('responsiveBookingEngine')
-      .factory('hostScrapService', hostScrapService);
+    .module('responsiveBookingEngine')
+    .factory('hostScrapService', hostScrapService);
 })();

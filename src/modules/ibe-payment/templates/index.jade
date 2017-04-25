@@ -160,7 +160,15 @@ block body
           h4.title-text
             | {{'LABEL_CARD_INFO' | translate}}
         div.content
-          .form-group.md(data-ng-class="{'show-field-error': ui.partialErrors.cardType }")
+         .form-group.md(data-ng-class="{'show-field-error': ui.partialErrors.cardType }" data-ng-show="ui.isCreditCardsSaved")
+            label.col-sm-2.control-label.field-required
+              | {{'LABEL_CARD_SAVED' | translate}} 
+            .col-sm-10
+              select.md.form-control(
+                data-ng-model="ui.payment.saved_card_select"
+                data-ng-change="ui.payment.setSavedCardsList(ui.payment.saved_card_select)"
+                data-ng-options="option.name for option in ui.payment.savedCards track by option.value")
+          .form-group.md(data-ng-class="{'show-field-error': ui.partialErrors.cardType }" data-ng-show="!ui.isCreditCardsSaved")
             label.col-sm-2.control-label.field-required
               | {{'LABEL_CARD_TYPE' | translate}}
             .col-sm-10
@@ -208,7 +216,7 @@ block body
                 data-ng-options="option.name for option in ui.payment.installmentsOptions track by option.value")
                 span.text-message
                   | {{ ui.partialErrors.installments }}
-          .form-group.md(
+          .form-group.md(data-ng-show="!ui.isCreditCardsSaved"
             data-ng-class="{'show-field-error': ui.partialErrors.cardHolderName }")
             label.col-sm-2.control-label.field-required
               |  {{'LABEL_CARDHOLDER_NAME' | translate}}
@@ -226,11 +234,12 @@ block body
             .col-sm-10()
               input.md.form-control(type='text' placeholder=''
                 data-ng-model="ui.payment.cardNumber"
+                data-ng-readonly="ui.isCreditCardsSaved"
                 data-ng-change="ui.payment.setCardNumber(ui.payment.cardNumber)"
                 data-ng-focus="focusToCardNumberIframe()")
               span.text-message
                 | {{ ui.partialErrors.cardNumber }}
-          .form-group.md.col-sm-3.inline-select(
+          .form-group.md.col-sm-3.inline-select(data-ng-show="!ui.isCreditCardsSaved"
             data-ng-class="{'show-field-error': ui.partialErrors.edExpirationMonth || ui.partialErrors.edExpirationYear}")
               label.field-required
                 | {{'LABEL_EXPIATION_DATE' | translate}}
@@ -306,8 +315,26 @@ block body
                 data-ng-model="ui.payment.cardHolderEmail"
                 data-ng-change="ui.payment.setCardHolderEmail(ui.payment.cardHolderEmail)")
               span.text-message
-                | {{ ui.partialErrors.cardHolderEmail }}
-      div.m-card
+                | {{ ui.partialErrors.cardHolderEmail }}         
+          .form-group.md(data-ng-show="!ui.isCreditCardsSaved")  
+            .col-sm-10
+              input.inline-checkbox(
+                type='checkbox' 
+                data-ng-model="ui.agreements.saveCreditCard" 
+                data-ng-checked="ui.agreements.checkBoxCreditCardStatus()"
+                data-ng-change="ui.agreements.checkedSaveCreditCard()")
+              label.inline-label(ng-bind-html="ui.static_messages.saveCreditCardLabel.content | sanitize")
+          .form-group.md(data-ng-if="ui.ifExistEditOption")      
+            .col-sm-12             
+              p.inline-links-container()
+                a(href='#', data-ng-click="ui.returnFromEditableMode()" data-ng-if="!ui.isCreditCardsSaved") {{'LABEL_RETURN_OPTION' | translate}}
+                a(href='#', data-ng-click="ui.editableMode()" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_EDIT_OPTION' | translate}}
+                a(href='#', onclick="showDeleteCardPopup();return false;") {{'LABEL_DELETE_OPTION' | translate}}   
+           
+               
+              
+
+      div.m-card(data-ng-show="!ui.isCreditCardsSaved")
         header.title
           h4.title-text
             | {{'LABEL_BILLING_ADDRESS' | translate}}
@@ -375,6 +402,8 @@ block body
                 data-ng-change="ui.payment.setBaPostalCode(ui.payment.baPostalCode)")
               span.text-message
                 | {{ ui.partialErrors.baPostalCode }}
+            
+                     
     section(ng-show="ui.showPaymentInformation")
       h2
         | {{'LABEL_TERM_CONDITION' | translate}}
