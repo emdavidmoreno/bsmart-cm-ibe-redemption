@@ -132,6 +132,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_MMB: 'Manage your booking',
        LABEL_EXACT_DATE: 'Exact date',
        LABEL_FLEXIBLE_DATE: 'Flexible Dates',
+       LABEL_RETURN_OPTION: 'Back',
+       LABEL_EDIT_OPTION: 'Edit',
+       LABEL_DELETE_OPTION: 'Delete'
       });
 
 
@@ -261,6 +264,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_MMB:'Maneje su reserva',
        LABEL_EXACT_DATE: 'Fechas Exactas',
        LABEL_FLEXIBLE_DATE: 'Fechas Flexibles',
+       LABEL_RETURN_OPTION: 'Regresar',
+       LABEL_EDIT_OPTION: 'Editar',
+       LABEL_DELETE_OPTION: 'Eliminar'
      });
 
      // portuguees translations
@@ -389,6 +395,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_MMB:'Administre a sua reserva',
        LABEL_EXACT_DATE: 'Datas Exatas',
        LABEL_FLEXIBLE_DATE: 'Datas Flexíveis',
+       LABEL_RETURN_OPTION: 'Voltar',
+       LABEL_EDIT_OPTION: 'Editar',
+       LABEL_DELETE_OPTION: 'Excluir'
      });
 
     // set default language
