@@ -18,6 +18,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_FROM: 'From',
        LABEL_TO: 'To',
        LABEL_DEPARTURE_DATE: 'Departure',
+       LABEL_FD_RETURN: 'Return',
+       LABEL_FD_DEPART: 'Depart',
        LABEL_ARRIVAL_DATE: 'Return',
        LABEL_CABIN_ECONOMY: 'Economy Class',
        LABEL_CABIN_BUSINESS: 'Business Class',
@@ -144,6 +146,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_TO: 'Hacia',
        LABEL_DEPARTURE_DATE: 'Fecha de Salida',
        LABEL_ARRIVAL_DATE: 'Fecha de regreso',
+       LABEL_FD_RETURN: 'Regreso',
+       LABEL_FD_DEPART: 'Salida',
        LABEL_CABIN_ECONOMY: 'Clase Económica',
        LABEL_CABIN_BUSINESS: 'Clase Ejecutiva',
        LABEL_PASSENGER: 'Pasajeros',
@@ -252,7 +256,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_COUNTRY_CODE: 'cód. país',
        LABEL_NUMBER: 'número de teléfono',
        LABEL_LOGIN: 'Entrar',
-       LABEL_MMB:'Maneje su reserva',     
+       LABEL_MMB:'Maneje su reserva',
      });
 
      // portuguees translations
@@ -268,6 +272,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
        LABEL_TO: 'Para',
        LABEL_DEPARTURE_DATE: 'Data de Partida',
        LABEL_ARRIVAL_DATE: 'Data de regresso',
+       LABEL_FD_RETURN: 'Regresso',
+       LABEL_FD_DEPART: 'Partida',
        LABEL_CABIN_ECONOMY: 'Classe Económica',
        LABEL_CABIN_BUSINESS: 'Classe Executiva',
        LABEL_PASSENGER: 'Passageiros',

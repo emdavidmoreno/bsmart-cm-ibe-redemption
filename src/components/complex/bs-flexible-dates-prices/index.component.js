@@ -28,6 +28,7 @@ define(['./helpers/scrapHelper'], function(helper) {
      * Init component
      */
     ctrl.$onInit = function() {
+      ctrl.isInitialPosition = true
       ctrl.lowestPrice = 9999
       ctrl.cellsData = getCellsInfo()
       ctrl.cellClick = function(cell, rowValue) {
@@ -47,6 +48,17 @@ define(['./helpers/scrapHelper'], function(helper) {
         cell.isSelected = true
         rowValue.rowSelected = true
         ctrl.cellsData.inboundDates[cell.inboundDate].isCollSelected = true
+      }
+    }
+
+    ctrl.moveScroll = function() {
+      let $div = $('.flexible-dates-prices.table-responsive')
+      if($div.scrollLeft() > 0) {
+        $div.scrollLeft(0)
+        ctrl.isInitialPosition = true
+      } else {
+        $div.scrollLeft($div.width())
+        ctrl.isInitialPosition = false
       }
     }
     /**
@@ -143,11 +155,26 @@ define(['./helpers/scrapHelper'], function(helper) {
     },
     /* eslint-disable max-len */
     template:
-    `<div class="flexible-dates-prices table-responsive">
+    `
+    <div>
+      <div class="m-btn"
+        data-ng-click="$ctrl.moveScroll()"
+        data-ng-class="{'m-btn-left': !$ctrl.isInitialPosition}">
+        <span> </span>
+      </div>
+      <div class="m-return-label">
+        <span> {{ 'LABEL_FD_RETURN' | translate }} </span>
+        <span>  &rarr; </span>
+      </div>
+    </div>
+    <div class="flexible-dates-prices table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th></th>
+            <th class="m-depart-label">
+              <span> {{ 'LABEL_FD_DEPART' | translate }} </span>
+              <span> &darr; </span>
+            </th>
             <th
               data-ng-repeat="(inboundDate, value) in $ctrl.cellsData.inboundDates"
               class="flexible-dates" data-ng-class="{'selected-price': value.isCollSelected}">
