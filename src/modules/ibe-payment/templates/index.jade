@@ -175,7 +175,7 @@ block body
               select.md.form-control(
                 data-ng-model="ui.payment.cardType"
                 data-ng-change="ui.payment.setCardType(ui.payment.cardType)"
-                data-ng-options="option.name for option in ui.payment.cardTypes track by option.value")
+                data-ng-options="option.name for option in ui.payment.cardTypes track by option.selected")
               span.text-message
                 | {{ ui.partialErrors.cardType }}
           .form-group.md(

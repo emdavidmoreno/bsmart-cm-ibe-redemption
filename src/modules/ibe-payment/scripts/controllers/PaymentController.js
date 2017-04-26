@@ -564,9 +564,21 @@ define([
               }, 2);
             },
             setSavedCardsList: function (value) {
-              hostScrapService.setCreditCardValueByInput(inputsType.SAVED_CARD_SELECT, value);
+              var self = this;
+              hostScrapService.setCreditCardValueByInput(inputsType.SAVED_CARD_SELECT, value.value);
+              
               ui.partialErrors.savedCardSelect = null;
               $timeout(function () {
+                self.cardIssuingCountries =
+                hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
+                self.cardTypes = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_TYPE);
+                
+
+                //self.cardCountry = self.cardIssuingCountries[0];
+
+                self.cardHolderPhoneCode = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_CC);
+                self.cardHolderPhoneNumber = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_NUMBER);
+                self.cardHolderEmail = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_EMAIL);
                 hostUIService.syncPosition();
               }, 2);
             },

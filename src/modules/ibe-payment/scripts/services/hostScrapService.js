@@ -320,13 +320,30 @@
       }
 
       var $elems = $(creditCardSelectors[ccInputType] + ' option');
+      var s = false;
       $elems.each(function (index, el) {
-        options.push({
-          name: $(el).text(),
-          value: $(el).attr('value')
-        });
+        if ($(el).is(':selected') === true) {
+          s = true;        
+        } else {
+          s = false;
+        }
+        var optionItem = { name: $(el).text(), value: $(el).attr('value'), selected: s };
+        options.push(optionItem);
+
       });
+
+      // options.sort(function (x, y) {
+      //   return (x.selected === y.selected) ? 0 : x.selected ? -1 : 1;
+      // });
+
       return options;
+    };
+
+    hostScrapService.getCreditCardSelectedOptionValue = function (ccInputType) {
+      console.log(creditCardSelectors[ccInputType])
+      var value = $(creditCardSelectors[ccInputType] + ' ' + ' option:selected').text().trim();
+      return value;
+
     };
 
     function extractNameValueFromSelector(selectorValue) {
