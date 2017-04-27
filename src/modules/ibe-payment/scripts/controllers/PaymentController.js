@@ -566,19 +566,26 @@ define([
             setSavedCardsList: function (value) {
               var self = this;
               hostScrapService.setCreditCardValueByInput(inputsType.SAVED_CARD_SELECT, value.value);
-              
               ui.partialErrors.savedCardSelect = null;
               $timeout(function () {
-                self.cardIssuingCountries =
-                hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
+                self.cardIssuingCountries = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
                 self.cardTypes = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_TYPE);
-                
+                self.countries = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_COUNTRY);
+                self.expirationDatesMonth = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.ED_EXPIRATION_MONTH);
+                self.expirationDatesYear = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.ED_EXPIRATION_YEAR);
+                $timeout(function () {
+                  self.states = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_STATE_DISPLAY);
+                }, 10);
 
-                //self.cardCountry = self.cardIssuingCountries[0];
-
+                self.cardHolderName = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_NAME);
                 self.cardHolderPhoneCode = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_CC);
                 self.cardHolderPhoneNumber = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_NUMBER);
                 self.cardHolderEmail = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_EMAIL);
+                self.baAddressLine1 = hostScrapService.getCreditCardValueByInput(inputsType.BA_ADDRESS_LINE_1);
+                self.baAddressLine2 = hostScrapService.getCreditCardValueByInput(inputsType.BA_ADDRESS_LINE_2);
+                self.baCity = hostScrapService.getCreditCardValueByInput(inputsType.BA_CITY);
+                self.baPostalCode = hostScrapService.getCreditCardValueByInput(inputsType.BA_POSTAL_CODE);
+
                 hostUIService.syncPosition();
               }, 2);
             },

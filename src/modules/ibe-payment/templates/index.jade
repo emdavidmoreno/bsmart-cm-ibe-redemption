@@ -247,11 +247,11 @@ block body
               select.md.form-control(
                 data-ng-model="ui.payment.edExpirationMonth"
                 data-ng-change="ui.payment.setEdExpirationMonth(ui.payment.edExpirationMonth)"
-                data-ng-options="option.name for option in ui.payment.expirationDatesMonth track by option.value")
+                data-ng-options="option.name for option in ui.payment.expirationDatesMonth track by option.selected")
               select.md.form-control(
                 data-ng-model="ui.payment.edExpirationYear"
                 data-ng-change="ui.payment.setEdExpirationYear(ui.payment.edExpirationYear)"
-                data-ng-options="option.name for option in ui.payment.expirationDatesYear track by option.value")
+                data-ng-options="option.name for option in ui.payment.expirationDatesYear track by option.selected")
               span.text-message(data-ng-if="ui.partialErrors.edExpirationMonth")
                 | {{ ui.partialErrors.edExpirationMonth }}
               span.text-message(data-ng-if="ui.partialErrors.edExpirationYear")
@@ -376,8 +376,8 @@ block body
             .col-sm-10
               select.md.form-control(
                 data-ng-model="ui.payment.baCountry"
-                data-ng-change="ui.payment.setBaCountry(ui.payment.baCountry.value)"
-                data-ng-options="option.name for option in ui.payment.countries track by option.value"
+                data-ng-change="ui.payment.setBaCountry(ui.payment.baCountry)"
+                data-ng-options="option.name for option in ui.payment.countries track by option.selected"
                 )
               span.text-message
                 | {{ ui.partialErrors.baCountry }}
@@ -388,8 +388,8 @@ block body
             .col-sm-10
               select.md.form-control(
                 data-ng-model="ui.payment.baStateDisplay"
-                data-ng-change="ui.payment.setBaStateDisplay(ui.payment.baStateDisplay.value)"
-                data-ng-options="option.name for option in ui.payment.states track by option.value")
+                data-ng-change="ui.payment.setBaStateDisplay(ui.payment.baStateDisplay)"
+                data-ng-options="option.name for option in ui.payment.states track by option.selected")
               span.text-message
                 | {{ ui.partialErrors.baStateDisplay }}
           .form-group.md(
