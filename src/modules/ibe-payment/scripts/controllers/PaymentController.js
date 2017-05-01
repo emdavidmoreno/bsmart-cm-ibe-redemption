@@ -576,7 +576,6 @@ define([
                 $timeout(function () {
                   self.states = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_STATE_DISPLAY);
                 }, 10);
-
                 self.cardHolderName = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_NAME);
                 self.cardHolderPhoneCode = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_CC);
                 self.cardHolderPhoneNumber = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_NUMBER);
