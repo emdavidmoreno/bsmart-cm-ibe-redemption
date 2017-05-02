@@ -326,11 +326,13 @@ block body
               label.inline-label(ng-bind-html="ui.static_messages.saveCreditCardLabel.content | sanitize")
           .form-group.md(data-ng-if="ui.ifExistEditOption")     
             .col-sm-12             
-              p.inline-links-container()
-                a(href='#', data-ng-click="addNewPaymentMode()"  data-ng-if="ui.isCreditCardsSaved") {{'LABEL_ADD_OPTION' | translate}}
-                a(href='#', data-ng-click="ui.returnFromEditableMode()" data-ng-if="!ui.isCreditCardsSaved") {{'LABEL_RETURN_OPTION' | translate}}
-                a(href='#', data-ng-click="ui.editableMode()" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_EDIT_OPTION' | translate}}
-                a(href='#', onclick="showDeleteCardPopup();return false;") {{'LABEL_DELETE_OPTION' | translate}}   
+              p.inline-links-container()  
+                a(href='#', data-ng-click="addNewPaymentMode()" class="pull-left" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_ADD_OPTION' | translate}}              
+                a(href='#', data-ng-click="ui.returnFromEditableMode()" class="pull-left" data-ng-if="!ui.isCreditCardsSaved") {{'LABEL_RETURN_OPTION' | translate}}
+                a(href='#', data-ng-click="ui.editableMode()" class="pull-left" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_EDIT_OPTION' | translate}}
+                a(href='#', class="pull-right" onclick="showDeleteCardPopup();return false;") {{'LABEL_DELETE_OPTION' | translate}}
+            
+                   
            
                
               
