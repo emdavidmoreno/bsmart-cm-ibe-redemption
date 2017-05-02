@@ -205,19 +205,19 @@ define([
           $scope.ui.payment.cardType = getSelectedOption(v, $scope.ui.payment.cardTypes);
           var v = hostScrapService.getCreditCardValueByInput(inputsType.SAVED_CARD_SELECT);
           $scope.ui.payment.saved_card_select = getSelectedOption(v, $scope.ui.payment.savedCards);
-          v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
+          var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
           $scope.ui.payment.cardCountry = getSelectedOption(v, $scope.ui.payment.cardIssuingCountries);
-          v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_CURRENCY_SELECT);
+          var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_CURRENCY_SELECT);
           $scope.ui.payment.cardCurrency = getSelectedOption(v, $scope.ui.payment.cardCurrencies);
-          v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_MONTH);
+          var v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_MONTH);
           $scope.ui.payment.edExpirationMonth =
             getSelectedOption(v, $scope.ui.payment.expirationDatesMonth);
-          v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_YEAR);
+          var v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_YEAR);
           $scope.ui.payment.edExpirationYear =
             getSelectedOption(v, $scope.ui.payment.expirationDatesYear);
-          v = hostScrapService.getCreditCardValueByInput(inputsType.BA_COUNTRY);
+          var v = hostScrapService.getCreditCardValueByInput(inputsType.BA_COUNTRY);
           $scope.ui.payment.baCountry = getSelectedOption(v, $scope.ui.payment.countries);
-          v = hostScrapService.getCreditCardValueByInput(inputsType.BA_STATE_DISPLAY);
+          var v = hostScrapService.getCreditCardValueByInput(inputsType.BA_STATE_DISPLAY);
           $scope.ui.payment.baStateDisplay = getSelectedOption(v, $scope.ui.payment.states);
 
         })();
@@ -279,6 +279,19 @@ define([
         $scope.ui.editableMode = function () {
           $scope.ui.isCreditCardsSaved = 0;
           editPaymentCard();
+          $timeout(function () {
+            hostUIService.syncIframeFields();
+          }, 2000);
+        };
+
+        $scope.addNewPaymentMode = function () {
+          $scope.ui.isCreditCardsSaved = 0;
+          $timeout(function () {
+            $scope.ui.payment.expirationDatesYear = hostScrapService.getCreditCardSelectOptionsByInput('ED_EXPIRATION_YEAR');
+            $scope.ui.payment.cardType = hostScrapService.getCreditCardSelectOptionsByInput('CARD_TYPE');
+          }, 200);
+
+          addNewPayment();
           $timeout(function () {
             hostUIService.syncIframeFields();
           }, 2000);
@@ -565,17 +578,34 @@ define([
             },
             setSavedCardsList: function (value) {
               var self = this;
+              var inputsType = hostScrapService.getCreditCardInputsSelectorsType();
               hostScrapService.setCreditCardValueByInput(inputsType.SAVED_CARD_SELECT, value.value);
               ui.partialErrors.savedCardSelect = null;
               $timeout(function () {
-                self.cardIssuingCountries = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
-                self.cardTypes = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_TYPE);
-                self.countries = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_COUNTRY);
-                self.expirationDatesMonth = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.ED_EXPIRATION_MONTH);
-                self.expirationDatesYear = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.ED_EXPIRATION_YEAR);
+               
+                var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_TYPE);
+                self.cardType = getSelectedOption(v, self.cardTypes);
+
+                var v = hostScrapService.getCreditCardValueByInput(inputsType.BA_COUNTRY);
+                self.baCountry = getSelectedOption(v, self.countries);
+
                 $timeout(function () {
-                  self.states = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_STATE_DISPLAY);
-                }, 10);
+                  var v = hostScrapService.getCreditCardValueByInput(inputsType.BA_STATE_DISPLAY);
+                  self.baStateDisplay = getSelectedOption(v, self.states);
+                }, 1000);
+
+
+
+                var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
+                self.cardCountry = getSelectedOption(v, self.cardIssuingCountries);
+                var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_CURRENCY_SELECT);
+                self.cardCurrency = getSelectedOption(v, self.cardCurrencies);
+                var v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_MONTH);
+                self.edExpirationMonth = getSelectedOption(v, self.expirationDatesMonth);
+                var v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_YEAR);
+                self.edExpirationYear =  getSelectedOption(v, self.expirationDatesYear);
+
+
                 self.cardHolderName = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_NAME);
                 self.cardHolderPhoneCode = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_CC);
                 self.cardHolderPhoneNumber = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_NUMBER);
@@ -584,6 +614,28 @@ define([
                 self.baAddressLine2 = hostScrapService.getCreditCardValueByInput(inputsType.BA_ADDRESS_LINE_2);
                 self.baCity = hostScrapService.getCreditCardValueByInput(inputsType.BA_CITY);
                 self.baPostalCode = hostScrapService.getCreditCardValueByInput(inputsType.BA_POSTAL_CODE);
+
+
+
+
+                // self.cardIssuingCountries = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
+                // self.cardTypes = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.CARD_TYPE);
+                // self.countries = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_COUNTRY);
+                // self.expirationDatesMonth = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.ED_EXPIRATION_MONTH);
+                // self.expirationDatesYear = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.ED_EXPIRATION_YEAR);
+                // $timeout(function () {
+                //   self.states = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_STATE_DISPLAY);
+
+
+                // }, 1000);
+                // self.cardHolderName = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_NAME);
+                // self.cardHolderPhoneCode = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_CC);
+                // self.cardHolderPhoneNumber = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_NUMBER);
+                // self.cardHolderEmail = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_EMAIL);
+                // self.baAddressLine1 = hostScrapService.getCreditCardValueByInput(inputsType.BA_ADDRESS_LINE_1);
+                // self.baAddressLine2 = hostScrapService.getCreditCardValueByInput(inputsType.BA_ADDRESS_LINE_2);
+                // self.baCity = hostScrapService.getCreditCardValueByInput(inputsType.BA_CITY);
+                // self.baPostalCode = hostScrapService.getCreditCardValueByInput(inputsType.BA_POSTAL_CODE);
 
                 hostUIService.syncPosition();
               }, 2);
