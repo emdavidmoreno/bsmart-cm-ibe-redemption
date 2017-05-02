@@ -318,18 +318,16 @@
         ccInputType.startsWith('select[')) {
         return options;
       }
-     
-   
+
+
       var $elems = $(creditCardSelectors[ccInputType] + ' option');
-      if(ccInputType === 'BA_STATE_DISPLAY'){
-         console.log("SALSA ccInputType");
-         console.log($elems);
-      }
-       
+
+
       var s = false;
       $elems.each(function (index, el) {
         if ($(el).is(':selected') === true) {
-          s = true;        
+          s = true;
+          console.log($(el).text());
         } else {
           s = false;
         }
