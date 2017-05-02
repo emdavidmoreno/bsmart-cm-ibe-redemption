@@ -136,6 +136,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_EDIT_OPTION: 'Edit',
       LABEL_DELETE_OPTION: 'Delete',
       LABEL_CARD_SAVED: 'Saved cards',
+      LABEL_ADD_OPTION: 'Add'
     });
 
 
@@ -268,7 +269,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_RETURN_OPTION: 'Regresar',
       LABEL_EDIT_OPTION: 'Editar',
       LABEL_DELETE_OPTION: 'Eliminar',
-      LABEL_CARD_SAVED: 'Tarjetas guardadas'
+      LABEL_CARD_SAVED: 'Tarjetas guardadas',
+      LABEL_ADD_OPTION: 'Agregar'
     });
 
     // portuguees translations
@@ -400,7 +402,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_RETURN_OPTION: 'Voltar',
       LABEL_EDIT_OPTION: 'Editar',
       LABEL_DELETE_OPTION: 'Excluir',
-      LABEL_CARD_SAVED: 'Cartões Saved'
+      LABEL_CARD_SAVED: 'Cartões Saved',
+      LABEL_ADD_OPTION:'Adicionar'
 
     });
 

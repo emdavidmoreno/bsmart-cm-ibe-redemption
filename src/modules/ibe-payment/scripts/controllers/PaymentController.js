@@ -198,6 +198,44 @@ define([
           return value;
         };
 
+
+        var autoFillCardForm = function () {
+          $timeout(function () {
+            var inputsType = hostScrapService.getCreditCardInputsSelectorsType();
+
+            var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_TYPE);
+            $scope.ui.payment.cardType = getSelectedOption(v, $scope.ui.payment.cardTypes);
+            var v = hostScrapService.getCreditCardValueByInput(inputsType.SAVED_CARD_SELECT);
+            $scope.ui.payment.saved_card_select = getSelectedOption(v, $scope.ui.payment.savedCards);
+            var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT);
+            $scope.ui.payment.cardCountry = getSelectedOption(v, $scope.ui.payment.cardIssuingCountries);
+            var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_CURRENCY_SELECT);
+            $scope.ui.payment.cardCurrency = getSelectedOption(v, $scope.ui.payment.cardCurrencies);
+            var v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_MONTH);
+            $scope.ui.payment.edExpirationMonth = getSelectedOption(v, $scope.ui.payment.expirationDatesMonth);
+            var v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_YEAR);
+            $scope.ui.payment.edExpirationYear = getSelectedOption(v, $scope.ui.payment.expirationDatesYear);
+            var v = hostScrapService.getCreditCardValueByInput(inputsType.BA_COUNTRY);
+            $scope.ui.payment.baCountry = getSelectedOption(v, $scope.ui.payment.countries);
+            $timeout(function () {
+              var v = hostScrapService.getCreditCardValueByInput(inputsType.BA_STATE_DISPLAY);
+              $scope.ui.payment.baStateDisplay = getSelectedOption(v, $scope.ui.payment.states);
+
+            }, 1000);
+
+            $scope.ui.payment.cardHolderName = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_NAME);
+            $scope.ui.payment.cardHolderPhoneCode = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_CC);
+            $scope.ui.payment.cardHolderPhoneNumber = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_NUMBER);
+            $scope.ui.payment.cardHolderEmail = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_EMAIL);
+            $scope.ui.payment.baAddressLine1 = hostScrapService.getCreditCardValueByInput(inputsType.BA_ADDRESS_LINE_1);
+            $scope.ui.payment.baAddressLine2 = hostScrapService.getCreditCardValueByInput(inputsType.BA_ADDRESS_LINE_2);
+            $scope.ui.payment.baCity = hostScrapService.getCreditCardValueByInput(inputsType.BA_CITY);
+            $scope.ui.payment.baPostalCode = hostScrapService.getCreditCardValueByInput(inputsType.BA_POSTAL_CODE);
+
+          }, 200);
+
+        };
+
         // function for initialize ui.payments porperties that depend of select elements
         (function () {
           var inputsType = hostScrapService.getCreditCardInputsSelectorsType();
@@ -286,11 +324,7 @@ define([
 
         $scope.addNewPaymentMode = function () {
           $scope.ui.isCreditCardsSaved = 0;
-          $timeout(function () {
-            $scope.ui.payment.expirationDatesYear = hostScrapService.getCreditCardSelectOptionsByInput('ED_EXPIRATION_YEAR');
-            $scope.ui.payment.cardType = hostScrapService.getCreditCardSelectOptionsByInput('CARD_TYPE');
-          }, 200);
-
+          autoFillCardForm();
           addNewPayment();
           $timeout(function () {
             hostUIService.syncIframeFields();
@@ -299,6 +333,7 @@ define([
 
         $scope.ui.returnFromEditableMode = function () {
           $scope.ui.isCreditCardsSaved = 1;
+          autoFillCardForm();
           selectPaymentFromProfile();
           $timeout(function () {
             hostUIService.syncIframeFields();
@@ -582,7 +617,7 @@ define([
               hostScrapService.setCreditCardValueByInput(inputsType.SAVED_CARD_SELECT, value.value);
               ui.partialErrors.savedCardSelect = null;
               $timeout(function () {
-               
+
                 var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_TYPE);
                 self.cardType = getSelectedOption(v, self.cardTypes);
 
@@ -603,7 +638,7 @@ define([
                 var v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_MONTH);
                 self.edExpirationMonth = getSelectedOption(v, self.expirationDatesMonth);
                 var v = hostScrapService.getCreditCardValueByInput(inputsType.ED_EXPIRATION_YEAR);
-                self.edExpirationYear =  getSelectedOption(v, self.expirationDatesYear);
+                self.edExpirationYear = getSelectedOption(v, self.expirationDatesYear);
 
 
                 self.cardHolderName = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_NAME);
@@ -701,10 +736,9 @@ define([
             },
             setBaCountry: function (value) {
               var self = this;
-              hostScrapService.setCreditCardValueByInput(inputsType.BA_COUNTRY, value);
+              hostScrapService.setCreditCardValueByInput(inputsType.BA_COUNTRY, value.value);
               $timeout(function () {
-                self.states =
-                  hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_STATE_DISPLAY);
+                self.states = hostScrapService.getCreditCardSelectOptionsByInput(inputsType.BA_STATE_DISPLAY);
                 self.baStateDisplay = self.states[0];
                 ui.partialErrors.baCountry = null;
               }, 1000);
