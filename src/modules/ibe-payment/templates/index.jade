@@ -324,12 +324,15 @@ block body
                 data-ng-checked="ui.agreements.checkBoxCreditCardStatus()"
                 data-ng-change="ui.agreements.checkedSaveCreditCard()")
               label.inline-label(ng-bind-html="ui.static_messages.saveCreditCardLabel.content | sanitize")
-          .form-group.md(data-ng-if="ui.ifExistEditOption")      
+          .form-group.md(data-ng-if="ui.ifExistEditOption")     
             .col-sm-12             
-              p.inline-links-container()
-                a(href='#', data-ng-click="ui.returnFromEditableMode()" data-ng-if="!ui.isCreditCardsSaved") {{'LABEL_RETURN_OPTION' | translate}}
-                a(href='#', data-ng-click="ui.editableMode()" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_EDIT_OPTION' | translate}}
-                a(href='#', onclick="showDeleteCardPopup();return false;") {{'LABEL_DELETE_OPTION' | translate}}   
+              p.inline-links-container()  
+                a(href='#', data-ng-click="addNewPaymentMode()" class="pull-left" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_ADD_OPTION' | translate}}              
+                a(href='#', data-ng-click="ui.returnFromEditableMode()" class="pull-left" data-ng-if="!ui.isCreditCardsSaved") {{'LABEL_RETURN_OPTION' | translate}}
+                a(href='#', data-ng-click="ui.editableMode()" class="pull-left" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_EDIT_OPTION' | translate}}
+                a(href='#', class="pull-right" onclick="showDeleteCardPopup();return false;") {{'LABEL_DELETE_OPTION' | translate}}
+            
+                   
            
                
               
@@ -376,7 +379,7 @@ block body
             .col-sm-10
               select.md.form-control(
                 data-ng-model="ui.payment.baCountry"
-                data-ng-change="ui.payment.setBaCountry(ui.payment.baCountry.value)"
+                data-ng-change="ui.payment.setBaCountry(ui.payment.baCountry)"
                 data-ng-options="option.name for option in ui.payment.countries track by option.value"
                 )
               span.text-message
@@ -388,7 +391,7 @@ block body
             .col-sm-10
               select.md.form-control(
                 data-ng-model="ui.payment.baStateDisplay"
-                data-ng-change="ui.payment.setBaStateDisplay(ui.payment.baStateDisplay.value)"
+                data-ng-change="ui.payment.setBaStateDisplay(ui.payment.baStateDisplay)"
                 data-ng-options="option.name for option in ui.payment.states track by option.value")
               span.text-message
                 | {{ ui.partialErrors.baStateDisplay }}
