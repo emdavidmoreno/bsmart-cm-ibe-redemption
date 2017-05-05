@@ -34,6 +34,24 @@
     "insuranceComponent": true,
     "popupFramework": true,
     "fillFareRuleTabCallback": true,
-    "fillFareRuleTabCallbackError": true
+    "fillFareRuleTabCallbackError": true,
+    "guestTypeControl": true,
+    "formManager": true,
+    "interstitialContents": true,
+    "errorManager": true,
+    "ajax": true,
+    "isSendItineraryFromPopup": true,
+    "SEND_CONFIRMATION_FORM_NAME": true,
+    "ACTION_URL": true,
+    "processSend": true,
+    "INFO_SEND_TARGET_ELEMENT": true,
+    "getFormElementById": true,
+    "INPUT_ID": true,
+    "BUTTON_SENDING_ID": true,
+    "BUTTON_SEND_ID": true,
+    "M3_ERRORS_TARGET_ELEMENT": true,
+    "ERRORS_TARGET_ELEMENT": true,
+    "tContentData": true,
+    "errorFramework": true
   }
 }
