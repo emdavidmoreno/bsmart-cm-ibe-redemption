@@ -1,6 +1,5 @@
-// jshint -W003
-// jshint -W072
-'use strict';
+/* eslint-disable max-len */
+'use strict'
 
 define([
   'jquery',
@@ -19,12 +18,11 @@ define([
 ], function($, angular, _, hostUIService, hostScrapService, hostProxyService,
   strDuration, appHostProxyService, range, bsCardRefId, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, statsService) {
-
-  var wrapperInstance = {};
+  let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
-    wrapperInstance.config = config;
-    wrapperInstance.actionConfig = actionConfig;
+    wrapperInstance.config = config
+    wrapperInstance.actionConfig = actionConfig
   };
 
   /**
@@ -32,171 +30,186 @@ define([
    * @author devs@everymundo.com
    */
   (function() {
+    /**
+     * @param {Object} $scope
+     * @param {Object} hostUIService
+     * @param {Object} hostScrapService
+     * @param {Object} hostProxyService
+     * @param {Object} $timeout
+     * @param {Object} appHostProxyService
+     * @param {Object} $translate
+     * @param {Object} $filter
+     * @param {Object} $sce
+     *
+     * @return {Object}
+     */
     function PassengerInformationController($scope, hostUIService,
       hostScrapService, hostProxyService, $timeout, appHostProxyService,
       $translate, $filter, $sce) {
-
-      var instance = this;
-      var monthsList = [];
+      let instance = this
+      let monthsList = []
 
       // allow to farenet bring back the prices html nodes to
-      Farenet2.verbose = 1;
+      Farenet2.verbose = 1
       // populate the model with the Farenet values
-      var model = Farenet2.parse();
+      let model = Farenet2.parse()
 
       // view model
-      var ui = {
+      let ui = {
         passengers: getPassengers(),
         total_price: model.total_price,
         discounts: model.discounts,
-        messages:[],
+        messages: [],
         infoMessages: _.chain(hostScrapService.getInfoMessages())
           .map(function(msg) {
             if(msg && msg.isHtml) {
-              msg.body = $sce.trustAsHtml(msg.body);
-              return msg;
+              msg.body = $sce.trustAsHtml(msg.body)
+              return msg
             }
-            return msg;
+            return msg
           })
           .value(),
         errors: [],
         showContinueButton: 1,
         months: monthsList,
         contactInfo: getContactInformation(),
-        isInactive: hostScrapService.isInactive()
-      };
+        isInactive: hostScrapService.isInactive(),
+      }
 
-      ui.total_price.base_fare = getBaseFare(model);
+      ui.total_price.base_fare = getBaseFare(model)
 
       $translate(['LABEL_MONTH_JANUARY', 'LABEL_MONTH_FEBRUARY',
-      'LABEL_MONTH_MARCH', 'LABEL_MONTH_APRIL', 'LABEL_MONTH_MAY',
-      'LABEL_MONTH_JUNE', 'LABEL_MONTH_JULY', 'LABEL_MONTH_AUGUST',
-      'LABEL_MONTH_SEPTEMBRE', 'LABEL_MONTH_OCTOBER', 'LABEL_MONTH_NOVEMBER',
-      'LABEL_MONTH_DECEMBER']).then(function(translations) {
-        monthsList = [
-          { name: translations.LABEL_MONTH_JANUARY, days: 31, no: 1},
-          { name: translations.LABEL_MONTH_FEBRUARY, days: 28, no: 2},
-          { name: translations.LABEL_MONTH_MARCH, days: 31, no: 3},
-          { name: translations.LABEL_MONTH_APRIL, days: 30, no: 4},
-          { name: translations.LABEL_MONTH_MAY, days: 31, no: 5},
-          { name: translations.LABEL_MONTH_JUNE, days: 30, no: 6},
-          { name: translations.LABEL_MONTH_JULY, days: 31, no: 7},
-          { name: translations.LABEL_MONTH_AUGUST, days: 31, no: 8},
-          { name: translations.LABEL_MONTH_SEPTEMBRE, days: 30, no: 9},
-          { name: translations.LABEL_MONTH_OCTOBER, days: 31, no: 10},
-          { name: translations.LABEL_MONTH_NOVEMBER, days: 30, no: 11},
-          { name: translations.LABEL_MONTH_DECEMBER, days: 31, no: 12}
-        ];
+        'LABEL_MONTH_MARCH', 'LABEL_MONTH_APRIL', 'LABEL_MONTH_MAY',
+        'LABEL_MONTH_JUNE', 'LABEL_MONTH_JULY', 'LABEL_MONTH_AUGUST',
+        'LABEL_MONTH_SEPTEMBRE', 'LABEL_MONTH_OCTOBER', 'LABEL_MONTH_NOVEMBER',
+        'LABEL_MONTH_DECEMBER']).then(function(translations) {
+          monthsList = [
+            {name: translations.LABEL_MONTH_JANUARY, days: 31, no: 1},
+            {name: translations.LABEL_MONTH_FEBRUARY, days: 28, no: 2},
+            {name: translations.LABEL_MONTH_MARCH, days: 31, no: 3},
+            {name: translations.LABEL_MONTH_APRIL, days: 30, no: 4},
+            {name: translations.LABEL_MONTH_MAY, days: 31, no: 5},
+            {name: translations.LABEL_MONTH_JUNE, days: 30, no: 6},
+            {name: translations.LABEL_MONTH_JULY, days: 31, no: 7},
+            {name: translations.LABEL_MONTH_AUGUST, days: 31, no: 8},
+            {name: translations.LABEL_MONTH_SEPTEMBRE, days: 30, no: 9},
+            {name: translations.LABEL_MONTH_OCTOBER, days: 31, no: 10},
+            {name: translations.LABEL_MONTH_NOVEMBER, days: 30, no: 11},
+            {name: translations.LABEL_MONTH_DECEMBER, days: 31, no: 12},
+          ]
 
-        ui.months = monthsList;
-        ui.passengers = ui.passengers.map(function(passenger, index) {
-          var no = parseInt(passenger.birthMonth.no);
+          ui.months = monthsList
+          ui.passengers = ui.passengers.map(function(passenger, index) {
+            let no = parseInt(passenger.birthMonth.no)
 
-          if(!isNaN(no)) {
-            passenger.birthMonth.name = ui.months[no - 1].name;
-            passenger.birthMonth.days = ui.months[no - 1].days;
-          }
+            if(!isNaN(no)) {
+              passenger.birthMonth.name = ui.months[no - 1].name
+              passenger.birthMonth.days = ui.months[no - 1].days
+            }
 
-          if(passenger.birthDay === '') {
-            passenger.birthDay = 1;
-          }
+            if(passenger.birthDay === '') {
+              passenger.birthDay = 1
+            }
 
-          if (passenger.birthYear === '') {
-            passenger.birthYear = 1990;
-          }
+            if (passenger.birthYear === '') {
+              passenger.birthYear = 1990
+            }
 
-          $scope.$watch('ui.passengers[' + index + '].birthYear',
-            function (newBirthYear) {
-              var daysAmount = passenger.birthMonth.days || 31;
+            $scope.$watch('ui.passengers[' + index + '].birthYear',
+            function(newBirthYear) {
+              let daysAmount = passenger.birthMonth.days || 31
               if(isLeapYear(newBirthYear) && passenger.birthMonth.no === 2) {
-                daysAmount += 1;
+                daysAmount += 1
               }
-              passenger.days = $filter('range')([], 1, daysAmount);
-          });
+              passenger.days = $filter('range')([], 1, daysAmount)
+            })
 
-          $scope.$watch('ui.passengers[' + index + '].birthMonth',
-            function (newBirthMonth) {
-              var daysAmount = newBirthMonth.days || 31;
-              var monthNumber = passenger.birthMonth.no;
+            $scope.$watch('ui.passengers[' + index + '].birthMonth',
+            function(newBirthMonth) {
+              let daysAmount = newBirthMonth.days || 31
+              let monthNumber = passenger.birthMonth.no
 
               if(isLeapYear(passenger.birthYear) && monthNumber === 2) {
-                daysAmount += 1;
+                daysAmount += 1
               }
 
-              passenger.days = $filter('range')([], 1, daysAmount);
-          });
+              passenger.days = $filter('range')([], 1, daysAmount)
+            })
 
-          return passenger;
-        });
-      });
+            return passenger
+          })
+        })
 
-      //-------------------------------------------------------
+      // -------------------------------------------------------
       // starting code
-      //-------------------------------------------------------
+      // -------------------------------------------------------
 
       instance.init = function() {
-        console.log('PassengerInformationController init');
-      };
+        console.log('PassengerInformationController init')
+      }
 
-      //-------------------------------------------------------
+      // -------------------------------------------------------
       // binding properties
-      //-------------------------------------------------------
+      // -------------------------------------------------------
 
-      $scope.$parent.showMiniSummary = true;
-      $scope.$parent.stepper.goToStep(3);
+      $scope.$parent.showMiniSummary = true
+      $scope.$parent.stepper.goToStep(3)
 
-      $scope.ui = ui;
+      $scope.ui = ui
 
       // app manipulation vars
-      $scope.$parent.showLoading = false;
+      $scope.$parent.showLoading = false
 
       // sync the ui height to garanty footer correct positioning
-      appHostProxyService.syncHeight($timeout);
+      appHostProxyService.syncHeight($timeout)
 
-      statsService.ruleShowed(Farenet2.getResult(), wrapperInstance.actionConfig);
+      statsService.ruleShowed(Farenet2.getResult(), wrapperInstance.actionConfig)
 
 
-      //-------------------------------------------------------
+      // -------------------------------------------------------
       // binding functions
-      //-------------------------------------------------------
+      // -------------------------------------------------------
 
-      $scope.continueButtonAction = function(){
-        var formActionNodeSelector = hostProxyService.getFormActionNodeSelector();
-        $scope.$parent.showLoading = true;
-        var deferred = appHostProxyService
+      $scope.continueButtonAction = function() {
+        let formActionNodeSelector = hostProxyService.getFormActionNodeSelector()
+        $scope.$parent.showLoading = true
+        appHostProxyService
           .submitFormAction(
             formActionNodeSelector, 'passengerInformation', function(error, value) {
-              validationHelper(value.errors);
+              validationHelper(value.errors)
               $timeout(function() {
-                $scope.$parent.showLoading = false;
-              }, 0);
-           });
-      };
+                $scope.$parent.showLoading = false
+              }, 0)
+            })
+      }
 
-      //-------------------------------------------------------
+      // -------------------------------------------------------
       // Helpers
-      //-------------------------------------------------------
+      // -------------------------------------------------------
 
       // - model helpers
-
-      function getBaseFare(model){
-        var totalPriceModel = model.total_price;
-        var discountsModel = model.discounts;
-        var baseFare = 0;
-        baseFare = totalPriceModel.cash - totalPriceModel.taxes - totalPriceModel.fuel_surcharges;
-        $.each(discountsModel, function(index, item){
-          baseFare += item.price;
-        });
-        return baseFare;
+      /**
+       * @param {Object} model
+       * @return {Object}
+       */
+      function getBaseFare(model) {
+        let totalPriceModel = model.total_price
+        let discountsModel = model.discounts
+        let baseFare = 0
+        baseFare = totalPriceModel.cash - totalPriceModel.taxes - totalPriceModel.fuel_surcharges
+        $.each(discountsModel, function(index, item) {
+          baseFare += item.price
+        })
+        return baseFare
       }
 
       /**
        * @return {Object[]}
        */
       function getPassengers() {
-        var $infoBlocks = hostScrapService.getAllInfoBlocks();
-        var passengers = [];
-        var years = $filter('range')([], 1920, (new Date()).getFullYear());
+        let $infoBlocks = hostScrapService.getAllInfoBlocks()
+        let passengers = []
+        let years = $filter('range')([], 1920, (new Date()).getFullYear())
 
         /**
          * Creates a debounced function that delays invoking func until after
@@ -206,22 +219,21 @@ define([
          * @param {Integer} index
          * @param {Mixed} value
          */
-        var setPassengerAgeDb = _.debounce(function(index, value) {
-          value = parseInt(value, 10);
+        let setPassengerAgeDb = _.debounce(function(index, value) {
+          value = parseInt(value, 10)
           if (!isNaN(value) && (value >= 2 && value <= 11)) {
-            hostScrapService.setPassengerAge(index, value);
-          }
-          else {
-            var self = this;
+            hostScrapService.setPassengerAge(index, value)
+          } else {
+            let self = this // eslint-disable-line
             $timeout(function() {
-              self.age = 2;
-              hostScrapService.setPassengerAge(index, self.age);
-            },0);
+              self.age = 2
+              hostScrapService.setPassengerAge(index, self.age)
+            }, 0)
           }
-        }, 1000);
+        }, 1000)
 
         $infoBlocks.each(function(index) {
-          var passenger = {
+          let passenger = {
             needSFI: hostScrapService.needSecureFlightInformation(index),
             type: hostScrapService.getPassengerType(index),
             title: hostScrapService.getPassengerTitle(index),
@@ -242,174 +254,174 @@ define([
             redressNumber: hostScrapService.getPassengerRedressNumber(index),
             redressNumberExist: hostScrapService.redressNumberExist(index),
             years: years.sort(
-              function(a,b) {
-                return b - a;
+              function(a, b) {
+                return b - a
               }
             ),
             days: [],
             autoFillSelectedOption: hostScrapService.getAutoFillSelectedOption(index),
             autoFillOptions: function() {
-              var list =
-                hostScrapService.getAllPassengerAutoFillOptions(index);
-              var self = this;
+              let list =
+                hostScrapService.getAllPassengerAutoFillOptions(index)
+              let self = this
               if(list.length !== 0) {
                 if (this.autoFillSelectedOption === '') {
-                  this.autoFillSelectedOption = list[0];
+                  this.autoFillSelectedOption = list[0]
                 } else {
                   list.forEach(function(t) {
                     if(self.autoFillSelectedOption === t.value) {
-                      self.autoFillSelectedOption = t;
+                      self.autoFillSelectedOption = t
                     }
-                  });
+                  })
                 }
               }
-              return list;
+              return list
             },
 
             // Get options list
             freqFlyerOptions: function() {
-              var list =
-                hostScrapService.getAllPassengerFreqFlyerOptions(index);
-              var self = this;
+              let list =
+                hostScrapService.getAllPassengerFreqFlyerOptions(index)
+              let self = this
               if(list.length !== 0) {
                 if (this.freqFlyer === '') {
-                  this.freqFlyer = list[0];
+                  this.freqFlyer = list[0]
                 } else {
                   list.forEach(function(t) {
                     if(self.freqFlyer === t.value) {
-                      self.freqFlyer = t;
+                      self.freqFlyer = t
                     }
-                  });
+                  })
                 }
               }
 
-              return list;
+              return list
             },
             titleOptions: function() {
-              var list =
-                hostScrapService.getAllPassengerTitleOptions(index);
-              var self = this;
+              let list =
+                hostScrapService.getAllPassengerTitleOptions(index)
+              let self = this
               if(list.length !== 0) {
                 if(this.title === '') {
-                  this.title = list[0];
+                  this.title = list[0]
                 } else {
                   list.forEach(function(t) {
                     if(self.title === t.value) {
-                      self.title = t;
+                      self.title = t
                     }
-                  });
+                  })
                 }
               }
-              return list;
+              return list
             },
             // setters
             setTitle: function(value) {
-              hostScrapService.setPassengerTitle(index, value.value);
+              hostScrapService.setPassengerTitle(index, value.value)
             },
             setFirstName: function(value) {
-              hostScrapService.setPassengerFirstName(index, value);
+              hostScrapService.setPassengerFirstName(index, value)
             },
             setGender: function(value) {
-              hostScrapService.setPassengerGender(index, value === 'M' ? 1 : 0);
+              hostScrapService.setPassengerGender(index, value === 'M' ? 1 : 0)
             },
             setlastName: function(value) {
-              hostScrapService.setPassengerLastName(index, value);
+              hostScrapService.setPassengerLastName(index, value)
             },
             setAge: function(value) {
-              setPassengerAgeDb.apply(this, [index, value]);
+              setPassengerAgeDb.apply(this, [index, value])
             },
             setBirthYear: function(value) {
-              hostScrapService.setPassengerBirthYear(index, value);
+              hostScrapService.setPassengerBirthYear(index, value)
             },
             setBirthDay: function(value) {
-              hostScrapService.setPassengerBirthDay(index, value);
+              hostScrapService.setPassengerBirthDay(index, value)
             },
             setBirthMonth: function(value) {
-              hostScrapService.setPassengerBirthMonth(index, value);
+              hostScrapService.setPassengerBirthMonth(index, value)
             },
             setRedressNumber: function(value) {
-              hostScrapService.setPassengerRedressNumber(index, value);
+              hostScrapService.setPassengerRedressNumber(index, value)
             },
             setSuffix: function(value) {
-              hostScrapService.setPassengerSuffix(index, value);
+              hostScrapService.setPassengerSuffix(index, value)
             },
             setFreqFlyer: function(value) {
-              hostScrapService.setPassengerFreqFlyer(index, value);
+              hostScrapService.setPassengerFreqFlyer(index, value)
             },
-            setAutoFillOption: function(value){
-              hostScrapService.setAutoFillSelectedOption(index, value);
-              syncPassenger($scope.ui.passengers[index], index);
+            setAutoFillOption: function(value) {
+              hostScrapService.setAutoFillSelectedOption(index, value)
+              syncPassenger($scope.ui.passengers[index], index)
             },
             setMemberShip: function(value) {
-              hostScrapService.setPassengerMemberShip(index, value);
+              hostScrapService.setPassengerMemberShip(index, value)
             },
             argTaxId: {
               exist: hostScrapService.existArgentinaTaxID(index),
               taxIdCodeOptions: function() {
-                var list =
-                  hostScrapService.getAllPassengerTaxIDCodeOptions(index);
-                var self = this;
+                let list =
+                  hostScrapService.getAllPassengerTaxIDCodeOptions(index)
+                let self = this
                 if(list.length !== 0) {
                   if(this.taxIdCode === '') {
-                    this.taxIdCode = list[0];
+                    this.taxIdCode = list[0]
                   } else {
                     list.forEach(function(t) {
                       if(self.taxIdCode === t.value) {
-                        self.taxIdCode = t;
+                        self.taxIdCode = t
                       }
-                    });
+                    })
                   }
                 }
-                return list;
+                return list
               },
               taxIdCodeLabel: hostScrapService.getPassengerTaxIDCodeLabel(index),
               taxIdCode: hostScrapService.getPassengerTaxIDCode(index),
               setTaxIdCode: function(tc) {
-                return hostScrapService.setPassengerTaxIDCode(index, tc.value);
+                return hostScrapService.setPassengerTaxIDCode(index, tc.value)
               },
               taxIdNumber: hostScrapService.getPassengerTaxIDNumber(index),
               setTaxIdNumber: function(tn) {
-                return hostScrapService.setPassengerTaxIDNumber(index, tn);
+                return hostScrapService.setPassengerTaxIDNumber(index, tn)
               },
               taxIdNumberLabel: hostScrapService.getPassengerTaxIDNumberLabel(index),
               taxIdCountryLabel: hostScrapService.getPassengerTaxIDCountryLabel(index),
               taxIdCountry: hostScrapService.getPassengerTaxIDCountry(index),
               setTaxIdCountry: function(tc) {
-                return hostScrapService.setPassengerTaxIDCountry(index, tc.value);
+                return hostScrapService.setPassengerTaxIDCountry(index, tc.value)
               },
               taxIdCountryOptions: function() {
-                var list =
-                  hostScrapService.getAllPassengerTaxIDCountryOptions(index);
-                var self = this;
+                let list =
+                  hostScrapService.getAllPassengerTaxIDCountryOptions(index)
+                let self = this
                 if(list.length !== 0) {
                   if(this.taxIdCountry === '') {
-                    this.taxIdCountry = list[0];
+                    this.taxIdCountry = list[0]
                   } else {
                     list.forEach(function(t) {
                       if(self.taxIdCountry === t.value) {
-                        self.taxIdCountry = t;
+                        self.taxIdCountry = t
                       }
-                    });
+                    })
                   }
                 }
-                return list;
+                return list
               },
             },
-          };
-          passenger.birthDay = parseInt(passenger.birthDay);
-          passenger.birthYear = parseInt(passenger.birthYear);
-          passengers.push(passenger);
+          }
+          passenger.birthDay = parseInt(passenger.birthDay)
+          passenger.birthYear = parseInt(passenger.birthYear)
+          passengers.push(passenger)
           // passenger.setBirthMonth(1);
-        });
+        })
 
-        return passengers;
+        return passengers
       }
 
       /**
        * @return {Object}
        */
       function getContactInformation() {
-        var contactInfo = {
+        let contactInfo = {
           email: hostScrapService.getContactInformationEmail(),
           confirmEmail: hostScrapService.getContactInformationConfirmEmail(),
           telCode: hostScrapService.getContactInformationHomeTelCode(),
@@ -422,33 +434,35 @@ define([
           setTelNumber: hostScrapService.setContactInformationHomeTelNumber,
           setMobileCode: hostScrapService.setContactInformationMobileCode,
           setMobilePhone: hostScrapService.setContactInformationMobileNumber,
-        };
-
-        return contactInfo;
-      }
-
-      function syncPassenger(passenger, index){
-        passenger.title = hostScrapService.getPassengerTitle(index);
-        passenger.firstName = hostScrapService.getPassengerFirstName(index);
-        passenger.lastName = hostScrapService.getPassengerLastName(index);
-        passenger.freqFlyer = hostScrapService.getPassengerFreqFlyer(index);
-        passenger.memberShip = hostScrapService.getPassengerMemberShip(index);
-        passenger.suffix = hostScrapService.getPassengerSuffix(index);
-        passenger.birthMonth = hostScrapService.getPassengerBirthMonth(index);
-        passenger.birthDay = hostScrapService.getPassengerBirthDay(index);
-        passenger.birthYear = hostScrapService.getPassengerBirthYear(index);
-        passenger.age = hostScrapService.getPassengerAge(index);
-        passenger.infoArea = hostScrapService.getPassengerInfoArea(index);
-        passenger.redressNumber = hostScrapService.getPassengerRedressNumber(index);
-        passenger.birthDay = parseInt(passenger.birthDay);
-        passenger.birthYear = parseInt(passenger.birthYear);
-
-        passenger.gender = hostScrapService.getPassengerCheckedGender(index);
-        if(!passenger.gender){
-          passenger.gender = 'M';
-          hostScrapService.setPassengerGender(index, 1);
         }
 
+        return contactInfo
+      }
+      /**
+       * @param {Object} passenger
+       * @param {int} index
+       */
+      function syncPassenger(passenger, index) {
+        passenger.title = hostScrapService.getPassengerTitle(index)
+        passenger.firstName = hostScrapService.getPassengerFirstName(index)
+        passenger.lastName = hostScrapService.getPassengerLastName(index)
+        passenger.freqFlyer = hostScrapService.getPassengerFreqFlyer(index)
+        passenger.memberShip = hostScrapService.getPassengerMemberShip(index)
+        passenger.suffix = hostScrapService.getPassengerSuffix(index)
+        passenger.birthMonth = hostScrapService.getPassengerBirthMonth(index)
+        passenger.birthDay = hostScrapService.getPassengerBirthDay(index)
+        passenger.birthYear = hostScrapService.getPassengerBirthYear(index)
+        passenger.age = hostScrapService.getPassengerAge(index)
+        passenger.infoArea = hostScrapService.getPassengerInfoArea(index)
+        passenger.redressNumber = hostScrapService.getPassengerRedressNumber(index)
+        passenger.birthDay = parseInt(passenger.birthDay)
+        passenger.birthYear = parseInt(passenger.birthYear)
+
+        passenger.gender = hostScrapService.getPassengerCheckedGender(index)
+        if(!passenger.gender) {
+          passenger.gender = 'M'
+          hostScrapService.setPassengerGender(index, 1)
+        }
       }
 
       /**
@@ -456,9 +470,10 @@ define([
        * @return {Boolean}
        */
       function isLeapYear(year) {
-        var y = parseInt(year);
-        return ((y % 4 === 0) && (y % 100 !== 0)) || (y % 400 === 0);
+        let y = parseInt(year)
+        return ((y % 4 === 0) && (y % 100 !== 0)) || (y % 400 === 0)
       }
+
       /**
        * Add the validation messages to the UI
        * errors: {
@@ -473,80 +488,83 @@ define([
        *   ]
        * }
        * @param  {[type]} errors [description]
-       * @return {[type]}        [description]
+       *
        */
       function validationHelper(errors) {
-        var validationErrors = errors.validationErrors || [];
-        ui.errors = [];
+        let validationErrors = errors.validationErrors || []
+        ui.errors = []
 
-        if(!validationErrors.length && errors.length > 0){
-          validationErrors = [];
-          $.each(errors, function(){
+        if(!validationErrors.length && errors.length > 0) {
+          validationErrors = []
+          $.each(errors, function() {
             validationErrors.push({
               messages: [
-                this.message
-              ]
-            });
-          });
+                this.message, // eslint-disable-line
+              ],
+            })
+          })
         }
-        $.each(validationErrors, function(/*value, index*/){
-          var message = this;
+        $.each(validationErrors, function(/* value, index*/) {
+          let message = this // eslint-disable-line
           if(message.property) {
             // validate an specific input
             // TODO: Implement this feature
-            addMessageToInput(message.property, message.messages[0]);
+            addMessageToInput(message.property, message.messages[0])
           } else {
             // add the message to the general messages
-            $scope.ui.messages = [];
+            $scope.ui.messages = []
             $scope.ui.messages.push(
               {
                 type: 'error',
-                content: message.messages[0]
+                content: message.messages[0],
               }
-            );
+            )
           }
-        });
-        $scope.$apply();
+        })
+        $scope.$apply()
       }
-
+      /**
+       * @param {String} propertyName
+       * @param {String} message
+       */
       function addMessageToInput(propertyName, message) {
         // propertyName = 'travellersInfo[0].firstName';
         // message = 'First name is required';
-        var indexRegExp = /\[([^)]+)\]/;
-        var propertyRegExp = /\]\.(.*)/;
-        var indexMatches = indexRegExp.exec(propertyName);
-        var propertyMatches = propertyRegExp.exec(propertyName);
-        var index;
-        var property;
+        let indexRegExp = /\[([^)]+)\]/
+        let propertyRegExp = /\]\.(.*)/
+        let indexMatches = indexRegExp.exec(propertyName)
+        let propertyMatches = propertyRegExp.exec(propertyName)
+        let index
+        let property
 
-        if(indexMatches && indexMatches.length > 0){
-          index = parseInt(indexMatches[1]);
+        if(indexMatches && indexMatches.length > 0) {
+          index = parseInt(indexMatches[1])
         }
 
-        if(propertyMatches && propertyMatches.length > 0){
-          property = propertyMatches[1];
+        if(propertyMatches && propertyMatches.length > 0) {
+          property = propertyMatches[1]
         }
 
-        if(typeof index != 'undefined' && typeof property != 'undefined'){
+        if(typeof index != 'undefined' && typeof property != 'undefined') {
           if(!ui.errors[index]) {
-            ui.errors[index] = {};
+            ui.errors[index] = {}
           }
-          ui.errors[index][property] = message;
+          ui.errors[index][property] = message
         } else {
           // common properties
-          ui.errors[21] = {};
-          ui.errors[21][propertyName] = message;
+          ui.errors[21] = {}
+          ui.errors[21][propertyName] = message
         }
       }
 
 
       // - visual helpers
 
-      //-------------------------------------------------------
+      // -------------------------------------------------------
       // listeners
-      //-------------------------------------------------------
-      instance.init();
-      return instance;
+      // -------------------------------------------------------
+      instance.init()
+      return instance
     }
 
     PassengerInformationController.$inject = [
@@ -558,8 +576,8 @@ define([
       'appHostProxyService',
       '$translate',
       '$filter',
-      '$sce'
-    ];
+      '$sce',
+    ]
     angular
         .module('responsiveBookingEngine')
         .filter('duration', strDuration)
@@ -567,8 +585,8 @@ define([
         .directive('bsCardRefId', bsCardRefId)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
-        .controller('PassengerInformationController', PassengerInformationController);
-  })({});
+        .controller('PassengerInformationController', PassengerInformationController)
+  })({})
 
-  return wrapperInstance;
-});
+  return wrapperInstance
+})
