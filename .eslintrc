@@ -52,6 +52,7 @@
     "M3_ERRORS_TARGET_ELEMENT": true,
     "ERRORS_TARGET_ELEMENT": true,
     "tContentData": true,
+    "multiplePaymentView": true,
     "errorFramework": true
   }
 }

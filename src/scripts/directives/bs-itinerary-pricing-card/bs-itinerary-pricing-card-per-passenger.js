@@ -1,43 +1,44 @@
-/* jshint browser:true */
-/* jshint -W003*/
-'use strict';
+'use strict'
 define([
   'jquery',
   './helpers/itinerary-pricing-helper',
   './helpers/template-string-helper',
-  'angular'
+  'angular',
 ], function($, ipHelper, tmplHelper) {
   /**
    * Angular directive
+   *
+   * @param {Object} $sce
+   * @return {Object}
    */
-  function bsItineraryPricingCardPerPassenger ($sce) {
+  function bsItineraryPricingCardPerPassenger($sce) {
     return {
       restrict: 'EA',
       scope: {
-        ui: '='
+        ui: '=',
       },
       replace: true,
       template: tmplHelper.templatePerPassenger,
-      link: function(scope/*, element, attrs*/) {
-        var priceInfoList = ipHelper.getItineraryPriceInfo()
+      link: function(scope/* , element, attrs*/) {
+        let priceInfoList = ipHelper.getItineraryPriceInfo()
         if (priceInfoList.length <= 1) {
           return
         }
-        var InsuranceInfo = priceInfoList[1]
+        let InsuranceInfo = priceInfoList[1]
         if (!scope.ui.insurance) {
           scope.ui.insurance = {
             head: '',
-            body: {}
+            body: {},
           }
         }
         scope.ui.insurance.head = InsuranceInfo.name
         scope.ui.insurance.price =
           parseFloat(InsuranceInfo.details[0].price)
-      }
-    };
+      },
+    }
   }
 
-  bsItineraryPricingCardPerPassenger.$inject = [];
+  bsItineraryPricingCardPerPassenger.$inject = []
 
-  return bsItineraryPricingCardPerPassenger;
-});
+  return bsItineraryPricingCardPerPassenger
+})
