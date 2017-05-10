@@ -173,6 +173,7 @@ define([
       $scope.continueButtonAction = function() {
         let formActionNodeSelector = hostProxyService.getFormActionNodeSelector()
         $scope.$parent.showLoading = true
+        hostProxyService.clickToCheckedBox();
         appHostProxyService
           .submitFormAction(
             formActionNodeSelector, 'passengerInformation', function(error, value) {

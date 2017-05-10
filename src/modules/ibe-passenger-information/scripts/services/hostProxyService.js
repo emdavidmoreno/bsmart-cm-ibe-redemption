@@ -13,6 +13,12 @@
         return scrapSelectors.generalActions.continueButton;
       };
 
+      hostProxyService.clickToCheckedBox = function() {
+        if($('.formCheckboxArea input[type="checkbox"]:checked').length !==1)
+            $('.formCheckboxArea').find('input[type="checkbox"]').click();
+        $('.formCheckboxArea').find('input[type="checkbox"]').val(1);
+      };
+
       return hostProxyService;
     }
 
