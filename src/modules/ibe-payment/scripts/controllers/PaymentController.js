@@ -317,7 +317,10 @@ define([
 
         $scope.ui.editableMode = function () {
           $scope.ui.isCreditCardsSaved = 0;
-          editPaymentCard();
+        
+         editPaymentCard();
+         $scope.ui.agreements.checkBoxCreditCardStatus = false; 
+         $scope.ui.agreements.checkBoxCreditCardStatus = $('#savePaymentCard').val();
           $timeout(function () {
             hostUIService.syncIframeFields();
           }, 2000);
@@ -325,8 +328,11 @@ define([
 
         $scope.addNewPaymentMode = function () {
           $scope.ui.isCreditCardsSaved = 0;
+          $scope.ui.agreements.checkBoxCreditCardStatus = false; 
           autoFillCardForm();
           addNewPayment();
+          
+        
           $timeout(function () {
             hostUIService.syncIframeFields();
           }, 2000);
@@ -804,7 +810,7 @@ define([
               ui.partialErrors.installments = null;
             },
             setBaStateDisplay: function (value) {
-              hostScrapService.setCreditCardValueByInput(inputsType.BA_STATE_DISPLAY, value);
+              hostScrapService.setCreditCardValueByInput(inputsType.BA_STATE_DISPLAY, value.value);
               ui.partialErrors.baStateDisplay = null;
             },
             setBaPostalCode: function (value) {
@@ -1047,13 +1053,10 @@ define([
             hostScrapService.getAgreementsValueByInput('HAZARDOUS_MATERIALS'),
             saveCreditCard:
             hostScrapService.getAgreementsValueByInput('CREDIT_CARD'),
-            checkBoxCreditCardStatus: function () {
-              var value = hostScrapService.getAgreementsValueByInput('CREDIT_CARD');
-              return value;
-
-            },
+            checkBoxCreditCardStatus:false,
             checkedSaveCreditCard: function () {
               hostScrapService.checkedSaveCreditCard()
+              //this.checkBoxCreditCardStatus = $('#savePaymentCard').val();
               //ui.partialErrors.termsConditions = null;
             },
             acceptTermsAndConditions: function () {
