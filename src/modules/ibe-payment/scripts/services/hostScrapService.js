@@ -38,6 +38,8 @@
 
     var SELECTOR_EDIT_CARD_OPTIONS = '#paymentCardRow .creditCardMaintenanceLinks a';
 
+     var SELECTOR_IF_USER_IS_LOGIN = '#login strong'; 
+
     var agreements = {
       TERMS_CONDITIONS: '[name=acceptTermsAndConditions]',
       HAZARDOUS_MATERIALS: '[name=acceptHazardousMaterials]',
@@ -67,6 +69,11 @@
     hostScrapService.acceptHazardousMaterials = function () {
       // updateHazardousMaterials();
       $(HAZARDOUS_MATERIALS_CHECKBOX_SELECTOR).click()
+    };
+   
+    hostScrapService.ifUserIsLogged = function () {
+      // updateHazardousMaterials();
+      return $(SELECTOR_IF_USER_IS_LOGIN).length;
     };
 
     hostScrapService.acceptTermsAndConditions = function () {

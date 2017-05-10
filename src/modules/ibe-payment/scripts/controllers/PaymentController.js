@@ -58,6 +58,7 @@ define([
           total_price_per_passenger_type: model.total_price_per_passenger_type,
           passengers_info: hostScrapService.getPassengersInfo(),
           passengers: model.passengers,
+          userIfLogged:hostScrapService.ifUserIsLogged(),
           disclaimer_mapping: _.isEmpty(model.disclaimer_mapping) ? null : model.disclaimer_mapping,
           messages: [],
           errors: {},

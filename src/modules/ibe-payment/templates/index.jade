@@ -316,7 +316,7 @@ block body
                 data-ng-change="ui.payment.setCardHolderEmail(ui.payment.cardHolderEmail)")
               span.text-message
                 | {{ ui.partialErrors.cardHolderEmail }}         
-          .form-group.md(data-ng-show="!ui.isCreditCardsSaved")  
+          .form-group.md(data-ng-if='ui.userIfLogged' data-ng-show="!ui.isCreditCardsSaved")  
             .col-sm-10
               input.inline-checkbox(
                 type='checkbox' 
