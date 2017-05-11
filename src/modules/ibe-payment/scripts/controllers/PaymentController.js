@@ -19,11 +19,12 @@ define([
   '../../../../scripts/directives/bs-card-ref-id',
   'statsService',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
-  '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger'
+  '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
+   '../../../../scripts/services/hostUIService'
 ], function ($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger) {
+  bsItineraryPricingCardPerPassenger, ApphostUIService) {
 
     var wrapperInstance = {};
     $.noConflict(true);
@@ -40,7 +41,7 @@ define([
     (function () {
       function PaymentController($scope, hostUIService,
         hostScrapService, hostProxyService, $timeout, appHostProxyService,
-        $translate, $sce) {
+        $translate, $sce, ApphostUIService) {
 
         var instance = this;
 
@@ -938,7 +939,7 @@ define([
         function validationHelper(errors) {
           var validationErrors = errors.validationErrors;
           ui.errors = [];
-
+          ApphostUIService.scrollToTop();  
           if (!validationErrors && errors.errors) {
             validationErrors = errors.errors;
           }
@@ -1098,7 +1099,8 @@ define([
         '$timeout',
         'appHostProxyService',
         '$translate',
-        '$sce'
+        '$sce',
+        'ApphostUIService'
       ];
       angular
         .module('responsiveBookingEngine')
