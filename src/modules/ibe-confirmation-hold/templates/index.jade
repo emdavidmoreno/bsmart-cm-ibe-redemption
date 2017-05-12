@@ -16,6 +16,12 @@ block body
             span.text-primary.text-size--medium
               |  {{ui.confirmation.thanks_message}}
             i.ok-icon.pull-right.text-primary
+      .m-card.m-card--flat.m-card--bordered-dashed(id="tripWarningMsg")
+        .content.content--medium-vertical-padding.content--flat
+          p
+            span.text-danger.text-size--medium
+              |  {{ 'LABEL_TRIP_MSG' | translate }}
+           
       .m-card.m-card--flat.m-card--background-mutted
         .content
           p.text-uppercase
