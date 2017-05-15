@@ -11,8 +11,9 @@ define([
   '../directives/jqui-autocomplete',
   '../../../../scripts/services/hostProxyService',
   'statsService',
+  '../../../../scripts/services/hostUIService'
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
-  jquiDatepicker, jquiAutocomplete, appHostProxyService, statsService) {
+  jquiDatepicker, jquiAutocomplete, appHostProxyService, statsService, ApphostUIService) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -39,7 +40,7 @@ define([
      */
     function ExternalBookingController($scope,
       hostUIService, hostScrapService, hostProxyService, $timeout,
-      appHostProxyService) {
+      appHostProxyService, ApphostUIService) {
       let instance = this
 
       // -------------------------------------------------------
@@ -240,6 +241,7 @@ define([
        */
       function validationHelper(errors) {
         let validationErrors = errors.validationErrors
+        ApphostUIService.scrollToTop();
         if(!validationErrors && errors.length > 0) {
           validationErrors = []
           $.each(errors, function() {
@@ -365,7 +367,7 @@ define([
     // -------------------------------------------------------
     ExternalBookingController.$inject =
     ['$scope', 'hostUIService', 'hostScrapService', 'hostProxyService',
-      '$timeout', 'appHostProxyService']
+      '$timeout', 'appHostProxyService', 'ApphostUIService']
 
     angular
         .module('responsiveBookingEngine')

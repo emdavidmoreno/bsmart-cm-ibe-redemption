@@ -136,7 +136,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_EDIT_OPTION: 'Edit',
       LABEL_DELETE_OPTION: 'Delete',
       LABEL_CARD_SAVED: 'Saved cards',
-      LABEL_ADD_OPTION: 'Add'
+      LABEL_ADD_OPTION: 'Add',
+      LABEL_TRIP_MSG:"This trip will not be automatically added to the App. You may add it manually after payment."
     });
 
 
@@ -270,7 +271,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_EDIT_OPTION: 'Editar',
       LABEL_DELETE_OPTION: 'Eliminar',
       LABEL_CARD_SAVED: 'Tarjetas guardadas',
-      LABEL_ADD_OPTION: 'Agregar'
+      LABEL_ADD_OPTION: 'Agregar',
+      LABEL_TRIP_MSG:'Este viaje no será agregado automáticamente al App. Lo podrá agregar posterior al pago.'
     });
 
     // portuguees translations
@@ -403,7 +405,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_EDIT_OPTION: 'Editar',
       LABEL_DELETE_OPTION: 'Excluir',
       LABEL_CARD_SAVED: 'Cartões Saved',
-      LABEL_ADD_OPTION:'Adicionar'
+      LABEL_ADD_OPTION:'Adicionar',
+      LABEL_TRIP_MSG:'Esta viagem não será automaticamente adicionada à App. Você pode adicioná-lo manualmente após o pagamento.'
 
     });
 

@@ -16,11 +16,12 @@ define([
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
   'lodash',
-  'statsService'
+  'statsService',
+  '../../../../scripts/services/hostUIService'
 ], function($, angular, hostUIService,
   hostScrapService, hostProxyService, strDuration, strSimpleDate,
   sanitize, collUnique, appHostProxyService, jquiDialog, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, _, statsService) {
+  bsItineraryPricingCardPerPassenger, _, statsService, ApphostUIService) {
 
   var wrapperInstance = {};
 
@@ -36,7 +37,7 @@ define([
   (function() {
     function ItinerarySummaryController($scope,
       hostUIService, hostScrapService, hostProxyService, $timeout,
-      appHostProxyService, $sce) {
+      appHostProxyService, $sce, ApphostUIService) {
 
       var instance = this;
 
@@ -585,6 +586,7 @@ define([
        */
       function validationHelper(errors) {
         var validationErrors = errors.validationErrors;
+        ApphostUIService.scrollToTop();
         if(!validationErrors && errors.length > 0){
           validationErrors = [];
           $.each(errors, function(){
@@ -635,7 +637,8 @@ define([
       'hostProxyService',
       '$timeout',
       'appHostProxyService',
-      '$sce'];
+      '$sce',
+      'ApphostUIService'];
     angular
         .module('responsiveBookingEngine')
         .factory('hostUIService', hostUIService)

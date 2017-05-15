@@ -46,19 +46,28 @@
     };
 
     hostScrapService.selectPaymentProceedToPay = function() {
+     
       var $el = $(SELECTOR_PROCCED_TO_PAY + ' input[type=radio]');
       $el.prop('checked', 'checked');
       // global function to select Book
       // jshint -W117
       setSelectedValue('BOOK');
+      if (typeof (Storage) !== 'undefined')
+          sessionStorage.setItem('reserveoptionchecked', false);
+      
+     
     };
 
-    hostScrapService.selectPaymentReserveAndHoldOption = function() {
+    hostScrapService.selectPaymentReserveAndHoldOption = function() {     
       var $el = $(SELECTOR_RESERVE_AND_HOLD + ' input[type=radio]');
       $el.prop('checked', 'checked');
+
       // global function to select reserve and hold
       // jshint -W117
       setSelectedValue('RESERVE_AND_HOLD');
+      if (typeof (Storage) !== 'undefined')
+          sessionStorage.setItem('reserveoptionchecked', true);
+     
     };
 
     /**

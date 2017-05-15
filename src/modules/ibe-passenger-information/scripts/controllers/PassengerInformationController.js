@@ -15,9 +15,10 @@ define([
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
   'statsService',
+   '../../../../scripts/services/hostUIService'
 ], function($, angular, _, hostUIService, hostScrapService, hostProxyService,
   strDuration, appHostProxyService, range, bsCardRefId, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, statsService) {
+  bsItineraryPricingCardPerPassenger, statsService, ApphostUIService) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -45,7 +46,7 @@ define([
      */
     function PassengerInformationController($scope, hostUIService,
       hostScrapService, hostProxyService, $timeout, appHostProxyService,
-      $translate, $filter, $sce) {
+      $translate, $filter, $sce,ApphostUIService) {
       let instance = this
       let monthsList = []
 
@@ -493,9 +494,9 @@ define([
        */
       function validationHelper(errors) {
         let validationErrors = errors.validationErrors || []
-        ui.errors = []
-
-        if(!validationErrors.length && errors.length > 0) {
+        ui.errors = []     
+        ApphostUIService.scrollToTop();        
+        if(!validationErrors.length && errors.length > 0) {              
           validationErrors = []
           $.each(errors, function() {
             validationErrors.push({
@@ -578,6 +579,7 @@ define([
       '$translate',
       '$filter',
       '$sce',
+      'ApphostUIService'
     ]
     angular
         .module('responsiveBookingEngine')

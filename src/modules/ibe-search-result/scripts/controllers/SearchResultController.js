@@ -14,10 +14,11 @@ define([
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
   'statsService',
-  'lodash'
+  'lodash',
+   '../../../../scripts/services/hostUIService'
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
-  jquiDialog, statsService, _) {
+  jquiDialog, statsService, _, ApphostUIService) {
 
   var wrapperInstance = {};
 
@@ -39,7 +40,8 @@ define([
       $timeout,
       appHostProxyService,
       $filter,
-      $sce
+      $sce,
+      ApphostUIService
     ) {
 
       var instance = this;
@@ -715,6 +717,7 @@ define([
        */
       function validationHelper(errors) {
         var validationErrors = errors.validationErrors;
+        ApphostUIService.scrollToTop();  
         if(!validationErrors && errors.length > 0){
           validationErrors = [];
           $.each(errors, function(){
@@ -761,7 +764,8 @@ define([
       '$timeout',
       'appHostProxyService',
       '$filter',
-      '$sce'
+      '$sce',
+      'ApphostUIService'
     ];
 
     angular

@@ -8,38 +8,39 @@ define([
   '../services/hostProxyService',
   'angular-translate',
   'tmhDynamicLocale'
-], function($, angular, hostUIService, hostScrapService, hostProxyService) {
+], function ($, angular, hostUIService, hostScrapService, hostProxyService) {
+ 
   var wrapperInstance = {};
   Bs.jq = $;
-  wrapperInstance.init = function(config, actionConfig) {
+  wrapperInstance.init = function (config, actionConfig) {
     wrapperInstance.config = config;
     wrapperInstance.actionConfig = actionConfig;
     wrapperInstance.actionVariables = actionConfig.variables[0];
   };
 
-  wrapperInstance.mockShowSessionExpiration = function() {
+  wrapperInstance.mockShowSessionExpiration = function () {
     popupManager.__showSessionExpiration = popupManager.showSessionExpiration;
-    popupManager.showSessionExpiration = function() {
+    popupManager.showSessionExpiration = function () {
       var args = [].slice.call(arguments);
       popupManager.__showSessionExpiration.apply(popupManager, args);
       $("#sessionExpirationPopupDialogTitle").parent().remove();
-      $("div.dialogFooter").css({'background' : '#0162a9' });
-      $("#tbSessionExp").find(".textBody div.textBlock").css({'font-size': '14px'}) 
-      $("#sessionExpirationPopupDialog").css({'width': '80vw'});
-      if(Bs){
-          $(Bs).trigger('expirationpopupready');
-       }  
+      $("div.dialogFooter").css({ 'background': '#0162a9' });
+      $("#tbSessionExp").find(".textBody div.textBlock").css({ 'font-size': '14px' })
+      $("#sessionExpirationPopupDialog").css({ 'width': '80vw' });
+      if (Bs) {
+        $(Bs).trigger('expirationpopupready');
+      }
     };
 
     popupManager.__showSessionInactive = popupManager.showSessionInactive;
-    popupManager.showSessionInactive = function() {
+    popupManager.showSessionInactive = function () {
       var args = [].slice.call(arguments);
       popupManager.__showSessionInactive.apply(popupManager, args);
       // predefine session dialog width
       $("#sessionInactivePopupDialogTitle").parent().remove();
-      $("div.dialogFooter").css({'background' : '#0162a9' });
-      $("#tbSessionExp").find(".textBody div.textBlock").css({'font-size': '14px'}); 
-      $("#sessionInactivePopupDialog").css({'width': '80vw'});
+      $("div.dialogFooter").css({ 'background': '#0162a9' });
+      $("#tbSessionExp").find(".textBody div.textBlock").css({ 'font-size': '14px' });
+      $("#sessionInactivePopupDialog").css({ 'width': '80vw' });
     };
   };
 
@@ -48,9 +49,10 @@ define([
    * Angular Controller
    * @author devs@everymundo.com
    */
-  (function() {
+  (function () {
     function AppController($scope, $translate, hostUIService, hostScrapService,
       hostProxyService, tmhDynamicLocale) {
+     
 
       var instance = this;
       var main = {};
@@ -59,9 +61,11 @@ define([
       // starting code
       //-------------------------------------------------------
 
-      instance.init = function() {
+      instance.init = function () {
+       
         console.log('AppController init');
         hostUIService.bindUI();
+        hostUIService.scrollToTop();
       };
 
       //-------------------------------------------------------
@@ -80,28 +84,29 @@ define([
           { state: '' },
           { state: '' }
         ],
-        goToStep: function(stepIndex) {
-          if(stepIndex < 2){
+        goToStep: function (stepIndex) {
+          if (stepIndex < 2) {
             $scope.showMiniSummaryPrice = 0;
           }
           //The steps before marked as done
           var steps = $scope.stepper.steps;
           for (var i = 0; i < steps.length; i++) {
-            if(stepIndex === i) {
+            if (stepIndex === i) {
               $scope.stepper.steps[i].state = 'active';
-            } else if(i < stepIndex ){
+            } else if (i < stepIndex) {
               $scope.stepper.steps[i].state = 'done';
-            } else{
+            } else {
               break;
             }
           }
         }
       };
-     
+
       var model = Farenet2.getResult();
-      
-         
     
+
+
+
       // app manipulation vars
 
       //-------------------------------------------------------
@@ -111,7 +116,7 @@ define([
         language: wrapperInstance.actionVariables.lang || model.geo.language.lang,
         locale: model.geo.language.site_edition,
         languageOptions: hostScrapService.getAvailableLanguages(),
-        onChangeLanguage: function() {
+        onChangeLanguage: function () {
           $translate.use(main.language);
           tmhDynamicLocale.set(main.language);
           // we are use here a copa function
@@ -139,8 +144,8 @@ define([
       var containLocales = false;
       [
         'es-co', 'es-mx', 'pt-br', 'en-co', 'en-mx', 'en-br', 'en-ar', 'es-ar'
-      ].forEach(function(locale) {
-        containLocales = containLocales ?  containLocales : pageLocale.indexOf(locale) !== -1;
+      ].forEach(function (locale) {
+        containLocales = containLocales ? containLocales : pageLocale.indexOf(locale) !== -1;
       })
       if (!containLocales) {
         pageLocale = main.language
@@ -152,26 +157,26 @@ define([
 
       // we show the loader before initialize the angular controller
       // so we must to do the data binding manually
-      $scope.$watch('showLoading', function(showLoading) {
-        if(showLoading){
+      $scope.$watch('showLoading', function (showLoading) {
+        if (showLoading) {
           hostUIService.showLoader();
         } else {
           hostUIService.hideLoader();
         }
       }, true);
 
-      $scope.showMenu = function(){
+      $scope.showMenu = function () {
         hostUIService.showMenu();
-       
+
       };
 
-      $scope.hideMenu = function(){
+      $scope.hideMenu = function () {
         hostUIService.hideMenu();
       };
 
-      $scope.loadDesktopVersionAction = function(){
+      $scope.loadDesktopVersionAction = function () {
         var href = location.href;
-        if(href.indexOf('#desktop=true') < 0){
+        if (href.indexOf('#desktop=true') < 0) {
           location.href = location.href + '#desktop=true';
         }
         location.reload(true);
@@ -202,8 +207,8 @@ define([
     ];
 
     angular
-        .module('responsiveBookingEngine')
-        .controller('AppController', AppController);
+      .module('responsiveBookingEngine')
+      .controller('AppController', AppController);
   })({});
 
   return wrapperInstance;
