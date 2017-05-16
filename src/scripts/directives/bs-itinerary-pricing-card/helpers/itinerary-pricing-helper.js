@@ -2,7 +2,7 @@
 'use strict'
 
 define(['jquery'], function($) {
-  let SELECTOR_ITINERARY_PRICING_BLOCK = '.itineraryPricingBlock .bodyBlock .bodySection'
+  let SELECTOR_ITINERARY_PRICING_BLOCK = '.itineraryPricingBlock .bodyBlock .bodySection:first'
   let SELECTOR_MAINSTREAM_HEADER = '.expandedPart .mainstream .item'
   let SELECTOR_DETAILS_ROWS = '.expandedPart .detailedPrice tr'
   let SELECTOR_DESC_NAME = '.item'
