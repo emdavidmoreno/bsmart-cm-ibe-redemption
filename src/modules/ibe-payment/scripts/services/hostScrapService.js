@@ -1,5 +1,5 @@
 /* eslint-disable max-len,no-invalid-this */
-(function() {
+(() => {
   'use strict'
   /**
    * @return {Object}
@@ -58,8 +58,6 @@
         return null
       }
       let $elem = $(agreements[agreeType])
-      console.log(agreements[agreeType])
-      console.log($elem.val())
       return $elem.val()
     }
 
@@ -79,7 +77,6 @@
       // updateHazardousMaterials();
       return $(SELECTOR_IF_USER_IS_LOGIN).length
     }
-
     hostScrapService.acceptTermsAndConditions = function() {
       // updateTermsAndConditions();
       $(TB_TERMS_CONDITIONS_CHECKBOX_SELECTOR).click()
@@ -327,7 +324,7 @@
     /**
      * @param {String} ccInputType field that you need value, the value of this
      *    param is key in object ccInputTypes
-     * @return {Array}
+     * @return {String}
      */
     hostScrapService.getCreditCardSelectOptionsByInput = function(ccInputType) {
       let options = []
@@ -335,32 +332,19 @@
         ccInputType.startsWith('select[')) {
         return options
       }
-
-
       let $elems = $(creditCardSelectors[ccInputType] + ' option')
-
-
-      let s = false
       $elems.each(function(index, el) {
-        if ($(el).is(':selected') === true) {
-          s = true
-          console.log($(el).text())
-        } else {
-          s = false
-        }
-        let optionItem = {name: $(el).text(), value: $(el).attr('value'), selected: s}
-        options.push(optionItem)
+        options.push({
+          name: $(el).text(),
+          value: $(el).attr('value'),
+          selected: $(el).is(':selected'),
+        })
       })
-
-      // options.sort(function (x, y) {
-      //   return (x.selected === y.selected) ? 0 : x.selected ? -1 : 1;
-      // });
 
       return options
     }
 
     hostScrapService.getCreditCardSelectedOptionValue = function(ccInputType) {
-      console.log(creditCardSelectors[ccInputType])
       let value = $(creditCardSelectors[ccInputType] + ' ' + ' option:selected').text().trim()
       return value
     }
@@ -583,8 +567,6 @@
         return $node.html()
       }
     }
-
-
     return hostScrapService
   }
 

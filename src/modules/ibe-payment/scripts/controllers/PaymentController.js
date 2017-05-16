@@ -20,10 +20,11 @@ define([
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
   '../../../../scripts/services/hostUIService',
+  '../../../../components/complex/bs-detail-seats-prices/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, ApphostUIService) {
+  bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent) {
   let wrapperInstance = {}
   $.noConflict(true)
 
@@ -344,8 +345,6 @@ define([
         $scope.ui.agreements.checkBoxCreditCardStatus = false
         autoFillCardForm()
         addNewPayment()
-
-
         $timeout(function() {
           hostUIService.syncIframeFields()
         }, 2000)
@@ -385,16 +384,15 @@ define([
         })
       }
 
-        // -------------------------------------------------------
-        // Helpers
-        // -------------------------------------------------------
+      // -------------------------------------------------------
+      // Helpers
+      // -------------------------------------------------------
 
       // - model helpers
       /**
        * Augment the locations ViewModel with
        * the necessary properties for the UI like:
        * (selectedClassIndex, show, summary)
-       *
        * @return {Object}
        */
       function getLocations() {
@@ -502,7 +500,7 @@ define([
                 hostUIService.swapToBSFlightDetailsLoadCallback()
                 fInfo.flightNumberNode[0].click()
 
-                  // This hide the dialog and shadow
+                // This hide the dialog and shadow
                 $timeout(function() {
                   $('#flightDetailsPopUpOuter').attr('style', 'display:none')
                   $('.dialogFooter .button2')[0].click()
@@ -647,7 +645,6 @@ define([
                 let v = hostScrapService.getCreditCardValueByInput(inputsType.BA_STATE_DISPLAY)
                 self.baStateDisplay = getSelectedOption(v, self.states)
               }, 1000)
-
 
               v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_ISSUING_COUNTRY_SELECT)
               self.cardCountry = getSelectedOption(v, self.cardIssuingCountries)
@@ -915,6 +912,7 @@ define([
         })
         $scope.$apply()
       }
+
       /**
        * @param {String} propertyName
        * @param {String} message
@@ -981,6 +979,7 @@ define([
         // formOfPaymentProperty
         // formOfPayment(CREDITCARD_POS).number
       }
+
      /**
       * @return {Object}
       */
@@ -1055,6 +1054,7 @@ define([
         .directive('bsCardRefId', bsCardRefId)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
+        .component('bsDetailSeatsPricesComponent', bsDetailSeatsPricesComponent)
         .controller('PaymentController', PaymentController)
   })({})
 
