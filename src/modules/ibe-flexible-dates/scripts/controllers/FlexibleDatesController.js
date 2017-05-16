@@ -16,22 +16,22 @@ define([
   'lodash',
   '../../../../components/complex/bs-flexible-dates-prices/index.component',
   '../../../../components/complex/bs-btn-continue/index.component',
-], function ($, angular, hostScrapService, hostProxyService,
+], function($, angular, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
   jquiDialog, statsService, _, bsFlexibleDatesPricesComponent,
   bsBtnContinueComponent) {
-    let wrapperInstance = {}
+  let wrapperInstance = {}
 
-    wrapperInstance.init = function (config, actionConfig) {
-      wrapperInstance.config = config
-      wrapperInstance.actionConfig = actionConfig
-    };
+  wrapperInstance.init = function(config, actionConfig) {
+    wrapperInstance.config = config
+    wrapperInstance.actionConfig = actionConfig
+  };
 
     /**
      * Angular Controller
      * @author devs@everymundo.com
      */
-    (function () {
+  (function() {
       /**
        * FlexibleDates Angular controller
        *
@@ -45,7 +45,7 @@ define([
        *
        * @return {Object}
        */
-      function FlexibleDatesController(
+    function FlexibleDatesController(
         $scope,
         hostScrapService,
         hostProxyService,
@@ -54,54 +54,54 @@ define([
         $filter,
         $sce
       ) {
-        let instance = this
+      let instance = this
 
         // -------------------------------------------------------
         // starting code
         // -------------------------------------------------------
 
-        instance.init = function () {
-          console.log('FlexibleDatesController init')
-        }
+      instance.init = function() {
+        console.log('FlexibleDatesController init')
+      }
 
-        $scope.$parent.showMiniSummary = true
-        $scope.$parent.stepper.goToStep(1)
+      $scope.$parent.showMiniSummary = true
+      $scope.$parent.stepper.goToStep(1)
 
         // allow to farenet bring back the prices html nodes to
-        Farenet2.verbose = 1
+      Farenet2.verbose = 1
         // populate the model with the Farenet values
-        let model = Farenet2.parse()
-        let ui = {
-          model,
-          pageTitle: hostScrapService.getPageTitle(),
-          messages: hostScrapService.getDefaultInfoMessages(),
-          commentBlock: hostScrapService.getCommentBlock(),
-        }
+      let model = Farenet2.parse()
+      let ui = {
+        model,
+        pageTitle: hostScrapService.getPageTitle(),
+        messages: hostScrapService.getDefaultInfoMessages(),
+        commentBlock: hostScrapService.getCommentBlock(),
+      }
 
-        $scope.ui = ui
+      $scope.ui = ui
 
         // app manipulation vars
-        $scope.$parent.showLoading = false
+      $scope.$parent.showLoading = false
 
 
         // -------------------------------------------------------
         // listeners
         // -------------------------------------------------------
-        instance.init()
-        return instance
-      }
+      instance.init()
+      return instance
+    }
 
-      FlexibleDatesController.$inject = [
-        '$scope',
-        'hostScrapService',
-        'hostProxyService',
-        '$timeout',
-        'appHostProxyService',
-        '$filter',
-        '$sce',
-      ]
+    FlexibleDatesController.$inject = [
+      '$scope',
+      'hostScrapService',
+      'hostProxyService',
+      '$timeout',
+      'appHostProxyService',
+      '$filter',
+      '$sce',
+    ]
 
-      angular
+    angular
         .module('responsiveBookingEngine')
         .filter('duration', strDuration)
         .filter('simpledate', strSimpleDate)
@@ -115,7 +115,7 @@ define([
         bsBtnContinueComponent
         )
         .controller('FlexibleDatesController', FlexibleDatesController)
-    })({})
+  })({})
 
-    return wrapperInstance
-  })
+  return wrapperInstance
+})
