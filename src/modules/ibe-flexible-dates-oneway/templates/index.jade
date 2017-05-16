@@ -1,12 +1,7 @@
 extends ../../../templates/layout.jade
 
 block body
-  div.m-flexible-dates(data-ng-controller="FlexibleDatesOneWayController")
-    .l-messages(ng-cloak)
-       .m-message(data-ng-repeat="message in ui.messages"
-       class="info")
-         i
-         p {{message.content}}
+  div.m-flexible-dates(data-ng-controller="FlexibleDatesOneWayController")    
     div.container
       h1.m-page-title {{ ui.pageTitle }}
       .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")
