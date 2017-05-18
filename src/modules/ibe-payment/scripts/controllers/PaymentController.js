@@ -48,7 +48,7 @@ define([
         // allow to farenet bring back the prices html nodes to
         Farenet2.verbose = 1;
         // populate the model with the Farenet values
-        var model = Farenet2.parse();
+        var model = Farenet2.getResult();
 
         // view model
         var ui = {
@@ -203,6 +203,7 @@ define([
 
         var autoFillCardForm = function () {
           $timeout(function () {
+           
             var inputsType = hostScrapService.getCreditCardInputsSelectorsType();
 
             var v = hostScrapService.getCreditCardValueByInput(inputsType.CARD_TYPE);
@@ -219,11 +220,7 @@ define([
             $scope.ui.payment.edExpirationYear = getSelectedOption(v, $scope.ui.payment.expirationDatesYear);
             var v = hostScrapService.getCreditCardValueByInput(inputsType.BA_COUNTRY);
             $scope.ui.payment.baCountry = getSelectedOption(v, $scope.ui.payment.countries);
-            $timeout(function () {
-              var v = hostScrapService.getCreditCardValueByInput(inputsType.BA_STATE_DISPLAY);
-              $scope.ui.payment.baStateDisplay = getSelectedOption(v, $scope.ui.payment.states);
-
-            }, 1000);
+      
 
             $scope.ui.payment.cardHolderName = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_NAME);
             $scope.ui.payment.cardHolderPhoneCode = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_CC);
@@ -272,7 +269,7 @@ define([
         $scope.acceptInformationContinueAction = function () {
           hostProxyService.acceptInformationContinueAction();
           $scope.ui.showPaymentInformation = 1;
-
+          
           var inputsType = hostScrapService.getCreditCardInputsSelectorsType();
 
           function initInstallments() {
@@ -349,6 +346,7 @@ define([
         };
 
         $scope.continueButtonAction = function () {
+          
           var formActionNodeSelector = hostProxyService.getFormActionNodeSelector();
           var paymentValidationDeferred = hostProxyService.bindPaymentValidation();
           var deferred = appHostProxyService.submitFormAction(formActionNodeSelector, 'payment');
@@ -371,6 +369,7 @@ define([
               hostUIService.syncPosition();
             }, 0);
           });
+          
         };
 
         //-------------------------------------------------------
@@ -391,8 +390,11 @@ define([
          * @return
          */
         function getLocations() {
+            
           var locations = model.geo.location;
+            
           $.each(locations, function (index, value) {
+
             this.departure = model.departure[index];
             this.departure.availableClasses =
               getAvailableClasses(this.departure.dates[0].flights);
