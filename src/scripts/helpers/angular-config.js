@@ -406,7 +406,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_DELETE_OPTION: 'Excluir',
       LABEL_CARD_SAVED: 'Cartões Saved',
       LABEL_ADD_OPTION:'Adicionar',
-      LABEL_TRIP_MSG:'Esta viagem não será automaticamente adicionada à App. Você pode adicioná-lo manualmente após o pagamento.'
+      LABEL_TRIP_MSG:'Esta viagem não será adicionado automaticamente para o App. Você pode adicioná-lo manualmente após o pagamento.'
 
     });
 
