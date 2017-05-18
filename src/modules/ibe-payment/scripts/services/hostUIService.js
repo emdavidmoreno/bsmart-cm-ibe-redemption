@@ -116,6 +116,7 @@ define([
 
         positionMe($(BOOKSMART_SECURITY_CODE_SELECTOR).find('input'),
          $hostSecurityCodeNode);
+         $($('.iframe-mask.iframe-mask--layer')[0]).hide();
       };
 
       hostUIService.showHostInterface = function() {
