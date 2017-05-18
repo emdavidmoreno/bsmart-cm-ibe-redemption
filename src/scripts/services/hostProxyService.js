@@ -11,7 +11,7 @@ define([], function () {
       function (formActionNodeSelector, context, clb) {
         let deferred = $.Deferred() // eslint-disable-line
         // let passengerContext = false
-
+        
         // mocking a function to get the results
         hostProxyService.mockProcessAirFlightSearchFormValidationErrors()
         hostProxyService.mockProcessResult()
@@ -88,9 +88,7 @@ define([], function () {
           triggerSuccessData(data)
         })
 
-        // passengerContext ? checkDoubleSubmition(confirmTravellerProceed):
-        //    $(formActionNodeSelector).click();
-        $(formActionNodeSelector).click()
+        $(formActionNodeSelector).click();
         return deferred
       }
 
