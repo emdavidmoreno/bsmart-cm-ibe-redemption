@@ -29,7 +29,7 @@ block body
                 .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type != 'Multi City'")
                   | {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
                 div(class="title-text title-text--fareclass pull-right {{location.departure.availableClasses[0].cssClass}}")
-                  | {{flight.info.classes[0].name}} 
+                  | {{flight.info.classes[0].name}}
                   span.text--linkify(data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
                     | ({{flight.info.classes[0].sellingClass.text}})
               .flight-list-title
@@ -41,7 +41,7 @@ block body
                       .flight-detail.flight-detail--origin
                         span.location
                           | {{flight_list_item.origin_airport_code}}
-                        span.time
+                        span.time(data-ng-if="flight_list_item.departure_time.length > 0")
                           |  {{flight_list_item.departure_time | simpledate}}
                           sup(
                             data-ng-repeat="dec in flight_list_item.disclaimer"
@@ -53,17 +53,20 @@ block body
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
-                        span.time
+                        span.time(data-ng-if="flight_list_item.arrival_time.length > 0")
                           |  {{flight_list_item.arrival_time | simpledate}}
                           sup(
                             data-ng-repeat="dec in flight_list_item.disclaimer"
                             data-ng-if="dec.field == 'arrival_time'")
                             | {{location.disclaimer_mapping[dec.id].symbol}}
-                    .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
+                    .flight-number.text-primary(
+                      data-ng-if="flight_list_item.number.length > 0"
+                      data-ng-click="flight_list_item.onclick()"
+                    )
                       | {{flight_list_item.number}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
                     | {{ui.disclaimer_mapping[dec.id].text}}
-                  br            
+                  br
             .itinerary-summary-flight.itinerary-summary-flight--return(
               data-ng-repeat="flight in location.return.dates[0].flights"
             )
@@ -71,7 +74,7 @@ block body
                 .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
                   | {{ 'LABEL_FLIGHT_INBOUND' | translate }}
                 div(class="title-text title-text--fareclass pull-right {{location.return.availableClasses[0].cssClass}}")
-                  | {{flight.info.classes[0].name}} 
+                  | {{flight.info.classes[0].name}}
                   span.text--linkify(data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true")
                     | ({{flight.info.classes[0].sellingClass.text}})
               .flight-list-title
@@ -83,7 +86,7 @@ block body
                       .flight-detail.flight-detail--origin
                         span.location
                           | {{flight_list_item.origin_airport_code}}
-                        span.time
+                        span.time(data-ng-if="flight_list_item.departure_time.length > 0")
                           |  {{flight_list_item.departure_time | simpledate}}
                           sup(
                             data-ng-repeat="dec in flight_list_item.disclaimer"
@@ -95,13 +98,16 @@ block body
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
-                        span.time
+                        span.time(data-ng-if="flight_list_item.arrival_time.length > 0")
                           |  {{flight_list_item.arrival_time | simpledate}}
                           sup(
                             data-ng-repeat="dec in flight_list_item.disclaimer"
                             data-ng-if="dec.field == 'arrival_time'")
                             | {{location.disclaimer_mapping[dec.id].symbol}}
-                    .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
+                    .flight-number.text-primary(
+                      data-ng-if="flight_list_item.number.length > 0"
+                      data-ng-click="flight_list_item.onclick()"
+                    )
                       | {{flight_list_item.number}}
                       sup(
                         data-ng-repeat="dec in flight_list_item.disclaimer"
@@ -109,12 +115,15 @@ block body
                         | {{ui.disclaimer_mapping[dec.id].symbol}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
                     | {{ui.disclaimer_mapping[dec.id].text}}
-                  br            
+                  br
             include ../../../templates/partials/sellingClassDialog.jade
             include ../../../templates/partials/flightDetailsDialog.jade
-            
+
     div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui" data-ng-show="!ui.showPaymentInformation")
     div(data-bs-itinerary-pricing-card data-ui="ui" data-ng-show="!ui.showPaymentInformation")
+
+    bs-detail-seats-prices-component(data-ng-show="!ui.showPaymentInformation")
+    bs-summary-seats-prices-component
 
     section(data-ng-cloak ng-show="!ui.showPaymentInformation")
       h3  {{'LABEL_PASSENGERS' | translate}}
@@ -162,7 +171,7 @@ block body
         div.content
          .form-group.md(data-ng-class="{'show-field-error': ui.partialErrors.cardType }" data-ng-show="ui.isCreditCardsSaved")
             label.col-sm-2.control-label.field-required
-              | {{'LABEL_CARD_SAVED' | translate}} 
+              | {{'LABEL_CARD_SAVED' | translate}}
             .col-sm-10
               select.md.form-control(
                 data-ng-model="ui.payment.saved_card_select"
@@ -315,27 +324,22 @@ block body
                 data-ng-model="ui.payment.cardHolderEmail"
                 data-ng-change="ui.payment.setCardHolderEmail(ui.payment.cardHolderEmail)")
               span.text-message
-                | {{ ui.partialErrors.cardHolderEmail }}         
-          .form-group.md(data-ng-if='ui.userIfLogged' data-ng-show="!ui.isCreditCardsSaved")  
+                | {{ ui.partialErrors.cardHolderEmail }}
+          .form-group.md(data-ng-if='ui.userIfLogged' data-ng-show="!ui.isCreditCardsSaved")
             .col-sm-10
               input.inline-checkbox(
-                type='checkbox' 
-                data-ng-model="ui.agreements.saveCreditCard" 
+                type='checkbox'
+                data-ng-model="ui.agreements.saveCreditCard"
                 data-ng-checked="ui.agreements.checkBoxCreditCardStatus"
                 data-ng-change="ui.agreements.checkedSaveCreditCard()")
               label.inline-label(ng-bind-html="ui.static_messages.saveCreditCardLabel.content | sanitize")
-          .form-group.md(data-ng-if="ui.ifExistEditOption")     
-            .col-sm-12             
-              p.inline-links-container()  
-                a(href='#', data-ng-click="addNewPaymentMode()" class="pull-left" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_ADD_OPTION' | translate}}              
+          .form-group.md(data-ng-if="ui.ifExistEditOption")
+            .col-sm-12
+              p.inline-links-container()
+                a(href='#', data-ng-click="addNewPaymentMode()" class="pull-left" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_ADD_OPTION' | translate}}
                 a(href='#', data-ng-click="ui.returnFromEditableMode()" class="pull-left" data-ng-if="!ui.isCreditCardsSaved") {{'LABEL_RETURN_OPTION' | translate}}
                 a(href='#', data-ng-click="ui.editableMode()" class="pull-left" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_EDIT_OPTION' | translate}}
                 a(href='#', class="pull-right" onclick="showDeleteCardPopup();return false;") {{'LABEL_DELETE_OPTION' | translate}}
-            
-                   
-           
-               
-              
 
       div.m-card(data-ng-show="!ui.isCreditCardsSaved")
         header.title
@@ -405,8 +409,7 @@ block body
                 data-ng-change="ui.payment.setBaPostalCode(ui.payment.baPostalCode)")
               span.text-message
                 | {{ ui.partialErrors.baPostalCode }}
-            
-                     
+
     section(ng-show="ui.showPaymentInformation")
       h2
         | {{'LABEL_TERM_CONDITION' | translate}}
