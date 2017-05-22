@@ -479,8 +479,8 @@ define([
 
           flights.forEach(function(flight) {
             flight.info.classes = flight.info.classes.map(function(cls) {
-                // Selling Class
-              let sellingClassLink = cls.sellingClassNode
+              // Selling Class
+              let sellingClassLink = cls.sellingClassNode || []
               if (sellingClassLink.length > 0) {
                 cls.sellingClass = {
                   text: sellingClassLink.text(),
