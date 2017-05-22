@@ -63,7 +63,7 @@ define([], function() {
         </div>
       </section>`,
     template:
-      `<section>
+      `<section data-ng-if="ui.total_price.taxes >= 0 && ui.total_price.fuel_surcharges >= 0">
         <div class="m-card m-card--warning">
           <div class="content price-summary" ng-cloak>
             <p>
@@ -82,7 +82,7 @@ define([], function() {
                 -{{ discount.price | number:2  }}
               </span>
             </p>
-            <p>
+            <p data-ng-if="ui.total_price.taxes >= 0">
               <strong>
                 {{ "LABEL_TAXES" | translate }}
               </strong>

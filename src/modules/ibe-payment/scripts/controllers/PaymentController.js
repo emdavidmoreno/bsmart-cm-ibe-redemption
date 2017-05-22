@@ -21,10 +21,12 @@ define([
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
   '../../../../scripts/services/hostUIService',
   '../../../../components/complex/bs-detail-seats-prices/index.component',
+  '../../../../components/complex/bs-summary-seats-prices/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent) {
+  bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent,
+  bsSummarySeatsPricesComponent) {
   let wrapperInstance = {}
   $.noConflict(true)
 
@@ -477,8 +479,8 @@ define([
 
           flights.forEach(function(flight) {
             flight.info.classes = flight.info.classes.map(function(cls) {
-                // Selling Class
-              let sellingClassLink = cls.sellingClassNode
+              // Selling Class
+              let sellingClassLink = cls.sellingClassNode || []
               if (sellingClassLink.length > 0) {
                 cls.sellingClass = {
                   text: sellingClassLink.text(),
@@ -1055,6 +1057,7 @@ define([
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
         .component('bsDetailSeatsPricesComponent', bsDetailSeatsPricesComponent)
+        .component('bsSummarySeatsPricesComponent', bsSummarySeatsPricesComponent)
         .controller('PaymentController', PaymentController)
   })({})
 
