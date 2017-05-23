@@ -84,7 +84,7 @@ define([
           data: {},
         },
         showContinueButton: 1,
-        showPaymentInformation: 0,
+        showPaymentInformation: $('#reviewItineraryPopupLoadedContentDialog').length === 0,
         static_messages: {
           reviewItineraryDisclaimer: {
             type: '',
