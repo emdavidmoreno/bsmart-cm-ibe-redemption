@@ -60,6 +60,7 @@ define([
         // allow to farenet bring back the prices html nodes to
       Farenet2.verbose = 1
         // populate the model with the Farenet values
+
       let model = Farenet2.parse()
 
         // view model
@@ -70,6 +71,7 @@ define([
         user_input_journey_type: model.user_input_journey_type,
         total_price_per_passenger_type: model.total_price_per_passenger_type,
         passengers_info: hostScrapService.getPassengersInfo(),
+        count_options:hostScrapService.getCantOptions,
         passengers: model.passengers,
         userIfLogged: hostScrapService.ifUserIsLogged(),
         disclaimer_mapping: _.isEmpty(model.disclaimer_mapping) ? null : model.disclaimer_mapping,
@@ -95,6 +97,7 @@ define([
             type: '',
             head: 'Important',
             content: hostScrapService.getfbBillingInfoMessage(),
+
           },
           tbTermsConditionsMessage: {
             type: '',
@@ -235,11 +238,6 @@ define([
           $scope.ui.payment.edExpirationYear = getSelectedOption(v, $scope.ui.payment.expirationDatesYear)
           v = hostScrapService.getCreditCardValueByInput(inputsType.BA_COUNTRY)
           $scope.ui.payment.baCountry = getSelectedOption(v, $scope.ui.payment.countries)
-          $timeout(function() {
-            let v = hostScrapService.getCreditCardValueByInput(inputsType.BA_STATE_DISPLAY)
-            $scope.ui.payment.baStateDisplay = getSelectedOption(v, $scope.ui.payment.states)
-          }, 1000)
-
           $scope.ui.payment.cardHolderName = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_NAME)
           $scope.ui.payment.cardHolderPhoneCode = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_CC)
           $scope.ui.payment.cardHolderPhoneNumber = hostScrapService.getCreditCardValueByInput(inputsType.CARDHOLDER_PHONE_NUMBER)

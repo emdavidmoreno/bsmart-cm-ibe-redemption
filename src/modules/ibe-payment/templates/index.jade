@@ -388,9 +388,9 @@ block body
                 )
               span.text-message
                 | {{ ui.partialErrors.baCountry }}
-          .form-group.md(
+          .form-group.md(data-ng-if="ui.count_options() > 1"
             data-ng-class="{'show-field-error': ui.partialErrors.baStateDisplay }")
-            label.col-sm-2.control-label
+            label.col-sm-2.control-label.field-required
               | {{'LABEL_STATE' | translate}}
             .col-sm-10
               select.md.form-control(
@@ -399,12 +399,12 @@ block body
                 data-ng-options="option.name for option in ui.payment.states track by option.value")
               span.text-message
                 | {{ ui.partialErrors.baStateDisplay }}
-          .form-group.md(
+          .form-group.md(data-ng-if="ui.payment.baStateDisplay.value !== ''"
             data-ng-class="{'show-field-error': ui.partialErrors.baPostalCode }")
-            label.col-sm-2.control-label
+            label.col-sm-2.control-label.field-required
               | {{'LABEL_POSTAL_ZIP_CODE' | translate}}
             .col-sm-10
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(data-ng-disabled="ui.payment.baStateDisplay === ''" type='text' placeholder=''
                 data-ng-model="ui.payment.baPostalCode"
                 data-ng-change="ui.payment.setBaPostalCode(ui.payment.baPostalCode)")
               span.text-message
@@ -456,5 +456,5 @@ block body
                 | {{ ui.partialErrors.hazardousMaterials }}
     div(bs-card-ref-id)
     .l-action(ng-show="ui.showContinueButton && ui.showPaymentInformation")
-      button(type="button" data-ng-click='continueButtonAction()')
+      button(data-ng-disabled="ui.payment.cardType.value === ''" type="button" data-ng-click='continueButtonAction()')
         | {{'LABEL_PURCHASE' | translate}}

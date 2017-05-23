@@ -90,7 +90,7 @@ define([
     // TODO: We must find a nice way to do this
 
     if (url === '/CMGS/AirSearchExternalForward.do' ||
-      url === '/CMGS/ApplicationStartAction.do') {
+      url === '/CMGS/ApplicationStartAction.do' || url === '/CMGS/AirFlightSearchForward.do') {
       // ibe-external-booking-mask
 
       subModulePath = 'modules/ibe-external-booking-mask/'
