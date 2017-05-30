@@ -17,8 +17,8 @@
 
     // Object: insuranceComponent
     //  fn: updatingSelectedMerchandizingInsuranceTotalPrice
-    insuranceComponent.___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice
-      = insuranceComponent.updatingSelectedMerchandizingInsuranceTotalPrice;
+    window.___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice
+      = window.updatingSelectedMerchandizingInsuranceTotalPrice;
     /**
      *
      * @param {Mixed} error if null no have error in the request, otherwise contain
@@ -37,9 +37,9 @@
 
     function fakeInsuranceTotalPrice() {
       var args = [].slice.call(arguments);
-      insuranceComponent.
+      window.
         ___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice
-        .apply(insuranceComponent, args);
+        .apply(window, args);
 
       var insuranceTotalPriceMerch = $('#SELECTED_INSURANCE_TOTAL_PRICE_MERCH')
         .text().trim().split(' ');
@@ -68,16 +68,16 @@
     }
 
     hostProxyService.activateMockForInsurance = function() {
-      insuranceComponent.___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice
-        = insuranceComponent.updatingSelectedMerchandizingInsuranceTotalPrice;
-      insuranceComponent.updatingSelectedMerchandizingInsuranceTotalPrice
-        = fakeInsuranceTotalPrice.bind(insuranceComponent);
+      window.___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice
+        = window.updatingSelectedMerchandizingInsuranceTotalPrice;
+      window.updatingSelectedMerchandizingInsuranceTotalPrice
+        = fakeInsuranceTotalPrice.bind(window);
     }
 
     hostProxyService.deactivateMockForInsurance = function() {
-      insuranceComponent.updatingSelectedMerchandizingInsuranceTotalPrice
-        = insuranceComponent.___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice;
-      insuranceComponent.___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice
+      window.updatingSelectedMerchandizingInsuranceTotalPrice
+        = window.___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice;
+      window.___privWrapUpdatingSelectedMerchandizingInsuranceTotalPrice
         = null;
     }
 
