@@ -49,6 +49,7 @@ define([
 
       instance.init = function() {
         console.log('ExternalBookingController init')
+        hostProxyService.setupPopupListenerForScroll();
       }
 
       // -------------------------------------------------------

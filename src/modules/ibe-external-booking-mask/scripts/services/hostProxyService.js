@@ -70,6 +70,20 @@ define([], function() {
       return selectors.submitButton;
     }
 
+    hostProxyService.setupPopupListenerForScroll = function(){
+      $(window).on('scroll', function(e) {
+        let targetId = '';
+        if (e && e.currentTarget && e.currentTarget['$hfElms']) {
+          targetId = $(e.currentTarget['$hfElms']).attr('id');
+        }
+        console.log("target.id, ", targetId);
+        // when login popup Iframe if active, disable scroll.
+        if (targetId == 'externalLoginPopupDialog' && $('#externalLoginPopupOuter').css('display') != 'none') {
+          window.scroll(0,0);
+        }
+      })
+    }
+
     return hostProxyService;
   }
   angular
