@@ -518,7 +518,7 @@ define([
             $scope.ui.messages.push(
               {
                 type: 'error',
-                content: message.messages[0],
+                content: $sce.trustAsHtml(message.messages[0]),
               }
             )
           }
