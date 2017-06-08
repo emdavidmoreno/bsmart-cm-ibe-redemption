@@ -71,7 +71,7 @@ define([
         user_input_journey_type: model.user_input_journey_type,
         total_price_per_passenger_type: model.total_price_per_passenger_type,
         passengers_info: hostScrapService.getPassengersInfo(),
-        count_options:hostScrapService.getCantOptions,
+        count_options: hostScrapService.getCantOptions,
         passengers: model.passengers,
         userIfLogged: hostScrapService.ifUserIsLogged(),
         disclaimer_mapping: _.isEmpty(model.disclaimer_mapping) ? null : model.disclaimer_mapping,
