@@ -880,7 +880,8 @@
     }
 
     hostScrapService.dobExist = function(index){
-     var val  = $("#idPassenger"+(index + 1)+"APD_DOBTitle").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-'+index).length;
+     var val  = $("#idPassenger"+(index + 1)+"APD_DOBTitle").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-'+index).length || $("span[id*='traveller_']").length;
+     
      return val;
     }
 
