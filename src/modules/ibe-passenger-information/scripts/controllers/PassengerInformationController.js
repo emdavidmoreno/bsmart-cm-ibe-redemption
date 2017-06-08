@@ -247,7 +247,7 @@ define([
             memberShip: hostScrapService.getPassengerMemberShip(index),
             suffix: hostScrapService.getPassengerSuffix(index),
             showBirthDate: hostScrapService.showBirthDate(index),
-            dobExist: hostScrapService.dobExist(index),
+            dobExist: hostScrapService.dobExist(index,hostScrapService.getPassengerType(index)),
             birthMonth: hostScrapService.getPassengerBirthMonth(index),
             birthDay: hostScrapService.getPassengerBirthDay(index),
             birthYear: hostScrapService.getPassengerBirthYear(index),

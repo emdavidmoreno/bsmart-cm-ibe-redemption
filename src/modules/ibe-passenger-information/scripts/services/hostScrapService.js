@@ -879,8 +879,14 @@
      return val;
     }
 
-    hostScrapService.dobExist = function(index){
-     var val  = $("#idPassenger"+(index + 1)+"APD_DOBTitle").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-'+index).length || $("span[id*='traveller_']").length;
+    hostScrapService.dobExist = function(index, type){
+      console.log("TIPO",type)
+      var val = 0;
+      if(String(type).indexOf('12+') != -1 || String(type).indexOf('2-11') != -1 )
+        var val  = $("#idPassenger"+(index + 1)+"APD_DOBTitle").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-'+index).length; 
+      if(String(type).indexOf('0-1') != -1)  
+        var val = $("span[id*='traveller_']").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-'+index).length; 
+        
      
      return val;
     }
