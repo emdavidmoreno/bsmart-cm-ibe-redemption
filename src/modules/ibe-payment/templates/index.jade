@@ -161,10 +161,19 @@ block body
             | {{'LABEL_IMPORTANT' | translate}}
         div.content
           span(ng-bind-html="ui.static_messages.fbBillingInfoMessage.content | sanitize")
-      div.m-card.m-card--muted(ng-cloak data-ng-if="ui.card_images")
+      div.m-card.m-card--muted(ng-cloak data-ng-if="ui.card_images && !ui.states.showBlockPayments")
         div.content
           span(ng-bind-html="ui.card_images | sanitize")
-      div.m-card
+
+      bs-multiple-payment-selector-component(data-states="ui.states" data-update-states="ui.updateStates(states)")
+      bs-payment-pse-component(
+        data-ng-if="ui.states.pse"
+        data-states="ui.states"
+        data-update-states="ui.updateStates(states)"
+        data-ui="ui"
+      )
+
+      div.m-card(data-ng-if="ui.states.cc")
         header.title
           h4.title-text
             | {{'LABEL_CARD_INFO' | translate}}
@@ -341,7 +350,7 @@ block body
                 a(href='#', data-ng-click="ui.editableMode()" class="pull-left" data-ng-if="ui.isCreditCardsSaved") {{'LABEL_EDIT_OPTION' | translate}}
                 a(href='#', class="pull-right" onclick="showDeleteCardPopup();return false;") {{'LABEL_DELETE_OPTION' | translate}}
 
-      div.m-card(data-ng-show="!ui.isCreditCardsSaved")
+      div.m-card(data-ng-show="!ui.isCreditCardsSaved && ui.states.cc")
         header.title
           h4.title-text
             | {{'LABEL_BILLING_ADDRESS' | translate}}

@@ -36,9 +36,8 @@ define(['./helpers/scrapHelper'], function(helper) {
         if(cell.price === 'N/D') return
         cell.onClick()
         for(let [, v] of Object.entries(ctrl.priceCalendar.m_prices)) {
-         v.isSelected = false
+          v.isSelected = false
         }
-       
         cell.isSelected = true
       }
     }

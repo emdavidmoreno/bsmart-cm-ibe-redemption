@@ -41,7 +41,7 @@
 
     let SELECTOR_EDIT_CARD_OPTIONS = '#paymentCardRow .creditCardMaintenanceLinks a'
 
-    let SELECTOR_COUNT_STATE_OPTIONS = 'select[name="formOfPayment(CREDITCARD_POS).billingAddress.stateDisplay"] option';   
+    let SELECTOR_COUNT_STATE_OPTIONS = 'select[name="formOfPayment(CREDITCARD_POS).billingAddress.stateDisplay"] option'
 
     let SELECTOR_IF_USER_IS_LOGIN = '#login strong'
 
@@ -66,13 +66,13 @@
 
     hostScrapService.isCreditCardsSaved = function() {
       return $(SELECTOR_CREDIT_CARDS_SAVED).length
-    };
+    }
 
-    hostScrapService.getCantOptions = function () {
+    hostScrapService.getCantOptions = function() {
       return $(SELECTOR_COUNT_STATE_OPTIONS).length
-    };
-    
-    hostScrapService.ifExistEditOption = function () {
+    }
+
+    hostScrapService.ifExistEditOption = function() {
       return $(SELECTOR_EDIT_CARD_OPTIONS).length
     }
 

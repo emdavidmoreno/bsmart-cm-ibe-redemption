@@ -22,11 +22,13 @@ define([
   '../../../../scripts/services/hostUIService',
   '../../../../components/complex/bs-detail-seats-prices/index.component',
   '../../../../components/complex/bs-summary-seats-prices/index.component',
+  '../../../../components/complex/bs-multiple-payment-selector/index.component',
+  '../../../../components/complex/bs-payment-pse/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent,
-  bsSummarySeatsPricesComponent) {
+  bsSummarySeatsPricesComponent, bsMultiplePaymentSelectorComponent, bsPaymentPseComponent) {
   let wrapperInstance = {}
   $.noConflict(true)
 
@@ -136,6 +138,19 @@ define([
         partialErrors: {},
         card_images: hostScrapService.getCardImages(),
         creditCardLabel: hostScrapService.getCreditCardLabel(),
+        /**
+         * @param {Object} states
+         */
+        updateStates: (states) => {
+          $timeout(() => {
+            $scope.ui.states = angular.merge({}, $scope.ui.states, states)
+          }, 0)
+        },
+        states: {
+          pse: false,
+          cc: true,
+          paymentBlocks: false,
+        },
       }
 
       ui.total_price.base_fare = getBaseFare(model)
@@ -310,12 +325,10 @@ define([
         }
 
         $scope.focusToCardNumberIframe = function() {
-          console.log('focusToCardNumberIframe')
           hostUIService.focusToCardNumberIframe()
         }
 
         $scope.focusToSecurityCodeIframe = function() {
-          console.log('focusToCardNumberIframe')
           hostUIService.focusToSecurityCodeIframe()
         }
 
@@ -1056,6 +1069,8 @@ define([
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
         .component('bsDetailSeatsPricesComponent', bsDetailSeatsPricesComponent)
         .component('bsSummarySeatsPricesComponent', bsSummarySeatsPricesComponent)
+        .component('bsMultiplePaymentSelectorComponent', bsMultiplePaymentSelectorComponent)
+        .component('bsPaymentPseComponent', bsPaymentPseComponent)
         .controller('PaymentController', PaymentController)
   })({})
 
