@@ -423,7 +423,7 @@ define([
         $scope.$parent.hideMenu();
         $scope.$parent.showLoading = true;
         appHostProxyService.mockProcessAirFlightSearchFormValidationErrors();
-        appHostProxyService.mockInvokeBusinessAction();
+        //appHostProxyService.mockInvokeBusinessAction();
         appHostProxyService.mockProcessResult();
         hostScrapService.getSetChooseCurrency(selected);
       };
