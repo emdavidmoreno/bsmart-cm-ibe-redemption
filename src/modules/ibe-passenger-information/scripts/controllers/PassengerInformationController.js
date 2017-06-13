@@ -247,7 +247,7 @@ define([
             memberShip: hostScrapService.getPassengerMemberShip(index),
             suffix: hostScrapService.getPassengerSuffix(index),
             showBirthDate: hostScrapService.showBirthDate(index),
-            dobExist: hostScrapService.dobExist(index),
+            dobExist: hostScrapService.dobExist(index,hostScrapService.getPassengerType(index)),
             birthMonth: hostScrapService.getPassengerBirthMonth(index),
             birthDay: hostScrapService.getPassengerBirthDay(index),
             birthYear: hostScrapService.getPassengerBirthYear(index),
@@ -518,7 +518,7 @@ define([
             $scope.ui.messages.push(
               {
                 type: 'error',
-                content: message.messages[0],
+                content: $sce.trustAsHtml(message.messages[0]),
               }
             )
           }

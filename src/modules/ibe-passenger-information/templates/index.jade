@@ -6,7 +6,7 @@ block body
       .m-message(data-ng-repeat="message in ui.messages"
         data-ng-class="{error: message.type == 'error'}")
         i
-        p {{message.content}}
+        p(data-ng-bind-html="message.content")
     section
       div(
         class="m-card {{message.cssClass}}"

@@ -128,8 +128,10 @@ block body
               | {{passenger.name}}
     div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui")
     div(data-bs-itinerary-pricing-card data-ui="ui")
+    div.row.margin-bottom-md
     bs-detail-seats-prices-component
-    bs-summary-seats-prices-component
+    div.row.margin-bottom-md 
+    //- bs-summary-seats-prices-component
     section(data-ng-if="ui.confirmation.card_charged_message && ui.confirmation.card_charged_amount")
       .m-card.m-card--flat.m-card--bordered.m-card--muted(ng-cloak)
         .content
