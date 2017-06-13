@@ -21,7 +21,7 @@ block body
           p
             span.text-danger.text-size--medium
               |  {{ 'LABEL_TRIP_MSG' | translate }}
-           
+
       .m-card.m-card--flat.m-card--background-mutted
         .content
           p.text-uppercase
@@ -29,9 +29,9 @@ block body
               | {{ui.confirmation.label}}
             span.pull-right.m-confirmation-number
               | {{ui.confirmation.number}}
-      h2        
+      h2
        a.accordion-item-title-without-icon.pull-right(href="/CMGS/ReservationSearch.do")
-              | {{ 'LABEL_MMB' | translate }}         
+              | {{ 'LABEL_MMB' | translate }}
     section
       div
         header.title
@@ -128,6 +128,8 @@ block body
               | {{passenger.name}}
     div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui")
     div(data-bs-itinerary-pricing-card data-ui="ui")
+    bs-detail-seats-prices-component
+    bs-summary-seats-prices-component
     section(data-ng-if="ui.confirmation.card_charged_message && ui.confirmation.card_charged_amount")
       .m-card.m-card--flat.m-card--bordered.m-card--muted(ng-cloak)
         .content
