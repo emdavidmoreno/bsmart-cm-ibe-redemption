@@ -4,7 +4,7 @@
 define(['./helpers/scrapHelper'], function(helper) {
   'use strict'
   /**
-   * FlexibleDatesPrices Controller
+   * PaymentPse Controller
    *
    * @param {Object} [$scope]
    * @param {Object} [$element]
@@ -12,7 +12,7 @@ define(['./helpers/scrapHelper'], function(helper) {
    * @param {Object} [$timeout]
    * @param {Function} [$filter]
    */
-  function MultiplePaymentSelector(
+  function PaymentPseController(
     $scope, $element, $attrs, $timeout, $filter
     ) {
     let ctrl = this
@@ -171,7 +171,7 @@ define(['./helpers/scrapHelper'], function(helper) {
     }
   }
 
-  MultiplePaymentSelector.$inject = [
+  PaymentPseController.$inject = [
     '$scope', '$element', '$attrs', '$timeout', '$filter',
   ]
 
@@ -338,7 +338,8 @@ define(['./helpers/scrapHelper'], function(helper) {
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardType }">
+              data-ng-class="{'show-field-error': ui.partialErrors.cardType }"
+              data-ng-if="$ctrl.fieldStateTitle.options.length > 1">
               <label class="col-sm-2 control-label">
                 {{$ctrl.fieldStateTitle.label}}
               </label>
@@ -346,7 +347,7 @@ define(['./helpers/scrapHelper'], function(helper) {
                 <select class="md form-control"
                   data-ng-model="$ctrl.fieldStateTitle.value"
                   data-ng-change="$ctrl.fieldStateTitle.hOnChange($ctrl.fieldStateTitle.value)"
-                  data-ng-options="option.name for option in ui.payment.savedCards track by option.value">
+                  data-ng-options="option.name for option in $ctrl.fieldStateTitle.options track by option.value">
                 </select>
                 <span class="text-message"
                   {{ ui.partialErrors.cardType }}
@@ -393,6 +394,6 @@ define(['./helpers/scrapHelper'], function(helper) {
           </div>
         </div>
       </section>`,
-    controller: MultiplePaymentSelector,
+    controller: PaymentPseController,
   }
 })
