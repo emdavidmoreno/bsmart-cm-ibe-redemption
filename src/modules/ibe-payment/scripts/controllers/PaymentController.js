@@ -24,11 +24,14 @@ define([
   '../../../../components/complex/bs-summary-seats-prices/index.component',
   '../../../../components/complex/bs-multiple-payment-selector/index.component',
   '../../../../components/complex/bs-payment-pse/index.component',
+  '../../../../components/complex/bs-payment-bank-transfers/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent,
-  bsSummarySeatsPricesComponent, bsMultiplePaymentSelectorComponent, bsPaymentPseComponent) {
+  bsSummarySeatsPricesComponent, bsMultiplePaymentSelectorComponent, bsPaymentPseComponent,
+  bsPaymentBankTransfersComponent
+  ) {
   let wrapperInstance = {}
   $.noConflict(true)
 
@@ -149,6 +152,7 @@ define([
         states: {
           pse: false,
           cc: true,
+          bankTransfers: false,
           paymentBlocks: false,
         },
       }
@@ -1071,6 +1075,7 @@ define([
         .component('bsSummarySeatsPricesComponent', bsSummarySeatsPricesComponent)
         .component('bsMultiplePaymentSelectorComponent', bsMultiplePaymentSelectorComponent)
         .component('bsPaymentPseComponent', bsPaymentPseComponent)
+        .component('bsPaymentBankTransfersComponent', bsPaymentBankTransfersComponent)
         .controller('PaymentController', PaymentController)
   })({})
 

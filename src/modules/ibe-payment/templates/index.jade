@@ -165,9 +165,18 @@ block body
         div.content
           span(ng-bind-html="ui.card_images | sanitize")
 
-      bs-multiple-payment-selector-component(data-states="ui.states" data-update-states="ui.updateStates(states)")
+      bs-multiple-payment-selector-component(
+        data-states="ui.states"
+        data-update-states="ui.updateStates(states)"
+      )
       bs-payment-pse-component(
         data-ng-if="ui.states.pse"
+        data-states="ui.states"
+        data-update-states="ui.updateStates(states)"
+        data-ui="ui"
+      )
+      bs-payment-bank-transfers-component(
+        data-ng-if="ui.states.bankTransfers"
         data-states="ui.states"
         data-update-states="ui.updateStates(states)"
         data-ui="ui"
