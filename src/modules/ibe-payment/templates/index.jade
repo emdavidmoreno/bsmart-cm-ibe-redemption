@@ -182,7 +182,7 @@ block body
         data-ui="ui"
       )
 
-      div.m-card(data-ng-if="ui.states.cc")
+      div.m-card(data-ng-show="ui.states.cc")
         header.title
           h4.title-text
             | {{'LABEL_CARD_INFO' | translate}}
@@ -474,5 +474,5 @@ block body
                 | {{ ui.partialErrors.hazardousMaterials }}
     div(bs-card-ref-id)
     .l-action(ng-show="ui.showContinueButton && ui.showPaymentInformation")
-      button(data-ng-disabled="ui.payment.cardType.value === ''" type="button" data-ng-click='continueButtonAction()')
+      button(type="button" data-ng-click='continueButtonAction()')
         | {{'LABEL_PURCHASE' | translate}}

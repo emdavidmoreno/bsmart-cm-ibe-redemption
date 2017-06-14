@@ -59,7 +59,7 @@ define([
      */
     function PaymentController($scope, hostUIService,
         hostScrapService, hostProxyService, $timeout, appHostProxyService,
-        $translate, $sce, ApphostUIService) {
+        $translate, $sce, ApphostUIService, $rootScope) {
       let instance = this
 
         // allow to farenet bring back the prices html nodes to
@@ -176,8 +176,7 @@ define([
 
       $scope.ui = ui
 
-
-        // sync the ui height to garanty footer correct positioning
+      // sync the ui height to garanty footer correct positioning
       appHostProxyService.syncHeight($timeout)
 
       statsService.ruleShowed(Farenet2.getResult(), wrapperInstance.actionConfig)
@@ -927,6 +926,7 @@ define([
               )
           }
         })
+        $rootScope.$broadcast('view-validation:partialErrors', ui.partialErrors)
         $scope.$apply()
       }
 
@@ -991,6 +991,11 @@ define([
           ui.partialErrors.documentNumber = hostScrapService.checkCopaError(propertyName, message)
         } else if (inputType === selectorsTypes.DOCUMENT_ID) {
           ui.partialErrors.documentId = hostScrapService.checkCopaError(propertyName, message)
+        } else {
+          if(propertyName) {
+            const fieldKey = propertyName.match(/^.*\.{1}(.*)/)[1]
+            ui.partialErrors[fieldKey] = message
+          }
         }
 
         // formOfPaymentProperty
@@ -1058,6 +1063,7 @@ define([
       '$translate',
       '$sce',
       'ApphostUIService',
+      '$rootScope',
     ]
     angular
         .module('responsiveBookingEngine')

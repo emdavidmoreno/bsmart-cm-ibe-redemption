@@ -34,9 +34,24 @@ define(['./helpers/scrapHelper'], function(helper) {
      * Post link
      */
     ctrl.$postLink = function() {
-      updateStates({
+      let states = {
         showBlockPayments: ctrl.paymentBlocks.length !== 0,
+        pse: false,
+        cc: false,
+        bankTransfers: false,
+      }
+
+      ctrl.paymentBlocks.forEach((block) => {
+        if(block.type === 'PAGOSPSE' && block.isSelected) {
+          states['pse'] = true
+        } else if(block.type === 'CREDITCARD_POS' && block.isSelected) {
+          states['cc'] = true
+        } else if(block.type === 'BANKTRANSFERS' && block.isSelected) {
+          states['bankTransfers'] = true
+        }
       })
+
+      updateStates(states)
     }
 
     /**
@@ -49,10 +64,11 @@ define(['./helpers/scrapHelper'], function(helper) {
       ctrl.paymentBlocks.forEach((b) => {
         b.forceDeselect()
       })
-      block.selectFn()
+      block.hOnClick()
       updateStates({
-        pse: block.type === 'PAGOSPSE',
-        cc: block.type === 'CREDITCARD_POS',
+        pse: (block.type === 'PAGOSPSE' && block.isSelected),
+        cc: (block.type === 'CREDITCARD_POS' && block.isSelected),
+        bankTransfers: (block.type === 'BANKTRANSFERS' && block.isSelected),
       })
     }
 
@@ -81,10 +97,10 @@ define(['./helpers/scrapHelper'], function(helper) {
         <div class="m-card" data-ng-repeat="block in $ctrl.paymentBlocks">
           <div class="content">
             <div class="m-input">
-              <input type="radio"
+              <input type="checkbox"
                 name="payment-block"
                 data-ng-change="$ctrl.hOnChange(block)"
-                data-ng-model="block.isSelected" />
+                data-ng-model="block.isSelected"/>
             </div>
             <div class="m-logo" data-ng-bind-html="block.logoHtml | sanitize">
             </div>

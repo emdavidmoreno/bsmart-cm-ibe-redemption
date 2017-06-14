@@ -17,18 +17,11 @@ define(['./helpers/scrapHelper'], function(helper) {
     ) {
     let ctrl = this
     /**
-     * @param {Object} states
-     */
-    /*
-    const updateStates = (states) => {
-      ctrl.updateStates({states})
-    }
-    */
-    /**
      * Init component
      */
     ctrl.$onInit = function() {
       setupUI()
+      ctrl.vErrors = {}
     }
 
     /**
@@ -37,6 +30,10 @@ define(['./helpers/scrapHelper'], function(helper) {
     ctrl.$postLink = function() {
 
     }
+
+    $scope.$on('view-validation:partialErrors', (ev, vErrors) => {
+      ctrl.vErrors = vErrors
+    })
 
     /**
      *
@@ -113,15 +110,6 @@ define(['./helpers/scrapHelper'], function(helper) {
         value: helper.fieldCAZipTitle.getValue(),
         hOnChange: helper.fieldCAZipTitle.setValue,
       }
-
-      ctrl.fieldPhone = {
-        label: helper.fieldCAPhone.getLabel(),
-        codeValue: helper.fieldCAPhone.getCodeValue(),
-        value: helper.fieldCAPhone.getValue(),
-        hOnChange: helper.fieldCAPhone.setValue,
-        hOnchangeCode: helper.fieldCAPhone.setCodeValue,
-      }
-      console.log(ctrl)
     }
   }
 
@@ -149,7 +137,7 @@ define(['./helpers/scrapHelper'], function(helper) {
           </header>
           <div class="content">
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.baAddressLine1 }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.addressLine1 }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldAL1.label}}
               </label>
@@ -158,12 +146,11 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-model="$ctrl.fieldAL1.value"
                   data-ng-change="$ctrl.fieldAL1.hOnChange($ctrl.fieldAL1.value)" />
                 <span class="text-message">
-                  {{ ui.partialErrors.baAddressLine1 }}
+                  {{ $ctrl.vErrors.addressLine1 }}
                 </span>
               </div>
             </div>
-            <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.baAddressLine2 }">
+            <div class="form-group md" >
               <label class="col-sm-2 control-label">
                 {{$ctrl.fieldAL2.label}}
               </label>
@@ -171,13 +158,10 @@ define(['./helpers/scrapHelper'], function(helper) {
                 <input class="md form-control" type="text" placeholder=""
                   data-ng-model="$ctrl.fieldAL2.value"
                   data-ng-change="$ctrl.fieldAL2.hOnChange($ctrl.fieldAL2.value)" />
-                <span class="text-message">
-                  {{ ui.partialErrors.baAddressLine2 }}
-                </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.baCity }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.city }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldCityTitle.label}}
               </label>
@@ -186,12 +170,12 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-model="$ctrl.fieldCityTitle.value"
                   data-ng-change="$ctrl.fieldCityTitle.hOnChange($ctrl.fieldCityTitle.value)" />
                 <span class="text-message">
-                  {{ ui.partialErrors.baCity }}
+                  {{ $ctrl.vErrors.city }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.baCountry }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.country}">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldCountryTitle.label}}
               </label>
@@ -201,15 +185,15 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-change="$ctrl.fieldCountryTitle.hOnChange($ctrl.fieldCountryTitle.value)"
                   data-ng-options="option.name for option in $ctrl.fieldCountryTitle.options track by option.value">
                 </select>
-                <span class="text-message"
-                  {{ ui.partialErrors.baCountry }}
+                <span class="text-message">
+                  {{ $ctrl.vErrors.country}}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.baStateDisplay }"
+              data-ng-class="{'show-field-error': $ctrl.vErrors.state }"
               data-ng-if="$ctrl.fieldStateTitle.options.length > 1">
-              <label class="col-sm-2 control-label">
+              <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldStateTitle.label}}
               </label>
               <div class="col-sm-10">
@@ -218,13 +202,13 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-change="$ctrl.fieldStateTitle.hOnChange($ctrl.fieldStateTitle.value)"
                   data-ng-options="option.name for option in $ctrl.fieldStateTitle.options track by option.value">
                 </select>
-                <span class="text-message"
-                  {{ ui.partialErrors.baStateDisplay }}
+                <span class="text-message">
+                  {{ $ctrl.vErrors.state }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.baPostalCode }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.postalCode }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldZT.label}}
               </label>
@@ -233,7 +217,7 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-model="$ctrl.fieldZT.value"
                   data-ng-change="$ctrl.fieldZT.hOnChange($ctrl.fieldZT.value)" />
                 <span class="text-message">
-                  {{ ui.partialErrors.baPostalCode }}
+                  {{ $ctrl.vErrors.postalCode }}
                 </span>
               </div>
             </div>

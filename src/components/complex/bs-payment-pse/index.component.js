@@ -31,6 +31,10 @@ define(['./helpers/scrapHelper'], function(helper) {
       setupUI()
     }
 
+    $scope.$on('view-validation:partialErrors', (ev, vErrors) => {
+      ctrl.vErrors = vErrors
+    })
+
     /**
      * Post link
      */
@@ -167,7 +171,6 @@ define(['./helpers/scrapHelper'], function(helper) {
         hOnChange: helper.fieldCAPhone.setValue,
         hOnchangeCode: helper.fieldCAPhone.setCodeValue,
       }
-      console.log(ctrl)
     }
   }
 
@@ -195,23 +198,23 @@ define(['./helpers/scrapHelper'], function(helper) {
           </header>
           <div class="content">
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardType }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.customerType }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldCT.label}}
               </label>
               <div class="col-sm-10">
                 <select class="md form-control"
                   data-ng-model="$ctrl.fieldCT.value"
-                  data-ng-change="$ctrl.fieldCT.hOnChanget($ctrl.fieldCT.value)"
+                  data-ng-change="$ctrl.fieldCT.hOnChange($ctrl.fieldCT.value)"
                   data-ng-options="option.name for option in $ctrl.fieldCT.options track by option.value">
                 </select>
-                <span class="text-message"
-                  {{ ui.partialErrors.cardType }}
+                <span class="text-message">
+                  {{ $ctrl.vErrors.customerType }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardHolderName }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.buyerFullName }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldBFN.label}}
               </label>
@@ -220,12 +223,12 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-model="$ctrl.fieldBFN.value"
                   data-ng-change="$ctrl.fieldBFN.hOnChange($ctrl.fieldBFN.value)" />
                 <span class="text-message">
-                  {{ ui.partialErrors.cardHolderName }}
+                  {{ $ctrl.vErrors.buyerFullName }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardType }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.documentType }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldDT.label}}
               </label>
@@ -236,12 +239,12 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-options="option.name for option in $ctrl.fieldDT.options track by option.value">
                 </select>
                 <span class="text-message"
-                  {{ ui.partialErrors.cardType }}
+                  {{ $ctrl.vErrors.documentType }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardHolderName }">
+              data-ng-class="{'show-field-error':  $ctrl.vErrors.documentNumber }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldDN.label}}
               </label>
@@ -250,12 +253,12 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-model="$ctrl.fieldDN.value"
                   data-ng-change="$ctrl.fieldDN.hOnChange($ctrl.fieldDN.value)" />
                 <span class="text-message">
-                  {{ ui.partialErrors.cardHolderName }}
+                  {{ $ctrl.vErrors.documentNumber }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardType }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.bankId }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldBID.label}}
               </label>
@@ -266,7 +269,7 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-options="option.name for option in $ctrl.fieldBID.options track by option.value">
                 </select>
                 <span class="text-message"
-                  {{ ui.partialErrors.cardType }}
+                  {{ $ctrl.vErrors.bankId }}
                 </span>
               </div>
             </div>
@@ -280,7 +283,7 @@ define(['./helpers/scrapHelper'], function(helper) {
           </header>
           <div class="content">
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardHolderName }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.addressLine1 }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldAL1.label}}
               </label>
@@ -289,12 +292,11 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-model="$ctrl.fieldAL1.value"
                   data-ng-change="$ctrl.fieldAL1.hOnChange($ctrl.fieldAL1.value)" />
                 <span class="text-message">
-                  {{ ui.partialErrors.cardHolderName }}
+                  {{ $ctrl.vErrors.addressLine1 }}
                 </span>
               </div>
             </div>
-            <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardHolderName }">
+            <div class="form-group md">
               <label class="col-sm-2 control-label">
                 {{$ctrl.fieldAL2.label}}
               </label>
@@ -302,13 +304,10 @@ define(['./helpers/scrapHelper'], function(helper) {
                 <input class="md form-control" type="text" placeholder=""
                   data-ng-model="$ctrl.fieldAL2.value"
                   data-ng-change="$ctrl.fieldAL2.hOnChange($ctrl.fieldAL2.value)" />
-                <span class="text-message">
-                  {{ ui.partialErrors.cardHolderName }}
-                </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardHolderName }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.city }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldCityTitle.label}}
               </label>
@@ -317,12 +316,12 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-model="$ctrl.fieldCityTitle.value"
                   data-ng-change="$ctrl.fieldCityTitle.hOnChange($ctrl.fieldCityTitle.value)" />
                 <span class="text-message">
-                  {{ ui.partialErrors.cardHolderName }}
+                  {{ $ctrl.vErrors.city }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardType }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.country }">
               <label class="col-sm-2 control-label field-required">
                 {{$ctrl.fieldCountryTitle.label}}
               </label>
@@ -332,13 +331,12 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-change="$ctrl.fieldCountryTitle.hOnChange($ctrl.fieldCountryTitle.value)"
                   data-ng-options="option.name for option in $ctrl.fieldCountryTitle.options track by option.value">
                 </select>
-                <span class="text-message"
-                  {{ ui.partialErrors.cardType }}
+                <span class="text-message">
+                  {{ $ctrl.vErrors.country }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardType }"
               data-ng-if="$ctrl.fieldStateTitle.options.length > 1">
               <label class="col-sm-2 control-label">
                 {{$ctrl.fieldStateTitle.label}}
@@ -349,14 +347,11 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-change="$ctrl.fieldStateTitle.hOnChange($ctrl.fieldStateTitle.value)"
                   data-ng-options="option.name for option in $ctrl.fieldStateTitle.options track by option.value">
                 </select>
-                <span class="text-message"
-                  {{ ui.partialErrors.cardType }}
-                </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardHolderName }">
-              <label class="col-sm-2 control-label field-required">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.postalCode }">
+              <label class="col-sm-2 control-label">
                 {{$ctrl.fieldZT.label}}
               </label>
               <div class="col-sm-10">
@@ -364,12 +359,12 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-model="$ctrl.fieldZT.value"
                   data-ng-change="$ctrl.fieldZT.hOnChange($ctrl.fieldZT.value)" />
                 <span class="text-message">
-                  {{ ui.partialErrors.cardHolderName }}
+                  {{ $ctrl.vErrors.postalCode }}
                 </span>
               </div>
             </div>
             <div class="form-group md"
-              data-ng-class="{'show-field-error': ui.partialErrors.cardHolderPhoneNumber || ui.partialErrors.cardHolderPhoneCode }">
+              data-ng-class="{'show-field-error': $ctrl.vErrors.phoneCountryCode || $ctrl.vErrors.phone }">
               <label  class="col-sm-2 control-label control-label--block field-required">
                 {{$ctrl.fieldPhone.label}}
               </label>
@@ -385,10 +380,10 @@ define(['./helpers/scrapHelper'], function(helper) {
                   data-ng-change="$ctrl.fieldPhone.hOnChange($ctrl.fieldPhone.value)" />
               </div>
               <span class="text-message">
-                {{ ui.partialErrors.cardHolderPhoneCode }}
+                {{ $ctrl.vErrors.phone }}
               </span>
               <span class="text-message">
-                {{ ui.partialErrors.cardHolderPhoneNumber }}
+                {{ $ctrl.vErrors.phoneCountryCode }}
               </span>
             </div>
           </div>

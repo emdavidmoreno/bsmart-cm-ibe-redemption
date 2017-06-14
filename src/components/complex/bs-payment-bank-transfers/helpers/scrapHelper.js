@@ -70,6 +70,7 @@ define(['jquery'], ($jq) => {
        */
       setValue: (value) => {
         $jq(SELECTOR_PSE_BA_AL1T_INPUT).val(value)
+        $jq(SELECTOR_PSE_BA_AL1T_INPUT).change()
       },
     },
     fieldCAAdressLine2: {
@@ -90,6 +91,7 @@ define(['jquery'], ($jq) => {
        */
       setValue: (value) => {
         $jq(SELECTOR_PSE_BA_AL2T_INPUT).val(value)
+        $jq(SELECTOR_PSE_BA_AL2T_INPUT).change()
       },
     },
     fieldCACityTitle: {
@@ -111,6 +113,7 @@ define(['jquery'], ($jq) => {
        */
       setValue: (value) => {
         $jq(SELECTOR_PSE_BA_CITY_TITLE_INPUT).val(value)
+        $jq(SELECTOR_PSE_BA_CITY_TITLE_INPUT).change()
       },
     },
     fieldCountryTitle: {
@@ -137,6 +140,7 @@ define(['jquery'], ($jq) => {
        */
       setValue: (value) => {
         $jq(SELECTOR_PSE_BA_COUNTRY_TITLE_SELECT).val(value)
+        $jq(SELECTOR_PSE_BA_COUNTRY_TITLE_SELECT).change()
       },
     },
     fieldStateTitle: {
@@ -162,6 +166,7 @@ define(['jquery'], ($jq) => {
        */
       setValue: (value) => {
         $jq(SELECTOR_PSE_BA_STATE_TITLE_SELECT).val(value)
+        $jq(SELECTOR_PSE_BA_STATE_TITLE_SELECT).change()
       },
     },
     fieldCAZipTitle: {
@@ -182,6 +187,7 @@ define(['jquery'], ($jq) => {
        */
       setValue: (value) => {
         $jq(SELECTOR_PSE_BA_ZIP_TITLE_INPUT).val(value)
+        $jq(SELECTOR_PSE_BA_ZIP_TITLE_INPUT).change()
       },
     },
   }
