@@ -398,6 +398,7 @@ define([
           setAccept: function(){
             $scope.ui.tavelInsurance.accept = true;
             $scope.ui.showPayment = false;
+            $scope.ui.payment.name = true;
             hostScrapService.setTravelInsuranceAccept();
           },
           setNoAccept: function(){
