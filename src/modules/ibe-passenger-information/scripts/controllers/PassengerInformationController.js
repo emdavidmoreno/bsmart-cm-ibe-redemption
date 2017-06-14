@@ -166,7 +166,7 @@ define([
 
       statsService.ruleShowed(Farenet2.getResult(), wrapperInstance.actionConfig)
 
-
+       hostProxyService.clickToCheckedBox();
       // -------------------------------------------------------
       // binding functions
       // -------------------------------------------------------
@@ -174,7 +174,7 @@ define([
       $scope.continueButtonAction = function() {
         let formActionNodeSelector = hostProxyService.getFormActionNodeSelector()
         $scope.$parent.showLoading = true
-        hostProxyService.clickToCheckedBox();
+       
         appHostProxyService
           .submitFormAction(
             formActionNodeSelector, 'passengerInformation', function(error, value) {
