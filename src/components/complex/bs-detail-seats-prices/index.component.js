@@ -62,7 +62,7 @@ define(['./helpers/scrapHelper'], function(helper) {
                   {{ seatInfo.price }}
                 </span>
               </span>
-              <small> {{ seatInfo.details }} </small>
+              <small> {{ seatInfo.details }} - {{seatInfo.seat}} </small>
             </p>
           </div>
           <header class="title">
