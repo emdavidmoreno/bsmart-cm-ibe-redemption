@@ -178,6 +178,7 @@ define([
 
       $scope.$parent.showMiniSummary = true;
       $scope.$parent.stepper.goToStep(2);
+     
 
       // select by default proceed to pay
       hostScrapService.selectPaymentProceedToPay();
@@ -211,6 +212,7 @@ define([
           info: hostScrapService.getPaymentProceedInfo()
         },
         showPayment: hostScrapService.showPaymentProcced(),
+       
         errors: {},
         showContinueButton: 1,
 
@@ -395,10 +397,12 @@ define([
           accept: hostScrapService.getTravelInsuranceAccept(),
           setAccept: function(){
             $scope.ui.tavelInsurance.accept = true;
+            $scope.ui.showPayment = false;
             hostScrapService.setTravelInsuranceAccept();
           },
           setNoAccept: function(){
             $scope.ui.tavelInsurance.accept = false;
+            $scope.ui.showPayment = true;
             hostScrapService.setTravelInsuranceNotAccept();
           },
         };

@@ -40,6 +40,14 @@
       return $(selector).length > 0;
     };
 
+
+    hostScrapService.getPaymentVisibility = function() {
+      var visibility = $('#PROCEED_OPTIONS').css('display');
+      if(visibility == 'block')
+        return true;
+      return false;
+    };
+
     // PAYMENTS
     hostScrapService.isPaymentProccedToPaySelected = function() {
       return $(SELECTOR_PROCCED_TO_PAY + ' input[type=radio]').is(':checked');

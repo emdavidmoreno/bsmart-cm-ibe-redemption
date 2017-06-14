@@ -124,7 +124,7 @@ block body
           .m-insurance-option
             input(type="radio" value="1" name="InsurancePurchaseBS"
               data-ng-model="ui.tavelInsurance.accept"
-              data-ng-change="ui.tavelInsurance.setAccept()")
+              data-ng-change="ui.tavelInsurance.setAccept();ui.setPaymentOptionVisibility()")
             label
               | {{ui.tavelInsurance.display.textAccept.text}}
               a(
@@ -135,7 +135,7 @@ block body
           .m-insurance-option
             input(type="radio" value="0" name="InsurancePurchaseBS"
               data-ng-model="ui.tavelInsurance.accept"
-              data-ng-change="ui.tavelInsurance.setNoAccept()")
+              data-ng-change="ui.tavelInsurance.setNoAccept();ui.setPaymentOptionVisibility()")
             label
               | {{ui.tavelInsurance.display.textNoAccept}}
 
