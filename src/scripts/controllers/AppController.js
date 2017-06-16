@@ -9,7 +9,7 @@ define([
   'angular-translate',
   'tmhDynamicLocale'
 ], function ($, angular, hostUIService, hostScrapService, hostProxyService) {
- 
+
   var wrapperInstance = {};
   Bs.jq = $;
   wrapperInstance.init = function (config, actionConfig) {
@@ -52,7 +52,7 @@ define([
   (function () {
     function AppController($scope, $translate, hostUIService, hostScrapService,
       hostProxyService, tmhDynamicLocale) {
-     
+
 
       var instance = this;
       var main = {};
@@ -62,11 +62,25 @@ define([
       //-------------------------------------------------------
 
       instance.init = function () {
-       
+
         console.log('AppController init');
         hostUIService.bindUI();
         hostUIService.scrollToTop();
       };
+
+      // This solution is temporal, the best choice is set Babel to support Object entries method and Object values method.
+      if (!Object.entries) {
+        Object.entries = x =>
+          Object.keys(x).reduce((y, z) =>
+            y.push([z, x[z]]) && y, []);
+      }
+
+      if (!Object.values) {
+        Object.values = x =>
+          Object.keys(x).reduce((y, z) =>
+            y.push(x[z]) && y, []);
+      }
+
 
       //-------------------------------------------------------
       // binding properties
@@ -103,7 +117,7 @@ define([
       };
 
       var model = Farenet2.getResult();
-    
+
 
 
 
