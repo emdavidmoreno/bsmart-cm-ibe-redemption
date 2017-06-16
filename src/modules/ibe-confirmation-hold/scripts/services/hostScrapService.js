@@ -1,23 +1,26 @@
+/* eslint-disable max-len,no-invalid-this */
 (function() {
-  'use strict';
+  'use strict'
+  /**
+   * hostScrapService
+   *
+   * @return {Object}
+   */
+  function hostScrapService() {
+    let hostScrapService = {}
+    let SELECTOR_CONFIRMATION_LABEL = '.colNumText div'
+    let SELECTOR_CONFIRMATION_MESSAGE = '#reserved_and_held'
+    let SELECTOR_CONFIRMATION_NUMBER = '.colConfirmNum div'
+    let SELECTOR_PASSENGERS_INFO = '.passengerInfoBlock .bodyBlock tr.rowFirst'
+    let SELECTOR_PASSENGERS_INFO_NAME = 'td.colName div'
 
-  function hostScrapService(){
-    var hostScrapService = {};
-    var SELECTOR_CONFIRMATION_LABEL = '.colNumText div';
-    var SELECTOR_CONFIRMATION_MESSAGE = '#reserved_and_held';
-    var SELECTOR_CONFIRMATION_NUMBER = '.colConfirmNum div';
-	var SELECTOR_PASSENGERS_INFO = '.passengerInfoBlock .bodyBlock tr.rowFirst';
-	var SELECTOR_PASSENGERS_INFO_NAME = 'td.colName div';
-
-    var SELECTOR_INFO_BLOCK = '.mediaInfoBlock';
-    var SELECTOR_INFO_HEAD_BLOCK = '.headBlock span';
-    var SELECTOR_INFO_BODY_BLOCK = '.bodyBlock .bodyText';
-    var SELECTOR_PROCCED_TO_PAY = '#radiogr1-row1';
-    var SELECTOR_RESERVE_AND_HOLD = '#radiogr1-row2';
-    var SELECTOR_CONTACT_INFO = '#fbConfirmationEmail .textBlock p';
-    var SELECTOR_CONTACT_ITINERARY_COPY_LABEL = '#fbConfirmationEmail .formBlock .formDescArea .formDescElement';
-    var SELECTOR_CONTACT_ITINERARY_COPY_VALUE = '#fbConfirmationEmail .formBlock #emailAddressId';
-    var SELECTOR_CONTINUE_BUTTON_HREF = '#pgButtonNewSearch';
+    let SELECTOR_INFO_BLOCK = '.mediaInfoBlock'
+    let SELECTOR_INFO_HEAD_BLOCK = '.headBlock span'
+    let SELECTOR_INFO_BODY_BLOCK = '.bodyBlock .bodyText'
+    let SELECTOR_CONTACT_INFO = '#fbConfirmationEmail .textBlock p'
+    let SELECTOR_CONTACT_ITINERARY_COPY_LABEL = '#fbConfirmationEmail .formBlock .formDescArea .formDescElement'
+    let SELECTOR_CONTACT_ITINERARY_COPY_VALUE = '#fbConfirmationEmail .formBlock #emailAddressId'
+    let SELECTOR_CONTINUE_BUTTON_HREF = '#pgButtonNewSearch'
 
 
     /**
@@ -25,105 +28,116 @@
      *         {String} object.head
      *         {String} object.body
      */
-    hostScrapService.getMessages = function () {
-      var $infoBlocks = $(SELECTOR_INFO_BLOCK);
-      var messages = [];
+    hostScrapService.getMessages = function() {
+      let $infoBlocks = $(SELECTOR_INFO_BLOCK)
+      let messages = []
 
       $infoBlocks.each(function(index, el) {
-        var $el = $(el);
-        var message = {
+        let $el = $(el)
+        let message = {
           head: $el.find(SELECTOR_INFO_HEAD_BLOCK).text(),
-          body: $el.find(SELECTOR_INFO_BODY_BLOCK).text().trim()
-        };
-        messages.push(message);
-      });
+          body: $el.find(SELECTOR_INFO_BODY_BLOCK).text().trim(),
+        }
+        messages.push(message)
+      })
 
-      return messages;
-    };
-
-	hostScrapService.getConfirmationLabel = function(){
-		return $(SELECTOR_CONFIRMATION_LABEL).text().trim();
-	};
-
-	hostScrapService.getConfirmationMessage = function(){
-		return $(SELECTOR_CONFIRMATION_MESSAGE).text().trim();
-	};
-
-    hostScrapService.getConfirmationNumber = function(){
-		return $(SELECTOR_CONFIRMATION_NUMBER).text().trim();
-    };
-
-    hostScrapService.getPassengersInfo = function(){
-    	var passengers_info = [];
-    	var passengerInfoNodes = $(SELECTOR_PASSENGERS_INFO);
-    	$(passengerInfoNodes).each(function(index, value){
-    		var name = $(this).find(SELECTOR_PASSENGERS_INFO_NAME).text().trim();
-    		passengers_info.push(
-    			{
-    				name: name
-    			}
-    		);
-    	});
-    	return passengers_info;
-    };
-
-    hostScrapService.getContinueButtonHref = function(){
-		return $(SELECTOR_CONTINUE_BUTTON_HREF).attr('href');
-    };
-
-    hostScrapService.getContactInfo = function(){
-    	var text = $(SELECTOR_CONTACT_INFO).text().trim();
-    	var email = $(SELECTOR_CONTACT_INFO).find('b').text().trim();
-    	var itinerary_copy_label = $(SELECTOR_CONTACT_ITINERARY_COPY_LABEL).text().trim();
-    	var itinerary_copy_email = $(SELECTOR_CONTACT_ITINERARY_COPY_VALUE).text().trim();
-
-    	text = text.replace(email, '');
-    	var contact_info = {
-    		text: text,
-    		email: email,
-    		itinerary_copy_label: itinerary_copy_label,
-			itinerary_copy_email: itinerary_copy_email
-    	}
-		return contact_info;
-    };
-
-    hostScrapService.setItineraryCopyEmail = function(value){
-      $(SELECTOR_CONTACT_ITINERARY_COPY_VALUE).val(value);
-      $(SELECTOR_CONTACT_ITINERARY_COPY_VALUE).change();
+      return messages
     }
 
-    hostScrapService.getCardChargedMessage = function(){
-      var message;
-      var SELECTOR_CARD_CHARGED_MESSAGE = '.generalTotalPrice .colLabel';
-      if($(SELECTOR_CARD_CHARGED_MESSAGE).length > 0 ){
-        if($(SELECTOR_CARD_CHARGED_MESSAGE).text().trim().length > 8){
-          message  = $(SELECTOR_CARD_CHARGED_MESSAGE).text().trim();
+    hostScrapService.getConfirmationLabel = function() {
+      return $(SELECTOR_CONFIRMATION_LABEL).text().trim()
+    }
+
+    hostScrapService.getConfirmationMessage = function() {
+      return $(SELECTOR_CONFIRMATION_MESSAGE).text().trim()
+    }
+
+    hostScrapService.getConfirmationNumber = function() {
+      return $(SELECTOR_CONFIRMATION_NUMBER).text().trim()
+    }
+
+    hostScrapService.getPassengersInfo = function() {
+      let passengersInfo = []
+      let passengerInfoNodes = $(SELECTOR_PASSENGERS_INFO)
+      $(passengerInfoNodes).each(function(index, value) {
+        let name = $(this).find(SELECTOR_PASSENGERS_INFO_NAME).text().trim()
+        passengersInfo.push(
+          {
+            name: name,
+          }
+        )
+      })
+      return passengersInfo
+    }
+
+    hostScrapService.getContinueButtonHref = function() {
+      return $(SELECTOR_CONTINUE_BUTTON_HREF).attr('href')
+    }
+
+    hostScrapService.getContactInfo = function() {
+      let text = $(SELECTOR_CONTACT_INFO).text().trim()
+      let email = $(SELECTOR_CONTACT_INFO).find('b').text().trim()
+      let itineraryCopyLabel = $(SELECTOR_CONTACT_ITINERARY_COPY_LABEL).text().trim()
+      let itineraryCopyEmail = $(SELECTOR_CONTACT_ITINERARY_COPY_VALUE).text().trim()
+
+      text = text.replace(email, '')
+      let contactInfo = {
+        text: text,
+        email: email,
+        itinerary_copy_label: itineraryCopyLabel,
+        itinerary_copy_email: itineraryCopyEmail,
+      }
+      return contactInfo
+    }
+
+    hostScrapService.setItineraryCopyEmail = function(value) {
+      $(SELECTOR_CONTACT_ITINERARY_COPY_VALUE).val(value)
+      $(SELECTOR_CONTACT_ITINERARY_COPY_VALUE).change()
+    }
+
+    hostScrapService.getCardChargedMessage = function() {
+      let message
+      let SELECTOR_CARD_CHARGED_MESSAGE = '.generalTotalPrice .colLabel'
+      if($(SELECTOR_CARD_CHARGED_MESSAGE).length > 0 ) {
+        if($(SELECTOR_CARD_CHARGED_MESSAGE).text().trim().length > 8) {
+          message = $(SELECTOR_CARD_CHARGED_MESSAGE).text().trim()
         }
       }
-      return message;
+      return message
     }
 
-    hostScrapService.getCardChargedAmount = function(){
-      var message;
-      var SELECTOR_CARD_CHARGED_AMOUNT = '.generalTotalPrice .money';
-      if($(SELECTOR_CARD_CHARGED_AMOUNT).length > 0){
-        message  = $(SELECTOR_CARD_CHARGED_AMOUNT).text().trim();
+    hostScrapService.getCardChargedAmount = function() {
+      let message
+      let SELECTOR_CARD_CHARGED_AMOUNT = '.generalTotalPrice .money'
+      if($(SELECTOR_CARD_CHARGED_AMOUNT).length > 0) {
+        message = $(SELECTOR_CARD_CHARGED_AMOUNT).text().trim()
       }
-      return message;
+      return message
     }
 
-    hostScrapService.getThanksMessage = function(){
-      var message;
-      var SELECTOR_THANKS_MESSAGE = '.tripStatusArea p';
-      if($(SELECTOR_THANKS_MESSAGE).length > 0){
-      	message  = $(SELECTOR_THANKS_MESSAGE).text().trim();
+    hostScrapService.getThanksMessage = function() {
+      let message
+      let SELECTOR_THANKS_MESSAGE = '.tripStatusArea p'
+      if($(SELECTOR_THANKS_MESSAGE).length > 0) {
+        message = $(SELECTOR_THANKS_MESSAGE).text().trim()
       }
-      return message;
+      return message
     }
-    return hostScrapService;
+
+    hostScrapService.getErrorFlyingFocusTarget = function() {
+      const SELECTOR_BASE = '.errorBlockType2.flying-focus_target'
+      const SELECTOR = `${SELECTOR_BASE} .errorBody .errorText`
+      const SELECTOR_TITLE = `${SELECTOR_BASE} .errorHeader`
+      return {
+        isAvalable: $(SELECTOR_BASE).length > 0,
+        title: $(SELECTOR_TITLE).text().trim(),
+        message: $(SELECTOR).html(),
+      }
+    }
+    return hostScrapService
   }
 
   angular
       .module('responsiveBookingEngine')
-      .factory('hostScrapService', hostScrapService);
-})();
+      .factory('hostScrapService', hostScrapService)
+})()

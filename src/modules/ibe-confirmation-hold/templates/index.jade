@@ -7,6 +7,14 @@ block body
         data-ng-class="{error: message.type == 'error'}")
         i
         p {{message.content}}
+    section(data-ng-if="ui.eFlyingFocusTarget.isAvalable")
+      .m-card.m-card--flat.m-card--bordered.m-card--warning
+        .title
+          h3
+            | {{ui.eFlyingFocusTarget.title}}
+        .content.content--medium-vertical-padding.content--flat
+          div(data-ng-bind-html="ui.eFlyingFocusTarget.message | sanitize")
+
     section(data-ng-cloak)
       h2
         | {{'LABEL_ITENERARY_CONFIRMATION'| translate}}
@@ -21,7 +29,7 @@ block body
           p
             span.text-danger.text-size--medium
               |  {{ 'LABEL_TRIP_MSG' | translate }}
-           
+
       .m-card.m-card--flat.m-card--background-mutted
         .content
           p.text-uppercase
@@ -29,9 +37,9 @@ block body
               | {{ui.confirmation.label}}
             span.pull-right.m-confirmation-number
               | {{ui.confirmation.number}}
-      h2        
+      h2
        a.accordion-item-title-without-icon.pull-right(href="/CMGS/ReservationSearch.do")
-              | {{ 'LABEL_MMB' | translate }}         
+              | {{ 'LABEL_MMB' | translate }}
     section
       div
         header.title
@@ -138,6 +146,9 @@ block body
             | {{ 'LABEL_TOTAL' | translate }}
             strong.title-text--right
               | {{ui.confirmation.card_charged_amount}}
+
+    bs-pse-details-component
+
     section(data-ng-cloak)
       .m-card.m-card--flat.m-card--bordered
         .content
