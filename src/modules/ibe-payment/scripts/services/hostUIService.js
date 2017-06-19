@@ -42,9 +42,9 @@ define([
       $hostSecurityCodeNode.addClass('positionable-iframe-container security-code')
 
       if($hostCardNumberNode.children('.iframe-mask--layer').length < 1) {
-          // to listen the click event, bacause we cannot listen events inside an iframe
-        $hostCardNumberNode.prepend('<div class="iframe-mask iframe-mask--layer">0000-0000-0000-0000</div>')
-          // gonna be a layer to hide the iframe borders
+        // to listen the click event, bacause we cannot listen events inside an iframe
+        // $hostCardNumberNode.prepend('<div class="iframe-mask iframe-mask--layer">0000-0000-0000-0000</div>');
+        // gonna be a layer to hide the iframe borders
         $hostCardNumberNode.prepend('<div class="iframe-mask iframe-mask--right"></div>')
         $hostCardNumberNode.prepend('<div class="iframe-mask iframe-mask--top"></div>')
         $hostCardNumberNode.prepend('<div class="iframe-mask iframe-mask--left"></div>')

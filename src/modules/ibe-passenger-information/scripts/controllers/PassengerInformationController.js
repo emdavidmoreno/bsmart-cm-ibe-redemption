@@ -166,7 +166,7 @@ define([
 
       statsService.ruleShowed(Farenet2.getResult(), wrapperInstance.actionConfig)
 
-
+       hostProxyService.clickToCheckedBox();
       // -------------------------------------------------------
       // binding functions
       // -------------------------------------------------------
@@ -174,7 +174,7 @@ define([
       $scope.continueButtonAction = function() {
         let formActionNodeSelector = hostProxyService.getFormActionNodeSelector()
         $scope.$parent.showLoading = true
-        hostProxyService.clickToCheckedBox();
+       
         appHostProxyService
           .submitFormAction(
             formActionNodeSelector, 'passengerInformation', function(error, value) {
@@ -247,7 +247,7 @@ define([
             memberShip: hostScrapService.getPassengerMemberShip(index),
             suffix: hostScrapService.getPassengerSuffix(index),
             showBirthDate: hostScrapService.showBirthDate(index),
-            dobExist: hostScrapService.dobExist(index),
+            dobExist: hostScrapService.dobExist(index,hostScrapService.getPassengerType(index)),
             birthMonth: hostScrapService.getPassengerBirthMonth(index),
             birthDay: hostScrapService.getPassengerBirthDay(index),
             birthYear: hostScrapService.getPassengerBirthYear(index),
@@ -518,7 +518,7 @@ define([
             $scope.ui.messages.push(
               {
                 type: 'error',
-                content: message.messages[0],
+                content: $sce.trustAsHtml(message.messages[0]),
               }
             )
           }

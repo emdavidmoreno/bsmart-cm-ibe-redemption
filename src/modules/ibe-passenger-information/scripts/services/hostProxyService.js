@@ -14,9 +14,9 @@
       };
 
       hostProxyService.clickToCheckedBox = function() {
-        if($('.formCheckboxArea input[type="checkbox"]:checked').length !==1)
-            $('.formCheckboxArea').find('input[type="checkbox"]').click();
-        $('.formCheckboxArea').find('input[type="checkbox"]').val(1);
+      if($('.formCheckboxArea input[type="checkbox"]:checked').length == 0)
+        $('.formCheckboxArea').find('input[type="checkbox"]').click();
+    
       };
 
       return hostProxyService;

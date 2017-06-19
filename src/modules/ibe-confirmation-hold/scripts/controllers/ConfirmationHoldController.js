@@ -20,12 +20,16 @@ define([
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
   '../../../../scripts/services/hostUIService',
+  '../../../../components/complex/bs-detail-seats-prices/index.component',
+  '../../../../components/complex/bs-summary-seats-prices/index.component',
   '../../../../components/complex/bs-pse-details/index.component',
   '../../../../components/complex/bs-bank-trasnfers-details/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   _, jquiDialog, bsCardRefId, statsService, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, ApphostUIService, bsPseDetailsComponent,
+  bsItineraryPricingCardPerPassenger, ApphostUIService,
+  bsDetailSeatsPricesComponent,
+  bsSummarySeatsPricesComponent, bsPseDetailsComponent,
   bsBankTransferDetailsComponent) {
   let wrapperInstance = {}
 
@@ -471,6 +475,8 @@ define([
         .directive('bsCardRefId', bsCardRefId)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
+        .component('bsDetailSeatsPricesComponent', bsDetailSeatsPricesComponent)
+        .component('bsSummarySeatsPricesComponent', bsSummarySeatsPricesComponent)
         .component('bsPseDetailsComponent', bsPseDetailsComponent)
         .component('bsBankTransferDetailsComponent', bsBankTransferDetailsComponent)
         .controller('ConfirmationHoldController', ConfirmationHoldController)

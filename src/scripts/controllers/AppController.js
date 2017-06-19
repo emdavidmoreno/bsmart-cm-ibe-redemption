@@ -58,7 +58,7 @@ define([
       var main = {};
 
       //-------------------------------------------------------
-      // starting code
+      // starting code TEST TAG
       //-------------------------------------------------------
 
       instance.init = function () {
