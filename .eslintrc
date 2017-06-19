@@ -57,6 +57,14 @@
     "selectPaymentFromProfile": true,
     "multiplePaymentView": true,
     "dataLayer": true,
+    "getElementValue": true,
+    "getCardIssuingCountry": true,
+    "getDeliveryRule": true,
+    "setElementValue": true,
+    "resetPaymentCurrencyValues": true,
+    "showHideCardIssuingCountryInstallments": true,
+    "multiplePaymentConfig": true,
+    "com": true,
     "errorFramework": true
   }
 }
