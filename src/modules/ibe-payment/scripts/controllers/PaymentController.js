@@ -25,12 +25,13 @@ define([
   '../../../../components/complex/bs-multiple-payment-selector/index.component',
   '../../../../components/complex/bs-payment-pse/index.component',
   '../../../../components/complex/bs-payment-bank-transfers/index.component',
+  '../../../../components/complex/bs-payment-bank-slip/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent,
   bsSummarySeatsPricesComponent, bsMultiplePaymentSelectorComponent, bsPaymentPseComponent,
-  bsPaymentBankTransfersComponent
+  bsPaymentBankTransfersComponent, bsPaymentBankSlipComponent
   ) {
   let wrapperInstance = {}
   $.noConflict(true)
@@ -55,6 +56,8 @@ define([
      * @param {Object} $translate
      * @param {Object} $sce
      * @param {Object} ApphostUIService
+     * @param {Object} $rootScope
+     *
      * @return {Object}
      */
     function PaymentController($scope, hostUIService,
@@ -154,6 +157,7 @@ define([
           cc: true,
           bankTransfers: false,
           paymentBlocks: false,
+          bankSlip: false,
         },
       }
 
@@ -381,6 +385,7 @@ define([
         let deferred = appHostProxyService.submitFormAction(formActionNodeSelector, 'payment')
         hostUIService.hideHostInterface()
         $scope.$parent.showLoading = true
+
         deferred.done(function(value) {
           validationHelper(value.errors)
           $timeout(function() {
@@ -399,7 +404,6 @@ define([
           }, 0)
         })
       }
-
       // -------------------------------------------------------
       // Helpers
       // -------------------------------------------------------
@@ -1082,6 +1086,7 @@ define([
         .component('bsMultiplePaymentSelectorComponent', bsMultiplePaymentSelectorComponent)
         .component('bsPaymentPseComponent', bsPaymentPseComponent)
         .component('bsPaymentBankTransfersComponent', bsPaymentBankTransfersComponent)
+        .component('bsPaymentBankSlipComponent', bsPaymentBankSlipComponent)
         .controller('PaymentController', PaymentController)
   })({})
 

@@ -65,6 +65,20 @@ define(['./helpers/scrapHelper'], function(helper) {
      * Setup
      */
     function setupUI() {
+      ctrl.fieldFN = {
+        label: helper.fieldFiscalNumber.getLabel(),
+        value: helper.fieldFiscalNumber.getValue(),
+        hOnChange: helper.fieldFiscalNumber.setValue,
+        isAvailable: helper.fieldFiscalNumber.isAvailable(),
+      }
+
+      ctrl.fieldCFN = {
+        label: helper.fieldConfirmFiscalNumber.getLabel(),
+        value: helper.fieldConfirmFiscalNumber.getValue(),
+        hOnChange: helper.fieldConfirmFiscalNumber.setValue,
+        isAvailable: helper.fieldConfirmFiscalNumber.isAvailable(),
+      }
+
       ctrl.fieldAL1 = {
         label: helper.fieldCAAdressLine1.getLabel(),
         value: helper.fieldCAAdressLine1.getValue(),
@@ -129,6 +143,39 @@ define(['./helpers/scrapHelper'], function(helper) {
     /* eslint-disable max-len */
     template:
       `<section>
+        <div class="m-card"
+          data-ng-if="$ctrl.fieldFN.isAvailable && $ctrl.fieldCFN.isAvailable">
+          <div class="content">
+            <div class="form-group md"
+              data-ng-class="{'show-field-error': $ctrl.vErrors.fiscalNumber }">
+              <label class="col-sm-2 control-label field-required">
+                {{$ctrl.fieldFN.label}}
+              </label>
+              <div class="col-sm-10">
+                <input class="md form-control" type="text" placeholder=""
+                  data-ng-model="$ctrl.fieldFN.value"
+                  data-ng-change="$ctrl.fieldFN.hOnChange($ctrl.fieldFN.value)" />
+                <span class="text-message">
+                  {{ $ctrl.vErrors.fiscalNumber }}
+                </span>
+              </div>
+            </div>
+            <div class="form-group md"
+              data-ng-class="{'show-field-error': $ctrl.vErrors.confirmFiscalNumber }">
+              <label class="col-sm-2 control-label field-required">
+                {{$ctrl.fieldCFN.label}}
+              </label>
+              <div class="col-sm-10">
+                <input class="md form-control" type="text" placeholder=""
+                  data-ng-model="$ctrl.fieldCFN.value"
+                  data-ng-change="$ctrl.fieldCFN.hOnChange($ctrl.fieldCFN.value)" />
+                <span class="text-message">
+                  {{ $ctrl.vErrors.confirmFiscalNumber }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="m-card">
           <header class="title">
             <h4 class="title-text">

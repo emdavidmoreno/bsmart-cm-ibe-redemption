@@ -43,7 +43,7 @@ define(['./helpers/scrapHelper'], function(helper) {
     },
     /* eslint-disable max-len */
     template:
-    `<section>
+    `<section data-ng-if="$ctrl.psiDetailList.length > 0">
       <h3> {{ $ctrl.headerText }} </h3>
       <div class="m-card m-card--flat m-card--bordered">
         <div class="content content--small-vertical-padding">

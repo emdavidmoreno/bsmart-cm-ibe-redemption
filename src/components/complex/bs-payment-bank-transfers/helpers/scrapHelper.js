@@ -18,6 +18,12 @@ define(['jquery'], ($jq) => {
   const SELECTOR_PSE_BA_ZIP_TITLE_LABEL = '#zipTitle'
   const SELECTOR_PSE_BA_ZIP_TITLE_INPUT = 'input[id="commonAddress.postalCode"]'
 
+  const SELECTOR_BSLIP_FN_LABEL = '#bankTransferFiscalNumberLabel'
+  const SELECTOR_BSLIP_FN_INPUT = 'input[id="fiscalNumber-BANKTRANSFERS"]'
+  const SELECTOR_BSLIP_CFN_LABEL = '#bankTransferConfirmFiscalNumberLabel'
+  const SELECTOR_BSLIP_CFN_INPUT =
+    'input[id="confirmFiscalNumber-BANKTRANSFERS"]'
+
   /**
    * Return options array form the selector select
    *
@@ -51,6 +57,62 @@ define(['jquery'], ($jq) => {
   }
 
   return {
+    fieldFiscalNumber: {
+      /**
+       * @return {String}
+       */
+      getLabel: () =>
+        getSubstringFromText(
+          SELECTOR_BSLIP_FN_LABEL,
+          `${SELECTOR_BSLIP_FN_LABEL} span`
+        ),
+      /**
+       * @return {String}
+       */
+      getValue: () =>
+        $jq(SELECTOR_BSLIP_FN_INPUT).val(),
+      /**
+       * @param {String} value
+       */
+      setValue: (value) => {
+        $jq(SELECTOR_BSLIP_FN_INPUT).val(value)
+        $jq(SELECTOR_BSLIP_FN_INPUT).change()
+      },
+      /**
+       * @return {bool}
+       */
+      isAvailable: () => {
+        return ($(SELECTOR_BSLIP_FN_LABEL).length > 0)
+      },
+    },
+    fieldConfirmFiscalNumber: {
+      /**
+       * @return {String}
+       */
+      getLabel: () =>
+        getSubstringFromText(
+          SELECTOR_BSLIP_CFN_LABEL,
+          `${SELECTOR_BSLIP_CFN_LABEL} span`
+        ),
+      /**
+       * @return {String}
+       */
+      getValue: () =>
+        $jq(SELECTOR_BSLIP_CFN_INPUT).val(),
+      /**
+       * @param {String} value
+       */
+      setValue: (value) => {
+        $jq(SELECTOR_BSLIP_CFN_INPUT).val(value)
+        $jq(SELECTOR_BSLIP_CFN_INPUT).change()
+      },
+      /**
+       * @return {bool}
+       */
+      isAvailable: () => {
+        return ($(SELECTOR_BSLIP_CFN_LABEL).length > 0)
+      },
+    },
     fieldCAAdressLine1: {
       /**
        * @return {String}

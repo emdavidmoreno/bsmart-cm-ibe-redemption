@@ -27,6 +27,15 @@ define(['./helpers/scrapHelper'], function(helper) {
      * Init component
      */
     ctrl.$onInit = function() {
+      ctrl.currentBlock = {}
+
+      helper.bindFunctions(() => {
+        if(ctrl.isUnselecting) {
+          ctrl.isUnselecting = false
+          ctrl.currentBlock.click()
+        }
+        $timeout(checkWhichIsSelected, 100)
+      })
       setupUI()
     }
 
@@ -34,24 +43,13 @@ define(['./helpers/scrapHelper'], function(helper) {
      * Post link
      */
     ctrl.$postLink = function() {
-      let states = {
-        showBlockPayments: ctrl.paymentBlocks.length !== 0,
-        pse: false,
-        cc: false,
-        bankTransfers: false,
-      }
+      $timeout(checkWhichIsSelected, 1000)
+    }
+    /**
+     * On Destroy
+     */
+    ctrl.$onDestroy = function() {
 
-      ctrl.paymentBlocks.forEach((block) => {
-        if(block.type === 'PAGOSPSE' && block.isSelected) {
-          states['pse'] = true
-        } else if(block.type === 'CREDITCARD_POS' && block.isSelected) {
-          states['cc'] = true
-        } else if(block.type === 'BANKTRANSFERS' && block.isSelected) {
-          states['bankTransfers'] = true
-        }
-      })
-
-      updateStates(states)
     }
 
     /**
@@ -61,15 +59,38 @@ define(['./helpers/scrapHelper'], function(helper) {
      * @param {Object} block
      */
     ctrl.hOnChange = function(block) {
+      ctrl.isUnselecting = true
       ctrl.paymentBlocks.forEach((b) => {
         b.forceDeselect()
       })
-      block.hOnClick()
-      updateStates({
-        pse: (block.type === 'PAGOSPSE' && block.isSelected),
-        cc: (block.type === 'CREDITCARD_POS' && block.isSelected),
-        bankTransfers: (block.type === 'BANKTRANSFERS' && block.isSelected),
+      ctrl.currentBlock = block
+    }
+    /**
+     * Check which input[checkbox] is selected
+     */
+    const checkWhichIsSelected = () => {
+      let states = {
+        showBlockPayments: ctrl.paymentBlocks.length !== 0,
+        pse: false,
+        cc: false,
+        bankTransfers: false,
+        bankSlip: false,
+      }
+
+      ctrl.paymentBlocks.forEach((block) => {
+        const isSelected = block.checkIsSelected()
+        if(block.type === 'PAGOSPSE' && isSelected) {
+          states['pse'] = true
+        } else if(block.type === 'CREDITCARD_POS' && isSelected) {
+          states['cc'] = true
+        } else if(block.type === 'BANKTRANSFERS' && isSelected) {
+          states['bankTransfers'] = true
+        } else if(block.type === 'BOLETOBANCARIO' && isSelected) {
+          states['bankSlip'] = true
+        }
       })
+
+      updateStates(states)
     }
 
     /**

@@ -181,6 +181,12 @@ block body
         data-update-states="ui.updateStates(states)"
         data-ui="ui"
       )
+      bs-payment-bank-slip-component(
+        data-ng-if="ui.states.bankSlip"
+        data-states="ui.states"
+        data-update-states="ui.updateStates(states)"
+        data-ui="ui"
+      )
 
       div.m-card(data-ng-show="ui.states.cc")
         header.title
