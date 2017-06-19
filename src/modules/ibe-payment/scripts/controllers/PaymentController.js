@@ -22,11 +22,17 @@ define([
   '../../../../scripts/services/hostUIService',
   '../../../../components/complex/bs-detail-seats-prices/index.component',
   '../../../../components/complex/bs-summary-seats-prices/index.component',
+  '../../../../components/complex/bs-multiple-payment-selector/index.component',
+  '../../../../components/complex/bs-payment-pse/index.component',
+  '../../../../components/complex/bs-payment-bank-transfers/index.component',
+  '../../../../components/complex/bs-payment-bank-slip/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent,
-  bsSummarySeatsPricesComponent) {
+  bsSummarySeatsPricesComponent, bsMultiplePaymentSelectorComponent, bsPaymentPseComponent,
+  bsPaymentBankTransfersComponent, bsPaymentBankSlipComponent
+  ) {
   let wrapperInstance = {}
   $.noConflict(true)
 
@@ -50,11 +56,13 @@ define([
      * @param {Object} $translate
      * @param {Object} $sce
      * @param {Object} ApphostUIService
+     * @param {Object} $rootScope
+     *
      * @return {Object}
      */
     function PaymentController($scope, hostUIService,
         hostScrapService, hostProxyService, $timeout, appHostProxyService,
-        $translate, $sce, ApphostUIService) {
+        $translate, $sce, ApphostUIService, $rootScope) {
       let instance = this
 
         // allow to farenet bring back the prices html nodes to
@@ -136,6 +144,21 @@ define([
         partialErrors: {},
         card_images: hostScrapService.getCardImages(),
         creditCardLabel: hostScrapService.getCreditCardLabel(),
+        /**
+         * @param {Object} states
+         */
+        updateStates: (states) => {
+          $timeout(() => {
+            $scope.ui.states = angular.merge({}, $scope.ui.states, states)
+          }, 0)
+        },
+        states: {
+          pse: false,
+          cc: true,
+          bankTransfers: false,
+          paymentBlocks: false,
+          bankSlip: false,
+        },
       }
 
       ui.total_price.base_fare = getBaseFare(model)
@@ -157,8 +180,7 @@ define([
 
       $scope.ui = ui
 
-
-        // sync the ui height to garanty footer correct positioning
+      // sync the ui height to garanty footer correct positioning
       appHostProxyService.syncHeight($timeout)
 
       statsService.ruleShowed(Farenet2.getResult(), wrapperInstance.actionConfig)
@@ -310,12 +332,10 @@ define([
         }
 
         $scope.focusToCardNumberIframe = function() {
-          console.log('focusToCardNumberIframe')
           hostUIService.focusToCardNumberIframe()
         }
 
         $scope.focusToSecurityCodeIframe = function() {
-          console.log('focusToCardNumberIframe')
           hostUIService.focusToSecurityCodeIframe()
         }
 
@@ -365,6 +385,7 @@ define([
         let deferred = appHostProxyService.submitFormAction(formActionNodeSelector, 'payment')
         hostUIService.hideHostInterface()
         $scope.$parent.showLoading = true
+
         deferred.done(function(value) {
           validationHelper(value.errors)
           $timeout(function() {
@@ -383,7 +404,6 @@ define([
           }, 0)
         })
       }
-
       // -------------------------------------------------------
       // Helpers
       // -------------------------------------------------------
@@ -910,6 +930,7 @@ define([
               )
           }
         })
+        $rootScope.$broadcast('view-validation:partialErrors', ui.partialErrors)
         $scope.$apply()
       }
 
@@ -974,6 +995,11 @@ define([
           ui.partialErrors.documentNumber = hostScrapService.checkCopaError(propertyName, message)
         } else if (inputType === selectorsTypes.DOCUMENT_ID) {
           ui.partialErrors.documentId = hostScrapService.checkCopaError(propertyName, message)
+        } else {
+          if(propertyName) {
+            const fieldKey = propertyName.match(/^.*\.{1}(.*)/)[1]
+            ui.partialErrors[fieldKey] = message
+          }
         }
 
         // formOfPaymentProperty
@@ -1041,6 +1067,7 @@ define([
       '$translate',
       '$sce',
       'ApphostUIService',
+      '$rootScope',
     ]
     angular
         .module('responsiveBookingEngine')
@@ -1056,6 +1083,10 @@ define([
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
         .component('bsDetailSeatsPricesComponent', bsDetailSeatsPricesComponent)
         .component('bsSummarySeatsPricesComponent', bsSummarySeatsPricesComponent)
+        .component('bsMultiplePaymentSelectorComponent', bsMultiplePaymentSelectorComponent)
+        .component('bsPaymentPseComponent', bsPaymentPseComponent)
+        .component('bsPaymentBankTransfersComponent', bsPaymentBankTransfersComponent)
+        .component('bsPaymentBankSlipComponent', bsPaymentBankSlipComponent)
         .controller('PaymentController', PaymentController)
   })({})
 

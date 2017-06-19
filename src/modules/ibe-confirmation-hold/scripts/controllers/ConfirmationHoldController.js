@@ -1,4 +1,4 @@
-/* eslint-disable max-len,no-invalid-this,no-inner-declarations */
+/* eslint-disable max-len,no-inner-declarations,no-invalid-this */
 'use strict'
 
 define([
@@ -22,11 +22,15 @@ define([
   '../../../../scripts/services/hostUIService',
   '../../../../components/complex/bs-detail-seats-prices/index.component',
   '../../../../components/complex/bs-summary-seats-prices/index.component',
+  '../../../../components/complex/bs-pse-details/index.component',
+  '../../../../components/complex/bs-bank-trasnfers-details/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   _, jquiDialog, bsCardRefId, statsService, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent,
-  bsSummarySeatsPricesComponent) {
+  bsItineraryPricingCardPerPassenger, ApphostUIService,
+  bsDetailSeatsPricesComponent,
+  bsSummarySeatsPricesComponent, bsPseDetailsComponent,
+  bsBankTransferDetailsComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -41,15 +45,15 @@ define([
   (function() {
     /**
      *
-     * @param {Object} $scope
-     * @param {Object} hostUIService
-     * @param {Object} hostScrapService
-     * @param {Object} hostProxyService
-     * @param {Object} $timeout
-     * @param {Object} appHostProxyService
-     * @param {Object} $translate
-     * @param {Object} $sce
-     * @param {Object} ApphostUIService
+     * @param {*} $scope
+     * @param {*} hostUIService
+     * @param {*} hostScrapService
+     * @param {*} hostProxyService
+     * @param {*} $timeout
+     * @param {*} appHostProxyService
+     * @param {*} $translate
+     * @param {*} $sce
+     * @param {*} ApphostUIService
      *
      * @return {Object}
      */
@@ -100,6 +104,7 @@ define([
         continueButton: {
           href: hostScrapService.getContinueButtonHref(),
         },
+        eFlyingFocusTarget: hostScrapService.getErrorFlyingFocusTarget(),
       }
 
       if (isEmpty(ui.disclaimer_mapping)) {
@@ -108,7 +113,7 @@ define([
         /**
          *
          * @param {Object} locationFlights
-         * @return {Array}
+         * @return {Array.<Object>}
          */
         function getDisclaimers(locationFlights) {
           let disclaimers = []
@@ -198,7 +203,7 @@ define([
       /**
        *
        * @param {Object} model
-       * @return {Int}
+       * @return {int}
        */
       function getBaseFare(model) {
         let totalPriceModel = model.total_price
@@ -215,6 +220,7 @@ define([
        * Augment the locations ViewModel with
        * the necessary properties for the UI like:
        * (selectedClassIndex, show, summary)
+       *
        * @return {Object}
        */
       function getLocations() {
@@ -253,7 +259,7 @@ define([
             }
 
             this.return.availableClasses =
-                getAvailableClasses(this.return.dates[0].flights)
+              getAvailableClasses(this.return.dates[0].flights)
           }
         })
 
@@ -262,7 +268,7 @@ define([
       /**
        *
        * @param {Array} flights
-       * @return {Object}
+       * @return {Array}
        */
       function getAvailableClasses(flights) {
         let availableClasses = []
@@ -297,7 +303,7 @@ define([
 
           flights.forEach(function(flight) {
             flight.info.classes = flight.info.classes.map(function(cls) {
-                // Selling Class
+              // Selling Class
               let sellingClassLink = cls.sellingClassNode
               if (sellingClassLink.length > 0) {
                 cls.sellingClass = {
@@ -320,7 +326,7 @@ define([
                 hostUIService.swapToBSFlightDetailsLoadCallback()
                 fInfo.flightNumberNode[0].click()
 
-                  // This hide the dialog and shadow
+                // This hide the dialog and shadow
                 $timeout(function() {
                   $('#flightDetailsPopUpOuter').attr('style', 'display:none')
                   $('.dialogFooter .button2')[0].click()
@@ -400,18 +406,18 @@ define([
         $.each(validationErrors, function(/* value, index*/) {
           let message = this
           if (message.property) {
-              // validate an specific input
-              // TODO: Implement this feature
+            // validate an specific input
+            // TODO: Implement this feature
             addMessageToInput(message.property, message.messages[0])
           } else {
-              // add the message to the general messages
+            // add the message to the general messages
             $scope.ui.messages = []
             $scope.ui.messages.push(
               {
                 type: 'error',
                 content: message.messages[0],
               }
-              )
+            )
           }
         })
         $scope.$apply()
@@ -428,7 +434,7 @@ define([
       /**
        *
        * @param {Object} ob
-       * @return {Bool}
+       * @return {bool}
        */
       function isEmpty(ob) {
         for (let i in ob) { // eslint-disable-line
@@ -471,6 +477,8 @@ define([
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
         .component('bsDetailSeatsPricesComponent', bsDetailSeatsPricesComponent)
         .component('bsSummarySeatsPricesComponent', bsSummarySeatsPricesComponent)
+        .component('bsPseDetailsComponent', bsPseDetailsComponent)
+        .component('bsBankTransferDetailsComponent', bsBankTransferDetailsComponent)
         .controller('ConfirmationHoldController', ConfirmationHoldController)
   })({})
 

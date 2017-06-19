@@ -1,9 +1,11 @@
-/* jshint browser:true */
-/* jshint -W003*/
-'use strict';
-define(['angular-translate', 'tmhDynamicLocale'], function () {
+/* eslint-disable max-len */
+'use strict'
+define(['angular-translate', 'tmhDynamicLocale'], function() {
   /**
    * Angular directive that create a wrapper for jQueryUI autocomplete
+   *
+   * @param {Object} $translateProvider
+   * @param {Object} tmhDynamicLocaleProvider
    */
   function angularConfig($translateProvider, tmhDynamicLocaleProvider) {
     // Our translations will go in here
@@ -137,8 +139,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_DELETE_OPTION: 'Delete',
       LABEL_CARD_SAVED: 'Saved cards',
       LABEL_ADD_OPTION: 'Add',
-      LABEL_TRIP_MSG:"This trip will not be automatically added to the App. You may add it manually after payment."
-    });
+      LABEL_TRIP_MSG: 'This trip will not be automatically added to the App. You may add it manually after payment.',
+      LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Debit cards issued in Colombia',
+    })
 
 
     // spanish translations
@@ -272,8 +275,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_DELETE_OPTION: 'Eliminar',
       LABEL_CARD_SAVED: 'Tarjetas guardadas',
       LABEL_ADD_OPTION: 'Agregar',
-      LABEL_TRIP_MSG:'Este viaje no será agregado automáticamente al App. Lo podrá agregar posterior al pago.'
-    });
+      LABEL_TRIP_MSG: 'Este viaje no será agregado automáticamente al App. Lo podrá agregar posterior al pago.',
+      LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Débitos a Cuentas de Ahorro/Corriente emitidas en Colombia.',
+    })
 
     // portuguees translations
     $translateProvider.translations('pt', {
@@ -405,19 +409,19 @@ define(['angular-translate', 'tmhDynamicLocale'], function () {
       LABEL_EDIT_OPTION: 'Editar',
       LABEL_DELETE_OPTION: 'Excluir',
       LABEL_CARD_SAVED: 'Cartões Saved',
-      LABEL_ADD_OPTION:'Adicionar',
-      LABEL_TRIP_MSG:'Esta viagem não será adicionado automaticamente para o App. Você pode adicioná-lo manualmente após o pagamento.'
-
-    });
+      LABEL_ADD_OPTION: 'Adicionar',
+      LABEL_TRIP_MSG: 'Esta viagem não será adicionado automaticamente para o App. Você pode adicioná-lo manualmente após o pagamento.',
+      LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Depósitos contas de poupança / corrente emitido na Colômbia.',
+    })
 
     // set default language
-    $translateProvider.preferredLanguage('en');
-    $translateProvider.useSanitizeValueStrategy('escape');
+    $translateProvider.preferredLanguage('en')
+    $translateProvider.useSanitizeValueStrategy('escape')
 
-    tmhDynamicLocaleProvider.localeLocationPattern('//@@HOST/app/modules/bsmart-cm-ibe/lib/angular/i18n/angular-locale_{{locale}}.js');
+    tmhDynamicLocaleProvider.localeLocationPattern('//@@HOST/app/modules/bsmart-cm-ibe/lib/angular/i18n/angular-locale_{{locale}}.js')
   }
 
-  angularConfig.$inject = ['$translateProvider', 'tmhDynamicLocaleProvider'];
+  angularConfig.$inject = ['$translateProvider', 'tmhDynamicLocaleProvider']
 
-  return angularConfig;
-});
+  return angularConfig
+})
