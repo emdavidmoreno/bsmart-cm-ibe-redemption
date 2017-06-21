@@ -69,10 +69,11 @@ define(['./helpers/scrapHelper'], function(helper) {
      * Check which input[checkbox] is selected
      */
     const checkWhichIsSelected = () => {
+      const isVisisbleBPayments = ctrl.paymentBlocks.length !== 0
       let states = {
-        showBlockPayments: ctrl.paymentBlocks.length !== 0,
+        showBlockPayments: isVisisbleBPayments,
+        cc: !isVisisbleBPayments ? true : false,
         pse: false,
-        cc: false,
         bankTransfers: false,
         bankSlip: false,
       }
