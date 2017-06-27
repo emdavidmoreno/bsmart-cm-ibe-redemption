@@ -150,6 +150,7 @@ define([
         updateStates: (states) => {
           $timeout(() => {
             $scope.ui.states = angular.merge({}, $scope.ui.states, states)
+            hostUIService.syncIframeFields()
           }, 0)
         },
         states: {
@@ -855,8 +856,8 @@ define([
         creditCardInfo.isDocumentIdVisible = hostScrapService.isVisibleRootDocumentId()
         creditCardInfo.isInstallmentsVisible = hostScrapService.isVisibleRootInstallments()
 
-          // activate card payment by defauld
-        hostScrapService.togglePaymentCreditCardPos()
+        // activate card payment by defauld
+        // hostScrapService.togglePaymentCreditCardPos()
 
         return creditCardInfo
       }

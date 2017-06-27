@@ -13,7 +13,8 @@ define(['./helpers/scrapHelper'], function(helper) {
    * @param {Function} [$filter]
    */
   function MultiplePaymentSelector(
-    $scope, $element, $attrs, $timeout, $filter
+    $scope, $element, $attrs, $timeout, $filter,
+    $translate
     ) {
     let ctrl = this
     /**
@@ -60,10 +61,19 @@ define(['./helpers/scrapHelper'], function(helper) {
      */
     ctrl.hOnChange = function(block) {
       ctrl.isUnselecting = true
+      let isAnyChecked = false
       ctrl.paymentBlocks.forEach((b) => {
         b.forceDeselect()
+        if(b.isSelected) {
+          isAnyChecked = true
+        }
       })
       ctrl.currentBlock = block
+
+      if(!isAnyChecked) {
+        ctrl.isUnselecting = false
+        ctrl.currentBlock.click()
+      }
     }
     /**
      * Check which input[checkbox] is selected
@@ -99,11 +109,21 @@ define(['./helpers/scrapHelper'], function(helper) {
      */
     function setupUI() {
       ctrl.paymentBlocks = helper.getPaymentBlocks()
+      ctrl.paymentBlocks = ctrl.paymentBlocks.map((block) => {
+        block.title = ''
+        if(block.type === 'BANKTRANSFERS') {
+          block.title = $filter('translate')('LABEL_BANK_TRANSFER')
+        } else if(block.type === 'BOLETOBANCARIO') {
+          block.title = $filter('translate')('LABEL_BOLETO_BANCARIO')
+        }
+        return block
+      })
     }
   }
 
   MultiplePaymentSelector.$inject = [
     '$scope', '$element', '$attrs', '$timeout', '$filter',
+    '$translate',
   ]
 
   return {
@@ -122,11 +142,17 @@ define(['./helpers/scrapHelper'], function(helper) {
               <input type="checkbox"
                 name="payment-block"
                 data-ng-change="$ctrl.hOnChange(block)"
-                data-ng-model="block.isSelected"/>
+                data-ng-model="block.isSelected"
+                data-ng-class="{'input-large-descr-text': block.title.length > 0}"/>
             </div>
             <div class="m-logo" data-ng-bind-html="block.logoHtml | sanitize">
             </div>
-            <div class="m-descr" data-ng-bind-html="block.descrHtml | sanitize">
+            <div class="m-descr">
+              <h3 data-ng-if="block.title.length > 0">
+                {{block.title}}
+              </h3>
+              <div class="m-descr-text" data-ng-bind-html="block.descrHtml | sanitize">
+              </div>
             </div>
           </div>
         </div>

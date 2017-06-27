@@ -141,6 +141,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_ADD_OPTION: 'Add',
       LABEL_TRIP_MSG: 'This trip will not be automatically added to the App. You may add it manually after payment.',
       LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Debit cards issued in Colombia',
+      LABEL_BANK_TRANSFER: 'Bank Transfer',
+      LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
     })
 
 
@@ -277,6 +279,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_ADD_OPTION: 'Agregar',
       LABEL_TRIP_MSG: 'Este viaje no será agregado automáticamente al App. Lo podrá agregar posterior al pago.',
       LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Débitos a Cuentas de Ahorro/Corriente emitidas en Colombia.',
+      LABEL_BANK_TRANSFER: 'Transferencia bancaria',
+      LABEL_BOLETO_BANCARIO: 'Boleto Bancário',
     })
 
     // portuguees translations
@@ -412,6 +416,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_ADD_OPTION: 'Adicionar',
       LABEL_TRIP_MSG: 'Esta viagem não será adicionado automaticamente para o App. Você pode adicioná-lo manualmente após o pagamento.',
       LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Depósitos contas de poupança / corrente emitido na Colômbia.',
+      LABEL_BANK_TRANSFER: 'Transferência bancária',
+      LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
     })
 
     // set default language
