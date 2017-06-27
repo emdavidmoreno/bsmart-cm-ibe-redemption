@@ -60,14 +60,17 @@ define(['jquery'], function($jq) {
            * Send click for client host
            */
           click: function() {
-            this.jqInput.trigger('click')
+            this.jqInput.prop('checked', true)
+            $(this.jqInput[0]).click()
           },
           /**
            * forceDeselect
            */
           forceDeselect: function() {
+            this.isSelected = false
             if(this.jqInput.is(':checked')) {
-              this.jqInput.trigger('click')
+              this.jqInput.prop('checked', false)
+              $(this.jqInput[0]).click()
               this.isSelected = $input.is(':checked')
             }
           },
