@@ -24,13 +24,14 @@ define([
   '../../../../components/complex/bs-summary-seats-prices/index.component',
   '../../../../components/complex/bs-pse-details/index.component',
   '../../../../components/complex/bs-bank-trasnfers-details/index.component',
+  '../../../../components/complex/bs-page-total-price-note/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   _, jquiDialog, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService,
   bsDetailSeatsPricesComponent,
   bsSummarySeatsPricesComponent, bsPseDetailsComponent,
-  bsBankTransferDetailsComponent) {
+  bsBankTransferDetailsComponent, bsPageTotalPriceNoteComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -479,6 +480,7 @@ define([
         .component('bsSummarySeatsPricesComponent', bsSummarySeatsPricesComponent)
         .component('bsPseDetailsComponent', bsPseDetailsComponent)
         .component('bsBankTransferDetailsComponent', bsBankTransferDetailsComponent)
+        .component('bsPageTotalPriceNoteComponent', bsPageTotalPriceNoteComponent)
         .controller('ConfirmationHoldController', ConfirmationHoldController)
   })({})
 

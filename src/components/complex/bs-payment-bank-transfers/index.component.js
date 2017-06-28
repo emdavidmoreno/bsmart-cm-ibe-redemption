@@ -256,7 +256,7 @@ define(['./helpers/scrapHelper'], function(helper) {
             </div>
             <div class="form-group md"
               data-ng-class="{'show-field-error': $ctrl.vErrors.postalCode }">
-              <label class="col-sm-2 control-label field-required">
+              <label class="col-sm-2 control-label">
                 {{$ctrl.fieldZT.label}}
               </label>
               <div class="col-sm-10">

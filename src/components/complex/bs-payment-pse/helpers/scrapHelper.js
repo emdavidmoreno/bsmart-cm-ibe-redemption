@@ -75,7 +75,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_CUSTOMER_TYPE_LABEL,
-          `${SELECTOR_PSE_CUSTOMER_TYPE_LABEL} span`
+          `${SELECTOR_PSE_CUSTOMER_TYPE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -102,7 +102,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_BFN_LABEL,
-          `${SELECTOR_PSE_BFN_LABEL} span`
+          `${SELECTOR_PSE_BFN_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -124,7 +124,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_DOCUMENT_TYPE_LABEL,
-          `${SELECTOR_PSE_DOCUMENT_TYPE_LABEL} span`
+          `${SELECTOR_PSE_DOCUMENT_TYPE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -151,7 +151,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_DN_LABEL,
-          `${SELECTOR_PSE_DN_LABEL} span`
+          `${SELECTOR_PSE_DN_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -173,7 +173,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_BANK_ID_LABEL,
-          `${SELECTOR_PSE_BANK_ID_LABEL} span`
+          `${SELECTOR_PSE_BANK_ID_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -200,7 +200,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_BA_AL1T_LABEL,
-          `${SELECTOR_PSE_BA_AL1T_LABEL} span`
+          `${SELECTOR_PSE_BA_AL1T_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -221,7 +221,8 @@ define(['jquery'], ($jq) => {
        */
       getLabel: () =>
         getSubstringFromText(
-          SELECTOR_PSE_BA_AL2T_LABEL
+          SELECTOR_PSE_BA_AL2T_LABEL,
+          `${SELECTOR_PSE_BA_AL2T_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -243,7 +244,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_BA_CITY_TITLE_LABEL,
-          `${SELECTOR_PSE_BA_CITY_TITLE_LABEL} span`
+          `${SELECTOR_PSE_BA_CITY_TITLE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -265,7 +266,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_BA_COUNTRY_TITLE_LABEL,
-          `${SELECTOR_PSE_BA_COUNTRY_TITLE_LABEL} span`
+          `${SELECTOR_PSE_BA_COUNTRY_TITLE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -291,7 +292,8 @@ define(['jquery'], ($jq) => {
        */
       getLabel: () =>
         getSubstringFromText(
-          SELECTOR_PSE_BA_STATE_TITLE_LABEL
+          SELECTOR_PSE_BA_STATE_TITLE_LABEL,
+          `${SELECTOR_PSE_BA_STATE_TITLE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -317,7 +319,8 @@ define(['jquery'], ($jq) => {
        */
       getLabel: () =>
         getSubstringFromText(
-          SELECTOR_PSE_BA_ZIP_TITLE_LABEL
+          SELECTOR_PSE_BA_ZIP_TITLE_LABEL,
+          `${SELECTOR_PSE_BA_ZIP_TITLE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -362,8 +365,8 @@ define(['jquery'], ($jq) => {
        * @param {String} value
        */
       setValue: (value) => {
-        $jq(SELECTOR_PSE_BA_AL1T_INPUT).val(value)
-        $jq(SELECTOR_PSE_BA_AL1T_INPUT).change()
+        $jq(SELECTOR_PSE_BA_PHONE_INPUT).val(value)
+        $jq(SELECTOR_PSE_BA_PHONE_INPUT).change()
       },
     },
   }
