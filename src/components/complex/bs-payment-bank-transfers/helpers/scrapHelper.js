@@ -69,7 +69,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_BSLIP_FN_LABEL,
-          `${SELECTOR_BSLIP_FN_LABEL} span`
+          `${SELECTOR_BSLIP_FN_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -97,7 +97,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_BSLIP_CFN_LABEL,
-          `${SELECTOR_BSLIP_CFN_LABEL} span`
+          `${SELECTOR_BSLIP_CFN_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -125,7 +125,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_BA_AL1T_LABEL,
-          `${SELECTOR_PSE_BA_AL1T_LABEL} span`
+          `${SELECTOR_PSE_BA_AL1T_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -146,7 +146,8 @@ define(['jquery'], ($jq) => {
        */
       getLabel: () =>
         getSubstringFromText(
-          SELECTOR_PSE_BA_AL2T_LABEL
+          SELECTOR_PSE_BA_AL2T_LABEL,
+          `${SELECTOR_PSE_BA_AL2T_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -168,7 +169,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_BA_CITY_TITLE_LABEL,
-          `${SELECTOR_PSE_BA_CITY_TITLE_LABEL} span`
+          `${SELECTOR_PSE_BA_CITY_TITLE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -190,7 +191,7 @@ define(['jquery'], ($jq) => {
       getLabel: () =>
         getSubstringFromText(
           SELECTOR_PSE_BA_COUNTRY_TITLE_LABEL,
-          `${SELECTOR_PSE_BA_COUNTRY_TITLE_LABEL} span`
+          `${SELECTOR_PSE_BA_COUNTRY_TITLE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -216,7 +217,8 @@ define(['jquery'], ($jq) => {
        */
       getLabel: () =>
         getSubstringFromText(
-          SELECTOR_PSE_BA_STATE_TITLE_LABEL
+          SELECTOR_PSE_BA_STATE_TITLE_LABEL,
+          `${SELECTOR_PSE_BA_STATE_TITLE_LABEL} span:first`
         ),
       /**
        * @return {String}
@@ -242,7 +244,8 @@ define(['jquery'], ($jq) => {
        */
       getLabel: () =>
         getSubstringFromText(
-          SELECTOR_PSE_BA_ZIP_TITLE_LABEL
+          SELECTOR_PSE_BA_ZIP_TITLE_LABEL,
+          `${SELECTOR_PSE_BA_ZIP_TITLE_LABEL} span:first`
         ),
       /**
        * @return {String}
