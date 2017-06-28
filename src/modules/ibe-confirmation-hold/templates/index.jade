@@ -138,7 +138,7 @@ block body
     div(data-bs-itinerary-pricing-card data-ui="ui")
     div.row.margin-bottom-md
     bs-detail-seats-prices-component
-    div.row.margin-bottom-md 
+    div.row.margin-bottom-md
     //- bs-summary-seats-prices-component
     section(data-ng-if="ui.confirmation.card_charged_message && ui.confirmation.card_charged_amount")
       .m-card.m-card--flat.m-card--bordered.m-card--muted(ng-cloak)
@@ -151,6 +151,7 @@ block body
             strong.title-text--right
               | {{ui.confirmation.card_charged_amount}}
 
+    bs-page-total-price-note-component
     bs-pse-details-component
     bs-bank-transfer-details-component
 
@@ -169,7 +170,8 @@ block body
                   placeholder="{{ 'LABEL_EMAIL' | translate }}")
               span.text-message(ng-show="ui.errors[0].emailAddress")
                 | {{ui.errors[0].emailAddress}}
-            p(class="text-success" data-ng-show="ui.confirmation.email_sended_message") {{ui.confirmation.email_sended_message}}
+            p(class="text-success" data-ng-show="ui.confirmation.email_sended_message")
+              | {{ui.confirmation.email_sended_message}}
             p(class="text-right")
               button(class="btn btn-primary btn-sm btn-warning" type="button" data-ng-click='sendItineraryCopyAction()')
                 | {{ 'LABEL_SEND' | translate }}
