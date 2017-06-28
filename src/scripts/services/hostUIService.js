@@ -67,6 +67,10 @@ define([], function () {
 
     }
 
+    hostUIService.hideCopaSideAd = function () {
+       $('.usabilla_live_button_container').remove()
+    }
+
 
     return hostUIService;
   }

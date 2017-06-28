@@ -66,6 +66,7 @@ define([
         console.log('AppController init');
         hostUIService.bindUI();
         hostUIService.scrollToTop();
+        hostUIService.hideCopaSideAd(); 
       };
 
       // This solution is temporal, the best choice is set Babel to support Object entries method and Object values method.
