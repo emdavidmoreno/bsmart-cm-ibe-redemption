@@ -156,7 +156,7 @@ define(['./helpers/scrapHelper'], function(helper) {
     /* eslint-disable max-len */
     template:
     `
-    <div>
+    <div ng-show="$ctrl.farenetModel">
       <div class="m-btn"
         data-ng-click="$ctrl.moveScroll()"
         data-ng-class="{'m-btn-left': !$ctrl.isInitialPosition}">
