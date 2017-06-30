@@ -11,6 +11,7 @@ define(['./helpers/scrapHelper'], function(helper) {
    * @param {Object} [$attrs]
    * @param {Object} [$timeout]
    * @param {Function} [$filter]
+   * @param {Function} [$translate]
    */
   function MultiplePaymentSelector(
     $scope, $element, $attrs, $timeout, $filter,
@@ -115,6 +116,8 @@ define(['./helpers/scrapHelper'], function(helper) {
           block.title = $filter('translate')('LABEL_BANK_TRANSFER')
         } else if(block.type === 'BOLETOBANCARIO') {
           block.title = $filter('translate')('LABEL_BOLETO_BANCARIO')
+        } else if(block.type === 'PAGOSPSE') {
+          block.title = 'PSE'
         }
         return block
       })
