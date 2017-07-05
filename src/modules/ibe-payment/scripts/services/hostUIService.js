@@ -53,7 +53,7 @@ define([
         $hostCardNumberNode.prepend('<div class="iframe-mask iframe-mask--left"></div>')
 
           // to listen the click event, bacause we cannot listen events inside an iframe
-        $hostSecurityCodeNode.prepend('<div class="iframe-mask iframe-mask--layer">000</div>')
+        //$hostSecurityCodeNode.prepend('<div class="iframe-mask iframe-mask--layer">000</div>')
           // gonna be a layer to hide the iframe borders
         $hostSecurityCodeNode.prepend('<div class="iframe-mask iframe-mask--right"></div>')
         $hostSecurityCodeNode.prepend('<div class="iframe-mask iframe-mask--top"></div>')
@@ -122,6 +122,7 @@ define([
       positionMe($(BOOKSMART_SECURITY_CODE_SELECTOR).find('input'),
          $hostSecurityCodeNode)
       $($('.iframe-mask.iframe-mask--layer')[0]).hide()
+      $($('.iframe-mask.iframe-mask--layer')[1]).hide()
     }
 
     hostUIService.showHostInterface = function() {
