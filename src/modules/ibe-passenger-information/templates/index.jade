@@ -39,7 +39,7 @@ block body
             | {{passenger.type}}
         .content
           form.form-horizontal
-            .form-group.md(ng-if="$parent.main.user")
+            .form-group.md(ng-if="passenger.ifExistAutoFill($index)")
                 label.pi-field-required
                   | {{'LABEL_AUTO_FILL_OPTIONS' | translate}}
                 select.md.form-control(
@@ -47,7 +47,7 @@ block body
                   data-ng-model="passenger.autoFillSelectedOption"
                   data-ng-change="passenger.setAutoFillOption(passenger.autoFillSelectedOption)"
                   data-ng-options="option.name for option in passenger.autoFillOptions() track by option.value")
-            .form-group.md(ng-show="passenger.autoFillSelectedOption.value !=-1" data-ng-class="{'show-field-error': ui.errors[$index].title }")
+            .form-group.md(ng-show="passenger.mustBeShowed($index)" data-ng-class="{'show-field-error': ui.errors[$index].title }")
                 label.pi-field-required
                   | {{'LABEL_TITLE' | translate}}
                 select.md.form-control(
@@ -57,7 +57,7 @@ block body
                   data-ng-options="option.name for option in passenger.titleOptions() track by option.value")
                 span.text-message
                   | {{ui.errors[$index].title}}
-            .form-group.md(ng-show="passenger.autoFillSelectedOption.value !=-1" data-ng-class="{'show-field-error': ui.errors[$index].firstName }")
+            .form-group.md(ng-show="passenger.mustBeShowed($index) " data-ng-class="{'show-field-error': ui.errors[$index].firstName }")
               label.col-sm-2.control-label.pi-field-required
                 | {{'LABEL_FIRST_NAME' | translate}}
               .col-sm-10
@@ -69,7 +69,7 @@ block body
                   data-ng-change="passenger.setFirstName(passenger.firstName)")
                 span.text-message
                   | {{ui.errors[$index].firstName}}
-            .form-group.md(ng-show="passenger.autoFillSelectedOption.value !=-1"
+            .form-group.md(ng-show="passenger.mustBeShowed($index) "
               data-ng-class="{'show-field-error': ui.errors[$index].lastName }")
               label.col-sm-2.control-label.pi-field-required
                 | {{'LABEL_LAST_NAME' | translate}}
@@ -96,7 +96,7 @@ block body
                   data-ng-change="passenger.setAge(passenger.age)")
                 span.text-message
                   | {{ui.errors[$index].travellerAge}}
-            .form-group.md(ng-show="passenger.autoFillSelectedOption.value !=-1")
+            .form-group.md(ng-show="passenger.mustBeShowed($index) ")
                 label
                   | {{'LABEL_FREQUENT_FLYER' | translate}}
                 select.md.form-control(
@@ -104,7 +104,7 @@ block body
                   data-ng-model="passenger.freqFlyer"
                   data-ng-change="passenger.setFreqFlyer(passenger.freqFlyer)"
                   data-ng-options="option.name for option in passenger.freqFlyerOptions() track by option.value")
-            .form-group.md(ng-show="passenger.freqFlyer.value && passenger.autoFillSelectedOption.value !=-1")
+            .form-group.md(ng-show="passenger.freqFlyer.value && passenger.mustBeShowed($index) ")
               label.col-sm-2.control-label
                 | {{'LABEL_MEMBERSHIP' | translate}}
               .col-sm-10
@@ -115,7 +115,7 @@ block body
                   data-ng-model='passenger.memberShip'
                   data-ng-change="passenger.setMemberShip(passenger.memberShip)")
             .form-group.md(
-              data-ng-if="passenger.argTaxId.exist && passenger.autoFillSelectedOption.value !=-1"
+              data-ng-if="passenger.argTaxId.exist && passenger.mustBeShowed($index) "
               )
               label
                 | {{ passenger.argTaxId.taxIdCodeLabel }}
@@ -125,7 +125,7 @@ block body
                 data-ng-change="passenger.argTaxId.setTaxIdCode(passenger.argTaxId.taxIdCode)"
                 data-ng-options="option.name for option in passenger.argTaxId.taxIdCodeOptions() track by option.value")
             .form-group.md(
-              data-ng-if="passenger.argTaxId.exist && passenger.autoFillSelectedOption.value !=-1 && (passenger.argTaxId.taxIdCode.value !== '0' && passenger.argTaxId.taxIdCode.value !== '')"
+              data-ng-if="passenger.argTaxId.exist && passenger.mustBeShowed($index)  && (passenger.argTaxId.taxIdCode.value !== '0' && passenger.argTaxId.taxIdCode.value !== '')"
               )
               label.col-sm-2.control-label
                 | {{ passenger.argTaxId.taxIdNumberLabel }}
@@ -137,7 +137,7 @@ block body
                   data-ng-model='passenger.argTaxId.taxIdNumber'
                   data-ng-change="passenger.argTaxId.setTaxIdNumber(passenger.argTaxId.taxIdNumber)")
             .form-group.md(
-              data-ng-if="passenger.argTaxId.exist && passenger.autoFillSelectedOption.value !=-1 && (passenger.argTaxId.taxIdCode.value === '0')"
+              data-ng-if="passenger.argTaxId.exist && passenger.mustBeShowed($index)  && (passenger.argTaxId.taxIdCode.value === '0')"
               )
               label
                 | {{ passenger.argTaxId.taxIdCountryLabel }}
@@ -173,7 +173,7 @@ block body
                   | {{ui.errors[$index]['genderMale']}}
             hr(data-ng-if="passenger.dobExist")
             .form-group.md.col-sm-3.inline-select(
-              data-ng-if="passenger.dobExist && passenger.autoFillSelectedOption.value !=-1"
+              data-ng-if="passenger.dobExist && passenger.mustBeShowed($index) "
               data-ng-class= "{'show-field-error': (ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate) }")
               label.pi-field-required
                | {{'LABEL_BIRTHDAY' | translate}}

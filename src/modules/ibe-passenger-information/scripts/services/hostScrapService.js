@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   function hostScrapService() {
@@ -76,24 +76,24 @@
       'input[name="travellersInfo[0].mobilePhone.phoneNumberCountryCode"]';
     var CONTACT_INFORMATION_CELL_NUMBER_SELECTOR =
       'input[name="travellersInfo[0].mobilePhone.phoneNumber"]';
-   
+
 
     var SECURITY_FLIGHT_INFORMATION = '#prefixAPDP_' + S_INDEX;
-    console.log("S_INDEX"+S_INDEX);
+    console.log("S_INDEX" + S_INDEX);
 
     /**
      * @param {string} selector
      * @param {int} index
      * @return {string}
      */
-    var _replaceIndex = function(selector, index) {
+    var _replaceIndex = function (selector, index) {
       return selector.replace(S_INDEX, index);
     };
     /**
      * @param {int} index
      * @return {jQuery}
      */
-    var _getSingleBlockSelecction = function(index) {
+    var _getSingleBlockSelecction = function (index) {
       var $bSelector =
         $(PASSENGERS_BLOCKS_INDIVIDUAL_SELECTOR + (index + 1));
       return $bSelector;
@@ -103,7 +103,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerType = function(index) {
+    hostScrapService.getPassengerType = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectType =
         $bs.find(_replaceIndex(PASSENGER_TYPE_SELECTOR, index));
@@ -115,7 +115,7 @@
      * @param {int} index
      * @return {Boolean}
      */
-    hostScrapService.needSecureFlightInformation = function(index) {
+    hostScrapService.needSecureFlightInformation = function (index) {
       return $(_replaceIndex(SECURITY_FLIGHT_INFORMATION, index)).length > 0;
     };
 
@@ -123,7 +123,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerTitle = function(index) {
+    hostScrapService.getPassengerTitle = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TITLE_SELECTOR, index));
@@ -134,7 +134,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerTitle = function(index,  value) {
+    hostScrapService.setPassengerTitle = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TITLE_SELECTOR, index));
@@ -146,13 +146,13 @@
      * @param {int} index
      * @return {Object[]}
      */
-    hostScrapService.getAllPassengerTitleOptions = function(index) {
+    hostScrapService.getAllPassengerTitleOptions = function (index) {
       var titleOptions = [];
       var $bs = _getSingleBlockSelecction(index);
       var $elems =
-          $bs.find(
-            _replaceIndex(PASSENGER_TITLE_SELECTOR + ' option', index));
-      $elems.each(function(index, el) {
+        $bs.find(
+          _replaceIndex(PASSENGER_TITLE_SELECTOR + ' option', index));
+      $elems.each(function (index, el) {
         titleOptions.push({
           name: $(el).text(),
           value: $(el).attr('value')
@@ -165,10 +165,10 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerFirstName = function(index) {
+    hostScrapService.getPassengerFirstName = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
-          $bs.find(_replaceIndex(PASSENGER_FIRST_NAME_SELECTOR, index));
+        $bs.find(_replaceIndex(PASSENGER_FIRST_NAME_SELECTOR, index));
       return $elem.val();
     };
 
@@ -176,7 +176,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerFirstName = function(index,  value) {
+    hostScrapService.setPassengerFirstName = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_FIRST_NAME_SELECTOR, index));
@@ -188,10 +188,10 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerLastName = function(index) {
+    hostScrapService.getPassengerLastName = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
-          $bs.find(_replaceIndex(PASSENGER_LAST_NAME_SELECTOR, index));
+        $bs.find(_replaceIndex(PASSENGER_LAST_NAME_SELECTOR, index));
       return $elem.val();
     };
 
@@ -199,7 +199,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerLastName = function(index,  value) {
+    hostScrapService.setPassengerLastName = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_LAST_NAME_SELECTOR, index));
@@ -210,11 +210,11 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerCheckedGender = function(index) {
+    hostScrapService.getPassengerCheckedGender = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
-          $bs.find(
-            _replaceIndex(PASSENGER_GENDER_NAME_SELECTOR + ':checked', index));
+        $bs.find(
+          _replaceIndex(PASSENGER_GENDER_NAME_SELECTOR + ':checked', index));
       return $elem.val();
     };
 
@@ -222,7 +222,7 @@
      * @param {int} index
      * @param {boolean} isMale
      */
-    hostScrapService.setPassengerGender = function(index, isMale) {
+    hostScrapService.setPassengerGender = function (index, isMale) {
       var $bs = _getSingleBlockSelecction(index);
       var strSelector = isMale ? PASSENGER_GENDER_M_SELECTOR : PASSENGER_GENDER_F_SELECTOR;
       var $elem = $bs.find(_replaceIndex(strSelector, index));
@@ -233,10 +233,10 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerRedressNumber = function(index) {
+    hostScrapService.getPassengerRedressNumber = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
-          $bs.find(_replaceIndex(PASSENGER_REDRESS_NUMBER_SELECTOR, index));
+        $bs.find(_replaceIndex(PASSENGER_REDRESS_NUMBER_SELECTOR, index));
       return $elem.val();
     };
 
@@ -244,7 +244,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerRedressNumber = function(index,  value) {
+    hostScrapService.setPassengerRedressNumber = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_REDRESS_NUMBER_SELECTOR, index));
@@ -252,22 +252,47 @@
       $elem.change();
     };
 
+
+    hostScrapService.existAutoFill = function (index) {
+      var str = $("#travellersInfo\\[" + index + "\\]\\.profileId").attr('onChange');
+      if (str && str.match(/false/g).length !== 2)
+        return true;
+
+      return false;
+    };
+
     /**
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getAutoFillSelectedOption = function(index) {
+    hostScrapService.getAutoFillSelectedOption = function (index) {
+
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
-          $bs.find(_replaceIndex(PASSENGER_AUTO_FILL_SELECTOR, index));
+        $bs.find(_replaceIndex(PASSENGER_AUTO_FILL_SELECTOR, index));
       return $elem.val();
+    };
+
+    hostScrapService.mustBeShowed = function (index) {
+      var str = $("#travellersInfo\\[" + index + "\\]\\.profileId").attr('onChange');
+      var $bs = _getSingleBlockSelecction(index);
+      var $elem = $bs.find(_replaceIndex(PASSENGER_AUTO_FILL_SELECTOR, index));
+      var val = true;
+      console.log("index", index);
+      console.log("$elem.val() != -1 && str.match(/false/g).length !== 2", index);
+      if (str && str.match(/false/g).length !== 2){
+        if($elem.val() != -1)
+          val = true;
+        else val = false  
+      }
+      return val;
     };
 
     /**
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setAutoFillSelectedOption = function(index,  value) {
+    hostScrapService.setAutoFillSelectedOption = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_AUTO_FILL_SELECTOR, index));
@@ -279,13 +304,13 @@
      * @param {int} index
      * @return {Object[]}
      */
-    hostScrapService.getAllPassengerAutoFillOptions = function(index) {
+    hostScrapService.getAllPassengerAutoFillOptions = function (index) {
       var autoFillOptions = [];
       var $bs = _getSingleBlockSelecction(index);
       var $elems =
-          $bs.find(
-            _replaceIndex(PASSENGER_AUTO_FILL_SELECTOR + ' option', index));
-      $elems.each(function(index, el) {
+        $bs.find(
+          _replaceIndex(PASSENGER_AUTO_FILL_SELECTOR + ' option', index));
+      $elems.each(function (index, el) {
         autoFillOptions.push({
           name: $(el).text(),
           value: $(el).attr('value')
@@ -298,10 +323,10 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerFreqFlyer = function(index) {
+    hostScrapService.getPassengerFreqFlyer = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
-          $bs.find(_replaceIndex(PASSENGER_FREQ_FLYER_SELECTOR, index));
+        $bs.find(_replaceIndex(PASSENGER_FREQ_FLYER_SELECTOR, index));
       return $elem.val();
     };
 
@@ -309,7 +334,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerFreqFlyer = function(index,  value) {
+    hostScrapService.setPassengerFreqFlyer = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_FREQ_FLYER_SELECTOR, index));
@@ -321,13 +346,13 @@
      * @param {int} index
      * @return {Object[]}
      */
-    hostScrapService.getAllPassengerFreqFlyerOptions = function(index) {
+    hostScrapService.getAllPassengerFreqFlyerOptions = function (index) {
       var freqFlyerOptions = [];
       var $bs = _getSingleBlockSelecction(index);
       var $elems =
-          $bs.find(
-            _replaceIndex(PASSENGER_FREQ_FLYER_SELECTOR + ' option', index));
-      $elems.each(function(index, el) {
+        $bs.find(
+          _replaceIndex(PASSENGER_FREQ_FLYER_SELECTOR + ' option', index));
+      $elems.each(function (index, el) {
         freqFlyerOptions.push({
           name: $(el).text(),
           value: $(el).attr('value')
@@ -340,10 +365,10 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerMemberShip = function(index) {
+    hostScrapService.getPassengerMemberShip = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
-          $bs.find(_replaceIndex(PASSENGER_MEMBERSHIP_SELECTOR, index));
+        $bs.find(_replaceIndex(PASSENGER_MEMBERSHIP_SELECTOR, index));
       return $elem.val();
     };
 
@@ -351,7 +376,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerMemberShip = function(index,  value) {
+    hostScrapService.setPassengerMemberShip = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_MEMBERSHIP_SELECTOR, index));
@@ -363,7 +388,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerSuffix = function(index) {
+    hostScrapService.getPassengerSuffix = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_SUFFIX_SELECTOR, index));
@@ -374,7 +399,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerSuffix = function(index,  value) {
+    hostScrapService.setPassengerSuffix = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_SUFFIX_SELECTOR, index));
@@ -386,10 +411,10 @@
      * @param {int} index
      * @return {Boolean}
      */
-    hostScrapService.showBirthDate = function(index) {
+    hostScrapService.showBirthDate = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
-          $bs.find(_replaceIndex(PASSENGER_BIRTH_MONTH_SELECTOR, index));
+        $bs.find(_replaceIndex(PASSENGER_BIRTH_MONTH_SELECTOR, index));
 
       return $elem
         .closest('.formCalendarArea')
@@ -401,28 +426,28 @@
      * @param {int} index
      * @return {Object}
      */
-    hostScrapService.getPassengerBirthMonth = function(index) {
+    hostScrapService.getPassengerBirthMonth = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_BIRTH_MONTH_DETAIL_SELECTOR, index));
       // When there are infants the selector is different
-      if($elem.length < 1){
+      if ($elem.length < 1) {
         $elem =
           $bs.find(_replaceIndex(PASSENGER_BIRTH_MONTH_SELECTOR, index));
       }
-      return {no: $elem.val()};
+      return { no: $elem.val() };
     };
 
     /**
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerBirthMonth = function(index,  value) {
+    hostScrapService.setPassengerBirthMonth = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_BIRTH_MONTH_DETAIL_SELECTOR, index));
       // When there are infants the selector is different
-      if($elem.length < 1){
+      if ($elem.length < 1) {
         $elem =
           $bs.find(_replaceIndex(PASSENGER_BIRTH_MONTH_SELECTOR, index));
       }
@@ -434,12 +459,12 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerBirthDay = function(index) {
+    hostScrapService.getPassengerBirthDay = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_BIRTH_DAY_DETAIL_SELECTOR, index));
       // When there are infants the selector is different
-      if($elem.length < 1){
+      if ($elem.length < 1) {
         $elem =
           $bs.find(_replaceIndex(PASSENGER_BIRTH_DAY_SELECTOR, index));
       }
@@ -450,12 +475,12 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerBirthDay = function(index,  value) {
+    hostScrapService.setPassengerBirthDay = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_BIRTH_DAY_DETAIL_SELECTOR, index));
       // When there are infants the selector is different
-      if($elem.length < 1){
+      if ($elem.length < 1) {
         $elem =
           $bs.find(_replaceIndex(PASSENGER_BIRTH_DAY_SELECTOR, index));
       }
@@ -467,12 +492,12 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerBirthYear = function(index) {
+    hostScrapService.getPassengerBirthYear = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_BIRTH_YEAR_DETAIL_SELECTOR, index));
       // When there are infants the selector is different
-      if($elem.length < 1){
+      if ($elem.length < 1) {
         $elem =
           $bs.find(_replaceIndex(PASSENGER_BIRTH_YEAR_SELECTOR, index));
       }
@@ -483,12 +508,12 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerBirthYear = function(index,  value) {
+    hostScrapService.setPassengerBirthYear = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_BIRTH_YEAR_DETAIL_SELECTOR, index));
       // When there are infants the selector is different
-      if($elem.length < 1) {
+      if ($elem.length < 1) {
         $elem =
           $bs.find(_replaceIndex(PASSENGER_BIRTH_YEAR_SELECTOR, index));
       }
@@ -500,7 +525,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerAge = function(index) {
+    hostScrapService.getPassengerAge = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_AGE_SELECTOR, index));
@@ -511,7 +536,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerAge = function(index,  value) {
+    hostScrapService.setPassengerAge = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_AGE_SELECTOR, index));
@@ -523,7 +548,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerInfoArea = function(index) {
+    hostScrapService.getPassengerInfoArea = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(PASSENGER_INFO_AREA_SELECTOR);
@@ -535,7 +560,7 @@
      * @param {int} index
      * @return {boolean}
      */
-    hostScrapService.existArgentinaTaxID = function(index) {
+    hostScrapService.existArgentinaTaxID = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $elem =
         $bs.find(_replaceIndex(PASSENGER_TAXID_CONTAINER, index));
@@ -546,13 +571,13 @@
      * @param {int} index
      * @return {Object[]}
      */
-    hostScrapService.getAllPassengerTaxIDCodeOptions = function(index) {
+    hostScrapService.getAllPassengerTaxIDCodeOptions = function (index) {
       var allOptions = [];
       var $bs = _getSingleBlockSelecction(index);
       var $elems =
-          $bs.find(
-            _replaceIndex(PASSENGER_TAXID_CODE_SELECT + ' option', index));
-      $elems.each(function(index, el) {
+        $bs.find(
+          _replaceIndex(PASSENGER_TAXID_CODE_SELECT + ' option', index));
+      $elems.each(function (index, el) {
         allOptions.push({
           name: $(el).text(),
           value: $(el).attr('value')
@@ -565,7 +590,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerTaxIDCodeLabel = function(index) {
+    hostScrapService.getPassengerTaxIDCodeLabel = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_CODE_LABEL, index));
@@ -576,7 +601,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerTaxIDCode = function(index) {
+    hostScrapService.getPassengerTaxIDCode = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_CODE_SELECT, index));
@@ -587,7 +612,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerTaxIDCode = function(index, value) {
+    hostScrapService.setPassengerTaxIDCode = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_CODE_SELECT, index));
@@ -599,7 +624,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerTaxIDNumber = function(index) {
+    hostScrapService.getPassengerTaxIDNumber = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_NUMBER_INPUT, index));
@@ -610,7 +635,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerTaxIDNumber = function(index,  value) {
+    hostScrapService.setPassengerTaxIDNumber = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_NUMBER_INPUT, index));
@@ -622,7 +647,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerTaxIDNumberLabel = function(index) {
+    hostScrapService.getPassengerTaxIDNumberLabel = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_NUMBER_LABEL, index));
@@ -633,7 +658,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerTaxIDCountryLabel = function(index) {
+    hostScrapService.getPassengerTaxIDCountryLabel = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_COUNTRY_LABEL, index));
@@ -644,13 +669,13 @@
      * @param {int} index
      * @return {Object[]}
      */
-    hostScrapService.getAllPassengerTaxIDCountryOptions = function(index) {
+    hostScrapService.getAllPassengerTaxIDCountryOptions = function (index) {
       var allOptions = [];
       var $bs = _getSingleBlockSelecction(index);
       var $elems =
-          $bs.find(
-            _replaceIndex(PASSENGER_TAXID_COUNTRY_SELECT + ' option', index));
-      $elems.each(function(index, el) {
+        $bs.find(
+          _replaceIndex(PASSENGER_TAXID_COUNTRY_SELECT + ' option', index));
+      $elems.each(function (index, el) {
         allOptions.push({
           name: $(el).text(),
           value: $(el).attr('value')
@@ -663,7 +688,7 @@
      * @param {int} index
      * @return {string}
      */
-    hostScrapService.getPassengerTaxIDCountry = function(index) {
+    hostScrapService.getPassengerTaxIDCountry = function (index) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_COUNTRY_SELECT, index));
@@ -674,7 +699,7 @@
      * @param {int} index
      * @param {Mixed} value
      */
-    hostScrapService.setPassengerTaxIDCountry = function(index,  value) {
+    hostScrapService.setPassengerTaxIDCountry = function (index, value) {
       var $bs = _getSingleBlockSelecction(index);
       var $selectTitle =
         $bs.find(_replaceIndex(PASSENGER_TAXID_COUNTRY_SELECT, index));
@@ -688,7 +713,7 @@
     /**
      * @return {string}
      */
-    hostScrapService.getContactInformationEmail = function() {
+    hostScrapService.getContactInformationEmail = function () {
       var $elem = $(CONTACT_INFORMATION_EMAIL_SELECTOR);
       return $elem.val();
     };
@@ -696,7 +721,7 @@
     /**
      * @param {Mixed} value
      */
-    hostScrapService.setContactInformationEmail = function(value) {
+    hostScrapService.setContactInformationEmail = function (value) {
       var $elem = $(CONTACT_INFORMATION_EMAIL_SELECTOR);
       $elem.val(value);
       $elem.change();
@@ -705,7 +730,7 @@
     /**
      * @return {string}
      */
-    hostScrapService.getContactInformationConfirmEmail = function() {
+    hostScrapService.getContactInformationConfirmEmail = function () {
       var $elem = $(CONTACT_INFORMATION_CONFIRM_EMAIL_SELECTOR);
       return $elem.val();
     };
@@ -713,7 +738,7 @@
     /**
      * @param {Mixed} value
      */
-    hostScrapService.setContactInformationConfirmEmail = function(value) {
+    hostScrapService.setContactInformationConfirmEmail = function (value) {
       var $elem = $(CONTACT_INFORMATION_CONFIRM_EMAIL_SELECTOR);
       $elem.val(value);
       $elem.change();
@@ -722,7 +747,7 @@
     /**
      * @return {string}
      */
-    hostScrapService.getContactInformationHomeTelCode = function() {
+    hostScrapService.getContactInformationHomeTelCode = function () {
       var $elem = $(CONTACT_INFORMATION_HOME_TEL_CODE_SELECTOR);
       return $elem.val();
     };
@@ -730,7 +755,7 @@
     /**
      * @param {Mixed} value
      */
-    hostScrapService.setContactInformationHomeTelCode = function(value) {
+    hostScrapService.setContactInformationHomeTelCode = function (value) {
       var $elem = $(CONTACT_INFORMATION_HOME_TEL_CODE_SELECTOR);
       $elem.val(value);
       $elem.change();
@@ -739,7 +764,7 @@
     /**
      * @return {string}
      */
-    hostScrapService.getContactInformationHomeTelNumber = function() {
+    hostScrapService.getContactInformationHomeTelNumber = function () {
       var $elem = $(CONTACT_INFORMATION_HOME_TEL_NUMBER_SELECTOR);
       return $elem.val();
     };
@@ -747,7 +772,7 @@
     /**
      * @param {Mixed} value
      */
-    hostScrapService.setContactInformationHomeTelNumber = function(value) {
+    hostScrapService.setContactInformationHomeTelNumber = function (value) {
       var $elem = $(CONTACT_INFORMATION_HOME_TEL_NUMBER_SELECTOR);
       $elem.val(value);
       $elem.change();
@@ -756,7 +781,7 @@
     /**
      * @return {string}
      */
-    hostScrapService.getContactInformationMobileCode = function() {
+    hostScrapService.getContactInformationMobileCode = function () {
       var $elem = $(CONTACT_INFORMATION_CELL_CODE_SELECTOR);
       return $elem.val();
     };
@@ -764,7 +789,7 @@
     /**
      * @param {Mixed} value
      */
-    hostScrapService.setContactInformationMobileCode = function(value) {
+    hostScrapService.setContactInformationMobileCode = function (value) {
       var $elem = $(CONTACT_INFORMATION_CELL_CODE_SELECTOR);
       $elem.val(value);
       $elem.change();
@@ -773,7 +798,7 @@
     /**
      * @return {string}
      */
-    hostScrapService.getContactInformationMobileNumber = function() {
+    hostScrapService.getContactInformationMobileNumber = function () {
       var $elem = $(CONTACT_INFORMATION_CELL_NUMBER_SELECTOR);
       return $elem.val();
     };
@@ -781,7 +806,7 @@
     /**
      * @param {Mixed} value
      */
-    hostScrapService.setContactInformationMobileNumber = function(value) {
+    hostScrapService.setContactInformationMobileNumber = function (value) {
       var $elem = $(CONTACT_INFORMATION_CELL_NUMBER_SELECTOR);
       $elem.val(value);
       $elem.change();
@@ -790,7 +815,7 @@
     /**
      * @return {jQuery[]}
      */
-    hostScrapService.getAllInfoBlocks = function() {
+    hostScrapService.getAllInfoBlocks = function () {
       return $(PASSENGERS_BLOCKS_SELECTOR);
     };
 
@@ -801,8 +826,8 @@
     function __getPassengerDetailsBlockMessage() {
       var $blk1Element = $('.textBlock1 p');
       var msgBlk1 = null;
-      if($blk1Element.length) {
-         msgBlk1 = {
+      if ($blk1Element.length) {
+        msgBlk1 = {
           head: $('#ftTravellerDetails').text().trim(),
           body: $blk1Element.html().split('<br><br>')[0],
           isHtml: true,
@@ -823,8 +848,8 @@
       var $blkElement = $('#warningBlock');
       var $blkElementText = $('#warningBlock .errorBody p');
       var msgBlk1 = null;
-      if($blkElement.length && $blkElementText.length > 0) {
-         msgBlk1 = {
+      if ($blkElement.length && $blkElementText.length > 0) {
+        msgBlk1 = {
           head: $blkElement.find('.errorHeader span').text().trim(),
           body: $blkElement.find('.errorBody').text().trim(),
           cssClass: 'm-card--warning',
@@ -851,11 +876,11 @@
       messages.push(__getPassengerDetailsBlockMessage());
 
       var $infoBlock = $(SELECTOR_TSA_INFO_BLOCK);
-      $infoBlock.each(function(index, el) {
+      $infoBlock.each(function (index, el) {
         var $_blockBody = $('<p>');
         var $el = $(el);
 
-        $el.find(SELECTOR_TSA_INFO_BODY_BLOCK).each(function(i, el) {
+        $el.find(SELECTOR_TSA_INFO_BODY_BLOCK).each(function (i, el) {
           $_blockBody.append($(el));
         });
 
@@ -870,36 +895,36 @@
       return messages;
     };
 
-    hostScrapService.isInactive = function() {
+    hostScrapService.isInactive = function () {
       return $('#fadeOut').is('.inactiveFadeOut');
     };
 
-    hostScrapService.genderExist = function(index){
-     var val  = $("#idPassenger"+(index + 1)+"APD_GenderTitle").length || $('#SECUREFLIGHT-GENDER-'+index).length;
-     return val;
+    hostScrapService.genderExist = function (index) {
+      var val = $("#idPassenger" + (index + 1) + "APD_GenderTitle").length || $('#SECUREFLIGHT-GENDER-' + index).length;
+      return val;
     }
 
-    hostScrapService.dobExist = function(index, type){
-      console.log("TIPO",type)
+    hostScrapService.dobExist = function (index, type) {
+      console.log("TIPO", type)
       var val = 0;
-      if(String(type).indexOf('12+') != -1 || String(type).indexOf('2-11') != -1 )
-        var val  = $("#idPassenger"+(index + 1)+"APD_DOBTitle").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-'+index).length; 
-      if(String(type).indexOf('0-1') != -1)  
-        var val = $("span[id*='traveller_']").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-'+index).length; 
-        
-     
-     return val;
+      if (String(type).indexOf('12+') != -1 || String(type).indexOf('2-11') != -1)
+        var val = $("#idPassenger" + (index + 1) + "APD_DOBTitle").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-' + index).length;
+      if (String(type).indexOf('0-1') != -1)
+        var val = $("span[id*='traveller_']").length || $('#SECUREFLIGHT-DATE_OF_BIRTH-' + index).length;
+
+
+      return val;
     }
 
-    hostScrapService.redressNumberExist = function(index){
-     var val  = $("#idPassenger"+(index + 1)+"APD_RedressNumberTitle").length || $('#SECUREFLIGHT-REDRESS_NUMBER-'+index).length;
-     return val;
+    hostScrapService.redressNumberExist = function (index) {
+      var val = $("#idPassenger" + (index + 1) + "APD_RedressNumberTitle").length || $('#SECUREFLIGHT-REDRESS_NUMBER-' + index).length;
+      return val;
     }
 
     return hostScrapService;
   }
 
   angular
-      .module('responsiveBookingEngine')
-      .factory('hostScrapService', hostScrapService);
+    .module('responsiveBookingEngine')
+    .factory('hostScrapService', hostScrapService);
 })();

@@ -262,6 +262,8 @@ define([
             ),
             days: [],
             autoFillSelectedOption: hostScrapService.getAutoFillSelectedOption(index),
+            ifExistAutoFill: hostScrapService.existAutoFill,
+            mustBeShowed:hostScrapService.mustBeShowed,
             autoFillOptions: function() {
               let list =
                 hostScrapService.getAllPassengerAutoFillOptions(index)
