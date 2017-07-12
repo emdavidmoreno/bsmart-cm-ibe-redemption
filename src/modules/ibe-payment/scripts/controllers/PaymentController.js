@@ -169,7 +169,8 @@ define([
         // -------------------------------------------------------
 
         instance.init = function () {
-          console.log('PaymentController init')
+          console.log('PaymentController init');
+          // hostUIService.hideAllIframes();
         }
 
         // -------------------------------------------------------
@@ -305,8 +306,9 @@ define([
         // -------------------------------------------------------
 
       $scope.acceptInformationContinueAction = function() {
-        hostProxyService.acceptInformationContinueAction()
-        $scope.ui.showPaymentInformation = 1
+        hostProxyService.acceptInformationContinueAction();
+        $scope.ui.showPaymentInformation = 1;
+        hostUIService.showAllIframes();
 
         let inputsType = hostScrapService.getCreditCardInputsSelectorsType()
         /**

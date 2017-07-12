@@ -108,6 +108,21 @@ define([
       hostUIService.syncPosition()
     }
 
+    hostUIService.showAllIframes = function() {
+      $('.formInAreaIframeOuter.positionable-iframe-container.security-code').css('display', 'block').css('visibility', 'visible');
+      $('.formInAreaIframeOuter.positionable-iframe-container.card-number').css('display', 'block').css('visibility', 'visible');;
+      // $(HOST_CARD_NUMBER_SELECTOR).css('display', 'block').css('visibility', 'visible');
+      // $(HOST_SECURITY_CODE_SELECTOR).css('display', 'block').css('visibility', 'visible');
+    }
+
+    // hostUIService.hideAllIframes = function() {
+    //   $('.formInAreaIframeOuter.positionable-iframe-container.security-code').css('display', 'none').css('visibility', 'hidden');
+    //   $('.formInAreaIframeOuter.positionable-iframe-container.card-number').css('display', 'none').css('visibility', 'hidden');
+    
+    //   // $(HOST_CARD_NUMBER_SELECTOR).css('display', 'none').css('visibility', 'hidden');
+    //   // $(HOST_SECURITY_CODE_SELECTOR).css('display', 'none').css('visibility', 'hidden');
+    // }
+
     /**
      * Sync the position of the field elements
      */
@@ -122,7 +137,7 @@ define([
       positionMe($(BOOKSMART_SECURITY_CODE_SELECTOR).find('input'),
          $hostSecurityCodeNode)
       $($('.iframe-mask.iframe-mask--layer')[0]).hide()
-      $($('.iframe-mask.iframe-mask--layer')[1]).hide()
+    //  $($('.iframe-mask.iframe-mask--layer')[1]).hide()
     }
 
     hostUIService.showHostInterface = function() {
