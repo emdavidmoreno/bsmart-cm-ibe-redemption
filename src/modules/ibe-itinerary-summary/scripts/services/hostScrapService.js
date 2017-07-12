@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   function hostScrapService() {
@@ -23,7 +23,7 @@
       var $infoBlocks = $(SELECTOR_INFO_BLOCK);
       var messages = [];
 
-      $infoBlocks.each(function(index, el) {
+      $infoBlocks.each(function (index, el) {
         var $el = $(el);
         var message = {
           head: $el.find(SELECTOR_INFO_HEAD_BLOCK).text(),
@@ -35,47 +35,56 @@
       return messages;
     };
 
-    hostScrapService.showPaymentProcced = function() {
+    hostScrapService.showPaymentProcced = function () {
       var selector = SELECTOR_PROCCED_TO_PAY + ',' + SELECTOR_RESERVE_AND_HOLD;
       return $(selector).length > 0;
     };
 
 
-    hostScrapService.getPaymentVisibility = function() {
+    hostScrapService.getPaymentVisibility = function () {
       var visibility = $('#PROCEED_OPTIONS').css('display');
-      if(visibility == 'block')
+      if (visibility == 'block')
         return true;
       return false;
     };
 
     // PAYMENTS
-    hostScrapService.isPaymentProccedToPaySelected = function() {
+    hostScrapService.isPaymentProccedToPaySelected = function () {
       return $(SELECTOR_PROCCED_TO_PAY + ' input[type=radio]').is(':checked');
     };
 
-    hostScrapService.selectPaymentProceedToPay = function() {
-     
+    hostScrapService.selectPaymentProceedToPay = function () {
+
       var $el = $(SELECTOR_PROCCED_TO_PAY + ' input[type=radio]');
       $el.prop('checked', 'checked');
       // global function to select Book
       // jshint -W117
       setSelectedValue('BOOK');
       if (typeof (Storage) !== 'undefined')
-          sessionStorage.setItem('reserveoptionchecked', false);
-      
-     
+        sessionStorage.setItem('reserveoptionchecked', false);
+
+
     };
 
-    hostScrapService.selectPaymentReserveAndHoldOption = function() {     
+    hostScrapService.selectPaymentReserveAndHoldOption = function () {
+      function isLocalStorageNameSupported() {
+        var testKey = 'test', storage = window.localStorage;
+        try {
+          storage.setItem(testKey, '1');
+          storage.removeItem(testKey);
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
       var $el = $(SELECTOR_RESERVE_AND_HOLD + ' input[type=radio]');
       $el.prop('checked', 'checked');
 
       // global function to select reserve and hold
       // jshint -W117
       setSelectedValue('RESERVE_AND_HOLD');
-      if (typeof (Storage) !== 'undefined')
+      if (isLocalStorageNameSupported())         
           sessionStorage.setItem('reserveoptionchecked', true);
-     
     };
 
     /**
@@ -85,15 +94,15 @@
      *    {Object} Object.toPay {head: string, desc: string}
      *    {Object} Object.reserveAndHold {head: string, desc: string}
      */
-    hostScrapService.getPaymentProceedInfo = function() {
+    hostScrapService.getPaymentProceedInfo = function () {
       return {
         toPay: {
-          head: $( SELECTOR_PROCCED_TO_PAY + ' ' + SELECTOR_PROCCED_TO_PAY_HEAD).text().trim(),
-          desc: $( SELECTOR_PROCCED_TO_PAY + ' ' + SELECTOR_PROCCED_TO_PAY_DESC).html()
+          head: $(SELECTOR_PROCCED_TO_PAY + ' ' + SELECTOR_PROCCED_TO_PAY_HEAD).text().trim(),
+          desc: $(SELECTOR_PROCCED_TO_PAY + ' ' + SELECTOR_PROCCED_TO_PAY_DESC).html()
         },
         reserveAndHold: {
-          head: $( SELECTOR_RESERVE_AND_HOLD + ' ' + SELECTOR_RESERVE_AND_HOLD_HEAD).text().trim(),
-          desc: $( SELECTOR_RESERVE_AND_HOLD + ' ' + SELECTOR_RESERVE_AND_HOLD_DESC).html()
+          head: $(SELECTOR_RESERVE_AND_HOLD + ' ' + SELECTOR_RESERVE_AND_HOLD_HEAD).text().trim(),
+          desc: $(SELECTOR_RESERVE_AND_HOLD + ' ' + SELECTOR_RESERVE_AND_HOLD_DESC).html()
         }
       };
     };
@@ -101,7 +110,7 @@
     /**
      * @return {Boolean}
      */
-    hostScrapService.isInsuranceVisisble = function() {
+    hostScrapService.isInsuranceVisisble = function () {
       return $('.insuranceCrossSell').length > 0;
     }
 
@@ -109,16 +118,16 @@
      * Insurance Icon
      * @return {HTML}
      */
-     hostScrapService.insuranceIcon = function() {
-       return $(SELECTOR_INSURANCE_ICON).html()
-     }
+    hostScrapService.insuranceIcon = function () {
+      return $(SELECTOR_INSURANCE_ICON).html()
+    }
 
     /**
      * Wait for the insurance box an execute the callback
      */
-    hostScrapService.waitForInsuranceBox = function(cb) {
-      var timer = window.setInterval(function() {
-        if(hostScrapService.isInsuranceVisisble()) {
+    hostScrapService.waitForInsuranceBox = function (cb) {
+      var timer = window.setInterval(function () {
+        if (hostScrapService.isInsuranceVisisble()) {
           window.clearInterval(timer);
           cb();
         }
@@ -134,11 +143,11 @@
      *         {String} Object.textAccept.linkText
      *         {String} Object.linkText
      */
-    hostScrapService.getTravelInsuranceDisplay = function() {
+    hostScrapService.getTravelInsuranceDisplay = function () {
       var SELECTOR_HEADER = '.blockInsuranceCrossSell .componentHeader h2';
       var $elementHeader = $(SELECTOR_HEADER);
 
-      if($elementHeader.length === 0) {
+      if ($elementHeader.length === 0) {
         return {};
       }
 
@@ -160,23 +169,23 @@
       };
     };
 
-    hostScrapService.getTravelInsuranceAccept = function() {
+    hostScrapService.getTravelInsuranceAccept = function () {
       var SELECTOR = '#insurancePurchase00';
       return $(SELECTOR).prop('checked');
     };
 
-    hostScrapService.setTravelInsuranceAccept = function() {
+    hostScrapService.setTravelInsuranceAccept = function () {
       var SELECTOR = '#insurancePurchase00';
       $(SELECTOR).prop('checked', 'checked');
       $(SELECTOR).click();
     };
 
-    hostScrapService.getTravelInsuranceNotAccept = function() {
+    hostScrapService.getTravelInsuranceNotAccept = function () {
       var SELECTOR = '#insurancePurchase00';
       return $(SELECTOR).prop('checked');
     };
 
-    hostScrapService.setTravelInsuranceNotAccept = function() {
+    hostScrapService.setTravelInsuranceNotAccept = function () {
       var SELECTOR = '#insurancePurchaseNo';
       $(SELECTOR).prop('checked', 'checked');
       $(SELECTOR).click();
@@ -185,6 +194,6 @@
     return hostScrapService;
   }
   angular
-      .module('responsiveBookingEngine')
-      .factory('hostScrapService', hostScrapService);
+    .module('responsiveBookingEngine')
+    .factory('hostScrapService', hostScrapService);
 })();
