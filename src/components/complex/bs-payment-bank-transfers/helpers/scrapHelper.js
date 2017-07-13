@@ -1,27 +1,25 @@
 define(['jquery'], ($jq) => {
   'use strict'
   // selectors billing address
-  const SELECTOR_PSE_BA_AL1T_LABEL = '#addressLine1Title'
-  const SELECTOR_PSE_BA_AL1T_INPUT =
-    'input[id="formOfPayment(BANKTRANSFERS).billingAddress.addressLine1"]'
-  const SELECTOR_PSE_BA_AL2T_LABEL =
-    '#addressLine2Title'
-  const SELECTOR_PSE_BA_AL2T_INPUT =
-    'input[id="formOfPayment(BANKTRANSFERS).billingAddress.addressLine2"]'
+  const SELECTOR_PSE_BA_AL1T_LABEL = '#addressLine1Title';
+  const SELECTOR_PSE_BA_AL1T_INPUT = $jq('input[id="formOfPayment(BANKTRANSFERS)\\.billingAddress.addressLine1"]').length === 1 ? 'input[id="formOfPayment(BANKTRANSFERS)\\.billingAddress.addressLine1"]': '#commonAddress\\.addressLine1';
+    
+  const SELECTOR_PSE_BA_AL2T_LABEL = '#addressLine2Title';
+  const SELECTOR_PSE_BA_AL2T_INPUT = $jq('input[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.addressLine2"]').length === 1 ? 'input[id="formOfPayment(BANKTRANSFERS)\\.billingAddress.addressLine1"]': '#commonAddress\\.addressLine2'; 
+    
   const SELECTOR_PSE_BA_CITY_TITLE_LABEL = '#cityTitle'
-  const SELECTOR_PSE_BA_CITY_TITLE_INPUT =
-    'input[id="formOfPayment(BANKTRANSFERS).billingAddress.city"]'
+  const SELECTOR_PSE_BA_CITY_TITLE_INPUT =$jq('input[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.city"]').length === 1 ? 'input[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.city"]': '#commonAddress\\.city'; 
+    
   const SELECTOR_PSE_BA_COUNTRY_TITLE_LABEL = '#countryTitle'
-  const SELECTOR_PSE_BA_COUNTRY_TITLE_SELECT =
-    'select[id="formOfPayment(BANKTRANSFERS).billingAddress.country"]'
+  const SELECTOR_PSE_BA_COUNTRY_TITLE_SELECT = $jq('select[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.country"]').length === 1 ? 'select[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.country"]':'#commonAddress\\.country';
+    
 
   const SELECTOR_PSE_BA_STATE_TITLE_LABEL = '#stateTitle'
-  const SELECTOR_PSE_BA_STATE_TITLE_SELECT =
-    'select[id="formOfPayment(BANKTRANSFERS).billingAddress.stateDisplay"]'
-
+  const SELECTOR_PSE_BA_STATE_TITLE_SELECT = $jq('select[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.stateDisplay"]').length === 1 ? 'select[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.stateDisplay"]':'#commonAddress\\.stateDisplay';
+  
   const SELECTOR_PSE_BA_ZIP_TITLE_LABEL = '#zipTitle'
-  const SELECTOR_PSE_BA_ZIP_TITLE_INPUT =
-    'input[id="formOfPayment(BANKTRANSFERS).billingAddress.postalCode"]'
+  const SELECTOR_PSE_BA_ZIP_TITLE_INPUT = $jq('input[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.postalCode"]').length === 1 ? 'input[id="formOfPayment(BANKTRANSFERS)\\.billingAddress\\.postalCode"]':'#commonAddress\\.postalCode';
+  
 
   const SELECTOR_BSLIP_FN_LABEL = '#bankTransferFiscalNumberLabel'
   const SELECTOR_BSLIP_FN_INPUT = 'input[id="fiscalNumber-BANKTRANSFERS"]'
