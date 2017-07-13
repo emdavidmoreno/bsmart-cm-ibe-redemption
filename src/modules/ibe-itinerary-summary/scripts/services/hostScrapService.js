@@ -12,7 +12,18 @@
     var SELECTOR_RESERVE_AND_HOLD = '#radiogr1-row2';
     var SELECTOR_RESERVE_AND_HOLD_HEAD = '.c2 label';
     var SELECTOR_RESERVE_AND_HOLD_DESC = '.optionText label[for="radiogr1-f1-row2"]';
-    var SELECTOR_INSURANCE_ICON = '.blockInsuranceCrossSell .colIcon div'
+    var SELECTOR_INSURANCE_ICON = '.blockInsuranceCrossSell .colIcon div';
+
+    function isLocalStorageNameSupported() {
+      var testKey = 'test', storage = window.localStorage;
+      try {
+        storage.setItem(testKey, '1');
+        storage.removeItem(testKey);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    };
 
     /**
      * @return {Object[]}
@@ -60,31 +71,22 @@
       // global function to select Book
       // jshint -W117
       setSelectedValue('BOOK');
-      if (typeof (Storage) !== 'undefined')
+      if (isLocalStorageNameSupported())
         sessionStorage.setItem('reserveoptionchecked', false);
 
 
     };
 
     hostScrapService.selectPaymentReserveAndHoldOption = function () {
-      function isLocalStorageNameSupported() {
-        var testKey = 'test', storage = window.localStorage;
-        try {
-          storage.setItem(testKey, '1');
-          storage.removeItem(testKey);
-          return true;
-        } catch (error) {
-          return false;
-        }
-      }
+
       var $el = $(SELECTOR_RESERVE_AND_HOLD + ' input[type=radio]');
       $el.prop('checked', 'checked');
 
       // global function to select reserve and hold
       // jshint -W117
       setSelectedValue('RESERVE_AND_HOLD');
-      if (isLocalStorageNameSupported())         
-          sessionStorage.setItem('reserveoptionchecked', true);
+      if (isLocalStorageNameSupported())
+        sessionStorage.setItem('reserveoptionchecked', true);
     };
 
     /**
