@@ -68,7 +68,8 @@ define([], function () {
     }
 
     hostUIService.hideCopaSideAd = function () {
-       $(".QSISlider").remove();
+      if($(".QSISlider").length)
+         $(".QSISlider").remove();
        
     }
 
