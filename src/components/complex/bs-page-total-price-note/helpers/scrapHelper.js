@@ -9,7 +9,11 @@ define(['jquery'], function($jq) {
      * @return {String}
      */
     getNotImportantNotes: function() {
-      return $jq(SELECTOR_NOT_IMPORTANT).html().trim()
+      var notes = "";
+      if($jq(SELECTOR_NOT_IMPORTANT).length)
+         notes = $jq(SELECTOR_NOT_IMPORTANT).html().trim();
+        
+      return notes
     },
     /**
      * @return {String}
