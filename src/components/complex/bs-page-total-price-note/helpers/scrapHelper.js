@@ -19,7 +19,10 @@ define(['jquery'], function($jq) {
      * @return {String}
      */
     getImportantNotes: function() {
-      return $(SELECTOR_IMPORTANT).html().trim()
+      var notes = "";
+      if($jq(SELECTOR_IMPORTANT).length)
+         notes = $(SELECTOR_IMPORTANT).html().trim();
+      return notes
     },
   }
 })
