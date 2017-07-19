@@ -68,8 +68,10 @@ define([
           actionConfig, {}, function(moduleInstance, ruleConfig) {
             // TODO: Initialize sub-modules here
             moduleInstance.init(ruleConfig)
-            let contextData = Farenet2.getResult() || {}
-            statsService.ruleTriggered(contextData, ruleConfig)
+            let contextData = {};
+            if(Farenet2)
+                contextData = Farenet2.getResult() || {}
+             statsService.ruleTriggered(contextData, ruleConfig)
           }, 1)
       }
     })
