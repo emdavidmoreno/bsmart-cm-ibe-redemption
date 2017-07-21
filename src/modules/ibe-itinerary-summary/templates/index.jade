@@ -113,7 +113,8 @@ block body
           include ../../../templates/partials/flightDetailsDialog.jade
 
     div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui")
-    div(data-bs-itinerary-pricing-card data-ui="ui")
+    bs-total-price-summary-component(show-insurance="ui.showInsurance")
+    //- div(data-bs-itinerary-pricing-card data-ui="ui")
 
     section.m-insurance(data-ng-if="ui.tavelInsurance && ui.tavelInsurance.display.head")
       h2

@@ -98,7 +98,7 @@ define([], function() {
                 {{ ui.total_price.fuel_surcharges | number:2 }}
               </span>
             </p>
-            <p data-ng-if="ui.insurance.head && ui.insurance.body">
+            <p data-ng-if="ui.showPriceInsurance === true">
               <strong>
                 {{ui.insurance.head}}
               </strong>

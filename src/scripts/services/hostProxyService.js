@@ -1,6 +1,6 @@
 'use strict'
 /* jshint undef: true, unused: true */
-define([], function() {
+define([], function () {
   /**
    * @return {Object}
    */
@@ -8,7 +8,7 @@ define([], function() {
     let hostProxyService = {}
 
     hostProxyService.submitFormAction =
-      function(formActionNodeSelector, context, clb) {
+      function (formActionNodeSelector, context, clb) {
         let deferred = $.Deferred() // eslint-disable-line
         // let passengerContext = false
 
@@ -53,37 +53,37 @@ define([], function() {
           }
         }
 
-        $('body').on('searchFormValidationErrors', function(event, data) {
+        $('body').on('searchFormValidationErrors', function (event, data) {
           window.processAirFlightSearchFormValidationErrors =
             data.originalFunction
           triggerSuccessData(data)
         })
 
-        $('body').on('processResult:fail', function(event, data) {
+        $('body').on('processResult:fail', function (event, data) {
           window.formManager.processResult =
             data.originalFunction
           triggerSuccessData(data)
         })
 
-        $('body').on('processValidationResult', function(event, data) {
+        $('body').on('processValidationResult', function (event, data) {
           window.formManager.processValidationResult =
             data.originalFunction
           triggerSuccessData(data)
         })
 
         $('body').on('processPurchaseValidationErrorResult',
-          function(event, data) {
+          function (event, data) {
             window.processPurchaseValidationErrorResult =
               data.originalFunction
             triggerSuccessData(data)
           })
 
-        $('body').on('processValidationResponse', function(event, data) {
+        $('body').on('processValidationResponse', function (event, data) {
           window.processValidationResponse = data.originalFunction
           triggerErrorData(data)
         })
 
-        $('body').on('processSend', function(event, data) {
+        $('body').on('processSend', function (event, data) {
           window.processSend = data.originalFunction
           triggerSuccessData(data)
         })
@@ -93,11 +93,11 @@ define([], function() {
       }
 
     hostProxyService
-      .mockProcessAirFlightSearchFormValidationErrors = function() {
+      .mockProcessAirFlightSearchFormValidationErrors = function () {
         let originalFunction =
           window.processAirFlightSearchFormValidationErrors
 
-        let customFunction = function(errors, config) {
+        let customFunction = function (errors, config) {
           originalFunction.apply(window, [errors, config])
           // trigger an event at the end
           $('body').trigger('searchFormValidationErrors',
@@ -113,11 +113,11 @@ define([], function() {
           customFunction.bind(window)
       }
 
-    hostProxyService.mockProcessValidationResult = function() {
+    hostProxyService.mockProcessValidationResult = function () {
       let originalFunction =
         window.formManager.processValidationResult
 
-      let customFunction = function(response, config) {
+      let customFunction = function (response, config) {
         // call the original function
         originalFunction.apply(window.formManager, [response, config])
 
@@ -134,10 +134,10 @@ define([], function() {
         customFunction.bind(window.formManager)
     }
 
-    hostProxyService.mockProcessResult = function() {
+    hostProxyService.mockProcessResult = function () {
       let originalFunction =
         window.formManager.processResult
-      let customFunction = function(response, config) {
+      let customFunction = function (response, config) {
         originalFunction.apply(window.formManager, [response, config])
         if (response && response.errors) {
           // trigger an event at the end
@@ -153,12 +153,12 @@ define([], function() {
         customFunction.bind(window.formManager)
     }
 
-    hostProxyService.mockProcessPurchaseValidationErrorResult = function() {
+    hostProxyService.mockProcessPurchaseValidationErrorResult = function () {
       let originalFunction =
         window.processPurchaseValidationErrorResult
-      let customFunction = function(response, config) {
+      let customFunction = function (response, config) {
         errorManager.showValidationErrors(
-          response.validationErrors, {form: config.form})
+          response.validationErrors, { form: config.form })
         let idSequence = config.extraParams['idSequence']
 
         if (response && response.validationErrors) {
@@ -190,7 +190,7 @@ define([], function() {
 
             match = (property.indexOf('Address.state') != -1 &&
               property.indexOf('Address.state') ==
-                property.lastIndexOf('Address.state')) > 0
+              property.lastIndexOf('Address.state')) > 0
             if (match) {
               let elements = document.getElementsByName(property + 'Display')
               if (elements && elements.length == 1) {
@@ -216,10 +216,10 @@ define([], function() {
         customFunction.bind(window)
     }
 
-    hostProxyService.mockProcessValidationResultConfirmationPage = function() {
+    hostProxyService.mockProcessValidationResultConfirmationPage = function () {
       let originalFunction =
         window.processValidationResponse
-      let customFunction = function(response, config) {
+      let customFunction = function (response, config) {
         originalFunction.apply(window, [response, config])
 
         if (response.status !== 'success') {
@@ -235,7 +235,7 @@ define([], function() {
       window.processValidationResponse = customFunction.bind(window)
     }
 
-    hostProxyService.mockProcessSentConfirmationPage = function() {
+    hostProxyService.mockProcessSentConfirmationPage = function () {
       let originalFunction = window.processSend
       let customFunction = function processSend(response, config) {
         originalFunction.apply(window, [response, config])
@@ -252,11 +252,36 @@ define([], function() {
     }
 
 
-    hostProxyService.syncHeight = function($timeout) {
-      $timeout(function() {
+    hostProxyService.syncHeight = function ($timeout) {
+      $timeout(function () {
         $('.m-book-smart').css('min-height', $(window).height())
       }, 0)
     }
+
+
+  //  //Waiting for the MutationObservers they are not compatibles with some devices
+  //  //For that reason we use this trick.
+  //   hostProxyService.detectElementChange = function (selector  = 'div > table', animationName, callback) {
+  //     $('div.layoutMain').css('display','block');
+  //     var style = $(`<style>@keyframes ${animationName} { from { clip: rect(1px, auto, auto, auto); }  to { clip: rect(0px, auto, auto, auto); }} </style>`)
+  //     $('html > head').append(style);
+      
+  //     $(selector).css({ "animation-duration": "0.001s", "animation-name": animationName })
+  //     var changeListener = function (event) {
+  //       if (event.animationName == animationName) {
+  //         callback();
+  //         //console.warn("Change Detected ", event, event.target);
+  //         console.info("Change Detected");
+  //         $('div.layoutMain').css('display','none');
+  //       }
+  //     }
+
+
+  //     document.addEventListener("animationstart", changeListener, false); // standard + firefox
+  //     document.addEventListener("MSAnimationStart", changeListener, false); // IE
+  //     document.addEventListener("webkitAnimationStart", changeListener, false); // Chrome + Safari
+  //   }
+
 
     return hostProxyService
   }

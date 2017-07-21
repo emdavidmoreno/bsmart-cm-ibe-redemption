@@ -18,10 +18,11 @@ define([
   'lodash',
   'statsService',
   '../../../../scripts/services/hostUIService',
+  '../../../../components/complex/bs-total-price-summary/index.component',
 ], function($, angular, hostUIService,
   hostScrapService, hostProxyService, strDuration, strSimpleDate,
   sanitize, collUnique, appHostProxyService, jquiDialog, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, _, statsService, ApphostUIService) {
+  bsItineraryPricingCardPerPassenger, _, statsService, ApphostUIService,bsTotalPriceSummaryComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -200,6 +201,7 @@ define([
         passengers: model.passengers,
         total_price_per_passenger_type: model.total_price_per_passenger_type,
         total_price: model.total_price,
+        showInsurance:false,
         insurance: {
           totalPriceMerch: 0,
           price_per_passenger: 0,
@@ -421,11 +423,13 @@ define([
           setAccept: function() {
             $scope.ui.tavelInsurance.accept = true
             $scope.ui.showPayment = false
+            $scope.ui.showInsurance = true
             hostScrapService.setTravelInsuranceAccept()
           },
           setNoAccept: function() {
             $scope.ui.tavelInsurance.accept = false
             $scope.ui.showPayment = true
+            $scope.ui.showInsurance = false
             hostScrapService.setTravelInsuranceNotAccept()
           },
         }
@@ -679,6 +683,7 @@ define([
         .directive('jquiDialog', jquiDialog)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
+        .component('bsTotalPriceSummaryComponent',bsTotalPriceSummaryComponent)
         .controller('ItinerarySummaryController', ItinerarySummaryController)
   })({})
 
