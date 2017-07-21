@@ -33,7 +33,8 @@ define(['./helpers/scrapHelper'], function (helper) {
       ctrl.priceInfoList = helper.getPriceBaseInfo()
       $timeout(function () {  
         ctrl.existInsuranceTable = helper.existInsuranceTable() 
-        ctrl.priceInsuranceInfo = helper.getPriceInsuranceInfo()       
+        ctrl.priceInsuranceInfo = helper.getPriceInsuranceInfo() 
+        ctrl.totalPrice = helper.getTotalPrice()      
        }, 1000)
     }
 
