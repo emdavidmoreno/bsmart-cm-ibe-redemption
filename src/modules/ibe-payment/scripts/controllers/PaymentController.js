@@ -26,12 +26,13 @@ define([
   '../../../../components/complex/bs-payment-pse/index.component',
   '../../../../components/complex/bs-payment-bank-transfers/index.component',
   '../../../../components/complex/bs-payment-bank-slip/index.component',
+  '../../../../components/complex/bs-total-price-summary/index.component'
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent,
   bsSummarySeatsPricesComponent, bsMultiplePaymentSelectorComponent, bsPaymentPseComponent,
-  bsPaymentBankTransfersComponent, bsPaymentBankSlipComponent
+  bsPaymentBankTransfersComponent, bsPaymentBankSlipComponent,bsTotalPriceSummaryComponent
   ) {
   let wrapperInstance = {}
   $.noConflict(true)
@@ -1094,6 +1095,7 @@ define([
         .component('bsPaymentPseComponent', bsPaymentPseComponent)
         .component('bsPaymentBankTransfersComponent', bsPaymentBankTransfersComponent)
         .component('bsPaymentBankSlipComponent', bsPaymentBankSlipComponent)
+        .component('bsTotalPriceSummaryComponent',bsTotalPriceSummaryComponent)
         .controller('PaymentController', PaymentController)
   })({})
 
