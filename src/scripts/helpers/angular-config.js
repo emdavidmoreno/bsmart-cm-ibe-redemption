@@ -144,6 +144,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Debit cards issued in Colombia',
       LABEL_BANK_TRANSFER: 'Bank Transfer',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
+      LABEL_SEAT: 'Seat'
     })
 
 
@@ -283,6 +284,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Débitos a Cuentas de Ahorro/Corriente emitidas en Colombia.',
       LABEL_BANK_TRANSFER: 'Transferencia bancaria',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancário',
+      LABEL_SEAT: 'Asiento'
     })
 
     // portuguees translations
@@ -421,6 +423,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Depósitos contas de poupança / corrente emitido na Colômbia.',
       LABEL_BANK_TRANSFER: 'Transferência bancária',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
+      LABEL_SEAT:'Assento'
     })
 
     // set default language

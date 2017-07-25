@@ -96,7 +96,7 @@ define(['./helpers/scrapHelper'], function (helper) {
              <p data-ng-if="$ctrl.existSeatTable" data-ng-repeat="seatInfo in $ctrl.seatInfoList">
               <span>
                 <strong>
-                  {{ seatInfo.title }}
+                  {{ "LABEL_SEAT" | translate }}: {{ seatInfo.title }}
                 </strong>
                 <span class="pull-right">
                   {{ seatInfo.price }}
