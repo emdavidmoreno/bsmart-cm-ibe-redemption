@@ -15,10 +15,11 @@ define([
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
   'statsService',
-   '../../../../scripts/services/hostUIService'
+   '../../../../scripts/services/hostUIService',
+  '../../../../components/complex/bs-total-price-summary/index.component',
 ], function($, angular, _, hostUIService, hostScrapService, hostProxyService,
   strDuration, appHostProxyService, range, bsCardRefId, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, statsService, ApphostUIService) {
+  bsItineraryPricingCardPerPassenger, statsService, ApphostUIService,bsTotalPriceSummaryComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -590,6 +591,7 @@ define([
         .directive('bsCardRefId', bsCardRefId)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
+        .component('bsTotalPriceSummaryComponent',bsTotalPriceSummaryComponent)
         .controller('PassengerInformationController', PassengerInformationController)
   })({})
 
