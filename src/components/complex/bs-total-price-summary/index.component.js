@@ -31,6 +31,7 @@ define(['./helpers/scrapHelper'], function (helper) {
       ctrl.seatInfoList = helper.getPriceSeatsInfo()     
       ctrl.totalPrice = helper.getTotalPrice()
       ctrl.priceInfoList = helper.getPriceBaseInfo()
+      ctrl.link = helper.getLinkOption()
       $timeout(function () {  
         ctrl.existInsuranceTable = helper.existInsuranceTable() 
         ctrl.priceInsuranceInfo = helper.getPriceInsuranceInfo() 
@@ -100,6 +101,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                 </strong>
                 <span class="pull-right">
                   {{ seatInfo.price }}
+                  <div data-ng-bind-html="$ctrl.link | sanitize"> </div>
                 </span>
               </span>
             </p>

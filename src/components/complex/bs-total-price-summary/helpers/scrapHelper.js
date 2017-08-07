@@ -36,6 +36,11 @@ const existInsuranceTable = function() {
 }
 
 
+const getLinkOption = function() {
+     return $('[aria-labelledby="idBlockExtraServicesTitle_ancillaryComponents.seats.block.title"]  .componentHeader .links').html()
+}
+
+
 const getPriceSeatsInfo = function() {
     let infoList = []
     $jq(`${PRICE_SEAT_SELECTOR} .detailedPrice tbody tr`)
@@ -97,6 +102,7 @@ const getPriceSeatsInfo = function() {
     getPriceInsuranceInfo,
     existSeatTable,
     existInsuranceTable,
+    getLinkOption,
     getTotalPrice
   }
 })

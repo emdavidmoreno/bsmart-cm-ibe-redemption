@@ -46,7 +46,7 @@ define(['./helpers/scrapHelper'], function(helper) {
     template:
     `<section data-ng-if="$ctrl.seatInfoList.length > 0">
         <div class="m-card-top-header">
-          <h3>
+          <h2>
             {{$ctrl.headerInfo.title}}
           </h2>
           <div data-ng-bind-html="$ctrl.headerInfo.link | sanitize"> </div>
