@@ -5,6 +5,7 @@ define(['jquery'], function($jq) {
   const TOTAL_PRICE_SELECTOR = 'table tr.totalPriceRow span.money'
   const PRICE_SEAT_SELECTOR = '.expandedSection:eq(2)'
   const PRICE_INSURANCE_SELECTOR = '.expandedSection:eq(1) .detailedPrice tbody tr td.price'
+  const SELECTOR_COP = '.rowEven.rowDiscount'
 
   // ----------------------- Prices Info --------------------
   /**
@@ -38,6 +39,10 @@ const existInsuranceTable = function() {
 
 const getLinkOption = function() {
      return $('[aria-labelledby="idBlockExtraServicesTitle_ancillaryComponents.seats.block.title"]  .componentHeader .links').html()
+}
+
+const existCOP = function() {
+     return $(SELECTOR_COP).length
 }
 
 
@@ -103,6 +108,7 @@ const getPriceSeatsInfo = function() {
     existSeatTable,
     existInsuranceTable,
     getLinkOption,
+    existCOP,
     getTotalPrice
   }
 })
