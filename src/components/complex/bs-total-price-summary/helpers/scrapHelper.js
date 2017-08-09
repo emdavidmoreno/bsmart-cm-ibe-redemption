@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
-define(['jquery'], function($jq) {
+define(['jquery'], function ($jq) {
   'use strict'
   const PRICE_BASE_INFO_SELECTOR = '.expandedSection:eq(0) .detailedPrice tbody tr td.price'
   const TOTAL_PRICE_SELECTOR = 'table tr.totalPriceRow span.money'
-  const PRICE_SEAT_SELECTOR = '.expandedSection:eq(2)'
-  const PRICE_INSURANCE_SELECTOR = '.expandedSection:eq(1) .detailedPrice tbody tr td.price'
+  const PRICE_INSURENCE_SELECTOR = '.expandedSection:eq(1)'
+  const INSURANCE_SELECTOR = 'td div[id*="idInsurance1"]'
   const SELECTOR_COP = '.rowEven.rowDiscount'
 
   // ----------------------- Prices Info --------------------
@@ -12,46 +12,59 @@ define(['jquery'], function($jq) {
    * @return {Array}
    */
   const getPriceBaseInfo = () => {
-   var pricesInfo = [];
-     $jq(PRICE_BASE_INFO_SELECTOR).each(function() {
-       let price =  $(this).text().trim();
-       pricesInfo.push(price)
-  
-     });
-    return pricesInfo;  
-  } 
+    var pricesInfo = [];
+    $jq(PRICE_BASE_INFO_SELECTOR).each(function () {
+      let price = $(this).text().trim();
+      pricesInfo.push(price)
 
-  /**
-   * @return {Array}
-   */
-  const getPriceInsuranceInfo = () => {   
-     return $jq(PRICE_INSURANCE_SELECTOR).text().trim();
-  }    
-
-const existSeatTable = function() {
-     return $jq(PRICE_SEAT_SELECTOR).length
-}
-
-const existInsuranceTable = function() {
-     return $jq(PRICE_INSURANCE_SELECTOR).length
-}
+    });
+    return pricesInfo;
+  }
 
 
-const getLinkOption = function() {
-     return $('[aria-labelledby="idBlockExtraServicesTitle_ancillaryComponents.seats.block.title"]  .componentHeader .links').html()
-}
+  const getPriceInsuranceInfo = () => {
+    const PRICE_SELECTOR = '.expandedSection:eq(1) .detailedPrice tbody tr td.price'
+    
+    return $jq(PRICE_SELECTOR).text().trim()
 
-const existCOP = function() {
-     return $(SELECTOR_COP).length
-}
+  }
 
 
-const getPriceSeatsInfo = function() {
+   const existInsuranceTable = function () {
+    return $jq(INSURANCE_SELECTOR).length
+  }
+
+
+   const existSeatTable = function () {
+    let PRICE_SELECTOR = '.expandedSection:eq(2) .detailedPrice tbody tr td.price'
+    if (!existInsuranceTable()){       
+        PRICE_SELECTOR = '.expandedSection:eq(1) .detailedPrice tbody tr td.price'
+        console.log("no existe la aseguranza", PRICE_SELECTOR)
+    }
+     
+    return $jq(PRICE_SELECTOR).length
+  }
+
+
+  const getLinkOption = function () {
+    return $('[aria-labelledby="idBlockExtraServicesTitle_ancillaryComponents.seats.block.title"]  .componentHeader .links').html()
+  }
+
+  const existCOP = function () {
+    return $(SELECTOR_COP).length
+  }
+
+
+  const getPriceSeatsInfo = function () {
+    let PRICE_SELECTOR = '.expandedSection:eq(2)'
+    if (!existInsuranceTable())
+      PRICE_SELECTOR = '.expandedSection:eq(1)'
+
     let infoList = []
-    $jq(`${PRICE_SEAT_SELECTOR} .detailedPrice tbody tr`)
+    $jq(`${PRICE_SELECTOR} .detailedPrice tbody tr`)
       .each((index, tr) => {
         let info = $(tr).text().split('\n')
-          .filter((t) => t.trim() !== '' )
+          .filter((t) => t.trim() !== '')
           .map((t) => t.trim())
 
         const priceText = info[info.length - 1].split(' ')
@@ -59,7 +72,7 @@ const getPriceSeatsInfo = function() {
         infoList.push({
           title: info[0],
           currencyCode: priceText[0],
-          price: formatPrice(priceText[0], priceText[1]),
+          price: String(priceText[0]+' '+priceText[1]),
         })
       })
     return infoList
@@ -70,24 +83,24 @@ const getPriceSeatsInfo = function() {
   function formatPrice(currency, priceString) {
     let price
     if (priceString) {
-      switch(currency) {
-      case 'BRL':
-        price = +priceString.replace(/\./g, '').replace(',', '.')
-        break
-      case 'CAD':
-        price = +priceString.replace(/\,/g, '')
-        break
-      case 'COP':
-        price = +priceString.replace(/\./g, '')
-        break
-      case 'CLP':
-        price = +priceString.replace(/\,/g, '')
-        break
-      case 'ARS':
-        price = +priceString.replace(/\./g, '').replace(',', '.')
-        break
-      default:
-        price = +priceString.replace(/\,/g, '')
+      switch (currency) {
+        case 'BRL':
+          price = +priceString.replace(/\./g, '').replace(',', '.')
+          break
+        case 'CAD':
+          price = +priceString.replace(/\,/g, '')
+          break
+        case 'COP':
+          price = +priceString.replace(/\./g, '')
+          break
+        case 'CLP':
+          price = +priceString.replace(/\,/g, '')
+          break
+        case 'ARS':
+          price = +priceString.replace(/\./g, '').replace(',', '.')
+          break
+        default:
+          price = +priceString.replace(/\,/g, '')
       }
     }
     return price
@@ -101,7 +114,7 @@ const getPriceSeatsInfo = function() {
   }
 
 
- return {
+  return {
     getPriceBaseInfo,
     getPriceSeatsInfo,
     getPriceInsuranceInfo,
