@@ -28,6 +28,7 @@ define(['./helpers/scrapHelper'], function (helper) {
     const syncUI = () => {
       ctrl.priceInfoList = []
       ctrl.existSeatTable = helper.existSeatTable()
+      ctrl.existCOP = helper.existCOP()
       ctrl.seatInfoList = helper.getPriceSeatsInfo()     
       ctrl.totalPrice = helper.getTotalPrice()
       ctrl.priceInfoList = helper.getPriceBaseInfo()
@@ -69,11 +70,22 @@ define(['./helpers/scrapHelper'], function (helper) {
                 {{ $ctrl.priceInfoList[0] }}
               </span>
             </p>
+            <p data-ng-if="$ctrl.existCOP">
+              <strong>
+                {{"Expo F"}} :
+              </strong>
+              <span class="pull-right">
+                {{ $ctrl.priceInfoList[1] }}
+              </span>
+            </p>
             <p>
               <strong>
                 {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
               </strong>
-              <span class="pull-right">
+              <span data-ng-if="$ctrl.existCOP" class="pull-right">
+                {{$ctrl.priceInfoList[2]}}
+              </span>
+              <span data-ng-if="!$ctrl.existCOP" class="pull-right">
                 {{$ctrl.priceInfoList[1]}}
               </span>
             </p>
@@ -82,7 +94,10 @@ define(['./helpers/scrapHelper'], function (helper) {
               <strong>
                 {{ "LABEL_TAXES" | translate }} :
               </strong>
-              <span class="pull-right">
+              <span data-ng-if="$ctrl.existCOP"  class="pull-right">
+                {{$ctrl.priceInfoList[3]}}
+              </span>
+              <span data-ng-if="!$ctrl.existCOP"  class="pull-right">
                 {{$ctrl.priceInfoList[2]}}
               </span>
             </p>
