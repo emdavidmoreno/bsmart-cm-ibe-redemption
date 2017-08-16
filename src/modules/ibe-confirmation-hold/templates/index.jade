@@ -76,8 +76,7 @@ block body
                         span.time
                           |  {{flight_list_item.departure_time |simpledate}}
                       i.flight-direction
-                      span.flight-duration--center(data-ng-if="flight_list_item.duration && flight_list_item.duration >= 0")
-                        | {{flight_list_item.duration | duration}}
+                      
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
@@ -111,8 +110,7 @@ block body
                         span.time
                           |  {{flight_list_item.departure_time |simpledate}}
                       i.flight-direction
-                      span.flight-duration--center(data-ng-if="flight_list_item.duration && flight_list_item.duration >= 0")
-                        | {{flight_list_item.duration | duration}}
+                     
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
