@@ -142,7 +142,7 @@ block body
                       | {{ 'LABEL_FLIGHT_NO_STOPS' | translate }}
                     div.flight-duration(data-ng-if="flight.info.duration && flight.info.duration >= 0")
                       |  -
-                      | {{flight.info.duration | duration}}
+                      |Â {{flight.info.duration | duration}}
                   .flight-price
                     strong.cash--after-discount(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount > 0")
                       | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount | number:2 }}
@@ -158,8 +158,8 @@ block body
                       a(data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true")
                         | {{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}
                       | )
-                  button(type="button"  data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash >= 0" data-ng-click="selectFlightAction(flight, location, 'return', $parent.$index, $event)")
-                     |  {{ 'LABEL_BUY' | translate }}        
+                  button(type="button" data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash >= 0" data-ng-click="selectFlightAction(flight, location, 'return', $parent.$index, $event)")
+                     |  {{ 'LABEL_BUY' | translate }}   
                   include ../../../templates/partials/sellingClassDialog.jade
       .m-itinerary-summary(data-ng-show="location.departure.summary.show || !location.departure.selectingValueForFirstTime" ng-cloak)
         h4.title
@@ -279,7 +279,7 @@ block body
                   span.stops(data-ng-if="flight.info.flight_list.length <= 1")
                     | {{ 'LABEL_FLIGHT_NO_STOPS' | translate }}
                   div.flight-duration(data-ng-if="flight.info.duration && flight.info.duration >= 0")
-                    |  - {{flight.info.duration | duration}}
+                    |Â  - {{flight.info.duration | duration}}
                 .flight-price
                   strong.cash--after-discount(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash_after_discount > 0")
                     | {{flight.info.classes[location.return.selectedClassIndex.id].price.cash_after_discount | number:2 }}
@@ -289,14 +289,14 @@ block body
                     | {{flight.info.classes[location.return.selectedClassIndex.id].price.cash | number:2 }}
                   strong(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash == -1")
                     | N/A
-                .flight-selling-class(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash >= 0")
-                  span
-                    | (
-                    a(data-ng-click="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false")
-                      | {{flight.info.classes[location.return.selectedClassIndex.id].sellingClass.text}}
-                    | )              
-                button(type="button" data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash >= 0" data-ng-click="selectFlightAction(flight, location, 'return', $parent.$index, $event)")
-                     |  {{ 'LABEL_BUY' | translate }}    
+              .flight-selling-class(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash >= 0")
+                span
+                  | (
+                  a(data-ng-click="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false")
+                    | {{flight.info.classes[location.return.selectedClassIndex.id].sellingClass.text}}
+                  | )
+              button(type="button" data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash >= 0" data-ng-click="selectFlightAction(flight, location, 'return', $parent.$index, $event)")
+                     |  {{ 'LABEL_BUY' | translate }}   
               include ../../../templates/partials/sellingClassDialog.jade
     section
       .m-card.m-card--muted(data-ng-repeat="message in ui.mediaInfoMessages" ng-cloak)
@@ -310,3 +310,10 @@ block body
     .l-action(data-ng-show="ui.showContinueButton" ng-cloak)
       button(type="button" data-ng-click='continueButtonAction()')
         |  {{ 'LABEL_CONTINUE' | translate }}
+
+
+
+
+
+
+ 
