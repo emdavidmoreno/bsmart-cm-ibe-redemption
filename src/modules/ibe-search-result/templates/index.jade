@@ -158,7 +158,7 @@ block body
                       a(data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true")
                         | {{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}
                       | )
-                  button(type="button" data-ng-disabled="flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1"  data-ng-class="{'disableBtn': flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1}"  data-ng-click="selectFlightAction(flight, location, 'departure', $parent.$index, $event)")
+                  button(class="btnBuyFlight" type="button" data-ng-disabled="flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1"  data-ng-class="{'disableBtn': flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1}"  data-ng-click="selectFlightAction(flight, location, 'departure', $parent.$index, $event)")
                      |  {{ 'LABEL_BUY' | translate }}     
                   include ../../../templates/partials/sellingClassDialog.jade
       .m-itinerary-summary(data-ng-show="location.departure.summary.show || !location.departure.selectingValueForFirstTime" ng-cloak)
@@ -296,7 +296,7 @@ block body
                     | {{flight.info.classes[location.return.selectedClassIndex.id].sellingClass.text}}
                   | )
               
-              button(type="button" data-ng-disabled="flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1" data-ng-click="selectFlightAction(flight, location, 'return', $parent.$index, $event)")
+              button(class="btnBuyFlight" type="button" data-ng-disabled="flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1" data-ng-click="selectFlightAction(flight, location, 'return', $parent.$index, $event)")
                      |  {{ 'LABEL_BUY' | translate }}     
               include ../../../templates/partials/sellingClassDialog.jade
     section
