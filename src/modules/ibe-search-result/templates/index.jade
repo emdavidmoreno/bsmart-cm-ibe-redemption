@@ -57,7 +57,10 @@ block body
                 | {{flight.number}}
                 include ../../../templates/partials/flightDetailsDialog.jade
             .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
-              | {{location.disclaimer_mapping[dec.id].text}}
+              span(data-ng-if="dec.isOperateBy")
+                | {{dec.id}}
+              span(data-ng-if="!dec.isOperateBy")
+                | {{location.disclaimer_mapping[dec.id].text}}
             br
           .price(data-ng-if="location.departure.summary.price >= 0")
             span(data-ng-if="ui.total_price.currency_code >= 0")
@@ -134,7 +137,10 @@ block body
                       .declaimer
                         span(data-ng-repeat="dec in fInfo.disclaimer"
                           data-ng-if="dec.field == 'flight_number'")
-                          | {{location.disclaimer_mapping[dec.id].text}}
+                          span(data-ng-if="dec.isOperateBy")
+                            | {{dec.id}}
+                          span(data-ng-if="!dec.isOperateBy")
+                            | {{location.disclaimer_mapping[dec.id].text}}
                       br
                     span.stops(data-ng-if="flight.info.flight_list.length > 1")
                       | {{flight.info.flight_list.length - 1}} {{ 'LABEL_FLIGHT_STOPS' | translate }}
@@ -198,7 +204,10 @@ block body
               .flight-number.text--linkify(data-ng-click="flight.numberEvent()")
                 | {{flight.number}}
             .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
-              | {{location.disclaimer_mapping[dec.id].text}}
+              span(data-ng-if="dec.isOperateBy")
+                | {{dec.id}}
+              span(data-ng-if="!dec.isOperateBy")
+                | {{location.disclaimer_mapping[dec.id].text}}
           .price(data-ng-if="location.return.summary.price >= 0")
             span(data-ng-if="ui.total_price.currency_code >= 0")
 
@@ -271,7 +280,10 @@ block body
                     .declaimer
                       span(data-ng-repeat="dec in fInfo.disclaimer"
                         data-ng-if="dec.field == 'flight_number'")
-                        | {{location.disclaimer_mapping[dec.id].text}}
+                        span(data-ng-if="dec.isOperateBy")
+                          | {{dec.id}}
+                        span(data-ng-if="!dec.isOperateBy")
+                          | {{location.disclaimer_mapping[dec.id].text}}
                   span.stops(data-ng-if="flight.info.flight_list.length > 1")
                     | {{flight.info.flight_list.length - 1}} {{ 'LABEL_FLIGHT_STOPS' | translate }}
                   span.stops(data-ng-if="flight.info.flight_list.length <= 1")
