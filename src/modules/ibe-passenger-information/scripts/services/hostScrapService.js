@@ -253,13 +253,36 @@
     };
 
 
+    // hostScrapService.existAutoFill = function (index) {
+    //   var str = $("#travellersInfo\\[" + index + "\\]\\.profileId").attr('onChange');
+    //   if (str && str.match(/false/g).length !== 2) //Por alguna razon hice esto ahora no recuerdo 
+    //     return true;
+
+    //   return false;
+    // };
+
+    hostScrapService.mustBeShowed = function(index){
+      var state = true;
+      var val = $("#travellersInfo\\[" + index + "\\]\\.profileId").val();
+      // function isPositiveInteger(n) {
+      //    return n >>> 0 === parseFloat(n);
+      // }
+
+      if($('a.linkLogout').length && parseFloat(val) === -1)
+        state = false    
+     
+
+      return state;
+      
+    }
     hostScrapService.existAutoFill = function (index) {
-      var str = $("#travellersInfo\\[" + index + "\\]\\.profileId").attr('onChange');
-      if (str && str.match(/false/g).length !== 2)
+      if ( $("#travellersInfo\\[" + index + "\\]\\.profileId").length && $('a.linkLogout').length)
         return true;
 
       return false;
     };
+
+    
 
     /**
      * @param {int} index
@@ -273,19 +296,11 @@
       return $elem.val();
     };
 
-    hostScrapService.mustBeShowed = function (index) {
-      var str = $("#travellersInfo\\[" + index + "\\]\\.profileId").attr('onChange');
-      var $bs = _getSingleBlockSelecction(index);
-      var $elem = $bs.find(_replaceIndex(PASSENGER_AUTO_FILL_SELECTOR, index));
-      var val = true;
-      console.log("index", index);
-      console.log("$elem.val() != -1 && str.match(/false/g).length !== 2", index);
-      if (str && str.match(/false/g).length !== 2){
-        if($elem.val() != -1)
-          val = true;
-        else val = false  
-      }
-      return val;
+    hostScrapService.showLinkToAutoFillOptions = function (index) {
+      if($("#idTravellerTypeLink_"+ index).length && $('a.linkLogout').length && ( !$("#travellersInfo\\[" + index + "\\]\\.profileId").length) )
+          return true;
+      return false;     
+     
     };
 
     /**

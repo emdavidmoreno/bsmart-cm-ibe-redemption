@@ -11,6 +11,7 @@ define([
   '../../../../scripts/filters/strDuration',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/filters/range',
+  '../../../../scripts/filters/sanitize',
   '../../../../scripts/directives/bs-card-ref-id',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
@@ -18,7 +19,7 @@ define([
    '../../../../scripts/services/hostUIService',
   '../../../../components/complex/bs-total-price-summary/index.component',
 ], function($, angular, _, hostUIService, hostScrapService, hostProxyService,
-  strDuration, appHostProxyService, range, bsCardRefId, bsItineraryPricingCard,
+  strDuration, appHostProxyService, range, sanitize, bsCardRefId, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, statsService, ApphostUIService,bsTotalPriceSummaryComponent) {
   let wrapperInstance = {}
 
@@ -588,6 +589,7 @@ define([
         .module('responsiveBookingEngine')
         .filter('duration', strDuration)
         .filter('range', range)
+        .filter('sanitize', sanitize)
         .directive('bsCardRefId', bsCardRefId)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)

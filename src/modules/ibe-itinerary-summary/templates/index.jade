@@ -50,9 +50,7 @@ block body
                               data-ng-if="dec.field == 'departure_time'")
                               | {{location.disclaimer_mapping[dec.id].symbol}}
                         i.flight-direction
-                        span.flight-duration--center(
-                          data-ng-if="flight_list_item.duration && flight_list_item.duration >= 0")
-                          | {{flight_list_item.duration | duration}}
+                        
                         .flight-detail.flight-detail--destination
                           span.location
                             | {{flight_list_item.destination_airport_code}}
@@ -95,9 +93,7 @@ block body
                               data-ng-if="dec.field == 'departure_time'")
                               | {{location.disclaimer_mapping[dec.id].symbol}}
                         i.flight-direction
-                        span.flight-duration--center(
-                          data-ng-if="flight_list_item.duration && flight_list_item.duration >= 0")
-                          | {{flight_list_item.duration | duration}}
+                       
                         .flight-detail.flight-detail--destination
                           span.location
                             | {{flight_list_item.destination_airport_code}}
