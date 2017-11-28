@@ -249,7 +249,7 @@ define([
         mediaInfoMessages: hostScrapService.getMediaInfoMessages(),
         clickBtnSelectFlightClass: function(isDeparture) {
           if (ui.user_input_journey_type !== 'Multi City') {
-            if(isDeparture) {
+            if (isDeparture) {
               ui.departureDialogIsOpen = true
             } else {
               ui.returnDialogIsOpen = true
@@ -302,7 +302,7 @@ define([
         // TODO: Break this function in small reusable pieces
 
         let locationBound = location.departure
-        if(locationType === 'return') {
+        if (locationType === 'return') {
           locationBound = location.return
         }
 
@@ -338,22 +338,22 @@ define([
 
           // open the return part ||
           // (open the next location in the case of multicity)
-          if(locationType === 'departure') {
-            if(location.return && locationBound.selectingValueForFirstTime) {
+          if (locationType === 'departure') {
+            if (location.return && locationBound.selectingValueForFirstTime) {
               location.return.show = 1
-            } else{
+            } else {
               // TODO: mark the current as checked
               location.done = 1
-              if(ui.locations.length > 1) {
+              if (ui.locations.length > 1) {
                 // TODO: Put this code in a helper
                 let areAllSummaryShowed = 1
                 for (let i = 0; i < ui.locations.length; i++) {
-                  if(!ui.locations[i].departure.summary.show) {
+                  if (!ui.locations[i].departure.summary.show) {
                     areAllSummaryShowed = 0
                     break
                   }
                 }
-                if(areAllSummaryShowed) {
+                if (areAllSummaryShowed) {
                   // TODO: If there are not other locations show the continue
                   ui.showContinueButton = 1
                 }
@@ -374,7 +374,7 @@ define([
         }
 
 
-        if(locationBound.selectingValueForFirstTime) {
+        if (locationBound.selectingValueForFirstTime) {
           locationBound.selectingValueForFirstTime = 0
         }
       }
@@ -383,9 +383,9 @@ define([
         location.departure.show = 1
         location.departure.summary.show = 0
         location.done = 0
-        if(location.return) {
+        if (location.return) {
           location.return.show = 0
-          if(location.return.summary.show === 0 && !location.departure.selectingValueForFirstTime) {
+          if (location.return.summary.show === 0 && !location.departure.selectingValueForFirstTime) {
             location.departure.selectingValueForFirstTime = 1
             location.return.selectingValueForFirstTime = 1
           }
@@ -453,15 +453,15 @@ define([
        */
       function getLocations() {
         let locations = model.geo.location
-          // find available classes and return the fitst
+        // find available classes and return the fitst
         let selectAvailableFlight = function(availableClasses) {
-          for(let i = 0; i < availableClasses.length; i++) {
+          for (let i = 0; i < availableClasses.length; i++) {
             if (availableClasses[i].cheapestPrice !== 'N/A') {
               availableClasses[i].selected = true
               return availableClasses[i]
             }
           }
-          if(availableClasses.length > 0) {
+          if (availableClasses.length > 0) {
             availableClasses[0].selected = true
           }
           return availableClasses[0]
@@ -493,7 +493,7 @@ define([
             disclaimers: [],
           }
 
-          if(model.return && model.return[index]) {
+          if (model.return && model.return[index]) {
             this.return = model.return[index]
             this.return.show = 0
             this.return.done = 0
@@ -543,7 +543,7 @@ define([
        */
       function getAvailableClasses(flights) {
         let availableClasses = []
-        if(flights.length > 0) {
+        if (flights.length > 0) {
           let cssClasses = [
             'flight-class--level1',
             'flight-class--level2',
@@ -559,13 +559,13 @@ define([
            */
           let updateExistedClass = function(cls, index) {
             let exist = false
-            for(let i = 0; i < availableClasses.length; i++) {
+            for (let i = 0; i < availableClasses.length; i++) {
               let clsAvailable = availableClasses[i]
               if (cls.name === clsAvailable.name) {
                 if (clsAvailable.cheapestPrice === 'N/A' &&
                   cls.price.cash !== -1 && cls.price.cash !== -3) {
                   clsAvailable.cheapestPrice = cls.price.cash
-                  if(cls.price.cash_after_discount) {
+                  if (cls.price.cash_after_discount) {
                     clsAvailable.cash_after_discount = cls.price.cash_after_discount
                   }
                 }
@@ -573,14 +573,14 @@ define([
                 break
               }
             }
-            if(!exist) {
+            if (!exist) {
               let cheapestPrice = cls.price.cash
               let cash_after_discount = cls.price.cash_after_discount
-              if(cheapestPrice === -1) {
+              if (cheapestPrice === -1) {
                 cheapestPrice = 'N/A'
-              } else if(cheapestPrice === -3) {
+              } else if (cheapestPrice === -3) {
                 cheapestPrice = ''
-              } else{
+              } else {
                 cheapestPrice
               }
 
@@ -588,7 +588,7 @@ define([
               let definedAttrClass = cls.htmlNode.attr('class')
               let descriptions = []
 
-              if(typeof definedAttrClass !== typeof undefined) {
+              if (typeof definedAttrClass !== typeof undefined) {
                 let strArray = []
                 // all CSS classes are selected except colCostNotAvail
                 definedAttrClass.split(' ').forEach(function(cssClass) {
@@ -603,15 +603,15 @@ define([
                 // get the tooltip contain
                 descriptions = $(selector)
                   .find('.simpleToolTip ul li')
-                if(descriptions.length > 0) {
+                if (descriptions.length > 0) {
                   descriptions = descriptions.map(function(i, li) {
                     return $(li).text()
                   })
-                } else{
+                } else {
                   // in CMCO the HTML structure is different
                   descriptions = $(selector)
                     .find('.simpleToolTip p')
-                  if(descriptions.length > 0) {
+                  if (descriptions.length > 0) {
                     descriptions = $(descriptions[0]).html().split('<br>')
                     descriptions = descriptions
                       .map(function(i, chunk) {
@@ -630,7 +630,7 @@ define([
                 desc: descriptions,
               }
 
-              if(cash_after_discount) {
+              if (cash_after_discount) {
                 classObject.cash_after_discount = cash_after_discount
               }
 
@@ -682,7 +682,7 @@ define([
       }
 
       hostUIService.setHandlerSellingClass(function(error, response) {
-        if(error) {
+        if (error) {
           console.log('[error] Loading Selling Class Info')
         }
 
@@ -694,7 +694,7 @@ define([
         hostUIService.swapToOrgFillFareRuleTabCallback()
 
         let closeDialog = $('#airFareRulesPopUpOuter .dialogClose a')
-        if(closeDialog.length > 0) {
+        if (closeDialog.length > 0) {
           closeDialog[0].click()
         }
       })
@@ -711,7 +711,7 @@ define([
       }
 
       hostUIService.setHandlerFlightDetails(function(error, success) {
-        if(error) {
+        if (error) {
           console.log('[error]', error)
           return
         }
@@ -742,7 +742,7 @@ define([
       function validationHelper(errors) {
         let validationErrors = errors.validationErrors
         ApphostUIService.scrollToTop()
-        if(!validationErrors && errors.length > 0) {
+        if (!validationErrors && errors.length > 0) {
           validationErrors = []
           $.each(errors, function() {
             validationErrors.push({
@@ -754,7 +754,7 @@ define([
         }
         $.each(validationErrors, function(/* value, index*/) {
           let message = this
-          if(message.property) {
+          if (message.property) {
             // validate an specific input
             // TODO: Implement this feature
           } else {
@@ -793,14 +793,14 @@ define([
     ]
 
     angular
-        .module('responsiveBookingEngine')
-        .factory('hostUIService', hostUIService)
-        .filter('duration', strDuration)
-        .filter('simpledate', strSimpleDate)
-        .filter('sanitize', sanitize)
-        .filter('unique', collUnique)
-        .directive('jquiDialog', jquiDialog)
-        .controller('SearchResultController', SearchResultController)
+      .module('responsiveBookingEngine')
+      .factory('hostUIService', hostUIService)
+      .filter('duration', strDuration)
+      .filter('simpledate', strSimpleDate)
+      .filter('sanitize', sanitize)
+      .filter('unique', collUnique)
+      .directive('jquiDialog', jquiDialog)
+      .controller('SearchResultController', SearchResultController)
   })({})
 
   return wrapperInstance
