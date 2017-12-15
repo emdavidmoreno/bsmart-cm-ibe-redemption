@@ -11,7 +11,7 @@ define([], function() {
     return function(input) {
       let duration = parseInt(input, 10)
       let hours
-      if(!isNaN(duration) || duration > 0) {
+      if (!isNaN(duration) || duration > 0) {
         // get hours from duration
         hours = Math.floor(duration / 60)
         // get mins
