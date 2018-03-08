@@ -161,7 +161,7 @@ block body
                       a(data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true")
                         | {{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}
                       | )
-                  button(class="btnBuyFlight" type="button" data-ng-disabled="flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1"  data-ng-class="{'disableBtn': flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1}"  data-ng-click="selectFlightAction(flight, location, 'departure', $parent.$index, $event)")
+                  button(class="btnBuyFlight" type="button" data-ng-disabled="flight.info.classes[location.departure.selectedClassIndex.id].price.cash === -1"  data-ng-class="{'disableBtn': flight.info.classes[location.departure.selectedClassIndex.id].price.cash === -1}"  data-ng-click="selectFlightAction(flight, location, 'departure', $parent.$index, $event)")
                      strong.cash--after-discount(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount > 0")
                        | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount | number:2 }}
                      strong.cash(
@@ -312,13 +312,13 @@ block body
                   | )
 
               button(class="btnBuyFlight" type="button" data-ng-disabled="flight.info.classes[location.return.selectedClassIndex.id].price.cash === -1" data-ng-click="selectFlightAction(flight, location, 'return', $parent.$index, $event)")
-                  strong.cash--after-discount(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount > 0")
-                       | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount | number:2 }}
+                  strong.cash--after-discount(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash_after_discount > 0")
+                       | {{flight.info.classes[location.return.selectedClassIndex.id].price.cash_after_discount | number:2 }}
                   strong.cash(
-                      data-ng-class="{'price--deleted': flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount > 0}"
-                      data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash > -1")
-                       | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash | number:2 }}
-                  strong(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash == -1")
+                      data-ng-class="{'price--deleted': flight.info.classes[location.return.selectedClassIndex.id].price.cash_after_discount > 0}"
+                      data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash > -1")
+                       | {{flight.info.classes[location.return.selectedClassIndex.id].price.cash | number:2 }}
+                  strong(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash == -1")
                        | N/A
               include ../../../templates/partials/sellingClassDialog.jade
     section
