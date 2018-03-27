@@ -125,9 +125,9 @@ block body
     //- div(data-bs-itinerary-pricing-card data-ui="ui")
 
     section.m-insurance(data-ng-if="ui.tavelInsurance && ui.tavelInsurance.display.head")
-      h2
+      h2(tabindex=0)
         | {{ui.tavelInsurance.display.head}}
-      .insurance-icon(data-ng-bind-html="ui.insuranceIcon | sanitize")
+      .insurance-icon(data-ng-bind-html="ui.insuranceIcon | sanitize" tabindex=0)
       .m-card
         .content
           .m-insurance-option
