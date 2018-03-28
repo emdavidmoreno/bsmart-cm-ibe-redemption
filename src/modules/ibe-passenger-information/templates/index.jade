@@ -2,14 +2,13 @@ extends ../../../templates/layout.jade
 
 block body
   div.m-passenger-information(data-ng-controller="PassengerInformationController")
-    .l-messages(data-ng-cloak)
+    .l-messages(data-ng-cloak role="alert" aria-live="assertive")
       .m-message(data-ng-repeat="message in ui.messages"
         data-ng-class="{error: message.type == 'error'}")
         i
         p(data-ng-bind-html="message.content")
     section
-      div(
-        class="m-card {{message.cssClass}}"
+      div(tabindex=0 class="m-card {{message.cssClass}}"
         data-ng-repeat="message in ui.infoMessages"
         data-ng-if="message != null && message.bodyType === 'read_more'"
         data-ng-class="{'m-card--read-more' : message.openMoreInfo}" ng-cloak)
@@ -31,11 +30,11 @@ block body
     bs-total-price-summary-component()
 
     section(data-ng-cloak)
-      h2
+      h2(tabindex=0)
         | {{'LABEL_PASSENGER_INFO' | translate}}
       .m-card(data-ng-repeat="passenger in ui.passengers track by $index")
-        header.title
-          h4.title-text
+        header.title()
+          h4.title-text(tabindex=0)
             | {{passenger.type}}
         .content
           form.form-horizontal
@@ -43,6 +42,7 @@ block body
                 label.pi-field-required
                   | {{'LABEL_AUTO_FILL_OPTIONS' | translate}}
                 select.md.form-control(
+                  aria-label="{{'LABEL_AUTO_FILL_OPTIONS' | translate}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-model="passenger.autoFillSelectedOption"
                   data-ng-change="passenger.setAutoFillOption(passenger.autoFillSelectedOption)"
@@ -51,6 +51,7 @@ block body
                 label.pi-field-required
                   | {{'LABEL_TITLE' | translate}}
                 select.md.form-control(
+                  aria-label="{{'LABEL_TITLE' | translate}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-model="passenger.title"
                   data-ng-change="passenger.setTitle(passenger.title)"
@@ -63,6 +64,7 @@ block body
               .col-sm-10
                 input.md.form-control(
                   type='text'
+                  aria-label="{{'LABEL_FIRST_NAME_EXAMPLE' | translate}}"
                   placeholder="{{'LABEL_FIRST_NAME_EXAMPLE' | translate}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-model='passenger.firstName'
@@ -76,6 +78,7 @@ block body
               .col-sm-10
                 input.md.form-control(
                   type='text'
+                  aria-label="{{'LABEL_LAST_NAME_EXAMPLE' | translate}}"
                   placeholder="{{'LABEL_LAST_NAME_EXAMPLE' | translate}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-model='passenger.lastName'
@@ -90,6 +93,7 @@ block body
                 | {{'LABEL_AGE' | translate}}
               .col-sm-5
                 select.md.form-control(
+                  aria-label="{{'LABEL_AGE' | translate}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-options="n for n in [] | range:2:11:1"
                   data-ng-model="passenger.age"
@@ -100,6 +104,7 @@ block body
                 label
                   | {{'LABEL_FREQUENT_FLYER' | translate}}
                 select.md.form-control(
+                  aria-label="{{'LABEL_FREQUENT_FLYER' | translate}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-model="passenger.freqFlyer"
                   data-ng-change="passenger.setFreqFlyer(passenger.freqFlyer)"
@@ -110,6 +115,7 @@ block body
               .col-sm-10
                 input.md.form-control(
                   type='text'
+                  aria-label="{{'LABEL_MEMBERSHIP' | translate}}"
                   placeholder='Membership #'
                   data-ng-disabled="ui.isInactive"
                   data-ng-model='passenger.memberShip'
@@ -120,6 +126,7 @@ block body
               label
                 | {{ passenger.argTaxId.taxIdCodeLabel }}
               select.md.form-control(
+                aria-label="{{ passenger.argTaxId.taxIdCodeLabel }}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="passenger.argTaxId.taxIdCode"
                 data-ng-change="passenger.argTaxId.setTaxIdCode(passenger.argTaxId.taxIdCode)"
@@ -131,6 +138,7 @@ block body
                 | {{ passenger.argTaxId.taxIdNumberLabel }}
               .col-sm-10
                 input.md.form-control(
+                  aria-label="{{ passenger.argTaxId.taxIdNumberLabel }}"
                   type='text'
                   placeholder=''
                   data-ng-disabled="ui.isInactive"
@@ -142,6 +150,7 @@ block body
               label
                 | {{ passenger.argTaxId.taxIdCountryLabel }}
               select.md.form-control(
+                aria-label="{{ passenger.argTaxId.taxIdCountryLabel }}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="passenger.argTaxId.taxIdCountry"
                 data-ng-change="passenger.argTaxId.setTaxIdCountry(passenger.argTaxId.taxIdCountry)"
@@ -155,6 +164,7 @@ block body
               .col-md-9
                 label.radio-inline
                   input(
+                    aria-label="{{'LABEL_GENDER' | translate}}"
                     type='radio'
                     value='M'
                     data-ng-disabled="ui.isInactive"
@@ -179,16 +189,19 @@ block body
                | {{'LABEL_BIRTHDAY' | translate}}
               br
               select.md.form-control(
+                aria-label="Month"
                 data-ng-disabled="ui.isInactive"
                 data-ng-options="option.name for option in ui.months track by option.no"
                 data-ng-model="passenger.birthMonth"
                 data-ng-change="passenger.setBirthMonth(passenger.birthMonth.no)")
               select.md.form-control(
+                aria-label="Birthday"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="passenger.birthDay"
                 data-ng-change="passenger.setBirthDay(passenger.birthDay)"
                 data-ng-options="option for option in passenger.days track by option")
               select.md.form-control(
+                aria-label="Year"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="passenger.birthYear"
                 data-ng-change="passenger.setBirthYear(passenger.birthYear)"
@@ -202,12 +215,13 @@ block body
               .col-sm-10
                 input.md.form-control(
                   type='text'
+                  aria-label="{{'LABEL_REDRESS_NUMBER' | translate}}"
                   placeholder='#4545 54'
                   data-ng-disabled="ui.isInactive"
                   data-ng-model="passenger.redressNumber"
                   data-ng-change="passenger.setRedressNumber(passenger.redressNumber)")
     section(ng-cloak)
-      h2
+      h2(tabindex=0)
         | {{'LABEL_CONTACT_INFORMATION' | translate}}
       div.m-card
         .content
@@ -259,6 +273,7 @@ block body
               | {{ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']}}
     section
       div(
+        tabindex=0
         class="m-card {{message.cssClass}}"
         data-ng-repeat="message in ui.infoMessages"
         data-ng-if="message != null && message.bodyType !== 'read_more'"
@@ -276,7 +291,7 @@ block body
         .actions.text-right(data-ng-if="message.bodyType === 'read_more'")
           span.action-item.action-item--text(data-ng-if="message.openMoreInfo" data-ng-click="message.openMoreInfo = !message.openMoreInfo")
             | {{'LABEL_READ_MORE' | translate}}
-    div(bs-card-ref-id)
+    div(bs-card-ref-id tabindex=0)
     .l-action(ng-show="ui.showContinueButton")
       button(
         type="button"
