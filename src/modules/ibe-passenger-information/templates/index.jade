@@ -4,6 +4,7 @@ block body
   div.m-passenger-information(data-ng-controller="PassengerInformationController")
     .l-messages(data-ng-cloak role="alert" aria-live="assertive")
       .m-message(data-ng-repeat="message in ui.messages"
+        tabindex=0
         data-ng-class="{error: message.type == 'error'}")
         i
         p(data-ng-bind-html="message.content")
@@ -42,7 +43,7 @@ block body
                 label.pi-field-required
                   | {{'LABEL_AUTO_FILL_OPTIONS' | translate}}
                 select.md.form-control(
-                  aria-label="{{'LABEL_AUTO_FILL_OPTIONS' | translate}}"
+                  aria-label="{{'LABEL_AUTO_FILL_OPTIONS' | translate}}"                  
                   data-ng-disabled="ui.isInactive"
                   data-ng-model="passenger.autoFillSelectedOption"
                   data-ng-change="passenger.setAutoFillOption(passenger.autoFillSelectedOption)"
@@ -51,7 +52,7 @@ block body
                 label.pi-field-required
                   | {{'LABEL_TITLE' | translate}}
                 select.md.form-control(
-                  aria-label="{{'LABEL_TITLE' | translate}}"
+                  aria-label="{{'LABEL_TITLE' | translate}} {{ui.errors[$index].title}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-model="passenger.title"
                   data-ng-change="passenger.setTitle(passenger.title)"
@@ -64,7 +65,7 @@ block body
               .col-sm-10
                 input.md.form-control(
                   type='text'
-                  aria-label="{{'LABEL_FIRST_NAME_EXAMPLE' | translate}}"
+                  aria-label="{{'LABEL_FIRST_NAME_EXAMPLE' | translate}} {{ui.errors[$index].firstName}}"
                   placeholder="{{'LABEL_FIRST_NAME_EXAMPLE' | translate}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-model='passenger.firstName'
@@ -78,7 +79,7 @@ block body
               .col-sm-10
                 input.md.form-control(
                   type='text'
-                  aria-label="{{'LABEL_LAST_NAME_EXAMPLE' | translate}}"
+                  aria-label="{{'LABEL_LAST_NAME_EXAMPLE' | translate}} {{ui.errors[$index].lastName}}"
                   placeholder="{{'LABEL_LAST_NAME_EXAMPLE' | translate}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-model='passenger.lastName'
@@ -93,7 +94,7 @@ block body
                 | {{'LABEL_AGE' | translate}}
               .col-sm-5
                 select.md.form-control(
-                  aria-label="{{'LABEL_AGE' | translate}}"
+                  aria-label="{{'LABEL_AGE' | translate}}  {{ui.errors[$index].travellerAge}}"
                   data-ng-disabled="ui.isInactive"
                   data-ng-options="n for n in [] | range:2:11:1"
                   data-ng-model="passenger.age"
@@ -164,7 +165,7 @@ block body
               .col-md-9
                 label.radio-inline
                   input(
-                    aria-label="{{'LABEL_GENDER' | translate}}"
+                    aria-label="{{'LABEL_GENDER' | translate}} {{ui.errors[$index]['genderMale']}}"
                     type='radio'
                     value='M'
                     data-ng-disabled="ui.isInactive"
@@ -173,6 +174,7 @@ block body
                   | {{'LABEL_MALE' | translate}}
                 label.radio-inline
                   input(
+                    aria-label="{{'LABEL_GENDER' | translate}} {{ui.errors[$index]['genderMale']}}"
                     type='radio'
                     value='F'
                     data-ng-disabled="ui.isInactive"
@@ -234,6 +236,7 @@ block body
             .col-sm-10
               input.md.form-control(
                 type='email'
+                aria-label="{{'LABEL_EMAIL' | translate}} {{ui.errors[0].emailAddress}}"
                 placeholder="{{'LABEL_EMAIL_EXAMPLE' | translate}}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="ui.contactInfo.email"
@@ -246,6 +249,7 @@ block body
             .col-sm-10
               input.md.form-control(
                 type='email'
+                aria-label="{{'LABEL_CONFIRM_EMAIL' | translate}} {{ui.errors[0].confirmEmail}}"
                 placeholder="{{'LABEL_EMAIL_EXAMPLE' | translate}}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="ui.contactInfo.confirmEmail"
@@ -258,6 +262,7 @@ block body
             .col-sm-3.phone-country-code
               input.md.form-control(
                 type='tel'
+                aria-label="{{'LABEL_COUNTRY_CODE' | translate}} {{ui.errors[0]['homePhone.phoneNumberCountryCode']}}"
                 placeholder="{{'LABEL_COUNTRY_CODE' | translate}}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="ui.contactInfo.telCode"
@@ -265,6 +270,7 @@ block body
             .col-sm-9.phone-number
               input.md.form-control(
                 type='tel'
+                aria-label="{{'LABEL_NUMBER' | translate}} {{ui.errors[0]['homePhone.phoneNumber']}}"
                 placeholder="{{'LABEL_NUMBER' | translate}}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="ui.contactInfo.telNumber"
