@@ -13,7 +13,7 @@ block body
         header.title
           h4.title-text
         .content(data-ng-repeat="location in ui.locations")
-          div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak)
+          div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak tabindex=0)
             strong {{$index + 1}}
             span
               | {{location.extra_info.geo.origin_city_name}}
@@ -79,7 +79,8 @@ block body
                     | {{ 'LABEL_FLIGHT_INBOUND' | translate }}
                   div(class="title-text title-text--fareclass pull-right {{location.return.availableClasses[0].cssClass}}")
                     | {{flight.info.classes[0].name}}
-                    span.text--linkify(tabindex=0
+                    span.text--linkify(
+                      tabindex=0
                       aria-label="{{ 'LABEL_FLIGHT_INBOUND' | translate }} {{flight.info.classes[0].name}}"
                       data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
                       | ({{flight.info.classes[0].sellingClass.text}})
@@ -109,7 +110,8 @@ block body
                               data-ng-repeat="dec in flight_list_item.disclaimer"
                               data-ng-if="dec.field == 'arrival_time'")
                               | {{location.disclaimer_mapping[dec.id].symbol}}
-                      .flight-number.text-primary(data-ng-click="flight_list_item.onclick()" tabindex=0)
+                      .flight-number.text-primary(
+                        data-ng-click="flight_list_item.onclick()" tabindex=0)
                         | {{flight_list_item.number}}
                     .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
                       span(data-ng-if="dec.isOperateBy")
