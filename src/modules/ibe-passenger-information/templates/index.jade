@@ -162,24 +162,26 @@ block body
               data-ng-class= "{'show-field-error': ui.errors[$index]['genderMale'] }")
               label.col-md-3.control-label.pi-field-required
                 | {{'LABEL_GENDER' | translate}}
-              .col-md-9
+              .col-md-9(role='radiogroup')
                 label.radio-inline
                   input(
-                    aria-label="{{'LABEL_GENDER' | translate}} {{ui.errors[$index]['genderMale']}}"
+                    aria-label="{{'LABEL_MALE' | translate}} {{ui.errors[$index]['genderMale']}}"
                     type='radio'
                     value='M'
+                    name="passenger.gender"
                     data-ng-disabled="ui.isInactive"
-                    data-ng-model="passenger.gender"
-                    data-ng-change="passenger.setGender(passenger.gender)")
+                    data-ng-model='passenger.gender'
+                    data-ng-change="passenger.setGender('M')")
                   | {{'LABEL_MALE' | translate}}
                 label.radio-inline
                   input(
-                    aria-label="{{'LABEL_GENDER' | translate}} {{ui.errors[$index]['genderMale']}}"
+                    aria-label="{{'LABEL_FEMALE' | translate}}{{ui.errors[$index]['genderMale']}}"
                     type='radio'
                     value='F'
+                    name="passenger.gender"
                     data-ng-disabled="ui.isInactive"
-                    data-ng-model="passenger.gender"
-                    data-ng-change="passenger.setGender(passenger.gender)")
+                    data-ng-model='passenger.gender'
+                    data-ng-change="passenger.setGender('F')")
                   | {{'LABEL_FEMALE' | translate}}
                 span.text-message
                   | {{ui.errors[$index]['genderMale']}}
@@ -191,19 +193,19 @@ block body
                | {{'LABEL_BIRTHDAY' | translate}}
               br
               select.md.form-control(
-                aria-label="Month"
+                aria-label="Month {{ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate}}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-options="option.name for option in ui.months track by option.no"
                 data-ng-model="passenger.birthMonth"
                 data-ng-change="passenger.setBirthMonth(passenger.birthMonth.no)")
               select.md.form-control(
-                aria-label="Birthday"
+                aria-label="Birthday {{ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate}}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="passenger.birthDay"
                 data-ng-change="passenger.setBirthDay(passenger.birthDay)"
                 data-ng-options="option for option in passenger.days track by option")
               select.md.form-control(
-                aria-label="Year"
+                aria-label="Year {{ui.errors[$index]['advancedPassengerDetails(dobDate)'] || ui.errors[$index].travellerBirthDate}}"
                 data-ng-disabled="ui.isInactive"
                 data-ng-model="passenger.birthYear"
                 data-ng-change="passenger.setBirthYear(passenger.birthYear)"
@@ -228,7 +230,7 @@ block body
       div.m-card
         .content
           div(data-ng-class="{'show-field-error': ui.errors[21].emailAddress }")
-            span.text-message.margin-bottom-sm()
+            span.text-message.margin-bottom-sm(tabindex=0)
               | {{ui.errors[21].emailAddress}}
           .form-group.md(data-ng-class="{'show-field-error': ui.errors[0].emailAddress || ui.errors[21].emailAddress }")
             label.col-sm-2.control-label.pi-field-required
