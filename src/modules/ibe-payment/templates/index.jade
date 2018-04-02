@@ -196,7 +196,7 @@ block body
         data-ui="ui"
       )
 
-      div.m-card(data-ng-show="ui.states.cc" tabindex=0)
+      div.m-card(data-ng-show="ui.states.cc")
         header.title
           h4.title-text(tabindex=0)
             | {{'LABEL_CARD_INFO' | translate}}
@@ -215,6 +215,7 @@ block body
               | {{'LABEL_CARD_TYPE' | translate}}
             .col-sm-10
               select.md.form-control(
+                required
                 aria-label="{{'LABEL_CARD_TYPE' | translate}} {{ ui.partialErrors.cardType }}"
                 data-ng-model="ui.payment.cardType"
                 data-ng-change="ui.payment.setCardType(ui.payment.cardType)"
@@ -312,7 +313,8 @@ block body
             label.col-sm-2.control-label.control-label--block.field-required
               | {{'LABEL_DOCUMENT_NUMBER' | translate}}
             .col-sm-3
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text'
+                aria-label="{{'LABEL_DOCUMENT_NUMBER' | translate}} {{ ui.partialErrors.documentNumber }}"
                 data-ng-model="ui.payment.documentNumber"
                 data-ng-change="ui.payment.setDocumentNumber(ui.payment.documentNumber)")
               span.text-message
@@ -323,7 +325,8 @@ block body
             label.col-sm-2.control-label.control-label--block.field-required
               | {{'LABEL_DOCUMENT_ID' | translate}}
             .col-sm-3
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text' 
+                aria-label="{{'LABEL_DOCUMENT_ID' | translate}} {{ ui.partialErrors.documentId }}"
                 data-ng-model="ui.payment.documentId"
                 data-ng-change="ui.payment.setDocumentId(ui.payment.documentId)")
               span.text-message
@@ -334,7 +337,8 @@ block body
             label.col-sm-2.control-label.control-label--block.field-required
               | {{'LABEL_SECURITY_CODE' | translate}}
             .col-sm-3
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text'
+                aria-label="{{'LABEL_SECURITY_CODE' | translate}} {{ ui.partialErrors.securityCode }}"
                 data-ng-model="ui.payment.securityCode"
                 data-ng-change="ui.payment.setSecurityCode(ui.payment.securityCode)"
                 data-ng-focus="focusToSecurityCodeIframe()")
@@ -345,11 +349,13 @@ block body
             label.col-sm-2.control-label.control-label--block.field-required
               | {{'LABEL_CARDHOLDER_PHONE' | translate}}
             .col-sm-3.phone-country-code
-              input.md.form-control(type='tel' placeholder=''
+              input.md.form-control(type='tel' 
+                aria-label="Phone code. {{ ui.partialErrors.cardHolderPhoneCode }}"
                 data-ng-model="ui.payment.cardHolderPhoneCode"
                 data-ng-change="ui.payment.setCardHolderPhoneCode(ui.payment.cardHolderPhoneCode)")
             .col-sm-9.phone-number
-              input.md.form-control(type='tel' placeholder=''
+              input.md.form-control(type='tel' 
+                aria-label="Phone number. {{ ui.partialErrors.cardHolderPhoneNumber }}"
                 data-ng-model="ui.payment.cardHolderPhoneNumber"
                 data-ng-change="ui.payment.setCardHolderPhoneNumber(ui.payment.cardHolderPhoneNumber)")
             span.text-message
@@ -361,7 +367,8 @@ block body
             label.col-sm-2.control-label.field-required
               | {{'LABEL_CARDHOLDER_EMAIL' | translate}}
             .col-sm-10
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text' 
+                aria-label="{{'LABEL_CARDHOLDER_EMAIL' | translate}} {{ ui.partialErrors.cardHolderEmail }}"
                 data-ng-model="ui.payment.cardHolderEmail"
                 data-ng-change="ui.payment.setCardHolderEmail(ui.payment.cardHolderEmail)")
               span.text-message
@@ -384,7 +391,7 @@ block body
 
       div.m-card(data-ng-show="!ui.isCreditCardsSaved && ui.states.cc")
         header.title
-          h4.title-text
+          h4.title-text(tabindex=0)
             | {{'LABEL_BILLING_ADDRESS' | translate}}
         div.content
           .form-group.md(
@@ -392,7 +399,8 @@ block body
             label.col-sm-2.control-label.field-required
               | {{'LABEL_ADDRESS_LINE_1' | translate}}
             .col-sm-10
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text' 
+                aria-label="{{'LABEL_ADDRESS_LINE_1' | translate}} {{ ui.partialErrors.baAddressLine1 }}"
                 data-ng-model="ui.payment.baAddressLine1"
                 data-ng-change="ui.payment.setBaAddressLine1(ui.payment.baAddressLine1)")
               span.text-message
@@ -403,6 +411,7 @@ block body
               | {{'LABEL_ADDRESS_LINE_2' | translate}}
             .col-sm-10
               input.md.form-control(type='text'
+                aria-label="{{'LABEL_ADDRESS_LINE_2' | translate}} {{ ui.partialErrors.baAddressLine2 }}"
                 data-ng-model="ui.payment.baAddressLine2"
                 data-ng-change="ui.payment.setBaAddressLine2(ui.payment.baAddressLine2)")
               span.text-message
@@ -412,7 +421,8 @@ block body
             label.col-sm-2.control-label.field-required
               | {{'LABEL_CITY' | translate}}
             .col-sm-10
-              input.md.form-control(type='text' placeholder=""
+              input.md.form-control(type='text' 
+                aria-label="{{'LABEL_CITY' | translate}} {{ ui.partialErrors.baCity }}"
                 data-ng-model="ui.payment.baCity"
                 data-ng-change="ui.payment.setBaCity(ui.payment.baCity)")
               span.text-message
@@ -423,6 +433,7 @@ block body
               | {{'LABEL_COUNTRY' | translate}}
             .col-sm-10
               select.md.form-control(
+                aria-label="{{'LABEL_COUNTRY' | translate}} {{ ui.partialErrors.baCountry }}"
                 data-ng-model="ui.payment.baCountry"
                 data-ng-change="ui.payment.setBaCountry(ui.payment.baCountry)"
                 data-ng-options="option.name for option in ui.payment.countries track by option.value"
@@ -435,6 +446,7 @@ block body
               | {{'LABEL_STATE' | translate}}
             .col-sm-10
               select.md.form-control(
+                aria-label="{{'LABEL_STATE' | translate}} {{ ui.partialErrors.baStateDisplay }}"
                 data-ng-model="ui.payment.baStateDisplay"
                 data-ng-change="ui.payment.setBaStateDisplay(ui.payment.baStateDisplay)"
                 data-ng-options="option.name for option in ui.payment.states track by option.value")
@@ -446,15 +458,16 @@ block body
               | {{'LABEL_POSTAL_ZIP_CODE' | translate}}
             .col-sm-10
               input.md.form-control(data-ng-disabled="ui.payment.baStateDisplay === ''" type='text' placeholder=''
+                aria-label="{{'LABEL_POSTAL_ZIP_CODE' | translate}} {{ ui.partialErrors.baPostalCode }}"
                 data-ng-model="ui.payment.baPostalCode"
                 data-ng-change="ui.payment.setBaPostalCode(ui.payment.baPostalCode)")
               span.text-message
                 | {{ ui.partialErrors.baPostalCode }}
 
     section(ng-show="ui.showPaymentInformation")
-      h2
+      h2(tabindex=0)
         | {{'LABEL_TERM_CONDITION' | translate}}
-      div.m-card.m-card--muted(ng-cloak)
+      div.m-card.m-card--muted(ng-cloak tabindex=0)
         header.title
           h4.title-text
             i.title-icon
@@ -465,18 +478,21 @@ block body
         div.content
           div.agreement-container(data-ng-class="{'show-field-error': ui.partialErrors.termsConditions }")
             input.inline-checkbox(
+              aria-labelledby="terms-condition-content"
               type='checkbox'
               data-ng-model="ui.agreements.termsConditions"
               data-ng-change="ui.agreements.acceptTermsAndConditions()")
-            label.inline-label(ng-bind-html="ui.static_messages.tbTermsConditionsLabel.content | sanitize")
+            label.inline-label(
+              id="terms-condition-content"
+              ng-bind-html="ui.static_messages.tbTermsConditionsLabel.content | sanitize")
             div
               span.text-message
                 | {{ ui.partialErrors.termsConditions }}
 
     section(ng-show="ui.showPaymentInformation")
-      h2
+      h2(tabindex=0)
         | {{'LABEL_RESTRICTED_ITEMS' | translate}}
-      div.m-card.m-card--muted(ng-cloak)
+      div.m-card.m-card--muted(ng-cloak tabindex=0)
         header.title
           h4.title-text
             i.title-icon
@@ -488,12 +504,15 @@ block body
           .form-group.md.agreement-container(
             data-ng-class="{'show-field-error': ui.partialErrors.hazardousMaterials }")
             input.inline-checkbox(
+              aria-labelledby="ui.agreements.hazardousMaterials"
               type='checkbox'
               data-ng-model="ui.agreements.hazardousMaterials"
               data-ng-change="ui.agreements.acceptHazardousMaterials()")
-            label.inline-label(ng-bind-html="ui.static_messages.hazardousMaterialsAgreementLabel.content | sanitize")
+            label.inline-label(
+              id="ui.agreements.hazardousMaterials"
+              ng-bind-html="ui.static_messages.hazardousMaterialsAgreementLabel.content | sanitize")
             .col-sm-10
-              span.text-message
+              span.text-message                
                 | {{ ui.partialErrors.hazardousMaterials }}
     div(bs-card-ref-id)
     .l-action(ng-show="ui.showContinueButton && ui.showPaymentInformation")
