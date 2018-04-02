@@ -44,14 +44,14 @@ define(['./helpers/scrapHelper'], function(helper) {
     /* eslint-disable max-len */
     template:
     `<section data-ng-if="$ctrl.psiDetailList.length > 0">
-      <h3> {{ $ctrl.headerText }} </h3>
+      <h3 tabindex=0> {{ $ctrl.headerText }} </h3>
       <div class="m-card m-card--flat m-card--bordered">
         <div class="content content--small-vertical-padding">
           <div class="flexible-dates-prices table-responsive">
             <table class="table table-bordered">
               <tbody>
                 <tr data-ng-repeat="info in $ctrl.psiDetailList">
-                  <th class="flexible-dates">
+                  <th class="flexible-dates" tabindex=0>
                     <p>
                       {{info.name}}
                     </p>
