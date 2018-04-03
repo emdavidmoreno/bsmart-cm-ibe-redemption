@@ -2,7 +2,7 @@ extends ../../../templates/layout.jade
 
 block body
   div.m-passenger-information(data-ng-controller="PaymentController")
-    .l-messages(data-ng-cloak role="alert" aria-live="assertive" tabindex=0)
+    .l-messages(data-ng-cloak role="alert" aria-live="assertive")
       .m-message(data-ng-repeat="message in ui.messages"
         data-ng-class="{error: message.type == 'error'}")
         i

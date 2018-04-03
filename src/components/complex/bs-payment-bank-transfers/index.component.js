@@ -152,7 +152,8 @@ define(['./helpers/scrapHelper'], function(helper) {
                 {{$ctrl.fieldFN.label}}
               </label>
               <div class="col-sm-10">
-                <input class="md form-control" type="text" placeholder=""
+                <input class="md form-control" type="text" 
+                  aria-label=" {{$ctrl.fieldFN.label}} {{ $ctrl.vErrors.fiscalNumber }}"
                   data-ng-model="$ctrl.fieldFN.value"
                   data-ng-change="$ctrl.fieldFN.hOnChange($ctrl.fieldFN.value)" />
                 <span class="text-message">
@@ -166,7 +167,8 @@ define(['./helpers/scrapHelper'], function(helper) {
                 {{$ctrl.fieldCFN.label}}
               </label>
               <div class="col-sm-10">
-                <input class="md form-control" type="text" placeholder=""
+                <input class="md form-control" type="text"
+                  aria-label="{{$ctrl.fieldCFN.label}} {{ $ctrl.vErrors.confirmFiscalNumber }}"
                   data-ng-model="$ctrl.fieldCFN.value"
                   data-ng-change="$ctrl.fieldCFN.hOnChange($ctrl.fieldCFN.value)" />
                 <span class="text-message">
@@ -178,7 +180,7 @@ define(['./helpers/scrapHelper'], function(helper) {
         </div>
         <div class="m-card">
           <header class="title">
-            <h4 class="title-text">
+            <h4 class="title-text" tabindex=0>
               {{'LABEL_BILLING_ADDRESS' | translate}}
             </h4>
           </header>
@@ -189,7 +191,8 @@ define(['./helpers/scrapHelper'], function(helper) {
                 {{$ctrl.fieldAL1.label}}
               </label>
               <div class="col-sm-10">
-                <input class="md form-control" type="text" placeholder=""
+                <input class="md form-control" type="text"
+                  aria-label="{{$ctrl.fieldAL1.label}} {{ $ctrl.vErrors.addressLine1 }}"
                   data-ng-model="$ctrl.fieldAL1.value"
                   data-ng-change="$ctrl.fieldAL1.hOnChange($ctrl.fieldAL1.value)" />
                 <span class="text-message">
@@ -202,7 +205,8 @@ define(['./helpers/scrapHelper'], function(helper) {
                 {{$ctrl.fieldAL2.label}}
               </label>
               <div class="col-sm-10">
-                <input class="md form-control" type="text" placeholder=""
+                <input class="md form-control" type="text" 
+                  aria-label="{{$ctrl.fieldAL2.label}} "
                   data-ng-model="$ctrl.fieldAL2.value"
                   data-ng-change="$ctrl.fieldAL2.hOnChange($ctrl.fieldAL2.value)" />
               </div>
@@ -213,7 +217,8 @@ define(['./helpers/scrapHelper'], function(helper) {
                 {{$ctrl.fieldCityTitle.label}}
               </label>
               <div class="col-sm-10">
-                <input class="md form-control" type="text" placeholder=""
+                <input class="md form-control" type="text"
+                  aria-label="{{$ctrl.fieldCityTitle.label}} {{ $ctrl.vErrors.city }}"
                   data-ng-model="$ctrl.fieldCityTitle.value"
                   data-ng-change="$ctrl.fieldCityTitle.hOnChange($ctrl.fieldCityTitle.value)" />
                 <span class="text-message">
@@ -228,6 +233,7 @@ define(['./helpers/scrapHelper'], function(helper) {
               </label>
               <div class="col-sm-10">
                 <select class="md form-control"
+                  aria-label="{{$ctrl.fieldCountryTitle.label}} {{ $ctrl.vErrors.country}}"
                   data-ng-model="$ctrl.fieldCountryTitle.value"
                   data-ng-change="$ctrl.fieldCountryTitle.hOnChange($ctrl.fieldCountryTitle.value)"
                   data-ng-options="option.name for option in $ctrl.fieldCountryTitle.options track by option.value">
@@ -245,6 +251,7 @@ define(['./helpers/scrapHelper'], function(helper) {
               </label>
               <div class="col-sm-10">
                 <select class="md form-control"
+                  aria-label="{{$ctrl.fieldStateTitle.label}} {{ $ctrl.vErrors.state }}"
                   data-ng-model="$ctrl.fieldStateTitle.value"
                   data-ng-change="$ctrl.fieldStateTitle.hOnChange($ctrl.fieldStateTitle.value)"
                   data-ng-options="option.name for option in $ctrl.fieldStateTitle.options track by option.value">
@@ -260,7 +267,8 @@ define(['./helpers/scrapHelper'], function(helper) {
                 {{$ctrl.fieldZT.label}}
               </label>
               <div class="col-sm-10">
-                <input class="md form-control" type="text" placeholder=""
+                <input class="md form-control" type="text" 
+                  aria-label="{{$ctrl.fieldZT.label}} {{ $ctrl.vErrors.postalCode }}"
                   data-ng-model="$ctrl.fieldZT.value"
                   data-ng-change="$ctrl.fieldZT.hOnChange($ctrl.fieldZT.value)" />
                 <span class="text-message">
