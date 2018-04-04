@@ -95,9 +95,14 @@ block body
       .flight-title(data-ng-class="{'first-element':$first}")
         span.flight-title-content
           | {{'LABEL_FLIGHT' | translate}} {{$index + 1}}
-        i.icon-action(
-          data-ng-class="{'icon--expanded': location.ui.expanded}"
-          data-ng-click="ui.locations.expandAction(location)")
+        button.btn.btn-primary-outline.pull-right(
+          type="button"
+          aria-expanded="{{location.ui.expanded}}"
+          aria-label="{{'LABEL_FLIGHT' | translate}} {{$index + 1}}"
+          data-ng-click="ui.locations.expandAction(location)" 
+        )
+          i.icon-action(            
+            data-ng-class="{'icon--expanded': location.ui.expanded}")
       .flight-location(
         data-ng-class="{'show-field-error': ui.errors[$index + 1].origin }"
         data-ng-show="location.ui.expanded")

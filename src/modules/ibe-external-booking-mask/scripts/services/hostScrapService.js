@@ -497,7 +497,7 @@ define(['jquery'], function($) {
         let locationSelectorInstance = this // eslint-disable-line
         let locationItem = {
           ui: {
-            expanded: 1,
+            expanded: true,
           },
           origin: {
             locationName: $(locationSelectorInstance.origin.locationName).val(),
@@ -533,7 +533,7 @@ define(['jquery'], function($) {
         }
 
         if(index > 2) {
-          locationItem.ui.expanded = 0
+          locationItem.ui.expanded = false
         }
 
         locations.push(locationItem)
