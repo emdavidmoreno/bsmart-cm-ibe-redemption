@@ -233,13 +233,17 @@ block body
     .l-cabin-type-group(ng-cloak role="radiogroup" aria-label='{{ "LABEL_CABIN_GROUP" | translate }}')
       label(data-ng-click="ui.cabinType.change('Economy')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}")
-        input.radio--custom(type='radio' role="radio" data-ng-model='ui.cabinType.value' value='Economy'
+        input.radio--custom(type='radio' role="radio" 
+          name="ui.cabinType.value" 
+          data-ng-model='ui.cabinType.value' value='Economy'
           data-ng-change='ui.cabinType.change()')
         label
           | {{ 'LABEL_CABIN_ECONOMY' | translate }}
       label(ng-click="ui.cabinType.change('Business')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
-        input.radio--custom(type='radio' role="radio" data-ng-model='ui.cabinType.value' value='Business')
+        input.radio--custom(type='radio' role="radio" 
+          name="ui.cabinType.value" 
+          data-ng-model='ui.cabinType.value' value='Business')
         label
           | {{ 'LABEL_CABIN_BUSINESS' | translate }}
 
