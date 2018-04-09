@@ -66,7 +66,7 @@ define([
            },
           }).autocomplete( 'instance' )
            ._renderItem = function( ul, item ) {
-             return $jq( '<li>' )
+             return $jq( '<li role="presentation" aria-label="'+ item.locationName +'">' )
                .append( '<span>' + item.locationName + '</span>' )
                .appendTo( ul );
            };
