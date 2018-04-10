@@ -33,8 +33,10 @@ block body
                   div(class="title-text title-text--fareclass pull-right {{location.departure.availableClasses[0].cssClass}}")
                     | {{ flight.info.classes[0].name }}
                     span.text--linkify(
+                      id="flight.infoout.bound{{$index}}"
                       tabindex=0
                       aria-label="{{ 'LABEL_FLIGHT_OUTBOUND' | translate }} {{ flight.info.classes[0].name }}"
+                      data-ng-keypress="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true"
                       data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true")
                       | ({{flight.info.classes[0].sellingClass.text}})
                 .flight-list-title(tabindex=0)
