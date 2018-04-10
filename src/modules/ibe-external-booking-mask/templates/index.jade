@@ -41,7 +41,7 @@ block body
             data-ng-model='location.origin.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationOrigin'
-            aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}'
+            aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}. {{ui.errors[$index].origin}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].origin}}
@@ -54,7 +54,7 @@ block body
             data-ng-model='location.destination.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationDestination'
-            aria-label='{{"LABEL_AUTOCOMPLETE_TO" | translate}}'
+            aria-label='{{"LABEL_AUTOCOMPLETE_TO" | translate}}. {{ui.errors[$index].destination}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].destination}}
@@ -69,6 +69,7 @@ block body
               data-ng-model='location.date.origin'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, true)'
               data-jqui-datepicker
+              aria-label='{{ "LABEL_DEPARTURE_DATE" | translate }}. {{ui.errors[$index].departDate}}'
               data-dp-is-from-date='true'
               data-dp-sibling-date='#toDestDate')
           span.text-message
@@ -85,6 +86,7 @@ block body
               data-ng-model='location.date.destination'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, false)'
               data-jqui-datepicker
+              aria-label='{{ "LABEL_ARRIVAL_DATE" | translate }}. {{ui.errors[$index].returnDate}}'
               data-dp-is-from-date='false'
               data-dp-sibling-date='#fromOrigDate')
           span.text-message
