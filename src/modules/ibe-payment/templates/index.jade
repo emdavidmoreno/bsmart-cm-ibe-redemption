@@ -35,7 +35,7 @@ block body
                     aria-label="{{ 'LABEL_FLIGHT_OUTBOUND' | translate }} {{ flight.info.classes[0].name }}"
                     data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
                     | ({{flight.info.classes[0].sellingClass.text}})
-              .flight-list-title
+              .flight-list-title(tabindex=0)
                   | {{location.departure.dates[0].date | date:'MMMM d, y'}}
               div(data-ng-repeat="flightItem in flight")
                 .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
