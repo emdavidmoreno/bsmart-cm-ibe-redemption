@@ -26,11 +26,13 @@ define([
           var dialogOptions = {
             autoOpen: false,
             modal: true,
+            closeOnEscape: false,
             width: attrs.width || 350,
             height: attrs.height || 200,
             draggable: false,
             resizable: false,           
             open: function() {
+              console.log($scope.bsOpenDialog)
               $('.ui-widget-overlay').bind('click', function() {
                 $timeout(function() {
                   $scope.bsCloseFromInner = false;
@@ -39,8 +41,8 @@ define([
               });
             },
             close: function(){
-              if($scope.bsOpenDialog === 'true')
-                $scope.bsOpenDialog = 'false'
+              // if($scope.bsOpenDialog === 'true')
+              //   $scope.bsOpenDialog = 'false'
               if(typeof $scope.bsLastActive == 'undefined' || $scope.bsLastActive.length == 0)
                 return;                             
               var lastAtive = document.getElementById($scope.bsLastActive)
@@ -62,7 +64,15 @@ define([
             }
           });
 
-          $element.dialog(dialogOptions);
+          $element.dialog(dialogOptions)
+          
+          document.addEventListener("keydown", function(evt){
+            if(evt.keyCode == 27){
+              $element.find(".close").click()
+            }
+            evt.stopPropagation();
+          }, true)
+
         }
      };
    }
