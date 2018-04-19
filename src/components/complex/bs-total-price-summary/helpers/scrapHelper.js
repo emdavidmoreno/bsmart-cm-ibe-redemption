@@ -3,6 +3,7 @@ define(['jquery'], function ($jq) {
   'use strict'
   const PRICE_BASE_INFO_SELECTOR = '.expandedSection:eq(0) .detailedPrice tbody tr td.price'
   const TOTAL_PRICE_SELECTOR = 'table tr.totalPriceRow span.money'
+  const SUB_TOTAL_PRICE_SELECTOR = 'div.sub-total-price span.sub-total-price__price span.money'
   const PRICE_INSURENCE_SELECTOR = '.expandedSection:eq(1)'
   const INSURANCE_SELECTOR = 'td div[id*="idInsurance1"]'
   const FARE_HOLD_SELECTOR = 'td div[id*="idAncillaryOptionElement"]'
@@ -112,6 +113,8 @@ define(['jquery'], function ($jq) {
    * @return {String}
    */
   const getTotalPrice = () => {
+    if(existFareHoldTable())
+      return $jq(SUB_TOTAL_PRICE_SELECTOR).text().trim();
     return $jq(TOTAL_PRICE_SELECTOR).text().trim();
   }
 
@@ -122,7 +125,7 @@ define(['jquery'], function ($jq) {
   const getFareHoldCategory = ()=> {
     return $jq(FARE_HOLD_SELECTOR).text().trim()
   }
-  
+
 
 
   return {
