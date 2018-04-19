@@ -321,6 +321,7 @@ block body
                   strong(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash == -1")
                        | N/A
               include ../../../templates/partials/sellingClassDialog.jade
+    bs-fare-hold-component
     section
       .m-card.m-card--muted(data-ng-repeat="message in ui.mediaInfoMessages" ng-cloak)
         header.title

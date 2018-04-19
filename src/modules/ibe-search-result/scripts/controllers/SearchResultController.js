@@ -13,12 +13,13 @@ define([
   '../../../../scripts/filters/collUnique',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
+  '../../../../components/complex/bs-fare-hold/index.component',
   'statsService',
   'lodash',
   '../../../../scripts/services/hostUIService',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
-  jquiDialog, statsService, _, ApphostUIService) {
+  jquiDialog, bsFareHoldComponent, statsService, _, ApphostUIService) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -800,6 +801,7 @@ define([
       .filter('sanitize', sanitize)
       .filter('unique', collUnique)
       .directive('jquiDialog', jquiDialog)
+      .component('bsFareHoldComponent', bsFareHoldComponent)
       .controller('SearchResultController', SearchResultController)
   })({})
 
