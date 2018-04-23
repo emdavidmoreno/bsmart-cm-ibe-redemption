@@ -36,7 +36,8 @@ define(['./helpers/scrapHelper'], function (helper) {
       $timeout(function () {  
         ctrl.existInsuranceTable = helper.existInsuranceTable() 
         ctrl.priceInsuranceInfo = helper.getPriceInsuranceInfo() 
-        ctrl.totalPrice = helper.getTotalPrice()      
+        ctrl.totalPrice = helper.getTotalPrice()    
+        ctrl.totalPriceLabel = helper.getTotalPriceLabel() 
        }, 1000)
     }
 
@@ -123,7 +124,7 @@ define(['./helpers/scrapHelper'], function (helper) {
           </div>
           <header class="title">
             <h4 class="title-text">
-              {{ "LABEL_TOTAL" | translate }}
+              {{ $ctrl.totalPriceLabel }}
               <strong class="title-text--right">
                 {{$ctrl.totalPrice}}
               </strong>

@@ -127,7 +127,10 @@ define(['jquery'], function ($jq) {
   }
 
   const getTotalPriceLabel = () => {
-    return $jq()
+    if(existFareHoldTable())
+      return $jq('span[class="sub-total-price__label"]').text().trim()
+    return $jq('.totalPrice .totalPriceRow td[class="label"]').text().trim()
+    //return "Total"
   }
 
   
@@ -141,6 +144,7 @@ define(['jquery'], function ($jq) {
     existInsuranceTable,
     getLinkOption,
     existCOP,
-    getTotalPrice
+    getTotalPrice,
+    getTotalPriceLabel
   }
 })
