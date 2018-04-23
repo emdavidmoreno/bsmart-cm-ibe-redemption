@@ -53,16 +53,16 @@ define([
         controller: bsFareHoldController,
         template : `
         <div class="fare-hold-container">
-            <section>
+            <section tabindex=0>
                 <h3>Flight Offers</h3>
             </section>
             <div class="fare-hold-content text-center">
-                    <div class="fare-hold-content-row">
+                    <div class="fare-hold-content-row" tabindex=0>
                         <img src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/fare-hold-logo.png"
                          alt="Fare Hold">
                     </div>
                     <div class="fare-hold-content-row"> 
-                        <p class="fare-hold-description-text">
+                        <p class="fare-hold-description-text" tabindex=0>
                             {{$ctrl.fareHold.textDescription}}
                         </p>
                         <p class="fare-hold-description-note" 
@@ -71,6 +71,7 @@ define([
                     </div>
                 <div class="fare-hold-content-row">                          
                         <button class="btn btn-default" 
+                            aria-selected="{{option.checked}}"
                             data-ng-class="{'selected': option.checked == true}"
                             data-ng-repeat="option in $ctrl.fareHold.priceOptions"
                             data-ng-click="option.changeStatus(option)"
