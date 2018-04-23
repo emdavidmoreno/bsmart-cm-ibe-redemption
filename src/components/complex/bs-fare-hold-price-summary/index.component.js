@@ -52,7 +52,7 @@ define([
             class="m-card m-card--flat m-card--bordered m-card--primary margin-bottom-sm">
             <section>
                 <div class="fhps-content">
-                    <p>
+                    <p tabindex=0>
                         <strong >
                          {{$ctrl.fhPriceSummary.getFareHoldCategory}} :
                         </strong>
@@ -60,25 +60,24 @@ define([
                           {{$ctrl.fhPriceSummary.getFareHoldPrice}}
                         </span>
                     </p>
-                    <p>
-                        <strong class="ng-binding">
+                    <p tabindex=0>
+                        <strong >
                             {{$ctrl.fhPriceSummary.getFareHoldTaxesLabel}}:
                         </strong>
-                        <span class="pull-right ng-binding">
+                        <span class="pull-right">
                             {{$ctrl.fhPriceSummary.getFareHoldTaxesPrice}}
                         </span>
                     </p>
                 </div>               
             </section>
             <header class="title">
-                <h4 class="title-text ng-binding">
+                <h4 class="title-text" tabindex=0>
                     {{$ctrl.fhPriceSummary.getFareHoldTotalLabel}}
                     <strong class="title-text--right ng-binding">
                         {{$ctrl.fhPriceSummary.getFareHoldTotalPrice}}
                     </strong>
                 </h4>
-            </header>
-            
+            </header>            
         </div>
         `
     }
