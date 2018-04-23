@@ -126,6 +126,11 @@ define(['jquery'], function ($jq) {
     return $jq(FARE_HOLD_SELECTOR).text().trim()
   }
 
+  const getTotalPriceLabel = () => {
+    return $jq()
+  }
+
+  
 
 
   return {

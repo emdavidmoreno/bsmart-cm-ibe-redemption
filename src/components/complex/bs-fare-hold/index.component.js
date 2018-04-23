@@ -8,8 +8,6 @@ define([
 
         var ctrl = this
 
-        ctrl.test = "ssivisfbisfbisfbi"
-
         $scope.$on("app:language-changed", function(){
      
             syncUI();

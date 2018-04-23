@@ -19,10 +19,12 @@ define([
   'statsService',
   '../../../../scripts/services/hostUIService',
   '../../../../components/complex/bs-total-price-summary/index.component',
+  '../../../../components/complex/bs-fare-hold-price-summary/index.component',
 ], function($, angular, hostUIService,
   hostScrapService, hostProxyService, strDuration, strSimpleDate,
   sanitize, collUnique, appHostProxyService, jquiDialog, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, _, statsService, ApphostUIService,bsTotalPriceSummaryComponent) {
+  bsItineraryPricingCardPerPassenger, _, statsService, ApphostUIService,
+  bsTotalPriceSummaryComponent, bsFareHoldPriceSummaryComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -684,6 +686,7 @@ define([
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
         .component('bsTotalPriceSummaryComponent',bsTotalPriceSummaryComponent)
+        .component('bsFareHoldPriceSummaryComponent', bsFareHoldPriceSummaryComponent)
         .controller('ItinerarySummaryController', ItinerarySummaryController)
   })({})
 
