@@ -131,17 +131,25 @@ block body
                       span.departing
                         strong.time
                           |  {{fInfo.departure_time | simpledate}}
+                          sup(
+                            data-ng-repeat="dec in fInfo.disclaimer"
+                            data-ng-if="dec.field == 'departure_time'")
+                            | {{location.disclaimer_mapping[dec.id].symbol}}
                         span.location
                           | {{fInfo.origin_airport_code}}
                       i.direction-going
                       span.returning
                         strong.time
                           |  {{fInfo.arrival_time | simpledate}}
+                          sup(
+                            data-ng-repeat="dec in fInfo.disclaimer"
+                            data-ng-if="dec.field == 'arrival_time'")
+                            | {{location.disclaimer_mapping[dec.id].symbol}}
                         span.location
                           | {{fInfo.destination_airport_code}}
                       .declaimer
                         span(data-ng-repeat="dec in fInfo.disclaimer"
-                          data-ng-if="dec.field == 'flight_number'")
+                          data-ng-if="dec.field == 'flight_number' || dec.field == 'arrival_time'")
                           span(data-ng-if="dec.isOperateBy")
                             | {{dec.id}}
                           span(data-ng-if="!dec.isOperateBy")
@@ -154,7 +162,7 @@ block body
                     div.flight-duration(data-ng-if="flight.info.duration && flight.info.duration >= 0")
                       |  -
                       | {{flight.info.duration | duration}}
-                
+
                   .flight-selling-class(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash >= 0")
                     span
                       | (
@@ -282,17 +290,25 @@ block body
                     span.departing
                       strong.time
                         |  {{fInfo.departure_time |simpledate}}
+                        sup(
+                          data-ng-repeat="dec in fInfo.disclaimer"
+                          data-ng-if="dec.field == 'departure_time'")
+                          | {{location.disclaimer_mapping[dec.id].symbol}}
                       span.location
                         | {{fInfo.origin_airport_code}}
                     i.direction-going
                     span.returning
                       strong.time
-                        |  {{fInfo.arrival_time |simpledate}}
+                        |  {{fInfo.arrival_time | simpledate}}
+                        sup(
+                          data-ng-repeat="dec in fInfo.disclaimer"
+                          data-ng-if="dec.field == 'arrival_time'")
+                          | {{location.disclaimer_mapping[dec.id].symbol}}
                       span.location
                         | {{fInfo.destination_airport_code}}
                     .declaimer
                       span(data-ng-repeat="dec in fInfo.disclaimer"
-                        data-ng-if="dec.field == 'flight_number'")
+                        data-ng-if="dec.field == 'flight_number' || dec.field == 'arrival_time'")
                         span(data-ng-if="dec.isOperateBy")
                           | {{dec.id}}
                         span(data-ng-if="!dec.isOperateBy")
@@ -303,7 +319,7 @@ block body
                     | {{ 'LABEL_FLIGHT_NO_STOPS' | translate }}
                   div.flight-duration(data-ng-if="flight.info.duration && flight.info.duration >= 0")
                     | - {{flight.info.duration | duration}}
-                
+
               .flight-selling-class(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash >= 0")
                 span
                   | (
