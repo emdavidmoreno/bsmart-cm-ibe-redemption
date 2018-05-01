@@ -511,6 +511,7 @@ define([
                 cls.sellingClass = {
                   text: sellingClassLink.text(),
                   onclick: function() {
+                    var lastActiveId = document.activeElement.id
                     hostUIService.swapToBSFillFareRuleTabCallback()
                     sellingClassLink[0].click()
                     $('#airFareRulesPopUpOuter').attr('style', 'display:none')
@@ -518,6 +519,7 @@ define([
 
                     $scope.ui.sellingClass.isLoading = true
                     $scope.ui.sellingClass.openDialog = true
+                    $scope.ui.sellingClass.lastActive = lastActiveId
                   },
                 }
               }

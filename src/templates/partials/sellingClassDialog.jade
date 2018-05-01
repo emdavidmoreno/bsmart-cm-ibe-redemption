@@ -1,11 +1,16 @@
 .dialog-container(data-jqui-dialog
   data-bs-open-dialog="{{ui.sellingClass.openDialog}}"
-  data-bs-close-from-inner="ui.sellingClass.openDialog")
+  data-bs-last-active="{{ui.sellingClass.lastActive}}"
+  data-bs-close-from-inner="ui.sellingClass.openDialog"
+  data-ng-keypress="ui.sellingClass.openDialog=false")
     .m-selling-class-dialog
       .m-dialog-head
         span(data-ng-if="ui.sellingClass.isDeparture")
           | {{location.departure.selectedClassIndex.name}}
-        span.close(data-ng-click="ui.sellingClass.openDialog=false")
+        span.close(
+          aria-label="Close dialog"
+          data-ng-click="ui.sellingClass.openDialog=false"
+        )
           | X
         span(data-ng-if="!ui.sellingClass.isDeparture")
           | {{location.return.selectedClassIndex.name}}

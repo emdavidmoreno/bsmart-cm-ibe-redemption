@@ -13,7 +13,9 @@ define([
        restrict: 'A',
        scope: {
          bsOpenDialog: '@',
-         bsCloseFromInner: '='
+         bsCloseFromInner: '=',
+         bsLastActive: "@"
+
        },
        replace:false,
        transclude: true,  // transclusion allows for the dialog
@@ -24,17 +26,27 @@ define([
           var dialogOptions = {
             autoOpen: false,
             modal: true,
+            closeOnEscape: false,
             width: attrs.width || 350,
             height: attrs.height || 200,
             draggable: false,
-            resizable: false,
+            resizable: false,           
             open: function() {
+              console.log($scope.bsOpenDialog)
               $('.ui-widget-overlay').bind('click', function() {
                 $timeout(function() {
                   $scope.bsCloseFromInner = false;
                 }, 0);
                 $element.dialog('close');
               });
+            },
+            close: function(){
+              // if($scope.bsOpenDialog === 'true')
+              //   $scope.bsOpenDialog = 'false'
+              if(typeof $scope.bsLastActive == 'undefined' || $scope.bsLastActive.length == 0)
+                return;                             
+              var lastAtive = document.getElementById($scope.bsLastActive)
+              lastAtive.focus()
             }
           };
           // This works when observing an interpolated attribute
@@ -42,15 +54,25 @@ define([
           // must be compared with the string 'true' and not a boolean
           // using open: '@' and open="{{dialogOpen}}"
           attrs.$observe('bsOpenDialog', function(val) {
+            
             if (val === 'true') {
               $element.dialog('open');
             }
             else {
-              $element.dialog('close');
+              $element.dialog('close');           
+              
             }
           });
 
-          $element.dialog(dialogOptions);
+          $element.dialog(dialogOptions)
+          
+          document.addEventListener("keydown", function(evt){
+            if(evt.keyCode == 27){
+              $element.find(".close").click()
+            }
+            evt.stopPropagation();
+          }, true)
+
         }
      };
    }

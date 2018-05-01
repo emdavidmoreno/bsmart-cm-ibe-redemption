@@ -2,19 +2,19 @@ extends ../../../templates/layout.jade
 
 block body
   div.m-passenger-information(data-ng-controller="PaymentController")
-    .l-messages(data-ng-cloak)
+    .l-messages(data-ng-cloak role="alert" aria-live="assertive")
       .m-message(data-ng-repeat="message in ui.messages"
         data-ng-class="{error: message.type == 'error'}")
         i
         p {{message.content}}
     section(ng-show="!ui.showPaymentInformation")
-      h2
+      h2(tabindex=0)
         | {{'LABEL_REVIEW_YOUR_ITINERARY_AND_PRICE' | translate}}
       div
         header.title
           h4.title-text
         .content(data-ng-repeat="location in ui.locations")
-          div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak)
+          div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak tabindex=0)
             strong {{$index + 1}}
             span
               | {{location.extra_info.geo.origin_city_name}}
@@ -30,14 +30,19 @@ block body
                   | {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
                 div(class="title-text title-text--fareclass pull-right {{location.departure.availableClasses[0].cssClass}}")
                   | {{flight.info.classes[0].name}}
-                  span.text--linkify(data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
+                  span.text--linkify(
+                    id="flight.infoout.bound{{$index}}"
+                    tabindex=0
+                    aria-label="{{ 'LABEL_FLIGHT_OUTBOUND' | translate }} {{ flight.info.classes[0].name }}"
+                    data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false"
+                    data-ng-keypress="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
                     | ({{flight.info.classes[0].sellingClass.text}})
-              .flight-list-title
+              .flight-list-title(tabindex=0)
                   | {{location.departure.dates[0].date | date:'MMMM d, y'}}
               div(data-ng-repeat="flightItem in flight")
                 .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
                   .flight
-                    .l-flight-detail
+                    .l-flight-detail(tabindex=0)
                       .flight-detail.flight-detail--origin
                         span.location
                           | {{flight_list_item.origin_airport_code}}
@@ -59,8 +64,10 @@ block body
                             data-ng-if="dec.field == 'arrival_time'")
                             | {{location.disclaimer_mapping[dec.id].symbol}}
                     .flight-number.text-primary(
+                      tabindex=0
                       data-ng-if="flight_list_item.number.length > 0"
                       data-ng-click="flight_list_item.onclick()"
+                      data-ng-keypress="flight_list_item.onclick()"
                     )
                       | {{flight_list_item.number}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
@@ -77,14 +84,19 @@ block body
                   | {{ 'LABEL_FLIGHT_INBOUND' | translate }}
                 div(class="title-text title-text--fareclass pull-right {{location.return.availableClasses[0].cssClass}}")
                   | {{flight.info.classes[0].name}}
-                  span.text--linkify(data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true")
+                  span.text--linkify(
+                    id="flight.infoin.bound{{$index}}"
+                    tabindex=0
+                    aria-label="{{ 'LABEL_FLIGHT_INBOUND' | translate }} {{flight.info.classes[0].name}}"
+                    data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true"
+                    data-ng-keypress="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true")
                     | ({{flight.info.classes[0].sellingClass.text}})
-              .flight-list-title
+              .flight-list-title(tabindex=0)
                   | {{location.return.dates[0].date | date:'MMMM d, y'}}
               div(data-ng-repeat="flightItem in flight")
                 .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
                   .flight
-                    .l-flight-detail
+                    .l-flight-detail(tabindex=0)
                       .flight-detail.flight-detail--origin
                         span.location
                           | {{flight_list_item.origin_airport_code}}
@@ -106,8 +118,10 @@ block body
                             data-ng-if="dec.field == 'arrival_time'")
                             | {{location.disclaimer_mapping[dec.id].symbol}}
                     .flight-number.text-primary(
+                      tabindex=0
                       data-ng-if="flight_list_item.number.length > 0"
                       data-ng-click="flight_list_item.onclick()"
+                      data-ng-keypress="flight_list_item.onclick()"
                     )
                       | {{flight_list_item.number}}
                       sup(
@@ -130,9 +144,9 @@ block body
     //- bs-summary-seats-prices-component
 
     section(data-ng-cloak ng-show="!ui.showPaymentInformation")
-      h3  {{'LABEL_PASSENGERS' | translate}}
+      h3(tabindex=0)  {{'LABEL_PASSENGERS' | translate}}
       .m-card.m-card--flat.m-card--bordered
-        .content.content--small-vertical-padding(data-ng-repeat="passenger in ui.passengers_info")
+        .content.content--small-vertical-padding(data-ng-repeat="passenger in ui.passengers_info" tabindex=0)
           p
             strong
               | {{passenger.name}}
@@ -144,7 +158,7 @@ block body
               small.pull-right(data-ng-if="passenger.frequent_flyer_number != '-'")
                 | {{passenger.frequent_flyer_number}}
     section(ng-show="!ui.showPaymentInformation")
-      div.m-card.m-card--muted(ng-cloak)
+      div.m-card.m-card--muted(ng-cloak tabindex=0)
         header.title
           h4.title-text
             i.title-icon
@@ -156,16 +170,18 @@ block body
       button(type="button" data-ng-click='acceptInformationContinueAction()')
         | {{'LABEL_CONTINUE' | translate}}
     section(ng-show="ui.showPaymentInformation")
-      h2
+      h2(tabindex=0)
         | {{'LABEL_BILLING_INFO' | translate}}
-      div.m-card.m-card--muted(ng-cloak)
+      div.m-card.m-card--muted(ng-cloak tabindex=0)
         header.title
           h4.title-text
             i.title-icon
             | {{'LABEL_IMPORTANT' | translate}}
         div.content
           span(ng-bind-html="ui.static_messages.fbBillingInfoMessage.content | sanitize")
-      div.m-card.m-card--muted(ng-cloak data-ng-if="ui.card_images && !ui.states.showBlockPayments")
+      div.m-card.m-card--muted(ng-cloak 
+        tabindex=0
+        data-ng-if="ui.card_images && !ui.states.showBlockPayments")
         div.content
           span(ng-bind-html="ui.card_images | sanitize")
 
@@ -194,7 +210,7 @@ block body
 
       div.m-card(data-ng-show="ui.states.cc")
         header.title
-          h4.title-text
+          h4.title-text(tabindex=0)
             | {{'LABEL_CARD_INFO' | translate}}
         div.content
          .form-group.md(data-ng-class="{'show-field-error': ui.partialErrors.cardType }" data-ng-show="ui.isCreditCardsSaved")
@@ -202,6 +218,7 @@ block body
               | {{'LABEL_CARD_SAVED' | translate}}
             .col-sm-10
               select.md.form-control(
+                aria-label="{{'LABEL_CARD_SAVED' | translate}}"
                 data-ng-model="ui.payment.saved_card_select"
                 data-ng-change="ui.payment.setSavedCardsList(ui.payment.saved_card_select)"
                 data-ng-options="option.name for option in ui.payment.savedCards track by option.value")
@@ -210,6 +227,8 @@ block body
               | {{'LABEL_CARD_TYPE' | translate}}
             .col-sm-10
               select.md.form-control(
+                required
+                aria-label="{{'LABEL_CARD_TYPE' | translate}} {{ ui.partialErrors.cardType }}"
                 data-ng-model="ui.payment.cardType"
                 data-ng-change="ui.payment.setCardType(ui.payment.cardType)"
                 data-ng-options="option.name for option in ui.payment.cardTypes track by option.value")
@@ -222,6 +241,7 @@ block body
               | {{'LABEL_CARD_ISSUING_COUNTRY' | translate}}
             .col-sm-10
               select.md.form-control(
+                aria-label="{{'LABEL_CARD_ISSUING_COUNTRY' | translate}} {{ ui.partialErrors.cardCountry }}"
                 data-ng-model="ui.payment.cardCountry"
                 data-ng-change="ui.payment.setCardCountry(ui.payment.cardCountry.value)"
                 data-ng-options="option.name for option in ui.payment.cardIssuingCountries track by option.value")
@@ -234,6 +254,7 @@ block body
               | {{'LABEL_CARD_CURRENCY' | translate}}
             .col-sm-10
               select.md.form-control(
+                aria-label="{{'LABEL_CARD_CURRENCY' | translate}} {{ ui.partialErrors.cardCurrency }}"
                 data-ng-disabled="ui.payment.cardCountry.value === ''"
                 data-ng-model="ui.payment.cardCurrency"
                 data-ng-change="ui.payment.setCardCurrency(ui.payment.cardCurrency.value)"
@@ -248,6 +269,7 @@ block body
               | {{'LABEL_INSTALLMENTS' | translate}}
             .col-sm-10
               select.md.form-control(
+                aria-label="{{'LABEL_INSTALLMENTS' | translate}} {{ ui.partialErrors.installments }}"
                 data-ng-model="ui.payment.installments"
                 data-ng-change="ui.payment.setInstallments(ui.payment.installments.value)"
                 data-ng-options="option.name for option in ui.payment.installmentsOptions track by option.value")
@@ -259,6 +281,7 @@ block body
               |  {{'LABEL_CARDHOLDER_NAME' | translate}}
             .col-sm-10
               input.md.form-control(type='text' placeholder='Cardholders Name'
+                aria-label="{{'LABEL_CARDHOLDER_NAME' | translate}} {{ ui.partialErrors.cardHolderName }}"
                 data-ng-model="ui.payment.cardHolderName"
                 data-ng-change="ui.payment.setCardHolderName(ui.payment.cardHolderName)")
               span.text-message
@@ -270,6 +293,7 @@ block body
               |  {{'LABEL_CARD_NUMBER' | translate}}
             .col-sm-10()
               input.md.form-control(type='text' placeholder=''
+                aria-label="{{'LABEL_CARD_NUMBER' | translate}} {{ ui.partialErrors.cardNumber }}"
                 data-ng-model="ui.payment.cardNumber"
                 data-ng-readonly="ui.isCreditCardsSaved"
                 data-ng-change="ui.payment.setCardNumber(ui.payment.cardNumber)"
@@ -283,10 +307,12 @@ block body
               br
               select.md.form-control(
                 data-ng-model="ui.payment.edExpirationMonth"
+                aria-label=" Month  {{ ui.partialErrors.edExpirationMonth }}"
                 data-ng-change="ui.payment.setEdExpirationMonth(ui.payment.edExpirationMonth)"
                 data-ng-options="option.name for option in ui.payment.expirationDatesMonth track by option.value")
               select.md.form-control(
                 data-ng-model="ui.payment.edExpirationYear"
+                aria-label="Year {{ ui.partialErrors.edExpirationYear }}"
                 data-ng-change="ui.payment.setEdExpirationYear(ui.payment.edExpirationYear)"
                 data-ng-options="option.name for option in ui.payment.expirationDatesYear track by option.value")
               span.text-message(data-ng-if="ui.partialErrors.edExpirationMonth")
@@ -299,7 +325,8 @@ block body
             label.col-sm-2.control-label.control-label--block.field-required
               | {{'LABEL_DOCUMENT_NUMBER' | translate}}
             .col-sm-3
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text'
+                aria-label="{{'LABEL_DOCUMENT_NUMBER' | translate}} {{ ui.partialErrors.documentNumber }}"
                 data-ng-model="ui.payment.documentNumber"
                 data-ng-change="ui.payment.setDocumentNumber(ui.payment.documentNumber)")
               span.text-message
@@ -310,7 +337,8 @@ block body
             label.col-sm-2.control-label.control-label--block.field-required
               | {{'LABEL_DOCUMENT_ID' | translate}}
             .col-sm-3
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text' 
+                aria-label="{{'LABEL_DOCUMENT_ID' | translate}} {{ ui.partialErrors.documentId }}"
                 data-ng-model="ui.payment.documentId"
                 data-ng-change="ui.payment.setDocumentId(ui.payment.documentId)")
               span.text-message
@@ -321,7 +349,8 @@ block body
             label.col-sm-2.control-label.control-label--block.field-required
               | {{'LABEL_SECURITY_CODE' | translate}}
             .col-sm-3
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text'
+                aria-label="{{'LABEL_SECURITY_CODE' | translate}} {{ ui.partialErrors.securityCode }}"
                 data-ng-model="ui.payment.securityCode"
                 data-ng-change="ui.payment.setSecurityCode(ui.payment.securityCode)"
                 data-ng-focus="focusToSecurityCodeIframe()")
@@ -332,11 +361,13 @@ block body
             label.col-sm-2.control-label.control-label--block.field-required
               | {{'LABEL_CARDHOLDER_PHONE' | translate}}
             .col-sm-3.phone-country-code
-              input.md.form-control(type='tel' placeholder=''
+              input.md.form-control(type='tel' 
+                aria-label="Phone code. {{ ui.partialErrors.cardHolderPhoneCode }}"
                 data-ng-model="ui.payment.cardHolderPhoneCode"
                 data-ng-change="ui.payment.setCardHolderPhoneCode(ui.payment.cardHolderPhoneCode)")
             .col-sm-9.phone-number
-              input.md.form-control(type='tel' placeholder=''
+              input.md.form-control(type='tel' 
+                aria-label="Phone number. {{ ui.partialErrors.cardHolderPhoneNumber }}"
                 data-ng-model="ui.payment.cardHolderPhoneNumber"
                 data-ng-change="ui.payment.setCardHolderPhoneNumber(ui.payment.cardHolderPhoneNumber)")
             span.text-message
@@ -348,7 +379,8 @@ block body
             label.col-sm-2.control-label.field-required
               | {{'LABEL_CARDHOLDER_EMAIL' | translate}}
             .col-sm-10
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text' 
+                aria-label="{{'LABEL_CARDHOLDER_EMAIL' | translate}} {{ ui.partialErrors.cardHolderEmail }}"
                 data-ng-model="ui.payment.cardHolderEmail"
                 data-ng-change="ui.payment.setCardHolderEmail(ui.payment.cardHolderEmail)")
               span.text-message
@@ -371,7 +403,7 @@ block body
 
       div.m-card(data-ng-show="!ui.isCreditCardsSaved && ui.states.cc")
         header.title
-          h4.title-text
+          h4.title-text(tabindex=0)
             | {{'LABEL_BILLING_ADDRESS' | translate}}
         div.content
           .form-group.md(
@@ -379,7 +411,8 @@ block body
             label.col-sm-2.control-label.field-required
               | {{'LABEL_ADDRESS_LINE_1' | translate}}
             .col-sm-10
-              input.md.form-control(type='text' placeholder=''
+              input.md.form-control(type='text' 
+                aria-label="{{'LABEL_ADDRESS_LINE_1' | translate}} {{ ui.partialErrors.baAddressLine1 }}"
                 data-ng-model="ui.payment.baAddressLine1"
                 data-ng-change="ui.payment.setBaAddressLine1(ui.payment.baAddressLine1)")
               span.text-message
@@ -390,6 +423,7 @@ block body
               | {{'LABEL_ADDRESS_LINE_2' | translate}}
             .col-sm-10
               input.md.form-control(type='text'
+                aria-label="{{'LABEL_ADDRESS_LINE_2' | translate}} {{ ui.partialErrors.baAddressLine2 }}"
                 data-ng-model="ui.payment.baAddressLine2"
                 data-ng-change="ui.payment.setBaAddressLine2(ui.payment.baAddressLine2)")
               span.text-message
@@ -399,7 +433,8 @@ block body
             label.col-sm-2.control-label.field-required
               | {{'LABEL_CITY' | translate}}
             .col-sm-10
-              input.md.form-control(type='text' placeholder=""
+              input.md.form-control(type='text' 
+                aria-label="{{'LABEL_CITY' | translate}} {{ ui.partialErrors.baCity }}"
                 data-ng-model="ui.payment.baCity"
                 data-ng-change="ui.payment.setBaCity(ui.payment.baCity)")
               span.text-message
@@ -410,6 +445,7 @@ block body
               | {{'LABEL_COUNTRY' | translate}}
             .col-sm-10
               select.md.form-control(
+                aria-label="{{'LABEL_COUNTRY' | translate}} {{ ui.partialErrors.baCountry }}"
                 data-ng-model="ui.payment.baCountry"
                 data-ng-change="ui.payment.setBaCountry(ui.payment.baCountry)"
                 data-ng-options="option.name for option in ui.payment.countries track by option.value"
@@ -422,6 +458,7 @@ block body
               | {{'LABEL_STATE' | translate}}
             .col-sm-10
               select.md.form-control(
+                aria-label="{{'LABEL_STATE' | translate}} {{ ui.partialErrors.baStateDisplay }}"
                 data-ng-model="ui.payment.baStateDisplay"
                 data-ng-change="ui.payment.setBaStateDisplay(ui.payment.baStateDisplay)"
                 data-ng-options="option.name for option in ui.payment.states track by option.value")
@@ -433,15 +470,16 @@ block body
               | {{'LABEL_POSTAL_ZIP_CODE' | translate}}
             .col-sm-10
               input.md.form-control(data-ng-disabled="ui.payment.baStateDisplay === ''" type='text' placeholder=''
+                aria-label="{{'LABEL_POSTAL_ZIP_CODE' | translate}} {{ ui.partialErrors.baPostalCode }}"
                 data-ng-model="ui.payment.baPostalCode"
                 data-ng-change="ui.payment.setBaPostalCode(ui.payment.baPostalCode)")
               span.text-message
                 | {{ ui.partialErrors.baPostalCode }}
 
     section(ng-show="ui.showPaymentInformation")
-      h2
+      h2(tabindex=0)
         | {{'LABEL_TERM_CONDITION' | translate}}
-      div.m-card.m-card--muted(ng-cloak)
+      div.m-card.m-card--muted(ng-cloak tabindex=0)
         header.title
           h4.title-text
             i.title-icon
@@ -452,18 +490,21 @@ block body
         div.content
           div.agreement-container(data-ng-class="{'show-field-error': ui.partialErrors.termsConditions }")
             input.inline-checkbox(
+              aria-labelledby="terms-condition-content"
               type='checkbox'
               data-ng-model="ui.agreements.termsConditions"
               data-ng-change="ui.agreements.acceptTermsAndConditions()")
-            label.inline-label(ng-bind-html="ui.static_messages.tbTermsConditionsLabel.content | sanitize")
+            label.inline-label(
+              id="terms-condition-content"
+              ng-bind-html="ui.static_messages.tbTermsConditionsLabel.content | sanitize")
             div
               span.text-message
                 | {{ ui.partialErrors.termsConditions }}
 
     section(ng-show="ui.showPaymentInformation")
-      h2
+      h2(tabindex=0)
         | {{'LABEL_RESTRICTED_ITEMS' | translate}}
-      div.m-card.m-card--muted(ng-cloak)
+      div.m-card.m-card--muted(ng-cloak tabindex=0)
         header.title
           h4.title-text
             i.title-icon
@@ -475,12 +516,15 @@ block body
           .form-group.md.agreement-container(
             data-ng-class="{'show-field-error': ui.partialErrors.hazardousMaterials }")
             input.inline-checkbox(
+              aria-labelledby="ui.agreements.hazardousMaterials"
               type='checkbox'
               data-ng-model="ui.agreements.hazardousMaterials"
               data-ng-change="ui.agreements.acceptHazardousMaterials()")
-            label.inline-label(ng-bind-html="ui.static_messages.hazardousMaterialsAgreementLabel.content | sanitize")
+            label.inline-label(
+              id="ui.agreements.hazardousMaterials"
+              ng-bind-html="ui.static_messages.hazardousMaterialsAgreementLabel.content | sanitize")
             .col-sm-10
-              span.text-message
+              span.text-message                
                 | {{ ui.partialErrors.hazardousMaterials }}
     div(bs-card-ref-id)
     .l-action(ng-show="ui.showContinueButton && ui.showPaymentInformation")
