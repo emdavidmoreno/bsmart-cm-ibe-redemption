@@ -85,7 +85,6 @@ block body
                         span.time
                           |  {{flight_list_item.departure_time |simpledate}}
                       i.flight-direction
-                      
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
@@ -96,10 +95,18 @@ block body
                       data-ng-keypress="flight_list_item.onclick()"
                       data-ng-click="flight_list_item.onclick()")
                       | {{flight_list_item.number}}
+<<<<<<< HEAD
                   .declaimer(
                     tabindex=0 
                     data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
                     | {{ui.disclaimer_mapping[dec.id].text}}
+=======
+                  .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
+                    span(data-ng-if="dec.isOperateBy")
+                      | {{dec.id}}
+                    span(data-ng-if="!dec.isOperateBy")
+                      | {{{ui.disclaimer_mapping[dec.id].text}}
+>>>>>>> ffe931d048f6aefc84add931629d7ce287b66053
                   br
                 .price(data-ng-if="flightItem.info.classes[0].price.cash" tabindex=0)
                   | {{ui.total_price.currency_code}} {{flightItem.info.classes[0].price.cash}}
@@ -129,7 +136,6 @@ block body
                         span.time
                           |  {{flight_list_item.departure_time |simpledate}}
                       i.flight-direction
-                     
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
@@ -140,10 +146,18 @@ block body
                       data-ng-click="flight_list_item.onclick()"
                       data-ng-keypress="flight_list_item.onclick()")
                       | {{flight_list_item.number}}
+<<<<<<< HEAD
                   .declaimer(
                     tabindex=0
                     data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
                     | {{ui.disclaimer_mapping[dec.id].text}}
+=======
+                  .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
+                    span(data-ng-if="dec.isOperateBy")
+                      | {{dec.id}}
+                    span(data-ng-if="!dec.isOperateBy")
+                      | {{{ui.disclaimer_mapping[dec.id].text}}
+>>>>>>> ffe931d048f6aefc84add931629d7ce287b66053
                   br
                 .price(data-ng-if="flightItem.info.classes[0].price.cash" tabindex=0)
                   | {{ui.total_price.currency_code}} {{flightItem.info.classes[0].price.cash}}
