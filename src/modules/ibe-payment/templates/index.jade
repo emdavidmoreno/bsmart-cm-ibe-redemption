@@ -48,7 +48,7 @@ block body
                             data-ng-if="dec.field == 'departure_time'")
                             | {{location.disclaimer_mapping[dec.id].symbol}}
                       i.flight-direction
-                     
+
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
@@ -64,7 +64,10 @@ block body
                     )
                       | {{flight_list_item.number}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
-                    | {{ui.disclaimer_mapping[dec.id].text}}
+                    span(data-ng-if="dec.isOperateBy")
+                      | {{dec.id}}
+                    span(data-ng-if="!dec.isOperateBy")
+                      | {{{ui.disclaimer_mapping[dec.id].text}}
                   br
             .itinerary-summary-flight.itinerary-summary-flight--return(
               data-ng-repeat="flight in location.return.dates[0].flights"
@@ -92,7 +95,7 @@ block body
                             data-ng-if="dec.field == 'departure_time'")
                             | {{location.disclaimer_mapping[dec.id].symbol}}
                       i.flight-direction
-                      
+
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
@@ -112,7 +115,10 @@ block body
                         data-ng-if="dec.field == 'flight_number'")
                         | {{ui.disclaimer_mapping[dec.id].symbol}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
-                    | {{ui.disclaimer_mapping[dec.id].text}}
+                    span(data-ng-if="dec.isOperateBy")
+                      | {{dec.id}}
+                    span(data-ng-if="!dec.isOperateBy")
+                      | {{{ui.disclaimer_mapping[dec.id].text}}
                   br
             include ../../../templates/partials/sellingClassDialog.jade
             include ../../../templates/partials/flightDetailsDialog.jade
