@@ -76,7 +76,6 @@ block body
                         span.time
                           |  {{flight_list_item.departure_time |simpledate}}
                       i.flight-direction
-                      
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
@@ -85,7 +84,10 @@ block body
                     .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
                       | {{flight_list_item.number}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
-                    | {{ui.disclaimer_mapping[dec.id].text}}
+                    span(data-ng-if="dec.isOperateBy")
+                      | {{dec.id}}
+                    span(data-ng-if="!dec.isOperateBy")
+                      | {{{ui.disclaimer_mapping[dec.id].text}}
                   br
                 .price(data-ng-if="flightItem.info.classes[0].price.cash")
                   | {{ui.total_price.currency_code}} {{flightItem.info.classes[0].price.cash}}
@@ -110,7 +112,6 @@ block body
                         span.time
                           |  {{flight_list_item.departure_time |simpledate}}
                       i.flight-direction
-                     
                       .flight-detail.flight-detail--destination
                         span.location
                           | {{flight_list_item.destination_airport_code}}
@@ -119,7 +120,10 @@ block body
                     .flight-number.text-primary(data-ng-click="flight_list_item.onclick()")
                       | {{flight_list_item.number}}
                   .declaimer(data-ng-repeat="dec in flight_list_item.disclaimer | unique: 'id'")
-                    | {{ui.disclaimer_mapping[dec.id].text}}
+                    span(data-ng-if="dec.isOperateBy")
+                      | {{dec.id}}
+                    span(data-ng-if="!dec.isOperateBy")
+                      | {{{ui.disclaimer_mapping[dec.id].text}}
                   br
                 .price(data-ng-if="flightItem.info.classes[0].price.cash")
                   | {{ui.total_price.currency_code}} {{flightItem.info.classes[0].price.cash}}
