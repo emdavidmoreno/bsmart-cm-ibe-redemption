@@ -2,25 +2,28 @@ extends ../../../templates/layout.jade
 
 block body
   .m-ibe-external-booking-mask(data-ng-controller="ExternalBookingController")
-    .l-messages(ng-cloak)
+    .l-messages(ng-cloak role="alert" aria-live="assertive")
       .m-message(data-ng-repeat="message in ui.messages"
         data-ng-class="{error: message.type == 'error'}")
         i
         p {{message.content}}
-    .l-flight-type-group(ng-cloak)
+    .l-flight-type-group(ng-cloak role="list" aria-label="{{ 'LABEL_JOURNEY_TYPE' | translate }}")
       button(type="button" class="btn btn-default" value='RT'
+        role="listitem"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("RT")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'RT'}"
       )
         | {{ 'LABEL_ROUND_TRIP' | translate }}
       button(type="button" class="btn btn-default"  value='OW'
+        role="listitem"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("OW")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'OW'}"
       )
         | {{ 'LABEL_ONE_WAY' | translate }}
       button(type="button" class="btn btn-default" value="MC"
+        role="listitem"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("MC")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'MC'}"
@@ -38,6 +41,7 @@ block body
             data-ng-model='location.origin.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationOrigin'
+            aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}. {{ui.errors[$index].origin}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].origin}}
@@ -50,6 +54,7 @@ block body
             data-ng-model='location.destination.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationDestination'
+            aria-label='{{"LABEL_AUTOCOMPLETE_TO" | translate}}. {{ui.errors[$index].destination}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].destination}}
@@ -64,6 +69,7 @@ block body
               data-ng-model='location.date.origin'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, true)'
               data-jqui-datepicker
+              aria-label='{{ "LABEL_DEPARTURE_DATE" | translate }}. {{ui.errors[$index].departDate}}'
               data-dp-is-from-date='true'
               data-dp-sibling-date='#toDestDate')
           span.text-message
@@ -80,6 +86,7 @@ block body
               data-ng-model='location.date.destination'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, false)'
               data-jqui-datepicker
+              aria-label='{{ "LABEL_ARRIVAL_DATE" | translate }}. {{ui.errors[$index].returnDate}}'
               data-dp-is-from-date='false'
               data-dp-sibling-date='#fromOrigDate')
           span.text-message
@@ -90,9 +97,14 @@ block body
       .flight-title(data-ng-class="{'first-element':$first}")
         span.flight-title-content
           | {{'LABEL_FLIGHT' | translate}} {{$index + 1}}
-        i.icon-action(
-          data-ng-class="{'icon--expanded': location.ui.expanded}"
-          data-ng-click="ui.locations.expandAction(location)")
+        button.btn.btn-primary-outline.pull-right(
+          type="button"
+          aria-expanded="{{location.ui.expanded}}"
+          aria-label="{{'LABEL_FLIGHT' | translate}} {{$index + 1}}"
+          data-ng-click="ui.locations.expandAction(location)" 
+        )
+          i.icon-action(            
+            data-ng-class="{'icon--expanded': location.ui.expanded}")
       .flight-location(
         data-ng-class="{'show-field-error': ui.errors[$index + 1].origin }"
         data-ng-show="location.ui.expanded")
@@ -171,7 +183,11 @@ block body
         option(value="8")
           | 8 {{ 'LABEL_ADULTS' | translate }}
       p(data-ng-show="!passengersExtraOptionsSelected")
-        a(data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected")
+        a(data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"          
+          tabindex=0 
+          id="passengersExtraOptionsSelected"
+          data-ng-keypress="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"
+          aria-expanded="{{passengersExtraOptionsSelected}}")
           | {{ 'LABEL_PASSENGER_QUESTION' | translate }}
       .l-extra-options(data-ng-show='passengersExtraOptionsSelected')
         label
@@ -221,16 +237,20 @@ block body
             option 7
         span.text-message
           | {{ ui.errors.guestTypes }}
-    .l-cabin-type-group(ng-cloak)
+    .l-cabin-type-group(ng-cloak role="radiogroup" aria-label='{{ "LABEL_CABIN_GROUP" | translate }}')
       label(data-ng-click="ui.cabinType.change('Economy')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}")
-        input.radio--custom(type='radio' data-ng-model='ui.cabinType.value' value='Economy'
+        input.radio--custom(type='radio' role="radio" 
+          name="ui.cabinType.value" 
+          data-ng-model='ui.cabinType.value' value='Economy'
           data-ng-change='ui.cabinType.change()')
         label
           | {{ 'LABEL_CABIN_ECONOMY' | translate }}
       label(ng-click="ui.cabinType.change('Business')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
-        input.radio--custom(type='radio' data-ng-model='ui.cabinType.value' value='Business')
+        input.radio--custom(type='radio' role="radio" 
+          name="ui.cabinType.value" 
+          data-ng-model='ui.cabinType.value' value='Business')
         label
           | {{ 'LABEL_CABIN_BUSINESS' | translate }}
 
@@ -243,3 +263,4 @@ block body
     .l-action(ng-cloak)
       button(type="button" data-ng-click='submitFormAction()')
         | {{ 'LABEL_SEARCH' | translate }}
+        
