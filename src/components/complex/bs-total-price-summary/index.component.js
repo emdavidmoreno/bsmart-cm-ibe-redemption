@@ -62,7 +62,7 @@ define(['./helpers/scrapHelper'], function (helper) {
     `<section>
         <div class="m-card m-card--warning">
           <div class="content price-summary" ng-cloak>
-            <p>
+            <p tabindex=0>
               <strong>
                 {{ "LABEL_BASE_PRICE" | translate }} :
               </strong>
@@ -70,7 +70,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                 {{ $ctrl.priceInfoList[0] }}
               </span>
             </p>
-            <p data-ng-if="$ctrl.existCOP">
+            <p data-ng-if="$ctrl.existCOP" tabindex=0>
               <strong>
                 {{"Expo F"}} :
               </strong>
@@ -78,7 +78,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                 {{ $ctrl.priceInfoList[1] }}
               </span>
             </p>
-            <p>
+            <p tabindex=0>
               <strong>
                 {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
               </strong>
@@ -90,7 +90,7 @@ define(['./helpers/scrapHelper'], function (helper) {
               </span>
             </p>
                    
-            <p>
+            <p tabindex=0>
               <strong>
                 {{ "LABEL_TAXES" | translate }} :
               </strong>
@@ -101,7 +101,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                 {{$ctrl.priceInfoList[2]}}
               </span>
             </p>
-            <p data-ng-if="$ctrl.existInsuranceTable">
+            <p data-ng-if="$ctrl.existInsuranceTable" tabindex=0>
               <strong>
                 {{ "LABEL_INSURANCE" | translate }} :
               </strong>
@@ -109,7 +109,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                  {{$ctrl.priceInsuranceInfo}}
               </span>
             </p>
-             <p data-ng-if="$ctrl.existSeatTable" data-ng-repeat="seatInfo in $ctrl.seatInfoList">
+             <p tabindex=0 data-ng-if="$ctrl.existSeatTable" data-ng-repeat="seatInfo in $ctrl.seatInfoList">
               <span>
                 <strong>
                   {{ "LABEL_SEAT" | translate }}: {{ seatInfo.title }}
@@ -121,7 +121,7 @@ define(['./helpers/scrapHelper'], function (helper) {
               </span>
             </p>
           </div>
-          <header class="title">
+          <header class="title" tabindex=0>
             <h4 class="title-text">
               {{ "LABEL_TOTAL" | translate }}
               <strong class="title-text--right">
