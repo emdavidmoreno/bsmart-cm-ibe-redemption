@@ -239,7 +239,9 @@ block body
           | {{ 'LABEL_CABIN_ECONOMY' | translate }}
       label(ng-click="ui.cabinType.change('Business')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
-        input.radio--custom(type='radio' role="radio" data-ng-model='ui.cabinType.value' value='Business')
+         input.radio--custom(type='radio' role="radio" 
+          name="ui.cabinType.value" 
+          data-ng-model='ui.cabinType.value' value='Business')
         label
           | {{ 'LABEL_CABIN_BUSINESS' | translate }}
 
