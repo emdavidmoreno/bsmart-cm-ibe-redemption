@@ -12,7 +12,7 @@ block body
       data-ng-class="{'done': location.done}")
       div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak)
         strong {{$index + 1}}
-        span
+        span(tabindex=0)
           | {{location.extra_info.geo.origin_city_name}}
           | ({{location.user_input_origin_airport_code}})
           | - {{location.extra_info.geo.destination_city_name}}
@@ -25,13 +25,15 @@ block body
             .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
               | {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
             span.close-text(
+              tabindex=0
+              data-ng-keypress="closeDepartureLocationSummaryAction(location)"
               data-ng-click="closeDepartureLocationSummaryAction(location)")
               | {{ 'LABEL_SUMMARY_CLOSE_TITLE' | translate }}
-          .flight-list-title
+          .flight-list-title(tabindex=0)
               | {{location.departure.dates[0].date | date:'MMMM d, y'}}
           .flight-list(data-ng-repeat="flight in location.departure.summary.flight_list")
             .flight
-              .l-flight-detail
+              .l-flight-detail(tabindex=0)
                 .flight-detail.flight-detail--origin
                   span.location
                     | {{flight.origin_airport_code}}
@@ -53,16 +55,18 @@ block body
                       data-ng-repeat="dec in flight.disclaimer"
                       data-ng-if="dec.field == 'arrival_time'")
                       | {{location.disclaimer_mapping[dec.id].symbol}}
-              .flight-number.text--linkify(data-ng-click="flight.numberEvent()")
+              .flight-number.text--linkify( 
+                tabindex=0 data-ng-click="flight.numberEvent()")
                 | {{flight.number}}
                 include ../../../templates/partials/flightDetailsDialog.jade
-            .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
+            .declaimer(tabindex=0
+              data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
               span(data-ng-if="dec.isOperateBy")
                 | {{dec.id}}
               span(data-ng-if="!dec.isOperateBy")
                 | {{location.disclaimer_mapping[dec.id].text}}
             br
-          .price(data-ng-if="location.departure.summary.price >= 0")
+          .price(tabindex=0 data-ng-if="location.departure.summary.price >= 0")
             span(data-ng-if="ui.total_price.currency_code >= 0")
               | {{ui.total_price.currency_code}}
             strong.cash--after-discount(data-ng-if="location.departure.summary.cash_after_discount > 0")
@@ -71,16 +75,16 @@ block body
               data-ng-class="{'price--deleted': location.departure.summary.cash_after_discount > 0}"
               data-ng-if="location.departure.summary.price > -1")
               |  {{location.departure.summary.price | number:2 }}
-          span.stops(data-ng-if="location.departure.summary.flight_list.length > 1")
+          span.stops(tabindex=0  data-ng-if="location.departure.summary.flight_list.length > 1")
             | {{location.departure.summary.flight_list.length - 1}} {{ 'LABEL_FLIGHT_STOPS' | translate }}
-          span.stops(data-ng-if="location.departure.summary.flight_list.length <= 1")
+          span.stops(tabindex=0 data-ng-if="location.departure.summary.flight_list.length <= 1")
             | {{ 'LABEL_FLIGHT_NO_STOPS' | translate }}
-          div.flight-duration(data-ng-if="location.departure.summary.duration && location.departure.summary.duration >= 0")
+          div.flight-duration(tabindex=0 data-ng-if="location.departure.summary.duration && location.departure.summary.duration >= 0")
             | - {{location.departure.summary.duration | duration}}
       div.m-flights
         div.m-departure(data-ng-show="location.departure.show" ng-cloak)
           .m-flight-options
-            h4.doit
+            h4.doit(tabindex=0)
               i
               span(data-ng-if="ui.user_input_journey_type=='Multi City'")
                 | {{ 'LABEL_FLIGHT_DOIT_FLIGHT' | translate }}
@@ -88,7 +92,7 @@ block body
                 | {{ 'LABEL_FLIGHT_DOIT_OUTBOUND' | translate }}
             div
               h4(class="{{location.departure.selectedClassIndex.cssClass}}")
-                span
+                span(tabindex=0)
                   | {{location.departure.dates[0].date | date:'fullDate'}}
                 button.m-select-flight-class(
                   data-ng-if="ui.user_input_journey_type!='Multi City'"
@@ -118,14 +122,16 @@ block body
                         li(data-ng-repeat="liDesc in option.desc")
                           | {{liDesc}}
               div.m-available-fligths(data-ng-if="location.departure.dates[0].flights.length < 1")
-                div
+                div(tabindex=0)
                   | {{ 'LABEL_NOT_AVAILABLE_FLIGTHS_IN_SELECTED_DATE' | translate }}
               div.m-available-fligths(
                 data-ng-repeat="flight in location.departure.dates[0].flights"
                 data-ng-class="{'non-available': flight.info.classes[location.departure.selectedClassIndex.id].price.cash == -1}")
                 //- div
                 //-   i.m-direction-flight
-                div(data-ng-click= "selectFlightAction(flight, location, 'departure', $parent.$index, $event)")
+                div(tabindex=0
+                  data-ng-click= "selectFlightAction(flight, location, 'departure', $parent.$index, $event)"
+                  data-ng-keypress= "selectFlightAction(flight, location, 'departure', $parent.$index, $event)")
                   .flight-time
                     div(data-ng-repeat="fInfo in flight.info.flight_list")
                       span.departing
@@ -155,45 +161,51 @@ block body
                           span(data-ng-if="!dec.isOperateBy")
                             | {{location.disclaimer_mapping[dec.id].text}}
                       br
-                    span.stops(data-ng-if="flight.info.flight_list.length > 1")
+                    span.stops( data-ng-if="flight.info.flight_list.length > 1")
                       | {{flight.info.flight_list.length - 1}} {{ 'LABEL_FLIGHT_STOPS' | translate }}
-                    span.stops(data-ng-if="flight.info.flight_list.length <= 1")
+                    span.stops( data-ng-if="flight.info.flight_list.length <= 1")
                       | {{ 'LABEL_FLIGHT_NO_STOPS' | translate }}
-                    div.flight-duration(data-ng-if="flight.info.duration && flight.info.duration >= 0")
+                    div.flight-duration( data-ng-if="flight.info.duration && flight.info.duration >= 0")
                       |  -
                       | {{flight.info.duration | duration}}
 
-                  .flight-selling-class(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash >= 0")
-                    span
-                      | (
-                      a(data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true")
-                        | {{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}
-                      | )
-                  button(class="btnBuyFlight" type="button" data-ng-disabled="flight.info.classes[location.departure.selectedClassIndex.id].price.cash === -1"  data-ng-class="{'disableBtn': flight.info.classes[location.departure.selectedClassIndex.id].price.cash === -1}"  data-ng-click="selectFlightAction(flight, location, 'departure', $parent.$index, $event)")
-                     strong.cash--after-discount(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount > 0")
-                       | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount | number:2 }}
-                     strong.cash(
-                      data-ng-class="{'price--deleted': flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount > 0}"
-                      data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash > -1")
-                       | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash | number:2 }}
-                     strong(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash == -1")
-                       | N/A
+                .flight-selling-class(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash >= 0")
+                  span
+                    | (
+                    a(tabindex=0
+                      data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true"
+                      data-ng-keypress="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true")
+                      | {{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}
+                    | )
+                button(class="btnBuyFlight" type="button" 
+                  data-ng-disabled="flight.info.classes[location.departure.selectedClassIndex.id].price.cash === -1"  
+                  data-ng-class="{'disableBtn': flight.info.classes[location.departure.selectedClassIndex.id].price.cash === -1}"  
+                  data-ng-click="selectFlightAction(flight, location, 'departure', $parent.$index, $event)")
+                    strong.cash--after-discount(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount > 0")
+                      | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount | number:2 }}
+                    strong.cash(
+                    data-ng-class="{'price--deleted': flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount > 0}"
+                    data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash > -1")
+                      | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash | number:2 }}
+                    strong(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash == -1")
+                      | N/A
                   include ../../../templates/partials/sellingClassDialog.jade
       .m-itinerary-summary(data-ng-show="location.departure.summary.show || !location.departure.selectingValueForFirstTime" ng-cloak)
         h4.title
         .itinerary-summary-flight.itinerary-summary-flight--return(
           data-ng-show="location.return.summary.show")
           .title
-            .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
+            .title-text.title-text--primary(tabindex=0 data-ng-if="ui.user_input_journey_type=='Round Trip'")
               | {{ 'LABEL_FLIGHT_INBOUND' | translate }}
-            span.close-text(
-              data-ng-click="closeReturnLocationSummaryAction(location)")
+            span.close-text(tabindex=0
+              data-ng-click="closeReturnLocationSummaryAction(location)"
+              data-ng-keypress="closeReturnLocationSummaryAction(location)")
               | {{ 'LABEL_SUMMARY_CLOSE_TITLE' | translate }}
-          .flight-list-title
+          .flight-list-title(tabindex=0)
               | {{location.return.dates[0].date | date:'MMMM d, y'}}
           .flight-list(data-ng-repeat="flight in location.return.summary.flight_list")
             .flight
-              .l-flight-detail
+              .l-flight-detail(tabindex=0)
                 .flight-detail.flight-detail--origin
                   span.location
                     | {{flight.origin_airport_code}}
@@ -215,14 +227,16 @@ block body
                       data-ng-repeat="dec in flight.disclaimer"
                       data-ng-if="dec.field == 'arrival_time'")
                       | {{location.disclaimer_mapping[dec.id].symbol}}
-              .flight-number.text--linkify(data-ng-click="flight.numberEvent()")
+              .flight-number.text--linkify(tabindex=0
+                data-ng-click="flight.numberEvent()"
+                data-ng-keypress="flight.numberEvent()")
                 | {{flight.number}}
-            .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'")
+            .declaimer(data-ng-repeat="dec in flight.disclaimer | unique: 'id'" tabindex=0)
               span(data-ng-if="dec.isOperateBy")
                 | {{dec.id}}
               span(data-ng-if="!dec.isOperateBy")
                 | {{location.disclaimer_mapping[dec.id].text}}
-          .price(data-ng-if="location.return.summary.price >= 0")
+          .price(data-ng-if="location.return.summary.price >= 0" tabindex=0)
             span(data-ng-if="ui.total_price.currency_code >= 0")
 
               | {{ui.total_price.currency_code}}
@@ -232,9 +246,9 @@ block body
               data-ng-class="{'price--deleted': location.return.summary.cash_after_discount > 0}"
               data-ng-if="location.return.summary.price > -1")
               |  {{location.return.summary.price | number:2 }}
-          span.stops(data-ng-if="location.return.summary.flight_list.length > 1")
+          span.stops(tabindex=0 data-ng-if="location.return.summary.flight_list.length > 1")
             | {{location.return.summary.flight_list.length - 1}} {{ 'LABEL_FLIGHT_STOPS' | translate }}
-          span.stops(data-ng-if="location.return.summary.flight_list.length <= 1")
+          span.stops(tabindex=0 data-ng-if="location.return.summary.flight_list.length <= 1")
             | {{ 'LABEL_FLIGHT_NO_STOPS' | translate }}
           div.flight-duration(data-ng-if="location.return.summary.duration && location.return.summary.duration >= 0")
             | - {{location.return.summary.duration | duration}}
@@ -242,12 +256,12 @@ block body
       div.m-flights
         div.m-return(data-ng-if="location.return" data-ng-show="location.return.show" ng-cloak)
           .m-flight-options.m-inbound-flight-options
-            h4.doit
+            h4.doit(tabindex=0)
               i
               span
                 | {{ 'LABEL_FLIGHT_DOIT_INBOUND' | translate }}
             h4(class="{{location.return.selectedClassIndex.cssClass}}")
-              span
+              span(tabindex=0)
                 | {{location.return.dates[0].date | date:'fullDate'}}
               button.m-select-flight-class(
                 data-ng-if="ui.user_input_journey_type!='Multi City'"
@@ -277,14 +291,16 @@ block body
                       li(ng-repeat="liDesc in option.desc")
                         | {{liDesc}}
             div.m-available-fligths(data-ng-if="location.return.dates[0].flights.length < 1")
-              div
+              div(tabindex=0)
                 | {{ 'LABEL_NOT_AVAILABLE_FLIGTHS_IN_SELECTED_DATE' | translate }}
             div.m-available-fligths(
               data-ng-repeat="flight in location.return.dates[0].flights"
               data-ng-class="{'non-available': flight.info.classes[location.return.selectedClassIndex.id].price.cash == -1}"
               data-ng-if="location.return.dates[0].flights.length > 0"
               )
-              div(data-ng-click= "selectFlightAction(flight, location, 'return', $parent.$index, $event)")
+              div(tabindex=0
+                data-ng-click= "selectFlightAction(flight, location, 'return', $parent.$index, $event)"
+                data-ng-keypress= "selectFlightAction(flight, location, 'return', $parent.$index, $event)")
                 .flight-time
                   div(data-ng-repeat="fInfo in flight.info.flight_list")
                     span.departing
@@ -323,7 +339,9 @@ block body
               .flight-selling-class(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash >= 0")
                 span
                   | (
-                  a(data-ng-click="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false")
+                  a(tabindex=0
+                    data-ng-click="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false"
+                    data-ng-keypress="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false")
                     | {{flight.info.classes[location.return.selectedClassIndex.id].sellingClass.text}}
                   | )
 
@@ -338,7 +356,7 @@ block body
                        | N/A
               include ../../../templates/partials/sellingClassDialog.jade
     section
-      .m-card.m-card--muted(data-ng-repeat="message in ui.mediaInfoMessages" ng-cloak)
+      .m-card.m-card--muted(tabindex=0 data-ng-repeat="message in ui.mediaInfoMessages" ng-cloak)
         header.title
           h4.title-text.title-text--normal
             i.title-icon
