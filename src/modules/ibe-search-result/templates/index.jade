@@ -102,6 +102,11 @@ block body
               .dialog-container(data-jqui-dialog
                 data-bs-open-dialog="{{ui.departureDialogIsOpen}}"
                 data-bs-close-from-inner="ui.departureDialogIsOpen")
+                  .m-dialog-head-hidden
+                    span.close(
+                    data-ng-click="ui.departureDialogIsOpen=false"
+                    )
+                    | X                   
                   .m-dialog-item(
                     data-ng-repeat="option in location.departure.availableClasses track by option.name"
                     data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.selected}")
@@ -271,6 +276,11 @@ block body
             .dialog-container(data-jqui-dialog
               data-bs-open-dialog="{{ui.returnDialogIsOpen}}"
               data-bs-close-from-inner="ui.returnDialogIsOpen")
+                .m-dialog-head-hidden
+                    span.close(
+                    data-ng-click="ui.returnDialogIsOpen=false"
+                    )
+                    | X
                 .m-dialog-item(
                   data-ng-repeat="option in location.return.availableClasses track by option.name"
                   data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.name === location.return.selectedClassIndex.name}")
