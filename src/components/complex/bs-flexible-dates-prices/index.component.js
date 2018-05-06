@@ -116,6 +116,7 @@ define(['./helpers/scrapHelper'], function(helper) {
           cells.outboundDates[msOutboundDate].rowSelected = v.isSelected
           cells.inboundDates[msInboundDate].isCollSelected = v.isSelected
         }
+        console
 
         // first element on this array is the formated date
         // as array, for table head
@@ -125,6 +126,8 @@ define(['./helpers/scrapHelper'], function(helper) {
         cells.outboundDates[msOutboundDate].cellInfo.push(
           Object.assign({}, v, {
             inboundDate: msInboundDate,
+            _inboundDate:inboundDate,
+            _outboundDate:outboundDate,
             isPriceText: isNaN(v.price),
             onClick: function() {
               if(!this.isNotAvail) {
@@ -191,13 +194,14 @@ define(['./helpers/scrapHelper'], function(helper) {
                 {{s}}
               </span>
             </th>
-            <td
+            <td tabindex="0"
               data-ng-repeat="cell in rowValue.cellInfo"
               data-ng-click="$ctrl.cellClick(cell, rowValue)"
+              data-ng-keydown="($event.keyCode === 13 || $event.keyCode === 32) && $ctrl.cellClick(cell, rowValue)"
               data-ng-class="{'selected-price': cell.isSelected, 'lower-prices': cell.price == $ctrl.lowestPrice, 'm-have-price': !cell.isPriceText}"
               data-ng-if="!cell.format"
               class='flexible-dates-price'>
-              <span data-ng-if="!cell.isPriceText">{{ cell.price | currency : "" }}</span>
+              <span aria-label="{{'LABEL_DEPART_DATE' | translate}} {{cell._outboundDate}}, {{'LABEL_RETURN_DATE' | translate}} {{cell._inboundDate}}" data-ng-if="!cell.isPriceText">{{ cell.price | currency : "" }}</span>
               <span data-ng-if="cell.isPriceText">{{ cell.price }}</span>
             </td>
           </tr>
