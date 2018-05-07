@@ -149,7 +149,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_SEAT: 'Seat',
       LABEL_BUY:'Buy',
       LABEL_AUTOCOMPLETE_FROM: "Search origin city. After typing 3 letters use up and down arrows to select from list",
-      LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list"
+      LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list",
+      LABEL_DEPART_DATE:"Departing date",
+      LABEL_RETURN_DATE:"Returning date"
     })
 
 
@@ -294,7 +296,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_SEAT: 'Asiento',
       LABEL_BUY:'Comprar',
       LABEL_AUTOCOMPLETE_FROM: "Buscar ciudad de origen. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
-      LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista"
+      LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
+      LABEL_DEPART_DATE:"Fecha de salida",
+      LABEL_RETURN_DATE:"Fecha de retorno"
     })
 
     // portuguees translations
@@ -438,7 +442,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_SEAT:'Assento',
       LABEL_BUY:'Comprar',
       LABEL_AUTOCOMPLETE_FROM: "Pesquisar cidade de origem. Depois de digitar 3 letras, use as setas para cima e para baixo para selecionar da lista",
-      LABEL_AUTOCOMPLETE_TO: "Pesquisar cidade de destino. Depois de digitar 3 letras, use as setas para cima e para baixo para selecionar da lista"
+      LABEL_AUTOCOMPLETE_TO: "Pesquisar cidade de destino. Depois de digitar 3 letras, use as setas para cima e para baixo para selecionar da lista",
+      LABEL_DEPART_DATE:"Data de partida",
+      LABEL_RETURN_DATE:"Data de retorno"
     })
 
     // set default language

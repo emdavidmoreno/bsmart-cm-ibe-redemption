@@ -3,8 +3,8 @@ extends ../../../templates/layout.jade
 block body
   div.m-flexible-dates(data-ng-controller="FlexibleDatesController")
     div.container-fluid
-      h1.m-page-title {{ ui.pageTitle }}
-      .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")
+      h1.m-page-title(tabindex="0") {{ ui.pageTitle }}
+      .m-page-comment-block(tabindex="0" data-ng-bind-html="ui.commentBlock | sanitize")
       div.row.margin-bottom-md()       
          bs-flexible-dates-prices-component(data-farenet-model="ui.model")
         
