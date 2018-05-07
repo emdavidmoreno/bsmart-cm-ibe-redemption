@@ -25,14 +25,16 @@ define([
   '../../../../components/complex/bs-pse-details/index.component',
   '../../../../components/complex/bs-bank-trasnfers-details/index.component',
   '../../../../components/complex/bs-page-total-price-note/index.component',
-  '../../../../components/complex/bs-total-price-summary/index.component'
+  '../../../../components/complex/bs-total-price-summary/index.component',
+  '../../../../components/complex/bs-fare-hold-info/index.component'
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
   _, jquiDialog, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService,
   bsDetailSeatsPricesComponent,
   bsSummarySeatsPricesComponent, bsPseDetailsComponent,
-  bsBankTransferDetailsComponent, bsPageTotalPriceNoteComponent,bsTotalPriceSummaryComponent) {
+  bsBankTransferDetailsComponent, bsPageTotalPriceNoteComponent,
+  bsTotalPriceSummaryComponent, bsFareHoldInfoComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -483,6 +485,7 @@ define([
         .component('bsBankTransferDetailsComponent', bsBankTransferDetailsComponent)
         .component('bsPageTotalPriceNoteComponent', bsPageTotalPriceNoteComponent)
         .component('bsTotalPriceSummaryComponent',bsTotalPriceSummaryComponent)
+        .component('bsFareHoldInfoComponent', bsFareHoldInfoComponent)
         .controller('ConfirmationHoldController', ConfirmationHoldController)
   })({})
 
