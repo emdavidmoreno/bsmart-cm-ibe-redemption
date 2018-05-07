@@ -22,7 +22,7 @@ block body
         .itinerary-summary-flight.itinerary-summary-flight--departure(
           data-ng-show="location.departure.summary.show")
           .title
-            .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
+            .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'" tabindex=0)
               | {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
             span.close-text(
               tabindex=0
@@ -178,6 +178,7 @@ block body
                   span
                     | (
                     a(tabindex=0
+                      id="flight-selling-class-departure-{{$index}}"
                       data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true"
                       data-ng-keypress="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true")
                       | {{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}
@@ -350,6 +351,7 @@ block body
                 span
                   | (
                   a(tabindex=0
+                      id="flight-selling-class-return-{{$index}}"
                     data-ng-click="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false"
                     data-ng-keypress="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false")
                     | {{flight.info.classes[location.return.selectedClassIndex.id].sellingClass.text}}
