@@ -56,7 +56,9 @@ block body
                       data-ng-if="dec.field == 'arrival_time'")
                       | {{location.disclaimer_mapping[dec.id].symbol}}
               .flight-number.text--linkify( 
-                tabindex=0 data-ng-click="flight.numberEvent()")
+                tabindex=0 
+                data-ng-keypress="flight.numberEvent()"
+                data-ng-click="flight.numberEvent()")
                 | {{flight.number}}
                 include ../../../templates/partials/flightDetailsDialog.jade
             .declaimer(tabindex=0
