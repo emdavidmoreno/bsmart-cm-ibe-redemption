@@ -111,9 +111,13 @@ block body
                     data-ng-repeat="option in location.departure.availableClasses track by option.name"
                     data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.selected}")
                     .m-item-col-left(class="{{option.cssClass}}")
-                      span(data-ng-click="option.showDesc=!option.showDesc")
+                      span(tabindex=0
+                        data-ng-keypress="option.showDesc=!option.showDesc"
+                        data-ng-click="option.showDesc=!option.showDesc")
                         i.icon--info-circled
-                    .m-item-col-right(data-ng-click="ui.onSelectFlightClass(option, true, location)")
+                    .m-item-col-right(tabindex=0
+                      data-ng-keypress="ui.onSelectFlightClass(option, true, location)"
+                      data-ng-click="ui.onSelectFlightClass(option, true, location)")
                       span.m-item-name
                         | {{option.name}}
                       span.m-item-price
@@ -141,7 +145,7 @@ block body
                     div(data-ng-repeat="fInfo in flight.info.flight_list")
                       span.departing
                         strong.time
-                          |  {{fInfo.departure_time | simpledate}}
+                          |  {{fInfo.departure_time | simpledate}} feer
                           sup(
                             data-ng-repeat="dec in fInfo.disclaimer"
                             data-ng-if="dec.field == 'departure_time'")
