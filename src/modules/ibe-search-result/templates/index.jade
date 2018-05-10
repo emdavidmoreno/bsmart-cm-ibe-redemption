@@ -114,6 +114,9 @@ block body
                     data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.selected}")
                     .m-item-col-left(class="{{option.cssClass}}")
                       span(tabindex=0
+                        role="link"
+                        aria-label="{{option.name}} {{ 'LABEL_FLIGHT_CLASS_INFO' | translate }} "
+                        aria-expanded='{{option.showDesc || "false"}} '
                         data-ng-keypress="option.showDesc=!option.showDesc"
                         data-ng-click="option.showDesc=!option.showDesc")
                         i.icon--info-circled
