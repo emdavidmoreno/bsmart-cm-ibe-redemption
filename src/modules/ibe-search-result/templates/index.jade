@@ -22,7 +22,7 @@ block body
         .itinerary-summary-flight.itinerary-summary-flight--departure(
           data-ng-show="location.departure.summary.show")
           .title
-            .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
+            .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'" tabindex=0)
               | {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
             span.close-text(
               tabindex=0
@@ -56,7 +56,9 @@ block body
                       data-ng-if="dec.field == 'arrival_time'")
                       | {{location.disclaimer_mapping[dec.id].symbol}}
               .flight-number.text--linkify( 
-                tabindex=0 data-ng-click="flight.numberEvent()")
+                tabindex=0 
+                data-ng-keypress="flight.numberEvent()"
+                data-ng-click="flight.numberEvent()")
                 | {{flight.number}}
                 include ../../../templates/partials/flightDetailsDialog.jade
             .declaimer(tabindex=0
@@ -111,9 +113,16 @@ block body
                     data-ng-repeat="option in location.departure.availableClasses track by option.name"
                     data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.selected}")
                     .m-item-col-left(class="{{option.cssClass}}")
-                      span(data-ng-click="option.showDesc=!option.showDesc")
+                      span(tabindex=0
+                        role="link"
+                        aria-label="{{option.name}} {{ 'LABEL_FLIGHT_CLASS_INFO' | translate }} "
+                        aria-expanded='{{option.showDesc || "false"}} '
+                        data-ng-keypress="option.showDesc=!option.showDesc"
+                        data-ng-click="option.showDesc=!option.showDesc")
                         i.icon--info-circled
-                    .m-item-col-right(data-ng-click="ui.onSelectFlightClass(option, true, location)")
+                    .m-item-col-right(tabindex=0
+                      data-ng-keypress="ui.onSelectFlightClass(option, true, location)"
+                      data-ng-click="ui.onSelectFlightClass(option, true, location)")
                       span.m-item-name
                         | {{option.name}}
                       span.m-item-price
@@ -141,7 +150,7 @@ block body
                     div(data-ng-repeat="fInfo in flight.info.flight_list")
                       span.departing
                         strong.time
-                          |  {{fInfo.departure_time | simpledate}}
+                          |  {{fInfo.departure_time | simpledate}} feer
                           sup(
                             data-ng-repeat="dec in fInfo.disclaimer"
                             data-ng-if="dec.field == 'departure_time'")
@@ -178,6 +187,7 @@ block body
                   span
                     | (
                     a(tabindex=0
+                      id="flight-selling-class-departure-{{$index}}"
                       data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true"
                       data-ng-keypress="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=true")
                       | {{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}
@@ -350,6 +360,7 @@ block body
                 span
                   | (
                   a(tabindex=0
+                      id="flight-selling-class-return-{{$index}}"
                     data-ng-click="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false"
                     data-ng-keypress="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); ui.sellingClass.isDeparture=false")
                     | {{flight.info.classes[location.return.selectedClassIndex.id].sellingClass.text}}

@@ -15,7 +15,6 @@ define([
          bsOpenDialog: '@',
          bsCloseFromInner: '=',
          bsLastActive: "@"
-
        },
        replace:false,
        transclude: true,  // transclusion allows for the dialog
@@ -26,19 +25,27 @@ define([
           var dialogOptions = {
             autoOpen: false,
             modal: true,
-            closeOnEscape: false,
             width: attrs.width || 350,
             height: attrs.height || 200,
             draggable: false,
-            resizable: false,           
+            resizable: false,
             open: function() {
-              console.log($scope.bsOpenDialog)
               $('.ui-widget-overlay').bind('click', function() {
                 $timeout(function() {
                   $scope.bsCloseFromInner = false;
                 }, 0);
                 $element.dialog('close');
               });
+
+              // Find all focusable children              
+              focusableElements = $element.find(focusableElementsString);
+              // Convert NodeList to Array
+              focusableElements = Array.prototype.slice.call(focusableElements);
+
+              firstTabStop = focusableElements[0];
+              lastTabStop = focusableElements[focusableElements.length - 1];
+              // Focus first child
+              if(firstTabStop && firstTabStop !== 'undefined')firstTabStop.focus();
             },
             close: function(){
               // if($scope.bsOpenDialog === 'true')
@@ -47,6 +54,7 @@ define([
                 return;                             
               var lastAtive = document.getElementById($scope.bsLastActive)
               lastAtive.focus()
+              //document.removeEventListener("keydown", trapTabKey, true)
             }
           };
           // This works when observing an interpolated attribute
@@ -54,25 +62,48 @@ define([
           // must be compared with the string 'true' and not a boolean
           // using open: '@' and open="{{dialogOpen}}"
           attrs.$observe('bsOpenDialog', function(val) {
-            
             if (val === 'true') {
               $element.dialog('open');
             }
             else {
-              $element.dialog('close');           
-              
+              $element.dialog('close');
             }
           });
 
-          $element.dialog(dialogOptions)
+          $element.dialog(dialogOptions);
+
+          //Auxiliary code
+          var focusableElementsString = `a[href], area[href], input:not([disabled]), 
+          select:not([disabled]), textarea:not([disabled]), button:not([disabled]), 
+          iframe, object, embed, [tabindex="0"], [contenteditable] `;
+          var firstTabStop = null, 
+              lastTabStop = null, 
+              focusableElements = []
           
-          document.addEventListener("keydown", function(evt){
+          let trapTabKey = evt => {
+              //escape key
             if(evt.keyCode == 27){
               $element.find(".close").click()
             }
+              // Check for TAB key press
+            if (evt.keyCode === 9) {
+              // SHIFT + TAB
+              if (evt.shiftKey) {
+                if (document.activeElement === firstTabStop) {
+                  evt.preventDefault();
+                  lastTabStop.focus();
+                }
+              // TAB
+              } else {
+                if (document.activeElement === lastTabStop) {
+                  evt.preventDefault();
+                  firstTabStop.focus();
+                }
+              }
+            }
             evt.stopPropagation();
-          }, true)
-
+          }
+          document.addEventListener("keydown", trapTabKey, true)
         }
      };
    }
@@ -80,4 +111,5 @@ define([
   jquiDialog.$inject = ['$timeout'];
 
   return jquiDialog;
+  
 });

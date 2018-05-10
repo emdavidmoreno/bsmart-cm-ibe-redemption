@@ -649,6 +649,7 @@ define([
                 cls.sellingClass = {
                   text: sellingClassLink.text(),
                   click: function($event) {
+                    var lastActiveId = document.activeElement.id
                     $event.stopPropagation()
                     hostUIService.swapToBSFillFareRuleTabCallback()
                     sellingClassLink[0].click()
@@ -657,6 +658,7 @@ define([
 
                     $scope.ui.sellingClass.isLoading = true
                     $scope.ui.sellingClass.openDialog = true
+                    $scope.ui.sellingClass.lastActive = lastActiveId
                   },
                 }
               }

@@ -72,7 +72,7 @@
               )
         ul.l-stepper(ng-if="showMiniSummary")
           li(ng-repeat="step in stepper.steps" ng-class="{'active': step.state == 'active', 'done': step.state == 'done'}")
-        section.m-card.login(ng-if="main.user")
+        section.m-card.login(ng-if="main.user" tabindex=0)
             .content
               p
                 | {{ 'LABEL_WELCOME' | translate }},
