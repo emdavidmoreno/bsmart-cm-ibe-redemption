@@ -71,7 +71,8 @@ define(['./helpers/scrapHelper'], function(helper) {
         </thead>
         <tbody>
           <tr   data-ng-repeat="week in $ctrl.priceCalendar.m_prices track by $index" >
-             <td data-ng-repeat="day in week track by $index"
+             <td tabindex="0"
+             data-ng-repeat="day in week track by $index"
               data-ng-click="$ctrl.cellClick(day)"
               data-ng-class="{'selected-price': day.isSelected}"
               class='flexible-dates-price'>
