@@ -205,9 +205,11 @@ define(['./helpers/scrapHelper',
     /* eslint-disable max-len */
     template:
     `
-      <div class="m-prev" data-ng-click="$ctrl.showPrevTab()" data-ng-hide="$ctrl.isFirstTab" ><span></span></div>
+      <div tabindex="0" class="m-prev" data-ng-click="$ctrl.showPrevTab()" 
+      data-ng-keypress="$ctrl.showPrevTab()" data-ng-hide="$ctrl.isFirstTab" ><span></span></div>
       <div class="m-container">
         <div data-ng-repeat="tab in $ctrl.tabsInfo"
+          tabindex="0"
           data-ng-if="tab.isVisible"
           data-ng-class="{'m-tab-selected': tab.selected}"
           data-ng-disable="tab.isDisabledTab"
@@ -221,7 +223,9 @@ define(['./helpers/scrapHelper',
           <span class="m-lower-price" data-ng-if="tab.isPriceText"> {{ tab.lowerPrice }} </span>
         </div>
       </div>
-      <div class="m-next" data-ng-click="$ctrl.showNextTab()" data-ng-hide="$ctrl.isLastTab"><span></span></div>
+      <div tabindex="0" class="m-next" data-ng-click="$ctrl.showNextTab()" 
+      data-ng-keypress="$ctrl.showNextTab()" 
+      data-ng-hide="$ctrl.isLastTab"><span></span></div>
     `,
     controller: FlexibleDatesCalendarAreaController,
   }

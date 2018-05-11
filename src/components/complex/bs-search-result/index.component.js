@@ -241,7 +241,7 @@ define([
     template:
     /* eslint-disable max-len */
     `<section class="m-flight-selection" data-ng-repeat="location in $ctrl.ui.locations" data-ng-class="{'done': location.done}">
-    <div class="m-header" data-ng-if="$ctrl.ui.user_input_journey_type=='Multi City'" ng-cloak="ng-cloak">
+    <div tabindex="0" class="m-header" data-ng-if="$ctrl.ui.user_input_journey_type=='Multi City'" ng-cloak="ng-cloak">
       <strong>{{$index + 1}}</strong>
       <span>{{location.extra_info.geo.origin_city_name}} ({{location.user_input_origin_airport_code}}) - {{location.extra_info.geo.destination_city_name}}
         ({{location.user_input_destination_airport_code}})
@@ -252,13 +252,15 @@ define([
       <h4 class="title"></h4>
       <div class="itinerary-summary-flight itinerary-summary-flight--departure" data-ng-show="location.departure.summary.show">
         <div class="title">
-          <div class="title-text title-text--primary" data-ng-if="$ctrl.ui.user_input_journey_type=='Round Trip'">{{ 'LABEL_FLIGHT_OUTBOUND' | translate }}</div>
-          <span class="close-text" data-ng-click="$ctrl.closeDepartureLocationSummaryAction(location)">{{ 'LABEL_SUMMARY_CLOSE_TITLE' | translate }}</span>
+          <div tabindex="0" class="title-text title-text--primary" data-ng-if="$ctrl.ui.user_input_journey_type=='Round Trip'">{{ 'LABEL_FLIGHT_OUTBOUND' | translate }}</div>
+          <span class="close-text"  tabindex="0"
+          data-ng-keypress="$ctrl.closeDepartureLocationSummaryAction(location)"
+          data-ng-click="$ctrl.closeDepartureLocationSummaryAction(location)">{{ 'LABEL_SUMMARY_CLOSE_TITLE' | translate }}</span>
         </div>
-        <div class="flight-list-title">{{location.departure.dates[0].date | date:'MMMM d, y'}}</div>
+        <div tabindex="0" class="flight-list-title">{{location.departure.dates[0].date | date:'MMMM d, y'}}</div>
         <div class="flight-list" data-ng-repeat="flight in location.departure.summary.flight_list">
           <div class="flight">
-            <div class="l-flight-detail">
+            <div class="l-flight-detail" tabindex="0">
               <div class="flight-detail flight-detail--origin">
                 <span class="location">{{flight.origin_airport_code}}</span>
                 <span class="time"> {{flight.departure_time | simpledate}}
@@ -274,7 +276,9 @@ define([
                 </span>
               </div>
             </div>
-            <div class="flight-number text--linkify" data-ng-click="flight.numberEvent()">{{flight.number}}
+            <div class="flight-number text--linkify" tabindex="0"
+            data-ng-keypress="flight.numberEvent()"
+             data-ng-click="flight.numberEvent()">{{flight.number}}
               <div class="dialog-container" data-jqui-dialog="data-jqui-dialog" data-bs-open-dialog="{{$ctrl.ui.flightDetails.openDialog}}"
                 data-bs-close-from-inner="$ctrl.ui.flightDetails.openDialog">
                 <div class="m-flight-details-dialog">
@@ -343,7 +347,7 @@ define([
               </div>
             </div>
           </div>
-          <div class="declaimer" data-ng-repeat="dec in flight.disclaimer | unique: 'id'">
+          <div tabindex="0" class="declaimer" data-ng-repeat="dec in flight.disclaimer | unique: 'id'">
             {{location.disclaimer_mapping[dec.id].text}}
           </div>
           <br/>
@@ -360,7 +364,7 @@ define([
     <div class="m-flights">
       <div class="m-departure" data-ng-show="location.departure.show" ng-cloak="ng-cloak">
         <div class="m-flight-options">
-          <h4 class="doit">
+          <h4 class="doit" tabindex="0">
             <i></i>
             <span data-ng-if="$ctrl.ui.user_input_journey_type=='Multi City'">{{ 'LABEL_FLIGHT_DOIT_FLIGHT' | translate }}</span>
             <span data-ng-if="$ctrl.ui.user_input_journey_type!='Multi City'">{{ 'LABEL_FLIGHT_DOIT_OUTBOUND' | translate }}</span>
@@ -369,17 +373,26 @@ define([
             <h4 class="{{location.departure.selectedClassIndex.cssClass}}">
               <span>{{location.departure.dates[0].date | date:'fullDate'}}</span>
               <button class="m-select-flight-class {{location.departure.selectedClassIndex.cssClass}}"
-                data-ng-if="$ctrl.ui.user_input_journey_type!='Multi City'" data-ng-click="$ctrl.ui.clickBtnSelectFlightClass(true)">{{location.departure.selectedClassIndex.name}}</button>
+                data-ng-if="$ctrl.ui.user_input_journey_type!='Multi City'"
+                data-ng-keypress="$ctrl.ui.clickBtnSelectFlightClass(true)"
+                 data-ng-click="$ctrl.ui.clickBtnSelectFlightClass(true)">{{location.departure.selectedClassIndex.name}}</button>
             </h4>
-            <div class="dialog-container" data-jqui-dialog="data-jqui-dialog" data-bs-open-dialog="{{$ctrl.ui.departureDialogIsOpen}}"
+            <div class="dialog-container" data-jqui-dialog="data-jqui-dialog" 
+            data-bs-last-active="{{ui.sellingClass.lastActive}}" data-bs-open-dialog="{{$ctrl.ui.departureDialogIsOpen}}"
               data-bs-close-from-inner="$ctrl.ui.departureDialogIsOpen">
+              <span class="close" data-ng-show="false" data-ng-click="$ctrl.ui.departureDialogIsOpen=false">X</span>
               <div class="m-dialog-item" data-ng-repeat="option in location.departure.availableClasses track by option.name" data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.selected}">
                 <div class="m-item-col-left {{option.cssClass}}">
-                  <span data-ng-click="option.showDesc=!option.showDesc">
+                  <span tabindex="0"  
+                  aria-expanded="{{option.showDesc}} "
+                  data-ng-keypress="option.showDesc=!option.showDesc"
+                  data-ng-click="option.showDesc=!option.showDesc">
                     <i class="icon--info-circled"></i>
                   </span>
                 </div>
-                <div class="m-item-col-right" data-ng-click="$ctrl.ui.onSelectFlightClass(option, true, location)">
+                <div class="m-item-col-right" tabindex="0"  
+                data-ng-keypress="$ctrl.ui.onSelectFlightClass(option, true, location)"
+                data-ng-click="$ctrl.ui.onSelectFlightClass(option, true, location)">
                   <span class="m-item-name">{{option.name}}</span>
                   <span class="m-item-price">
                     <strong class="cash--after-discount" data-ng-if="option.cash_after_discount &gt; 0"> {{option.cash_after_discount | number:2 }}</strong>
@@ -396,8 +409,9 @@ define([
               <div>{{ 'LABEL_NOT_AVAILABLE_FLIGTHS_IN_SELECTED_DATE' | translate }}</div>
             </div>
             <div class="m-available-fligths" data-ng-repeat="flight in location.departure.dates[0].flights" data-ng-class="{'non-available': flight.info.classes[location.departure.selectedClassIndex.id].price.cash == -1}">
-              <div data-ng-click="$ctrl.selectFlightAction(flight, location, 'departure', $parent.$index, $event)">
-                <div class="flight-time">
+              <div data-ng-click="$ctrl.selectFlightAction(flight, location, 'departure', $parent.$index, $event)"
+              data-ng-keypress="$ctrl.selectFlightAction(flight, location, 'departure', $parent.$index, $event)">
+                <div class="flight-time" tabindex="0">
                   <div data-ng-repeat="fInfo in flight.info.flight_list">
                     <span class="departing">
                       <strong class="time"> {{fInfo.departure_time | simpledate}}</strong>
@@ -420,17 +434,14 @@ define([
                   <span class="stops" data-ng-if="flight.info.flight_list.length &lt;= 1">{{ 'LABEL_FLIGHT_NO_STOPS' | translate }}</span>
                   <div class="flight-duration" data-ng-if="flight.info.duration &amp;&amp; flight.info.duration &gt;= 0"> - {{flight.info.duration | duration}}</div>
                 </div>
-                <div class="flight-price">
+                <div class="flight-price" tabindex="0">
                   <strong class="cash--after-discount" data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount &gt; 0">{{flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount | number:2 }}</strong>
                   <strong class="cash" data-ng-class="{'price--deleted': flight.info.classes[location.departure.selectedClassIndex.id].price.cash_after_discount &gt; 0}"
                     data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash &gt; -1">{{flight.info.classes[location.departure.selectedClassIndex.id].price.cash | number:2 }}</strong>
                   <strong
                     data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash == -1">N/A</strong>
                 </div>
-                <div class="flight-selling-class" data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash &gt;= 0">
-                  <span>(
-                    <a data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); $ctrl.ui.sellingClass.isDeparture=true">{{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}</a>)</span>
-                </div>
+                
                 <div class="dialog-container" data-jqui-dialog="data-jqui-dialog" data-bs-open-dialog="{{$ctrl.ui.sellingClass.openDialog}}"
                   data-bs-close-from-inner="$ctrl.ui.sellingClass.openDialog">
                   <div class="m-selling-class-dialog">
@@ -448,6 +459,12 @@ define([
                   </div>
                 </div>
               </div>
+              <div class="flight-selling-class" data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash &gt;= 0">
+                  <span>(
+                    <a tabindex=0
+                    data-ng-keypress="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); $ctrl.ui.sellingClass.isDeparture=true"
+                    data-ng-click="flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.click($event); $ctrl.ui.sellingClass.isDeparture=true">{{flight.info.classes[location.departure.selectedClassIndex.id].sellingClass.text}}</a>)</span>
+                </div>
             </div>
           </div>
         </div>
@@ -457,14 +474,14 @@ define([
       ng-cloak="ng-cloak">
       <h4 class="title"></h4>
       <div class="itinerary-summary-flight itinerary-summary-flight--return" data-ng-show="location.return.summary.show">
-        <div class="title">
+        <div class="title" tabindex="0">
           <div class="title-text title-text--primary" data-ng-if="$ctrl.ui.user_input_journey_type=='Round Trip'">{{ 'LABEL_FLIGHT_INBOUND' | translate }}</div>
           <span class="close-text" data-ng-click="$ctrl.closeReturnLocationSummaryAction(location)">{{ 'LABEL_SUMMARY_CLOSE_TITLE' | translate }}</span>
         </div>
-        <div class="flight-list-title">{{location.return.dates[0].date | date:'MMMM d, y'}}</div>
+        <div tabindex="0" class="flight-list-title">{{location.return.dates[0].date | date:'MMMM d, y'}}</div>
         <div class="flight-list" data-ng-repeat="flight in location.return.summary.flight_list">
           <div class="flight">
-            <div class="l-flight-detail">
+            <div class="l-flight-detail" tabindex="0">
               <div class="flight-detail flight-detail--origin">
                 <span class="location">{{flight.origin_airport_code}}</span>
                 <span class="time"> {{flight.departure_time |simpledate}}
@@ -480,13 +497,15 @@ define([
                 </span>
               </div>
             </div>
-            <div class="flight-number text--linkify" data-ng-click="flight.numberEvent()">{{flight.number}}</div>
+            <div class="flight-number text--linkify" tabindex="0" 
+            data-ng-keypress="flight.numberEvent()"
+            data-ng-click="flight.numberEvent()">{{flight.number}}</div>
           </div>
-          <div class="declaimer" data-ng-repeat="dec in flight.disclaimer | unique: 'id'">
+          <div tabindex="0" class="declaimer" data-ng-repeat="dec in flight.disclaimer | unique: 'id'">
             {{location.disclaimer_mapping[dec.id].text}}
           </div>
         </div>
-        <div class="price" data-ng-if="location.return.summary.price &gt;= 0">
+        <div tabindex="0" class="price" data-ng-if="location.return.summary.price &gt;= 0">
           <span data-ng-if="$ctrl.ui.total_price.currency_code &gt;= 0">{{$ctrl.ui.total_price.currency_code}}</span>
           <strong class="cash--after-discount" data-ng-if="location.return.summary.cash_after_discount &gt; 0">
           {{location.return.summary.cash_after_discount}}</strong>
@@ -498,16 +517,19 @@ define([
     <div class="m-flights">
       <div class="m-return" data-ng-if="location.return" data-ng-show="location.return.show" ng-cloak="ng-cloak">
         <div class="m-flight-options m-inbound-flight-options">
-          <h4 class="doit">
+          <h4 class="doit" tabindex="0">
             <i></i>
             <span>{{ 'LABEL_FLIGHT_DOIT_INBOUND' | translate }}</span>
           </h4>
-          <h4 class="{{location.return.selectedClassIndex.cssClass}}">
+          <h4 tabindex="0" class="{{location.return.selectedClassIndex.cssClass}}">
             <span>{{location.return.dates[0].date | date:'fullDate'}}</span>
             <button class="m-select-flight-class {{location.return.selectedClassIndex.cssClass}}"
               data-ng-if="$ctrl.ui.user_input_journey_type!='Multi City'" data-ng-click="$ctrl.ui.clickBtnSelectFlightClass(false)">{{location.return.selectedClassIndex.name}}</button>
           </h4>
           <div class="dialog-container" data-jqui-dialog="data-jqui-dialog" data-bs-open-dialog="{{$ctrl.ui.returnDialogIsOpen}}" data-bs-close-from-inner="$ctrl.ui.returnDialogIsOpen">
+            <div data-ng-show="false" class="m-dialog-head-hidden">
+              <span class="close" data-ng-click="$ctrl.ui.returnDialogIsOpen = false"> X </spam>
+            </div>
             <div class="m-dialog-item" data-ng-repeat="option in location.return.availableClasses track by option.name" data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.name === location.return.selectedClassIndex.name}">
               <div class="m-item-col-left {{option.cssClass}}">
                 <span data-ng-click="option.showDesc=!option.showDesc">
@@ -532,7 +554,9 @@ define([
           </div>
           <div class="m-available-fligths" data-ng-repeat="flight in location.return.dates[0].flights" data-ng-class="{'non-available': flight.info.classes[location.return.selectedClassIndex.id].price.cash == -1}"
             data-ng-if="location.return.dates[0].flights.length &gt; 0">
-            <div data-ng-click="$ctrl.selectFlightAction(flight, location, 'return', $parent.$index, $event)">
+            <div tabindex="0"
+            data-ng-keypress="$ctrl.selectFlightAction(flight, location, 'return', $parent.$index, $event)" 
+            data-ng-click="$ctrl.selectFlightAction(flight, location, 'return', $parent.$index, $event)">
               <div class="flight-time">
                 <div data-ng-repeat="fInfo in flight.info.flight_list">
                   <span class="departing">
@@ -563,7 +587,9 @@ define([
             </div>
             <div class="flight-selling-class" data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash &gt;= 0">
               <span>(
-                <a data-ng-click="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); $ctrl.ui.sellingClass.isDeparture=false">{{flight.info.classes[location.return.selectedClassIndex.id].sellingClass.text}}</a>)</span>
+                <a tabindex="0" 
+                data-ng-keypress="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); $ctrl.ui.sellingClass.isDeparture=false"
+                data-ng-click="flight.info.classes[location.return.selectedClassIndex.id].sellingClass.click($event); $ctrl.ui.sellingClass.isDeparture=false">{{flight.info.classes[location.return.selectedClassIndex.id].sellingClass.text}}</a>)</span>
             </div>
             <div class="dialog-container" data-jqui-dialog="data-jqui-dialog" data-bs-open-dialog="{{$ctrl.ui.sellingClass.openDialog}}"
               data-bs-close-from-inner="$ctrl.ui.sellingClass.openDialog">
