@@ -145,7 +145,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BANK_TRANSFER: 'Bank Transfer',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
       LABEL_SEAT: 'Seat',
-      LABEL_BUY:'Buy'
+      LABEL_BUY:'Buy',
+      LABEL_DEPART_DATE:"Departing date",
+      LABEL_RETURN_DATE:"Returning date"
     })
 
 
@@ -286,7 +288,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BANK_TRANSFER: 'Transferencia bancaria',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancário',
       LABEL_SEAT: 'Asiento',
-      LABEL_BUY:'Comprar'
+      LABEL_BUY:'Comprar',
+      LABEL_DEPART_DATE:"Fecha de salida",
+      LABEL_RETURN_DATE:"Fecha de retorno"
     })
 
     // portuguees translations
@@ -426,7 +430,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BANK_TRANSFER: 'Transferência bancária',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
       LABEL_SEAT:'Assento',
-      LABEL_BUY:'Comprar'
+      LABEL_BUY:'Comprar',
+      LABEL_DEPART_DATE:"Data de partida",
+      LABEL_RETURN_DATE:"Data de retorno"
     })
 
     // set default language
