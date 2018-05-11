@@ -3,7 +3,7 @@ extends ../../../templates/layout.jade
 block body
   div.m-flexible-dates(data-ng-controller="FlexibleDatesOneWayController")    
     div.container
-      h1.m-page-title {{ ui.pageTitle }}
+      h1.m-page-title(tabindex=0) {{ ui.pageTitle }}
       .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")
       div.row.margin-bottom-md()
           bs-flexible-dates-calendar-area-component(data-states="ui.states" data-update-states="ui.updateStates(states)")
