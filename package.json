@@ -27,9 +27,9 @@
     "backend": "server"
   },
   "dependencies": {
-    "@everymundo/bsmart-components": "^1.0.1",
-    "@everymundo/bsmart-core": "^1.1.1",
-    "@everymundo/bsmart-lib": "^1.1.23",
+    "@everymundo/bsmart-components": "latest",
+    "@everymundo/bsmart-core": "latest",
+    "@everymundo/bsmart-lib": "latest",
     "@everymundo/bsmart-postinstall": "^1.0.0",
     "@everymundo/bsmart-tasks": "^1.0.4",
     "@everymundo/em-static-server--hapi": "^1.0.0",
