@@ -14,6 +14,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BOOK_YOUR_TRIP: 'Book your trip',
       LABEL_LANGUAGE: 'Language',
       LABEL_GENERIC_BODY: 'Generic body',
+      LABEL_JOURNEY_TYPE: "Select your Journey type",
       LABEL_ROUND_TRIP: 'Round Trip',
       LABEL_ONE_WAY: 'One Way',
       LABEL_MULTI_CITY: 'Multi City',
@@ -23,6 +24,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_FD_RETURN: 'Return',
       LABEL_FD_DEPART: 'Depart',
       LABEL_ARRIVAL_DATE: 'Return',
+      LABEL_CABIN_GROUP: "Select your Journey class",
       LABEL_CABIN_ECONOMY: 'Economy Class',
       LABEL_CABIN_BUSINESS: 'Business Class',
       LABEL_PASSENGER: 'Passenger',
@@ -147,7 +149,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_SEAT: 'Seat',
       LABEL_BUY:'Buy',
       LABEL_DEPART_DATE:"Departing date",
-      LABEL_RETURN_DATE:"Returning date"
+      LABEL_RETURN_DATE:"Returning date",
+      LABEL_AUTOCOMPLETE_FROM: "Search origin city. After typing 3 letters use up and down arrows to select from list",
+      LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list"
     })
 
 
@@ -157,6 +161,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BOOK_YOUR_TRIP: 'Reserve su viaje',
       LABEL_LANGUAGE: 'Idioma',
       LABEL_GENERIC_BODY: 'Contenedor genérico',
+      LABEL_JOURNEY_TYPE: "Seleccione su tipo de viaje",
       LABEL_ROUND_TRIP: 'Ida y vuelta',
       LABEL_ONE_WAY: 'Sólo ida',
       LABEL_MULTI_CITY: 'Multi-ciudad',
@@ -166,6 +171,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_ARRIVAL_DATE: 'Fecha de regreso',
       LABEL_FD_RETURN: 'Regreso',
       LABEL_FD_DEPART: 'Salida',
+      LABEL_CABIN_GROUP: "Selecione la clase de su viaje",
       LABEL_CABIN_ECONOMY: 'Clase Económica',
       LABEL_CABIN_BUSINESS: 'Clase Ejecutiva',
       LABEL_PASSENGER: 'Pasajeros',
@@ -290,7 +296,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_SEAT: 'Asiento',
       LABEL_BUY:'Comprar',
       LABEL_DEPART_DATE:"Fecha de salida",
-      LABEL_RETURN_DATE:"Fecha de retorno"
+      LABEL_RETURN_DATE:"Fecha de retorno",
+      LABEL_AUTOCOMPLETE_FROM: "Buscar ciudad de origen. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
+      LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista"
     })
 
     // portuguees translations
@@ -299,6 +307,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BOOK_YOUR_TRIP: 'Reserve a sua viagem',
       LABEL_LANGUAGE: 'Language',
       LABEL_GENERIC_BODY: 'Body genérico',
+      LABEL_JOURNEY_TYPE: "Selecione seu tipo de viagem",
       LABEL_ROUND_TRIP: 'Ida e volta',
       LABEL_ONE_WAY: 'Somente ida',
       LABEL_MULTI_CITY: 'Múltiplas cidades',
@@ -308,6 +317,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_ARRIVAL_DATE: 'Data de regresso',
       LABEL_FD_RETURN: 'Regresso',
       LABEL_FD_DEPART: 'Partida',
+      LABEL_CABIN_GROUP: "Selecione sua classe de viagem",
       LABEL_CABIN_ECONOMY: 'Classe Económica',
       LABEL_CABIN_BUSINESS: 'Classe Executiva',
       LABEL_PASSENGER: 'Passageiros',
@@ -432,7 +442,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_SEAT:'Assento',
       LABEL_BUY:'Comprar',
       LABEL_DEPART_DATE:"Data de partida",
-      LABEL_RETURN_DATE:"Data de retorno"
+      LABEL_RETURN_DATE:"Data de retorno",
+      LABEL_AUTOCOMPLETE_FROM: "Pesquisar cidade de origem. Depois de digitar 3 letras, use as setas para cima e para baixo para selecionar da lista",
+      LABEL_AUTOCOMPLETE_TO: "Pesquisar cidade de destino. Depois de digitar 3 letras, use as setas para cima e para baixo para selecionar da lista"
     })
 
     // set default language
