@@ -33,7 +33,8 @@ define([
         var fareHold = {
             textDescription: scrapHelper.getDescriptionText(),
             linkDescription: scrapHelper.getDescriptionNote(),
-            priceOptions: scrapHelper.getFareHoldOffers()
+            priceOptions: scrapHelper.getFareHoldOffers(),
+            existFareHold: scrapHelper.existFareHold()
 
         }       
 
@@ -52,7 +53,7 @@ define([
         },
         controller: bsFareHoldController,
         template : `
-        <div class="fare-hold-container">
+        <div class="fare-hold-container" data-ng-if="$ctrl.fareHold.existFareHold == true">
             <section tabindex=0>
                 <h3>Flight Offers</h3>
             </section>

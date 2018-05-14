@@ -8,6 +8,7 @@ define([
     const SELECTOR_FARE_HOLD_ITEM_PRICE = ".fare-hold__offers-item-price"
     const SELECTOR_FARE_HOLD_ITEM_CURRENCY = ".fare-hold__offers-item-price-currency-prefix"
     const SELECTOR_FARE_HOLD_OPTIONS = ".fare-hold__offers-item label"
+    const SELECTOR_FARE_HOLD_CONTAINER = '.fare-hold'
     
     var clearCheckedOptions = function(optionArray){
         optionArray.forEach((item)=>{
@@ -45,7 +46,8 @@ define([
             })
             
             return result
-        }
+        },
+        existFareHold: ()=> $jq(SELECTOR_FARE_HOLD_CONTAINER).length > 0
 
     }
 
