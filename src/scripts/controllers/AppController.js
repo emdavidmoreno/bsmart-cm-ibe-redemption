@@ -151,6 +151,7 @@ define([
 
       var model = Farenet2.getResult();
 
+      $scope.isMenuShowed = ()=> hostUIService.isMenuShowed()
 
 
 
@@ -182,6 +183,14 @@ define([
         isLoginAvailable: hostScrapService.isLoginAvailable(),
         loginLabel: hostScrapService.loginLabel(),
         openLoginDialog: hostScrapService.openLoginDialog,
+        isMenuOpen: false,        
+        toggleSideMenu: function() {
+          main.isMenuOpen = !main.isMenuOpen;
+          main.isMenuOpen ? hostUIService.showMenu() : hostUIService.hideMenu()
+        },
+        isMenuShowed:function(){
+          return main.isMenuOpen;
+        },
       };
 
       $translate.use(main.language);

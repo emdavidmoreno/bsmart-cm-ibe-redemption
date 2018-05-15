@@ -12,9 +12,9 @@ define([], function () {
     }
 
     hostUIService.bindUI = function (html) {
-      $('.m-top-bar i.menu').click(function () {
-        hostUIService.showMenu();
-      });
+      // $('.m-top-bar i.menu').on('click keypress', function () {
+      //   //hostUIService.showMenu();
+      // });
       $('.m-sidebar-menu').click(function (event) {
         event.stopPropagation();
       });
@@ -42,6 +42,10 @@ define([], function () {
     hostUIService.hideMenu = function () {
       $('.m-sidebar-menu').css('left', '-100%');
       $('.m-sidebar-menu-wrapper').hide();//.css('display', 'none');
+    }
+
+    hostUIService.isMenuShowed = function(){
+      return this.isMenuShowed;
     }
 
     hostUIService.showLoader = function () {
