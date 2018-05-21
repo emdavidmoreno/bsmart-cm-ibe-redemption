@@ -2,13 +2,14 @@ define([
     'jquery',
 ],function($jq){
     'use strict'
-    const SELECTOR_FARE_HOLD_DESCRIPTION_TEXT = ".fare-hold__description-text"
+    const SELECTOR_FARE_HOLD_DESCRIPTION_TEXT = ".fare-hold__description"
     const SELECTOR_FARE_HOLD_DESCRIPTION_NOTE = ".fare-hold__description-note"
     const SELECTOR_FARE_HOLD_ITEM_DURATION = ".fare-hold__offers-item-duration"
     const SELECTOR_FARE_HOLD_ITEM_PRICE = ".fare-hold__offers-item-price"
     const SELECTOR_FARE_HOLD_ITEM_CURRENCY = ".fare-hold__offers-item-price-currency-prefix"
     const SELECTOR_FARE_HOLD_OPTIONS = ".fare-hold__offers-item label"
     const SELECTOR_FARE_HOLD_CONTAINER = '.fare-hold'
+    const SELECTOR_FARE_HOLD_BANNER = '.fare-hold__banner h3'
     
     var clearCheckedOptions = function(optionArray){
         optionArray.forEach((item)=>{
@@ -17,11 +18,14 @@ define([
     }
 
     let scrapHelper = {
-        getDescriptionText: function(){
-            return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_TEXT).text()
+        getDescriptionImg: function(){
+            return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_TEXT).html()
         },
         getDescriptionNote: function(){
             return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_NOTE).html()
+        },
+        getBannerImg: function(){
+            return $jq(SELECTOR_FARE_HOLD_BANNER).html()
         },
         getFareHoldOffers: function(){
             let result =[]

@@ -13,18 +13,16 @@
         box-shadow: none;
         padding: 10px;
 
+
         .fare-hold-content-row{
-            padding: 10px 0;
+            padding:0 auto;
 
-            .fare-hold-description-text{
-                font-size: 14px;
-                font-weight: bold;
+            img{
+                width: 100%;
             }
 
-            .fare-hold-description-note{
-                font-size: 13px;
-            }
-
+            
+           
             button{
                 margin: 0 5px;
                 color: #0E4A81;
@@ -59,6 +57,17 @@
             button.selected{
                 border: 3px solid #0E4A81;
             }
+        }
+
+        .fare-hold-content-row.header{
+            background-color: #0060A9;
+            img{
+                height: 5rem;
+            }
+        }
+
+        .fare-hold-content-row.options{
+            margin-top: 2em;
         }
 
 

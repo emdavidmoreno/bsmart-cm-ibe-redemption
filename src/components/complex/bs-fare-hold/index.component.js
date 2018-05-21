@@ -31,9 +31,10 @@ define([
           };
 
         var fareHold = {
-            textDescription: scrapHelper.getDescriptionText(),
+            textDescription: scrapHelper.getDescriptionImg(),
             linkDescription: scrapHelper.getDescriptionNote(),
             priceOptions: scrapHelper.getFareHoldOffers(),
+            bannerImg: scrapHelper.getBannerImg(),
             existFareHold: scrapHelper.existFareHold()
 
         }       
@@ -58,19 +59,13 @@ define([
                 <h3>Flight Offers</h3>
             </section>
             <div class="fare-hold-content text-center">
-                    <div class="fare-hold-content-row" tabindex=0>
-                        <img src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/fare-hold-logo.png"
-                         alt="Fare Hold">
+                    <div class="fare-hold-content-row header" tabindex=0 
+                    data-ng-bind-html="$ctrl.fareHold.bannerImg | sanitize">                        
                     </div>
-                    <div class="fare-hold-content-row"> 
-                        <p class="fare-hold-description-text" tabindex=0>
-                            {{$ctrl.fareHold.textDescription}}
-                        </p>
-                        <p class="fare-hold-description-note" 
-                            data-ng-bind-html="$ctrl.fareHold.linkDescription | sanitize">                       
-                        </p>
+                    <div class="fare-hold-content-row description"  
+                    data-ng-bind-html="$ctrl.fareHold.textDescription | sanitize">
                     </div>
-                <div class="fare-hold-content-row">                          
+                <div class="fare-hold-content-row options">                          
                         <button class="btn btn-default" 
                             aria-selected="{{option.checked}}"
                             data-ng-class="{'selected': option.checked == true}"
@@ -79,7 +74,6 @@ define([
                             > 
                             <span class="fare-hold-duration">{{option.duration}}</span>
                             <span class="fare-hold-price">
-                                <span class="fare-hold-currency-prefix" ng-if="option.currency !=''">{{option.}}</span>
                                 {{option.price}}
                             </span>
                         </button>
