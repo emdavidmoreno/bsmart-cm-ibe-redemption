@@ -4,12 +4,13 @@ define([
 ], function($, scrapHelper){
     'use strict'
 
-    let bsFareHoldController = function($scope, $timeout){
+    let bsFareHoldController = function($scope, $timeout, $interval){
 
         var ctrl = this
 
-        $scope.$on("app:language-changed", function(){
-     
+        var fareHold = {}
+
+        $scope.$on("app:language-changed", function(){     
             syncUI();
           });
     
@@ -27,17 +28,25 @@ define([
          * Init component
          */
         ctrl.$onInit = function() {
-           syncUI();
+           syncUI();          
           };
+        var setFareHold = () => {
+            ctrl.fareHold = {
+                textDescription: scrapHelper.getDescriptionImg(),
+                linkDescription: scrapHelper.getDescriptionNote(),
+                priceOptions: scrapHelper.getFareHoldOffers(),
+                bannerImg: scrapHelper.getBannerImg(),
+                existFareHold: scrapHelper.existFareHold()
+            }   
+        }
 
-        var fareHold = {
-            textDescription: scrapHelper.getDescriptionImg(),
-            linkDescription: scrapHelper.getDescriptionNote(),
-            priceOptions: scrapHelper.getFareHoldOffers(),
-            bannerImg: scrapHelper.getBannerImg(),
-            existFareHold: scrapHelper.existFareHold()
-
-        }       
+        var promise = $interval(()=>{
+            if(scrapHelper.existFareHold() == true){
+                setFareHold()
+                $interval.cancel(promise)
+            }
+        },500)
+           
 
         ctrl.fareHold = fareHold
 
@@ -46,7 +55,7 @@ define([
         }
 
     }
-    bsFareHoldController.$inject = ['$scope', '$timeout'];
+    bsFareHoldController.$inject = ['$scope', '$timeout', '$interval'];
 
     return {
         bindings: {
