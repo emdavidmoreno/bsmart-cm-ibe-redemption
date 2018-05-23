@@ -52,10 +52,10 @@ define([
                 <h3>Flight Offers</h3> 
             </section>
             <div class="fare-hold-content text-center">
-                    <div class="fare-hold-content-row header" tabindex=0 
+                    <div class="fare-hold-content-row blue-bg" tabindex=0 
                     data-ng-bind-html="$ctrl.bannerImg | sanitize">                        
                     </div>
-                    <div class="fare-hold-content-row description"  
+                    <div class="fare-hold-content-row description blue-bg"  
                     data-ng-bind-html="$ctrl.textDescription | sanitize">
                     </div>
                 <div class="fare-hold-content-row options">                          
