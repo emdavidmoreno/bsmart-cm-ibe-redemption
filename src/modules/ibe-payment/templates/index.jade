@@ -33,9 +33,9 @@ block body
                   span.text--linkify(
                     id="flight.infoout.bound{{$index}}"
                     tabindex=0
-                    aria-label="{{ 'LABEL_FLIGHT_OUTBOUND' | translate }} {{ flight.info.classes[0].name }}"
                     data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false"
                     data-ng-keypress="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
+                    span.sr-only {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}. {{ flight.info.classes[0].name }}
                     | ({{flight.info.classes[0].sellingClass.text}})
               .flight-list-title(tabindex=0)
                   | {{location.departure.dates[0].date | date:'MMMM d, y'}}
@@ -87,9 +87,9 @@ block body
                   span.text--linkify(
                     id="flight.infoin.bound{{$index}}"
                     tabindex=0
-                    aria-label="{{ 'LABEL_FLIGHT_INBOUND' | translate }} {{flight.info.classes[0].name}}"
                     data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true"
                     data-ng-keypress="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true")
+                    span.sr-only {{ 'LABEL_FLIGHT_INBOUND' | translate }}. {{flight.info.classes[0].name}}
                     | ({{flight.info.classes[0].sellingClass.text}})
               .flight-list-title(tabindex=0)
                   | {{location.return.dates[0].date | date:'MMMM d, y'}}
