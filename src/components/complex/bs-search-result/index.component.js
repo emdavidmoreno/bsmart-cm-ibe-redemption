@@ -284,9 +284,9 @@ define([
                 <div class="m-flight-details-dialog">
                   <div class="m-dialog-head">
                     <span>{{$ctrl.ui.flightDetails.data.dialogTitle}}</span>
-                    <span class="close" data-ng-click="$ctrl.ui.flightDetails.openDialog=false">X</span>
+                    <span tabindex="0" class="close" data-ng-click="$ctrl.ui.flightDetails.openDialog=false">X</span>
                   </div>
-                  <div class="m-dialog-body">
+                  <div class="m-dialog-body" tabindex="0">
                     <div class="m-loader m-loader--dialog-internal" data-ng-if="$ctrl.ui.flightDetails.isLoading">
                       <div class="icon--pure-css">Loading</div>
                     </div>
@@ -447,10 +447,10 @@ define([
                   <div class="m-selling-class-dialog">
                     <div class="m-dialog-head">
                       <span data-ng-if="$ctrl.ui.sellingClass.isDeparture">{{location.departure.selectedClassIndex.name}}</span>
-                      <span class="close" data-ng-click="$ctrl.ui.sellingClass.openDialog=false">X</span>
+                      <span tabindex="0" class="close" data-ng-click="$ctrl.ui.sellingClass.openDialog=false">X</span>
                       <span data-ng-if="!$ctrl.ui.sellingClass.isDeparture">{{location.return.selectedClassIndex.name}}</span>
                     </div>
-                    <div class="m-dialog-body">
+                    <div class="m-dialog-body" tabindex="0">
                       <div class="m-loader m-loader--dialog-internal" data-ng-if="$ctrl.ui.sellingClass.isLoading">
                         <div class="icon--pure-css"></div>
                       </div>
@@ -596,10 +596,10 @@ define([
               <div class="m-selling-class-dialog">
                 <div class="m-dialog-head">
                   <span data-ng-if="$ctrl.ui.sellingClass.isDeparture">{{location.departure.selectedClassIndex.name}}</span>
-                  <span class="close" data-ng-click="$ctrl.ui.sellingClass.openDialog=false">X</span>
+                  <span tabindex="0" class="close" data-ng-click="$ctrl.ui.sellingClass.openDialog=false">X</span>
                   <span data-ng-if="!$ctrl.ui.sellingClass.isDeparture">{{location.return.selectedClassIndex.name}}</span>
                 </div>
-                <div class="m-dialog-body">
+                <div class="m-dialog-body" tabindex="0">
                   <div class="m-loader m-loader--dialog-internal" data-ng-if="$ctrl.ui.sellingClass.isLoading">
                     <div class="icon--pure-css"></div>
                   </div>
