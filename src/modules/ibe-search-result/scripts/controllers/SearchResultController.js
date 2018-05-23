@@ -55,7 +55,9 @@ define([
       appHostProxyService,
       $filter,
       $sce,
-      ApphostUIService
+      ApphostUIService,
+      $interval
+
     ) {
       let instance = this
 
@@ -247,6 +249,7 @@ define([
           data: {},
         },
         showContinueButton: 0,
+        fareHoldData: 'undefined',
         mediaInfoMessages: hostScrapService.getMediaInfoMessages(),
         clickBtnSelectFlightClass: function(isDeparture) {
           if (ui.user_input_journey_type !== 'Multi City') {
@@ -288,6 +291,7 @@ define([
 
       syncDefaultErrorMessages()
 
+      setFareHoldData()
 
       // sync the ui height to garanty footer correct positioning
       appHostProxyService.syncHeight($timeout)
@@ -378,6 +382,8 @@ define([
         if (locationBound.selectingValueForFirstTime) {
           locationBound.selectingValueForFirstTime = 0
         }
+
+        setFareHoldData()
       }
 
       $scope.closeDepartureLocationSummaryAction = function(location) {
@@ -772,6 +778,24 @@ define([
         $scope.$apply()
       }
 
+      function setFareHoldData(){
+        var promise = $interval(()=>{
+          if(hostScrapService.existFareHold() == true){
+            console.log("iteracion")
+            $timeout(()=>{
+              $scope.ui.fareHoldData = {
+                textDescription: hostScrapService.getDescriptionImg() || '',
+                linkDescription: hostScrapService.getDescriptionNote() || '',
+                priceOptions: hostScrapService.getFareHoldOffers() || [],
+                bannerImg: hostScrapService.getBannerImg() || '#',
+                existFareHold: hostScrapService.existFareHold() || false
+              } 
+            },0)            
+            $interval.cancel(promise)
+          }
+        },500)
+      }
+
       // - visual helpers
 
       // -------------------------------------------------------
@@ -791,6 +815,7 @@ define([
       '$filter',
       '$sce',
       'ApphostUIService',
+      '$interval'
     ]
 
     angular
