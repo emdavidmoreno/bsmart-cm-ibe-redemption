@@ -7,7 +7,18 @@ block body
       .m-page-comment-block(data-ng-bind-html="ui.commentBlock | sanitize")
       div.row.margin-bottom-md()
           bs-flexible-dates-calendar-area-component(data-states="ui.states" data-update-states="ui.updateStates(states)")
-          bs-search-result-component(data-states="ui.states")
+          bs-search-result-component(
+            data-states="ui.states"
+            data-change-price-lock="changePriceLock()"
+            )
+          bs-fare-hold-component(
+            data-ng-show="ui.fareHoldData.existFareHold"
+            data-text-description ="ui.fareHoldData.textDescription"  
+            data-link-description ="ui.fareHoldData.linkDescription"  
+            data-price-options ="ui.fareHoldData.priceOptions"  
+            data-banner-img ="ui.fareHoldData.bannerImg"  
+            data-exist-fare-fold ="ui.fareHoldData.existFareHold"
+          )
 
         div.row.margin-bottom-md()
           bs-btn-continue-component(data-btn-host-selector="#pgButtonNewSearch" btn-classes="btn-return")
