@@ -13,12 +13,13 @@ define([
   '../../../../scripts/filters/collUnique',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
+  '../../../../components/complex/bs-fare-hold/index.component',
   'statsService',
   'lodash',
   '../../../../scripts/services/hostUIService',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
-  jquiDialog, statsService, _, ApphostUIService) {
+  jquiDialog, bsFareHoldComponent, statsService, _, ApphostUIService) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -54,7 +55,9 @@ define([
       appHostProxyService,
       $filter,
       $sce,
-      ApphostUIService
+      ApphostUIService,
+      $interval
+
     ) {
       let instance = this
 
@@ -246,6 +249,8 @@ define([
           data: {},
         },
         showContinueButton: 0,
+        fareHoldData: 'undefined',
+        showFareHold: false,
         mediaInfoMessages: hostScrapService.getMediaInfoMessages(),
         clickBtnSelectFlightClass: function(isDeparture) {
           if (ui.user_input_journey_type !== 'Multi City') {
@@ -287,6 +292,7 @@ define([
 
       syncDefaultErrorMessages()
 
+      setFareHoldData()
 
       // sync the ui height to garanty footer correct positioning
       appHostProxyService.syncHeight($timeout)
@@ -297,15 +303,16 @@ define([
       // -------------------------------------------------------
       // binding functions
       // -------------------------------------------------------
-
+      
+      instance.flightYouSelect = 0
       $scope.selectFlightAction = function(flight, location, locationType, index, $event) {
         // TODO: Break this function in small reusable pieces
-
+        $event.stopPropagation();
         let locationBound = location.departure
         if (locationType === 'return') {
           locationBound = location.return
         }
-
+        
         let selectedClassIndex = locationBound.selectedClassIndex.id
         let infoClass = flight.info.classes[selectedClassIndex]
 
@@ -341,9 +348,11 @@ define([
           if (locationType === 'departure') {
             if (location.return && locationBound.selectingValueForFirstTime) {
               location.return.show = 1
+              instance.flightYouSelect ++
             } else {
               // TODO: mark the current as checked
               location.done = 1
+              instance.flightYouSelect ++
               if (ui.locations.length > 1) {
                 // TODO: Put this code in a helper
                 let areAllSummaryShowed = 1
@@ -359,12 +368,17 @@ define([
                 }
               } else {
                 ui.showContinueButton = 1
-              }
+                // ui.showFareHold = true
+              }  
+              if(!location.return){
+                instance.flightYouSelect ++
+              }           
             }
           } else {
             // Show the general sumary and the button
             // See the mokup below
             ui.showContinueButton = 1
+            instance.flightYouSelect ++
             location.done =1
 
             // https://projects.invisionapp.com/d/main#/console/6681575/147006373/preview#project_console
@@ -372,16 +386,22 @@ define([
             // TODO: Add the code for open the next location here
           }
         }
-
+        
+        ui.showFareHold = instance.flightYouSelect % 2 == 0
+       
 
         if (locationBound.selectingValueForFirstTime) {
           locationBound.selectingValueForFirstTime = 0
         }
+
+        setFareHoldData()
       }
 
       $scope.closeDepartureLocationSummaryAction = function(location) {
         location.departure.show = 1
         location.departure.summary.show = 0
+        ui.showFareHold = false
+        instance.flightYouSelect --
         location.done = 0
         if (location.return) {
           location.return.show = 0
@@ -397,6 +417,8 @@ define([
       $scope.closeReturnLocationSummaryAction = function(location) {
         location.return.show = 1
         location.return.summary.show = 0
+        ui.showFareHold = false
+        instance.flightYouSelect --
         ui.showContinueButton = 0
         location.done = 0
       }
@@ -771,6 +793,24 @@ define([
         $scope.$apply()
       }
 
+      function setFareHoldData(){
+        var promise = $interval(()=>{
+          if(hostScrapService.existFareHold() == true){
+            console.log("iteracion")
+            $timeout(()=>{
+              $scope.ui.fareHoldData = {
+                textDescription: hostScrapService.getDescriptionImg() || '',
+                linkDescription: hostScrapService.getDescriptionNote() || '',
+                priceOptions: hostScrapService.getFareHoldOffers() || [],
+                bannerImg: hostScrapService.getBannerImg() || '#',
+                existFareHold: hostScrapService.existFareHold() || false
+              } 
+            },0)            
+            $interval.cancel(promise)
+          }
+        },500)
+      }
+
       // - visual helpers
 
       // -------------------------------------------------------
@@ -790,6 +830,7 @@ define([
       '$filter',
       '$sce',
       'ApphostUIService',
+      '$interval'
     ]
 
     angular
@@ -800,6 +841,7 @@ define([
       .filter('sanitize', sanitize)
       .filter('unique', collUnique)
       .directive('jquiDialog', jquiDialog)
+      .component('bsFareHoldComponent', bsFareHoldComponent)
       .controller('SearchResultController', SearchResultController)
   })({})
 

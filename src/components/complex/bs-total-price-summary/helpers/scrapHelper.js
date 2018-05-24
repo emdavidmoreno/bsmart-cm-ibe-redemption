@@ -3,8 +3,11 @@ define(['jquery'], function ($jq) {
   'use strict'
   const PRICE_BASE_INFO_SELECTOR = '.expandedSection:eq(0) .detailedPrice tbody tr td.price'
   const TOTAL_PRICE_SELECTOR = 'table tr.totalPriceRow span.money'
+  const SUB_TOTAL_PRICE_SELECTOR = 'div.sub-total-price span.sub-total-price__price span.money'
   const PRICE_INSURENCE_SELECTOR = '.expandedSection:eq(1)'
   const INSURANCE_SELECTOR = 'td div[id*="idInsurance1"]'
+  const FARE_HOLD_SELECTOR = 'td div[id*="idAncillaryOptionElement"]'
+
   const SELECTOR_COP = '.rowEven.rowDiscount'
 
   // ----------------------- Prices Info --------------------
@@ -30,12 +33,12 @@ define(['jquery'], function ($jq) {
   }
 
 
-   const existInsuranceTable = function () {
+  const existInsuranceTable = function () {
     return $jq(INSURANCE_SELECTOR).length
   }
 
 
-   const existSeatTable = function () {
+  const existSeatTable = function () {
     let PRICE_SELECTOR = '.expandedSection:eq(2) .detailedPrice tbody tr td.price'
     if (!existInsuranceTable()){       
         PRICE_SELECTOR = '.expandedSection:eq(1) .detailedPrice tbody tr td.price'
@@ -110,8 +113,27 @@ define(['jquery'], function ($jq) {
    * @return {String}
    */
   const getTotalPrice = () => {
+    if(existFareHoldTable())
+      return $jq(SUB_TOTAL_PRICE_SELECTOR).text().trim();
     return $jq(TOTAL_PRICE_SELECTOR).text().trim();
   }
+
+  const existFareHoldTable = function(){
+    return $jq(FARE_HOLD_SELECTOR).length
+  }
+
+  const getFareHoldCategory = ()=> {
+    return $jq(FARE_HOLD_SELECTOR).text().trim()
+  }
+
+  const getTotalPriceLabel = () => {
+    if(existFareHoldTable())
+      return $jq('span[class="sub-total-price__label"]').text().trim()
+    return $jq('.totalPrice .totalPriceRow td[class="label"]').text().trim()
+    //return "Total"
+  }
+
+  
 
 
   return {
@@ -122,6 +144,7 @@ define(['jquery'], function ($jq) {
     existInsuranceTable,
     getLinkOption,
     existCOP,
-    getTotalPrice
+    getTotalPrice,
+    getTotalPriceLabel
   }
 })
