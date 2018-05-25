@@ -282,6 +282,7 @@ block body
             .col-sm-10
               input.md.form-control(type='text' placeholder='Cardholders Name'
                 aria-label="{{'LABEL_CARDHOLDER_NAME' | translate}} {{ ui.partialErrors.cardHolderName }}"
+                id="ui.payment.cardHolderName"
                 data-ng-model="ui.payment.cardHolderName"
                 data-ng-change="ui.payment.setCardHolderName(ui.payment.cardHolderName)")
               span.text-message
@@ -306,11 +307,13 @@ block body
                 | {{'LABEL_EXPIATION_DATE' | translate}}
               br
               select.md.form-control(
+                id="ui.payment.edExpirationMonth"
                 data-ng-model="ui.payment.edExpirationMonth"
                 aria-label=" Month  {{ ui.partialErrors.edExpirationMonth }}"
                 data-ng-change="ui.payment.setEdExpirationMonth(ui.payment.edExpirationMonth)"
                 data-ng-options="option.name for option in ui.payment.expirationDatesMonth track by option.value")
               select.md.form-control(
+                id="ui.payment.edExpirationYear"
                 data-ng-model="ui.payment.edExpirationYear"
                 aria-label="Year {{ ui.partialErrors.edExpirationYear }}"
                 data-ng-change="ui.payment.setEdExpirationYear(ui.payment.edExpirationYear)"
@@ -362,6 +365,7 @@ block body
               | {{'LABEL_CARDHOLDER_PHONE' | translate}}
             .col-sm-3.phone-country-code
               input.md.form-control(type='tel' 
+                id="ui.payment.cardHolderPhoneCode"
                 aria-label="Phone code. {{ ui.partialErrors.cardHolderPhoneCode }}"
                 data-ng-model="ui.payment.cardHolderPhoneCode"
                 data-ng-change="ui.payment.setCardHolderPhoneCode(ui.payment.cardHolderPhoneCode)")
