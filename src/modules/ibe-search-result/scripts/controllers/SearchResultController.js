@@ -370,7 +370,7 @@ define([
                 ui.showContinueButton = 1
                 // ui.showFareHold = true
               }  
-              if(!location.return){
+              if(!location.return && locationBound.selectingValueForFirstTime){
                 instance.flightYouSelect ++
               }           
             }
