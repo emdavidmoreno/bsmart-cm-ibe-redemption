@@ -8,7 +8,15 @@ define([
 
         var ctrl = this
 
-        var fareHold = {}
+        console.log(this)
+
+        ctrl.plTitle = scrapHelper.getPriceLockTitle()
+
+        ctrl.loadingContent = scrapHelper.getLoadingContent()
+
+        ctrl.headerBanner = scrapHelper.headerBanner()
+
+        ctrl.descriptionBanner = scrapHelper.descriptionBanner()
 
         $scope.$on("app:language-changed", function(){     
             syncUI();
@@ -39,26 +47,26 @@ define([
     return {
         bindings: {
             states: "<?",
-            textDescription: "<",
-            linkDescription: "<",
             priceOptions: "<",
-            bannerImg: "<",
-            existFareHold: "<"
+            showFareHold: "<",
+            optionsLoaded: "<"
         },
         controller: bsFareHoldController,
         template : `
         <div class="fare-hold-container" >
             <section tabindex=0>
-                <h3>Flight Offers</h3> 
+                <h3> {{$ctrl.plTitle}} </h3> 
             </section>
             <div class="fare-hold-content text-center">
+                <div class="loading-content" data-ng-if="$ctrl.optionsLoaded==false" data-ng-bind-html="$ctrl.loadingContent | sanitize" ></div>
+                <div data-ng-if="$ctrl.optionsLoaded==true">
                     <div class="fare-hold-content-row blue-bg" tabindex=0 
-                    data-ng-bind-html="$ctrl.bannerImg | sanitize">                        
+                    data-ng-bind-html="$ctrl.headerBanner | sanitize">                        
                     </div>
                     <div class="fare-hold-content-row description blue-bg"  
-                    data-ng-bind-html="$ctrl.textDescription | sanitize">
+                    data-ng-bind-html="$ctrl.descriptionBanner | sanitize">
                     </div>
-                <div class="fare-hold-content-row options">                          
+                    <div class="fare-hold-content-row options">                          
                         <button class="btn btn-default" 
                             aria-selected="{{option.checked}}"
                             data-ng-class="{'selected': option.checked == true}"
@@ -69,9 +77,10 @@ define([
                             <span class="fare-hold-price">
                                 {{option.price}}
                             </span>
-                        </button>
-                                    
-                    </div>                    
+                        </button>                                    
+                    </div> 
+                </div>
+                                   
             </div>
         </div>
         `

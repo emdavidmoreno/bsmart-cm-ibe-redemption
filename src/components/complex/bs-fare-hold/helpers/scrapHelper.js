@@ -18,40 +18,20 @@ define([
     }
 
     let scrapHelper = {
-        getDescriptionImg: function(){
-            return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_TEXT).html()
+
+        getLoadingContent: function(){
+            return $jq("#interstitial").html()
         },
-        getDescriptionNote: function(){
-            return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_NOTE).html()
-        },
-        getBannerImg: function(){
+        headerBanner: function(){
             return $jq(SELECTOR_FARE_HOLD_BANNER).html()
         },
-        getFareHoldOffers: function(){
-            let result =[]
-            $jq(SELECTOR_FARE_HOLD_OPTIONS).each(function(index){                    
-                let label = $(this)
-                
-                result.push({
-                    checked: false,
-                    duration: label.find(SELECTOR_FARE_HOLD_ITEM_DURATION).text(),
-                    price: label.find(SELECTOR_FARE_HOLD_ITEM_PRICE).text(),
-                    currency: label.find(SELECTOR_FARE_HOLD_ITEM_CURRENCY).text(),
-                    changeStatus: function(){
-                        var checkedValue = !this.checked
-                        clearCheckedOptions(result)
-                        this.checked = checkedValue
-                        $($(".fare-hold__offers-item label")[index]).click()
-                        $($(".fare-hold__offers-item label")[index])
-                        .find('input').click()
-                       
-                    }
-                })
-            })
-            
-            return result
+
+        descriptionBanner: function(){
+            return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_TEXT).html()
         },
-        existFareHold: ()=> $jq(SELECTOR_FARE_HOLD_CONTAINER).length > 0
+        getPriceLockTitle: function(){
+            return $jq(".flight-offers__head h2").text()
+        }
 
     }
 

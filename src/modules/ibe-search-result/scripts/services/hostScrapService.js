@@ -99,14 +99,17 @@
 
     //FareHold section
 
-    const SELECTOR_FARE_HOLD_DESCRIPTION_TEXT = ".fare-hold__description"
+
+    
+
+    const SELECTOR_FARE_HOLD_DESCRIPTION = ".fare-hold__description"
     const SELECTOR_FARE_HOLD_DESCRIPTION_NOTE = ".fare-hold__description-note"
     const SELECTOR_FARE_HOLD_ITEM_DURATION = ".fare-hold__offers-item-duration"
     const SELECTOR_FARE_HOLD_ITEM_PRICE = ".fare-hold__offers-item-price"
     const SELECTOR_FARE_HOLD_ITEM_CURRENCY = ".fare-hold__offers-item-price-currency-prefix"
     const SELECTOR_FARE_HOLD_OPTIONS = ".fare-hold__offers-item label"
     const SELECTOR_FARE_HOLD_CONTAINER = '.fare-hold'
-    const SELECTOR_FARE_HOLD_BANNER = '.fare-hold__banner h3'
+    const SELECTOR_FARE_HOLD_BANNER = '.fare-hold__banner'
 
     var clearCheckedOptions = function(optionArray){
         optionArray.forEach((item)=>{
@@ -114,41 +117,43 @@
         })
     }
 
-    hostScrapService.getDescriptionImg = function(){
-        return $(SELECTOR_FARE_HOLD_DESCRIPTION_TEXT).html()
-    }
-    hostScrapService.getDescriptionNote = function(){
-        return $(SELECTOR_FARE_HOLD_DESCRIPTION_NOTE).html()
-    }
-    hostScrapService.getBannerImg = function(){
-        return $(SELECTOR_FARE_HOLD_BANNER).html()
-    }
-    hostScrapService.getFareHoldOffers = function(){
-        let result =[]
-        $(SELECTOR_FARE_HOLD_OPTIONS).each(function(index){                    
-            let label = $(this)
+    hostScrapService.collectFareHoldData = function(){
             
-            result.push({
-                checked: false,
-                duration: label.find(SELECTOR_FARE_HOLD_ITEM_DURATION).text(),
-                price: label.find(SELECTOR_FARE_HOLD_ITEM_PRICE).text(),
-                currency: label.find(SELECTOR_FARE_HOLD_ITEM_CURRENCY).text(),
+      let dfd = $.Deferred()
+      var queryData = {
+        "touchPoint": "FLIGHT_RESULTS"
+      };
+      $.get('Merchandizing.do', queryData)
+      .done ((response)=>{
+        let options = []
+        var tempData = JSON.parse(response)
+        tempData.touchPoint.groups.map((group,i)=>{
+          if(group.code == "GROUP_FARE_HOLD"){
+            group.components.map((item, j)=>{
+              options.push({
+                checked: item.checked,
+                duration:item.description,
+                price: item.priceValue === ""? "Free": item.priceValue,
+                currency: item.priceCurrency,
                 changeStatus: function(){
-                    var checkedValue = !this.checked
-                    clearCheckedOptions(result)
-                    this.checked = checkedValue
-                    $($(".fare-hold__offers-item label")[index]).click()
-                    $($(".fare-hold__offers-item label")[index])
-                    .find('input').click()
-                  
+                  var checkedValue = !this.checked
+                  clearCheckedOptions(options)
+                  this.checked = checkedValue
+                  $($(".fare-hold__offers-item label")[index]).click()
+                  $($(".fare-hold__offers-item label")[index])
+                  .find('input').click()                
                 }
+              })
             })
+          }
         })
-        
-        return result
+        dfd.resolve(options)
+      })
+      return dfd.promise()
     }
 
-    hostScrapService.existFareHold =  ()=>{ return $(SELECTOR_FARE_HOLD_CONTAINER).length > 0 }
+    hostScrapService.existFareHold =  ()=>{ return $("#touchpoint .fare-hold").children().length === 3}
+    hostScrapService.existLoading = ()=>{ return $("#interstitial").css("display") == "block" }
     
 
     return hostScrapService;

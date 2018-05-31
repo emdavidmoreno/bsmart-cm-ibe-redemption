@@ -339,11 +339,9 @@ block body
               include ../../../templates/partials/sellingClassDialog.jade
     bs-fare-hold-component(
       data-ng-class="{'show-fare-hold':ui.showFareHold==true,'hide-fare-hold':ui.showFareHold==false}"
-      data-text-description ="ui.fareHoldData.textDescription"  
-      data-link-description ="ui.fareHoldData.linkDescription"  
-      data-price-options ="ui.fareHoldData.priceOptions"  
-      data-banner-img ="ui.fareHoldData.bannerImg"  
-      data-exist-fare-fold ="ui.fareHoldData.existFareHold"
+      data-price-options ="ui.fareHoldData.priceOptions" 
+      data-show-fare-hold ="ui.showFareHold"
+      data-options-loaded ="ui.fareHoldData.optionsLoaded" 
     )
     section
       .m-card.m-card--muted(data-ng-repeat="message in ui.mediaInfoMessages" ng-cloak)

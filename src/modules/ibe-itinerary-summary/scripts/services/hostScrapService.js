@@ -3,7 +3,7 @@
 
   function hostScrapService() {
     var hostScrapService = {};
-    var SELECTOR_INFO_BLOCK = '.mediaInfoBlock';
+    var SELECTOR_INFO_BLOCK = 'ul.disclaimerList li';
     var SELECTOR_INFO_HEAD_BLOCK = '.headBlock span';
     var SELECTOR_INFO_BODY_BLOCK = '.bodyBlock .bodyText';
     var SELECTOR_PROCCED_TO_PAY = '#radiogr1-row1';
@@ -38,7 +38,7 @@
         var $el = $(el);
         var message = {
           head: $el.find(SELECTOR_INFO_HEAD_BLOCK).text(),
-          body: $el.find(SELECTOR_INFO_BODY_BLOCK).text().trim()
+          body: $el.text().trim()
         };
         messages.push(message);
       });

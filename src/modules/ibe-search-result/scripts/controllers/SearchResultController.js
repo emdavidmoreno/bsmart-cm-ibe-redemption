@@ -249,7 +249,10 @@ define([
           data: {},
         },
         showContinueButton: 0,
-        fareHoldData: 'undefined',
+        fareHoldData: {
+          optionsLoaded: false,
+          priceOptions: []
+        },
         showFareHold: false,
         mediaInfoMessages: hostScrapService.getMediaInfoMessages(),
         clickBtnSelectFlightClass: function(isDeparture) {
@@ -288,11 +291,8 @@ define([
       $scope.$parent.showMiniSummary = true
 
       $scope.$parent.stepper.goToStep(1)
-
-
+      
       syncDefaultErrorMessages()
-
-      setFareHoldData()
 
       // sync the ui height to garanty footer correct positioning
       appHostProxyService.syncHeight($timeout)
@@ -393,8 +393,10 @@ define([
         if (locationBound.selectingValueForFirstTime) {
           locationBound.selectingValueForFirstTime = 0
         }
-
-        setFareHoldData()
+        $scope.$evalAsync(()=>{
+          $scope.ui.fareHoldData.optionsLoaded = false
+        })
+        setDefaultFareHoldData()
       }
 
       $scope.closeDepartureLocationSummaryAction = function(location) {
@@ -793,22 +795,27 @@ define([
         $scope.$apply()
       }
 
-      function setFareHoldData(){
-        var promise = $interval(()=>{
-          if(hostScrapService.existFareHold() == true){
-            console.log("iteracion")
-            $timeout(()=>{
-              $scope.ui.fareHoldData = {
-                textDescription: hostScrapService.getDescriptionImg() || '',
-                linkDescription: hostScrapService.getDescriptionNote() || '',
-                priceOptions: hostScrapService.getFareHoldOffers() || [],
-                bannerImg: hostScrapService.getBannerImg() || '#',
-                existFareHold: hostScrapService.existFareHold() || false
-              } 
-            },0)            
-            $interval.cancel(promise)
-          }
-        },500)
+      let setFareHoldData = ()=>{
+        hostScrapService.collectFareHoldData()
+        .done((response)=>{             
+          $scope.$evalAsync(()=>{
+            $scope.ui.fareHoldData = {                
+              priceOptions: response,
+              optionsLoaded: true
+            } 
+          })  
+        })
+      }
+
+      ApphostUIService.interceptAjaxCalls("AirSelectOWCFlight.do", setFareHoldData)
+
+      function setDefaultFareHoldData(){ 
+        $scope.$evalAsync(()=>{
+          $scope.ui.fareHoldData = {                
+            priceOptions: [],
+            optionsLoaded: false
+          } 
+        }) 
       }
 
       // - visual helpers
