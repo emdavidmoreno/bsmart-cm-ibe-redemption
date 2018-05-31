@@ -8,11 +8,7 @@ define([
 
         var ctrl = this
 
-        console.log(this)
-
         ctrl.plTitle = scrapHelper.getPriceLockTitle()
-
-        ctrl.loadingContent = scrapHelper.getLoadingContent()
 
         ctrl.headerBanner = scrapHelper.headerBanner()
 
@@ -58,7 +54,7 @@ define([
                 <h3> {{$ctrl.plTitle}} </h3> 
             </section>
             <div class="fare-hold-content text-center">
-                <div class="loading-content" data-ng-if="$ctrl.optionsLoaded==false" data-ng-bind-html="$ctrl.loadingContent | sanitize" ></div>
+                <div class="loading-content" data-ng-if="$ctrl.optionsLoaded==false"></div>
                 <div data-ng-if="$ctrl.optionsLoaded==true">
                     <div class="fare-hold-content-row blue-bg" tabindex=0 
                     data-ng-bind-html="$ctrl.headerBanner | sanitize">                        

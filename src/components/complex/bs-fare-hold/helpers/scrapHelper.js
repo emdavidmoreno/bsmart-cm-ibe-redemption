@@ -16,18 +16,32 @@ define([
             item.checked = false
         })
     }
-
+    let assetsBaseUrl = "//@@HOST/app/modules/bsmart-cm-ibe/assets/images/"
+    let termsUrls = {
+        en: "https://www.copaair.com/en/terms-conditions-book-and-hold-fee",
+        pt: "https://www.copaair.com/pt/termos-condicoes-book-and-hold-fee",
+        es: "https://www.copaair.com/es/terminos-y-condiciones-de-book-and-hold-fee"
+    }
     let scrapHelper = {
 
         getLoadingContent: function(){
             return $jq("#interstitial").html()
         },
         headerBanner: function(){
-            return $jq(SELECTOR_FARE_HOLD_BANNER).html()
+            return `<h3>
+                        <img src="${assetsBaseUrl}pricelock_01.png" alt="PriceLock">
+                    </h3>`
         },
 
         descriptionBanner: function(){
-            return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_TEXT).html()
+            let language = $jq("#currentLanguage").val()
+            return `<a href="${termsUrls[language]}" target="_blank">
+                        <img src="${assetsBaseUrl}pricelock_02_${language}.png" alt="Reserva ahora y 
+                        asegura tu tarifa por los siguientes días: La compra de PriceLock no es 
+                        reembolsable y no se aplica al precio del boleto. 
+                        Vea todos los términos y condiciones de PriceLock.">
+                        <span class="wcag-offscreen">Se abre en una nueva ventana</span>
+                    </a>`
         },
         getPriceLockTitle: function(){
             return $jq(".flight-offers__head h2").text()
