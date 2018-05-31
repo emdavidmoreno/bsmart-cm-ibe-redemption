@@ -6,8 +6,8 @@
     var SELECTOR_CHOOSE_CURRENCY = '#idChangeCurrency';
     var SELECTOR_CHOOSE_CURRENCY_OPTIONS =
       SELECTOR_CHOOSE_CURRENCY + ' option';
-    var SELECTOR_INFO_BLOCK = '.mediaInfoBlock';
-    var SELECTOR_INFO_HEAD_BLOCK = '.headBlock span';
+    var SELECTOR_INFO_BLOCK = '.mediaInfoBlock .disclaimerList li';
+    var SELECTOR_INFO_HEAD_BLOCK = '.mediaInfoBlock .headBlock span';
       var SELECTOR_INFO_BODY_BLOCK = '.bodyBlock .bodyText';
 
     /**
@@ -22,8 +22,8 @@
       $infoBlocks.each(function(index, el) {
         var $el = $(el);
         var message = {
-          head: $el.find(SELECTOR_INFO_HEAD_BLOCK).text(),
-          body: $el.find(SELECTOR_INFO_BODY_BLOCK).text().trim()
+          head: $(SELECTOR_INFO_HEAD_BLOCK).text(),
+          body: $el.text().trim()
         };
         messages.push(message);
       });
