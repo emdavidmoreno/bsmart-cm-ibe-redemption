@@ -800,9 +800,12 @@ define([
         .done((response)=>{             
           $scope.$evalAsync(()=>{
             $scope.ui.fareHoldData = {                
-              priceOptions: response,
-              optionsLoaded: true
+              priceOptions: response.options,
+              optionsLoaded: true,
+              advertisement: response.advertisement,
+              showAds: response.showAds
             } 
+            console.log("setted FH data", $scope.ui.fareHoldData)
           })  
         })
       }
@@ -813,7 +816,9 @@ define([
         $scope.$evalAsync(()=>{
           $scope.ui.fareHoldData = {                
             priceOptions: [],
-            optionsLoaded: false
+            optionsLoaded: false,
+            advertisement: '',
+            showAds : false
           } 
         }) 
       }

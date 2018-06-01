@@ -125,12 +125,17 @@
       };
       $.get('Merchandizing.do', queryData)
       .done ((response)=>{
+        let data = {
+          advertisement: "",
+          showAds: false,
+          options: []
+        }
         let options = []
         var tempData = JSON.parse(response)
         tempData.touchPoint.groups.map((group,i)=>{
           if(group.code == "GROUP_FARE_HOLD"){
             group.components.map((item, j)=>{
-              options.push({
+              data.options.push({
                 checked: item.checked,
                 duration:item.description,
                 price: item.priceValue === ""? "Free": item.priceValue,
@@ -146,8 +151,16 @@
               })
             })
           }
+          if(group.code == "GROUP_ADVERTISEMENT"){
+            if(typeof group.advertisementContent !== 'undefined'){
+              data.advertisement = group.advertisementContent
+              if(data.options.length == 0){
+                data.showAds = true
+              }
+            }
+          }
         })
-        dfd.resolve(options)
+        dfd.resolve(data)
       })
       return dfd.promise()
     }

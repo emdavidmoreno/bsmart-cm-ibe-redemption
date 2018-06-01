@@ -45,7 +45,9 @@ define([
             states: "<?",
             priceOptions: "<",
             showFareHold: "<",
-            optionsLoaded: "<"
+            optionsLoaded: "<",
+            advertisement: "<",
+            showAds: "<"
         },
         controller: bsFareHoldController,
         template : `
@@ -56,25 +58,28 @@ define([
             <div class="fare-hold-content text-center">
                 <div class="loading-content" data-ng-if="$ctrl.optionsLoaded==false"></div>
                 <div data-ng-if="$ctrl.optionsLoaded==true">
-                    <div class="fare-hold-content-row blue-bg" tabindex=0 
-                    data-ng-bind-html="$ctrl.headerBanner | sanitize">                        
+                    <div class="advertisement" data-ng-if="$ctrl.showAds" data-ng-bind-html="$ctrl.advertisement | sanitize"></div>
+                    <div data-ng-if="!$ctrl.showAds">
+                        <div class="fare-hold-content-row blue-bg" tabindex=0 
+                        data-ng-bind-html="$ctrl.headerBanner | sanitize">                        
+                        </div>
+                        <div class="fare-hold-content-row description blue-bg"  
+                        data-ng-bind-html="$ctrl.descriptionBanner | sanitize">
+                        </div>
+                        <div class="fare-hold-content-row options">                          
+                            <button class="btn btn-default" 
+                                aria-selected="{{option.checked}}"
+                                data-ng-class="{'selected': option.checked == true}"
+                                data-ng-repeat="option in $ctrl.priceOptions"
+                                data-ng-click="option.changeStatus(option)"
+                                > 
+                                <span class="fare-hold-duration">{{option.duration}}</span>
+                                <span class="fare-hold-price">
+                                    {{option.price}}
+                                </span>
+                            </button>                                    
+                        </div> 
                     </div>
-                    <div class="fare-hold-content-row description blue-bg"  
-                    data-ng-bind-html="$ctrl.descriptionBanner | sanitize">
-                    </div>
-                    <div class="fare-hold-content-row options">                          
-                        <button class="btn btn-default" 
-                            aria-selected="{{option.checked}}"
-                            data-ng-class="{'selected': option.checked == true}"
-                            data-ng-repeat="option in $ctrl.priceOptions"
-                            data-ng-click="option.changeStatus(option)"
-                            > 
-                            <span class="fare-hold-duration">{{option.duration}}</span>
-                            <span class="fare-hold-price">
-                                {{option.price}}
-                            </span>
-                        </button>                                    
-                    </div> 
                 </div>
                                    
             </div>
