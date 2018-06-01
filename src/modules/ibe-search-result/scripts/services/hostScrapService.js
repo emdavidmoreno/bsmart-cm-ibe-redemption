@@ -138,7 +138,7 @@
               data.options.push({
                 checked: item.checked,
                 duration:item.description,
-                price: item.priceValue === ""? "Free": item.priceValue,
+                price: item.priceValue === "" ? "Free": `${item.priceCurrency} ${item.basePrice}`,
                 currency: item.priceCurrency,
                 changeStatus: function(){
                   var checkedValue = !this.checked
