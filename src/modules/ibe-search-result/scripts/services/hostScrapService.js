@@ -144,8 +144,8 @@
                   var checkedValue = !this.checked
                   clearCheckedOptions(options)
                   this.checked = checkedValue
-                  $($(".fare-hold__offers-item label")[index]).click()
-                  $($(".fare-hold__offers-item label")[index])
+                  $($(".fare-hold__offers-item label")[j]).click()
+                  $($(".fare-hold__offers-item label")[j])
                   .find('input').click()                
                 }
               })
