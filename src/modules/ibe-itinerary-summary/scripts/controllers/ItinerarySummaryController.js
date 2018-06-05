@@ -11,6 +11,7 @@ define([
   '../../../../scripts/filters/strSimpleDate',
   '../../../../scripts/filters/sanitize',
   '../../../../scripts/filters/collUnique',
+  '../../../../scripts/filters/priceFormat',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
@@ -22,7 +23,7 @@ define([
   '../../../../components/complex/bs-fare-hold-price-summary/index.component',
 ], function($, angular, hostUIService,
   hostScrapService, hostProxyService, strDuration, strSimpleDate,
-  sanitize, collUnique, appHostProxyService, jquiDialog, bsItineraryPricingCard,
+  sanitize, collUnique, priceFormat, appHostProxyService, jquiDialog, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, _, statsService, ApphostUIService,
   bsTotalPriceSummaryComponent, bsFareHoldPriceSummaryComponent) {
   let wrapperInstance = {}
@@ -605,6 +606,8 @@ define([
         }, 0)
       })
 
+      
+
       /**
        * Add the validation messages to the UI
        * errors: {
@@ -682,6 +685,7 @@ define([
         .filter('simpledate', strSimpleDate)
         .filter('sanitize', sanitize)
         .filter('unique', collUnique)
+        .filter('priceFormat', priceFormat)
         .directive('jquiDialog', jquiDialog)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)

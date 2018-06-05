@@ -55,7 +55,7 @@ define([], function() {
               <h4 class="title-text">
                 {{ "LABEL_TOTAL_FARE" | translate }}
                 <strong class="title-text--right">
-                  {{ui.total_price.currency_code}} {{ (passenger_type.total_fare  ) + ui.insurance.price_per_passenger | number:2 }}
+                  {{ui.total_price.currency_code}} {{ (passenger_type.total_fare  ) + ui.insurance.price_per_passenger | priceFormat:ui.total_price.currency_code }}
                 </strong>
               </h4>
             </header>

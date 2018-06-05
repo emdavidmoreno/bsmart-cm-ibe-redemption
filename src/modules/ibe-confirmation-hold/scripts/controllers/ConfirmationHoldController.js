@@ -11,6 +11,7 @@ define([
   '../../../../scripts/filters/strSimpleDate',
   '../../../../scripts/filters/sanitize',
   '../../../../scripts/filters/collUnique',
+  '../../../../scripts/filters/priceFormat',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/filters/range',
   'lodash',
@@ -28,7 +29,7 @@ define([
   '../../../../components/complex/bs-total-price-summary/index.component',
   '../../../../components/complex/bs-fare-hold-info/index.component'
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
-  strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
+  strDuration, strSimpleDate, sanitize, collUnique, priceFormat, appHostProxyService, range,
   _, jquiDialog, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService,
   bsDetailSeatsPricesComponent,
@@ -475,6 +476,7 @@ define([
         .filter('range', range)
         .filter('sanitize', sanitize)
         .filter('unique', collUnique)
+        .filter('priceFormat', priceFormat)
         .directive('jquiDialog', jquiDialog)
         .directive('bsCardRefId', bsCardRefId)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
