@@ -30,16 +30,23 @@ define(['./helpers/scrapHelper'], function (helper) {
       ctrl.existSeatTable = helper.existSeatTable()
       ctrl.existCOP = helper.existCOP()
       ctrl.seatInfoList = helper.getPriceSeatsInfo()     
-      ctrl.totalPrice = helper.getTotalPrice()
+      ctrl.totalPrice = ctrl.getTotalPrice()
       ctrl.priceInfoList = helper.getPriceBaseInfo()
       ctrl.link = helper.getLinkOption()
       $timeout(function () {  
         ctrl.existInsuranceTable = helper.existInsuranceTable() 
         ctrl.priceInsuranceInfo = helper.getPriceInsuranceInfo() 
-        ctrl.totalPrice = helper.getTotalPrice()    
+        ctrl.totalPrice = ctrl.getTotalPrice()    
         ctrl.totalPriceLabel = helper.getTotalPriceLabel() 
        }, 1000)
     }
+
+    ctrl.getTotalPrice = function(){      
+      let p = helper.getTotalPrice().split(" ");
+      return `${p[0]} ${$filter('priceFormat')(helper.formatPrice(p[0], p[1]))}`
+    }
+
+    ctrl.getTotalPrice()
 
     ctrl.$onChanges = function (obj) {
       if (obj.showInsurance) {        
