@@ -31,7 +31,7 @@
      *         {String} object.body
      */
     hostScrapService.getMessages = function () {
-      var $infoBlocks = $('.disclaimerList li');
+      var $infoBlocks = $(SELECTOR_INFO_BLOCK);
       var messages = [];
 
       $infoBlocks.each(function (index, el) {
