@@ -45,6 +45,9 @@ define([
         },
         getPriceLockTitle: function(){
             return $jq(".flight-offers__head h2").text()
+        },
+        existFareHold: function(){
+            return $(SELECTOR_FARE_HOLD_CONTAINER).length > 0
         }
 
     }
