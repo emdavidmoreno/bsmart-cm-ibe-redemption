@@ -48,6 +48,9 @@ define([
         },
         existFareHold: function(){
             return $(SELECTOR_FARE_HOLD_CONTAINER).length > 0
+        },
+        getFareHoldText: function(){
+            return $('.fare-hold__text').html()
         }
 
     }

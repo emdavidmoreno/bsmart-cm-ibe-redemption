@@ -12,9 +12,11 @@ define([
 
         ctrl.plTitle = scrapHelper.getPriceLockTitle()
 
-        ctrl.headerBanner = scrapHelper.headerBanner()
+        ctrl.headerBanner = ""//scrapHelper.headerBanner()
 
-        ctrl.descriptionBanner = scrapHelper.descriptionBanner()
+        ctrl.descriptionBanner = ""//scrapHelper.descriptionBanner()
+
+        ctrl.fareHoldText = scrapHelper.getFareHoldText()
 
         $scope.$on("app:language-changed", function(){     
             syncUI();
@@ -67,6 +69,9 @@ define([
                         </div>
                         <div class="fare-hold-content-row description blue-bg"  
                         data-ng-bind-html="$ctrl.descriptionBanner | sanitize">
+                        </div>
+                        <div class="fare-hold-content-row"  
+                        data-ng-bind-html="$ctrl.fareHoldText | sanitize">
                         </div>
                         <div class="fare-hold-content-row options">                          
                             <button class="btn btn-default" 

@@ -146,7 +146,8 @@
                   this.checked = checkedValue
                   $($(".fare-hold__offers-item label")[j]).click()
                   $($(".fare-hold__offers-item label")[j])
-                  .find('input').click()                
+                  .find('input').click()     
+                  $($(".fare-hold__offers-item label")[j]).click()           
                 }
               })
             })
