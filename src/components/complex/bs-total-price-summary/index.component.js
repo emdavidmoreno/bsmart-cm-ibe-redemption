@@ -67,7 +67,7 @@ define(['./helpers/scrapHelper'], function (helper) {
     },
     /* eslint-disable max-len */
     template:
-    `<section>
+    `<section ng-if="$ctrl.totalPrice != 'undefined'">
         <div class="m-card m-card--warning">
           <div class="content price-summary" ng-cloak>
             <p>
