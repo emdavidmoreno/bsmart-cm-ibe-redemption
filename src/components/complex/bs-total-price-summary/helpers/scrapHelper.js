@@ -133,7 +133,9 @@ define(['jquery'], function ($jq) {
     //return "Total"
   }
 
-  
+  const existPriceBlock = () => {
+    return getPriceBaseInfo.length > 0
+  }
 
 
   return {
@@ -146,6 +148,7 @@ define(['jquery'], function ($jq) {
     existCOP,
     getTotalPrice,
     getTotalPriceLabel,
-    formatPrice
+    formatPrice,
+    existPriceBlock
   }
 })

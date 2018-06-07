@@ -35,8 +35,8 @@
       $infoBlocks.each(function(index, el) {
         let $el = $(el)
         let message = {
-          head: $el.find(SELECTOR_INFO_HEAD_BLOCK).text(),
-          body: $el.find(SELECTOR_INFO_BODY_BLOCK).text().trim(),
+          head: $(SELECTOR_INFO_HEAD_BLOCK).text(),
+          body: $el.text().trim()
         }
         messages.push(message)
       })

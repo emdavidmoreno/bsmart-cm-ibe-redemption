@@ -38,6 +38,7 @@ define(['./helpers/scrapHelper'], function (helper) {
         ctrl.priceInsuranceInfo = helper.getPriceInsuranceInfo() 
         ctrl.totalPrice = ctrl.getTotalPrice()    
         ctrl.totalPriceLabel = helper.getTotalPriceLabel() 
+        ctrl.showComponent = helper.existPriceBlock() 
        }, 1000)
     }
 
@@ -67,7 +68,7 @@ define(['./helpers/scrapHelper'], function (helper) {
     },
     /* eslint-disable max-len */
     template:
-    `<section ng-if="$ctrl.totalPrice != 'undefined'">
+    `<section ng-if="$ctrl.showComponent">
         <div class="m-card m-card--warning">
           <div class="content price-summary" ng-cloak>
             <p>
