@@ -64,13 +64,13 @@ define([
                 <div data-ng-if="$ctrl.optionsLoaded==true">
                     <div class="advertisement" data-ng-if="$ctrl.showAds" data-ng-bind-html="$ctrl.advertisement | sanitize"></div>
                     <div data-ng-if="!$ctrl.showAds">
-                        <div class="fare-hold-content-row blue-bg" tabindex=0 
+                        <div ng-if="false" class="fare-hold-content-row blue-bg" tabindex=0 
                         data-ng-bind-html="$ctrl.headerBanner | sanitize">                        
                         </div>
-                        <div class="fare-hold-content-row description blue-bg"  
+                        <div ng-if="false" class="fare-hold-content-row description blue-bg" tabindex=0 
                         data-ng-bind-html="$ctrl.descriptionBanner | sanitize">
                         </div>
-                        <div class="fare-hold-content-row"  
+                        <div class="fare-hold-content-row fare-hold-text" tabindex=0
                         data-ng-bind-html="$ctrl.fareHoldText | sanitize">
                         </div>
                         <div class="fare-hold-content-row options">                          
