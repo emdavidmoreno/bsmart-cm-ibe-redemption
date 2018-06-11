@@ -87,9 +87,9 @@ define([
                   left: 0
               });
             }, 0);
-            $jq(input).blur();
+          //  $jq(input).blur();
             $jq(input).on('focus', function(){
-              $jq(input).trigger('blur');
+              //$jq(input).trigger('blur');
             });
           }
         };
@@ -138,6 +138,7 @@ define([
           };
 
           options.onClose = function( selectedDate, dpObject ) {
+            console.log("closed date picker", selectedDate)
             if(angular.isDefined(scope.dpSiblingDate) &&
               (scope.dpIsFromDate === 'true' ||
               scope.dpIsFromDate === true ||
@@ -173,6 +174,7 @@ define([
         }
 
         options.onSelect = function(selectedDate /*, dpObject*/){
+          console.log("selected date: ", selectedDate)
           scope.$apply(function () {
             ngModelCtrl.$setViewValue(selectedDate);
           });
