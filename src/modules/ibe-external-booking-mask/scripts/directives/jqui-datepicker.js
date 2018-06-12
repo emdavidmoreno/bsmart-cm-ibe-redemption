@@ -46,6 +46,18 @@ define([
       }
     };
 
+    var formatDateToString = function(stringDate){
+      var dateObj = $jq.datepicker.parseDate('mm/dd/yy', stringDate);
+      var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      var locale = 'en-US'
+      return dateObj.toLocaleDateString(locale, options)
+    }
+
+    var addSelectedDateToLiveRegion = function(stringDate){
+      var tmp = formatDateToString(stringDate)
+      $jq("#wcag-datepicker-log").append('<p aria-live="assertive" aria-atomic="true" aria-relevant="additions text">' + tmp + '</p>')
+    }
+
     var findLastSettedDateValue = function(currentElement, totalAmount) {
       var currentInputId = currentElement;
       var currentIndex;
@@ -75,6 +87,7 @@ define([
         dpTotalAmount: '@?'
       },
       link: function(scope, $element, attrs, ngModelCtrl) {
+        var i = 0
         var options = {
           changeMonth: true,
           minDate: 0,
@@ -87,7 +100,31 @@ define([
                   left: 0
               });
             }, 0);
-          //  $jq(input).blur();
+            if(scope.dpIsFromDate === 'true' ||
+            scope.dpIsFromDate === true ||
+            scope.dpIsFromDate === 1){
+              $jq(input).on('keydown', function(evt){ 
+                if(evt.keyCode === 9 && evt.shiftKey == false){
+                    evt.preventDefault();
+                    $jq(scope.dpSiblingDate).focus() 
+                }                    
+              })
+            }
+            //adding close on escape key
+            $jq(input).on('keydown', function(evt){
+              //closing on scape
+              if(evt.keyCode == 27){
+                $jq($element).datepicker('hide')
+              }
+              if(evt.keyCode === 13){
+                i++
+                if(i == 2){
+                 
+                
+                }//$(input).datepicker.trigger('select')
+              }
+            });
+            $jq(input).blur();
             $jq(input).on('focus', function(){
               //$jq(input).trigger('blur');
             });
@@ -173,13 +210,16 @@ define([
           options.minDate = new Date();
         }
 
-        options.onSelect = function(selectedDate /*, dpObject*/){
-          console.log("selected date: ", selectedDate)
+        options.onSelect = function(selectedDate , dpObject){         
+          addSelectedDateToLiveRegion(selectedDate)
+         
           scope.$apply(function () {
             ngModelCtrl.$setViewValue(selectedDate);
           });
           updateSiblingDatePickers(scope.dpCurrentElement,
             scope.dpTotalAmount, selectedDate);
+          dpObject.input.focus()
+          dpObject.input.datepicker('hide')
         };
 
         // setting datepicker
