@@ -116,6 +116,9 @@
             item.checked = false
         })
     }
+       
+
+    
 
     hostScrapService.collectFareHoldData = function(){
             

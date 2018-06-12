@@ -10,6 +10,24 @@ define([
     const SELECTOR_FARE_HOLD_OPTIONS = ".fare-hold__offers-item label"
     const SELECTOR_FARE_HOLD_CONTAINER = '.fare-hold'
     const SELECTOR_FARE_HOLD_BANNER = '.fare-hold__banner h3'
+
+    const waitToLoad = (condition, callbackFunction) => {
+        const promiseResolver = () => {
+          return new Promise(resolve => {
+            console.log("requesting animation")
+            requestAnimationFrame(resolve);
+          });
+        }
+    
+        if (scrapHelper.existFareHold() == false) {
+          return promiseResolver().then(() => waitToLoad(condition, callbackFunction));
+        } else {
+            if(typeof callbackFunction !== 'undefined')
+                callbackFunction.call(arguments);
+            return Promise.resolve(true);
+        }
+    
+    }
     
     var clearCheckedOptions = function(optionArray){
         optionArray.forEach((item)=>{
@@ -51,7 +69,8 @@ define([
         },
         getFareHoldText: function(){
             return $('.fare-hold__text').html()
-        }
+        },
+        waitToLoad: waitToLoad,
 
     }
 

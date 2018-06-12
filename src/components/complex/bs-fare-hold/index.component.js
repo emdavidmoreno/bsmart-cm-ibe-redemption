@@ -6,17 +6,27 @@ define([
 
     let bsFareHoldController = function($scope, $timeout, $interval){
 
-        var ctrl = this
+        this.$onChanges = function(changes){
+            console.log("new changes: ", changes)
+            scrapHelper.waitToLoad(scrapHelper.existFareHold).then((resolved) =>{
+                console.log("resolved promise")
+                if(resolved){
+                    $scope.$apply(()=>{
+                        ctrl.existFareHold = scrapHelper.existFareHold()    
+                        ctrl.plTitle = scrapHelper.getPriceLockTitle()        
+                        ctrl.headerBanner = ""//scrapHelper.headerBanner()        
+                        ctrl.descriptionBanner = ""//scrapHelper.descriptionBanner()        
+                        ctrl.fareHoldText = scrapHelper.getFareHoldText()
 
-        ctrl.existFareHold = scrapHelper.existFareHold()
+                        console.log("Controller var: ", ctrl)
 
-        ctrl.plTitle = scrapHelper.getPriceLockTitle()
-
-        ctrl.headerBanner = ""//scrapHelper.headerBanner()
-
-        ctrl.descriptionBanner = ""//scrapHelper.descriptionBanner()
-
-        ctrl.fareHoldText = scrapHelper.getFareHoldText()
+                    })
+                }
+                
+            })
+        }
+        var ctrl = this        
+        ctrl.existFareHold = true
 
         $scope.$on("app:language-changed", function(){     
             syncUI();
@@ -37,9 +47,7 @@ define([
          */
         ctrl.$onInit = function() {
            syncUI();          
-          };
-
-        
+          };        
 
     }
     bsFareHoldController.$inject = ['$scope', '$timeout', '$interval'];
