@@ -134,7 +134,7 @@ define(['jquery'], function ($jq) {
   }
 
   const existPriceBlock = () => {
-    return getPriceBaseInfo.length > 0
+    return getPriceBaseInfo().length > 0
   }
 
 
