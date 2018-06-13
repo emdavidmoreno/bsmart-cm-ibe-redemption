@@ -11,6 +11,7 @@ define([
   '../../../../scripts/filters/strSimpleDate',
   '../../../../scripts/filters/sanitize',
   '../../../../scripts/filters/collUnique',
+  '../../../../scripts/filters/priceFormat',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
   '../../../../components/complex/bs-fare-hold/index.component',
@@ -18,7 +19,7 @@ define([
   'lodash',
   '../../../../scripts/services/hostUIService',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
-  strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
+  strDuration, strSimpleDate, sanitize, collUnique, priceFormat, appHostProxyService,
   jquiDialog, bsFareHoldComponent, statsService, _, ApphostUIService) {
   let wrapperInstance = {}
 
@@ -852,6 +853,7 @@ define([
       .filter('simpledate', strSimpleDate)
       .filter('sanitize', sanitize)
       .filter('unique', collUnique)
+      .filter('priceFormat', priceFormat)
       .directive('jquiDialog', jquiDialog)
       .component('bsFareHoldComponent', bsFareHoldComponent)
       .controller('SearchResultController', SearchResultController)
