@@ -11,22 +11,19 @@ define([
             scrapHelper.waitToLoad(scrapHelper.existFareHold).then((resolved) =>{
                 console.log("resolved promise")
                 if(resolved){
-                    $scope.$apply(()=>{
-                        ctrl.existFareHold = scrapHelper.existFareHold()    
+                    $scope.$evalAsync(()=>{
+                        //ctrl.existFareHold = scrapHelper.existFareHold()    
                         ctrl.plTitle = scrapHelper.getPriceLockTitle()        
                         ctrl.headerBanner = ""//scrapHelper.headerBanner()        
                         ctrl.descriptionBanner = ""//scrapHelper.descriptionBanner()        
                         ctrl.fareHoldText = scrapHelper.getFareHoldText()
-
-                        console.log("Controller var: ", ctrl)
-
                     })
                 }
                 
             })
         }
         var ctrl = this        
-        ctrl.existFareHold = true
+        ctrl.existFareHold = false
 
         $scope.$on("app:language-changed", function(){     
             syncUI();
