@@ -60,7 +60,7 @@ define([
         },
         controller: bsFareHoldController,
         template : `
-        <div class="fare-hold-container" data-ng-if="$ctrl.existFareHold">
+        <div class="fare-hold-container" >
             <section tabindex=0>
                 <h3> {{$ctrl.plTitle}} </h3> 
             </section>
