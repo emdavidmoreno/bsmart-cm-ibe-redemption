@@ -23,7 +23,7 @@ define([
             })
         }
         var ctrl = this        
-        ctrl.existFareHold = false
+        ctrl.existFareHold = true
 
         $scope.$on("app:language-changed", function(){     
             syncUI();
@@ -60,7 +60,7 @@ define([
         },
         controller: bsFareHoldController,
         template : `
-        <div class="fare-hold-container" >
+        <div class="fare-hold-container" data-ng-if="$ctrl.existFareHold">
             <section tabindex=0>
                 <h3> {{$ctrl.plTitle}} </h3> 
             </section>
