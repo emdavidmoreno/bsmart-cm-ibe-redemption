@@ -8,22 +8,29 @@ define([
 
         this.$onChanges = function(changes){
             console.log("new changes: ", changes)
-            scrapHelper.waitToLoad(scrapHelper.existFareHold).then((resolved) =>{
-                console.log("resolved promise")
-                if(resolved){
-                    $scope.$evalAsync(()=>{
-                        //ctrl.existFareHold = scrapHelper.existFareHold()    
-                        ctrl.plTitle = scrapHelper.getPriceLockTitle()        
-                        ctrl.headerBanner = ""//scrapHelper.headerBanner()        
-                        ctrl.descriptionBanner = ""//scrapHelper.descriptionBanner()        
-                        ctrl.fareHoldText = scrapHelper.getFareHoldText()
-                    })
-                }
-                
-            })
+            if(changes.priceOptions.currentValue.length > 0){
+                scrapHelper.waitToLoad(()=>scrapHelper.existFareHold).then((resolved) =>{
+                    console.log("resolved promise")
+                    if(resolved){
+                        $scope.$evalAsync(()=>{
+                            ctrl.existFareHold = ctrl.priceOptions.length > 0 ? true : false    
+                            ctrl.plTitle = scrapHelper.getPriceLockTitle()        
+                            ctrl.headerBanner = ""//scrapHelper.headerBanner()        
+                            ctrl.descriptionBanner = ""//scrapHelper.descriptionBanner()        
+                            ctrl.fareHoldText = scrapHelper.getFareHoldText()
+                        })
+                    }
+                    
+                })
+            }else{
+                $scope.$evalAsync(()=>{
+                    ctrl.existFareHold = false                        
+                })
+            }
+            
         }
         var ctrl = this        
-        ctrl.existFareHold = true
+        ctrl.existFareHold = false
 
         $scope.$on("app:language-changed", function(){     
             syncUI();
