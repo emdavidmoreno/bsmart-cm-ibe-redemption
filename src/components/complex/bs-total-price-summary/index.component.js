@@ -47,7 +47,7 @@ define(['./helpers/scrapHelper'], function (helper) {
       return `${p[0]} ${$filter('priceFormat')(helper.formatPrice(p[0], p[1]))}`
     }
 
-    ctrl.getTotalPrice()
+    //ctrl.getTotalPrice()
 
     ctrl.$onChanges = function (obj) {
       if (obj.showInsurance) {        
