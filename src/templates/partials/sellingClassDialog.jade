@@ -7,14 +7,14 @@
       .m-dialog-head
         span(data-ng-if="ui.sellingClass.isDeparture")
           | {{location.departure.selectedClassIndex.name}}
-        span.close(
+        span.close(tabindex=0
           aria-label="Close dialog"
           data-ng-click="ui.sellingClass.openDialog=false"
         )
           | X
         span(data-ng-if="!ui.sellingClass.isDeparture")
           | {{location.return.selectedClassIndex.name}}
-      .m-dialog-body
+      .m-dialog-body(tabindex=0)
         div.m-loader.m-loader--dialog-internal(data-ng-if="ui.sellingClass.isLoading")
           div.icon--pure-css
         div(data-ng-if="!ui.sellingClass.isLoading"

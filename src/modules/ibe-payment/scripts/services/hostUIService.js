@@ -103,6 +103,25 @@ define([
           $(this).addClass('form-control--focused')
           $('.iframe-mask--layer').show()
         })
+
+        //bring focus to front when leave iframe elements
+        $("#creditCard\\.expirationMonth")
+        .on('focus',function(){
+          $("#ui\\.payment\\.edExpirationMonth").focus()
+        })
+        $("#creditCard\\.expirationYear")
+        .on('focus',function(){
+          $("#ui\\.payment\\.edExpirationYear").focus()
+        })
+
+        $("#creditCard\\.cardHolderPhone\\.phoneNumberCountryCode")
+        .on('focus',function(){
+          $("#ui\\.payment\\.cardHolderPhoneCode").focus()
+        })
+        $("#creditCard\\.cardHolderName")
+        .on('focus',function(){
+          $("#ui\\.payment\\.cardHolderName").focus()
+        })
       }
 
       hostUIService.syncPosition()
@@ -143,6 +162,8 @@ define([
     hostUIService.showHostInterface = function() {
       $('table.layoutMain').css('visibility', 'hidden')
       $('table.layoutMain').css('display', 'inline-block')
+      $('#idCreditCardFormArea').css('display', 'inline-block')
+      $('#idCreditCardFormArea').css('visibility', 'visible')
 
       let lastScrollLeft = 0
       $(window).scroll(function() {

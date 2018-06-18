@@ -214,6 +214,7 @@ define(['./helpers/scrapHelper',
           data-ng-class="{'m-tab-selected': tab.selected}"
           data-ng-disable="tab.isDisabledTab"
           data-ng-click="$ctrl.tabClick(tab)"
+          data-ng-keypress="$event.keyCode === 13 && $ctrl.tabClick(tab)"
           class="m-tab-info"
           >
           <span data-ng-repeat="d in tab.date">

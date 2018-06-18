@@ -152,7 +152,13 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list",
       LABEL_DEPART_DATE:"Departing date",
       LABEL_RETURN_DATE:"Returning date",
-      LABEL_FLIGHT_CLASS_INFO: "Extra information"
+      LABEL_FLIGHT_CLASS_INFO: "Extra information",
+      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Departing Date. Type in the date format using 2 numbers for day and month, and 4" +
+      " numbers for the year in the following order month/day/year. The date must be gr" +
+        "eater than or equal to the current date.",
+      LABEL_DATEPICKER_RETURN_FORMAT: "Returning Date. Type in the date format using 2 numbers for day and month, and 4" +
+      " numbers for the year in the following order month/day/year. The date must be gr" +
+        "eater than or equal to the current date.",
     })
 
 
@@ -300,7 +306,13 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
       LABEL_DEPART_DATE:"Fecha de salida",
       LABEL_RETURN_DATE:"Fecha de retorno",
-      LABEL_FLIGHT_CLASS_INFO: "Información extra"
+      LABEL_FLIGHT_CLASS_INFO: "Información extra",
+      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Fecha de salida. Escriba el formato de fecha usando 2 números para el día y" +
+      " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
+        "be ser mayor o igual que la fecha actual.",
+      LABEL_DATEPICKER_RETURN_FORMAT: "Fecha de retorno. Escriba el formato de fecha usando 2 números para el día y" +
+      " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
+        "be ser mayor o igual que la fecha actual.",
     })
 
     // portuguees translations
@@ -447,7 +459,13 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_AUTOCOMPLETE_TO: "Pesquisar cidade de destino. Depois de digitar 3 letras, use as setas para cima e para baixo para selecionar da lista",
       LABEL_DEPART_DATE:"Data de partida",
       LABEL_RETURN_DATE:"Data de retorno",
-      LABEL_FLIGHT_CLASS_INFO: "Informação extra"
+      LABEL_FLIGHT_CLASS_INFO: "Informação extra",
+      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Data de partida. Digite o formato da data usando 2 números por dia e mês e 4 " +
+      "números para o ano na ordem seguinte mês / dia / ano. O data deve ser maior ou ig" +
+        "ual a data atual.",
+      LABEL_DATEPICKER_RETURN_FORMAT: "Data de retorno. Digite o formato da data usando 2 números por dia e mês e 4 " +
+      "números para o ano na ordem seguinte mês / dia / ano. O data deve ser maior ou ig" +
+        "ual a data atual.",
     })
 
     // set default language
