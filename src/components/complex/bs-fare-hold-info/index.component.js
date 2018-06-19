@@ -13,6 +13,7 @@ define([
         ctrl.fareHoldTitle = scrapHelper.fareHoldTitle()
         ctrl.fareHoldPrice = scrapHelper.fareHoldPrice()
         ctrl.fareHoldTotal = scrapHelper.fareHoldTotal()
+        ctrl.showFareHoldInfo = scrapHelper.showFareHoldInfo()
 
     }
 
@@ -22,7 +23,8 @@ define([
         },
         controller: bsFareHoldInfoController,
         template: `
-        <div class="m-card m-card--flat m-card--bordered m-card--primary margin-bottom-sm">
+        <div data-ng-if="$ctrl.showFareHoldInfo"
+            class="m-card m-card--flat m-card--bordered m-card--primary margin-bottom-sm">
             
             <div class="bs-fhi-content">
                 <p tabindex=0>
