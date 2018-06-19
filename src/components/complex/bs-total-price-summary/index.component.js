@@ -73,7 +73,7 @@ define(['./helpers/scrapHelper'], function (helper) {
           <div class="content price-summary" ng-cloak>
             <p>
               <strong>
-                {{ "LABEL_BASE_PRICE" | translate }} :
+                {{ "LABEL_BASE_PRICE" | translate }} + {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
               </strong>
               <span class="pull-right">
                 {{ $ctrl.priceInfoList[0] }}
@@ -87,7 +87,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                 {{ $ctrl.priceInfoList[1] }}
               </span>
             </p>
-            <p>
+            <!-- <p>
               <strong>
                 {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
               </strong>
@@ -97,17 +97,17 @@ define(['./helpers/scrapHelper'], function (helper) {
               <span data-ng-if="!$ctrl.existCOP" class="pull-right">
                 {{$ctrl.priceInfoList[1]}}
               </span>
-            </p>
+            </p> -->
                    
             <p>
               <strong>
                 {{ "LABEL_TAXES" | translate }} :
               </strong>
               <span data-ng-if="$ctrl.existCOP"  class="pull-right">
-                {{$ctrl.priceInfoList[3]}}
+                {{$ctrl.priceInfoList[2]}}
               </span>
               <span data-ng-if="!$ctrl.existCOP"  class="pull-right">
-                {{$ctrl.priceInfoList[2]}}
+                {{$ctrl.priceInfoList[1]}}
               </span>
             </p>
             <p data-ng-if="$ctrl.existInsuranceTable">
@@ -118,7 +118,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                  {{$ctrl.priceInsuranceInfo}}
               </span>
             </p>
-             <p data-ng-if="$ctrl.existSeatTable" data-ng-repeat="seatInfo in $ctrl.seatInfoList">
+            <!-- <p data-ng-if="$ctrl.existSeatTable" data-ng-repeat="seatInfo in $ctrl.seatInfoList">
               <span>
                 <strong>
                   {{ "LABEL_SEAT" | translate }}: {{ seatInfo.title }}
@@ -128,7 +128,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                   <div data-ng-bind-html="$ctrl.link | sanitize"> </div>
                 </span>
               </span>
-            </p>
+            </p> -->
           </div>
           <header class="title">
             <h4 class="title-text">
