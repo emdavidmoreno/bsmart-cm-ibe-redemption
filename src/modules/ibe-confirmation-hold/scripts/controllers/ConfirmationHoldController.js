@@ -158,6 +158,10 @@ define([
 
       instance.init = function() {
         console.log('ConfirmationHoldController init')
+        if($scope.main.miniSummary.total_price.cash == -1){
+          $scope.main.miniSummary.total_price.cash = ""
+        }
+        console.log("scope.main", $scope.main.miniSummary.total_price.cash)
       }
 
         // -------------------------------------------------------
