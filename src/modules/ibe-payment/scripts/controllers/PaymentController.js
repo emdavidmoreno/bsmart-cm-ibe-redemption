@@ -11,6 +11,7 @@ define([
   '../../../../scripts/filters/strSimpleDate',
   '../../../../scripts/filters/sanitize',
   '../../../../scripts/filters/collUnique',
+  '../../../../scripts/filters/priceFormat',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/filters/range',
   '../../../../scripts/directives/jqui-dialog',
@@ -26,13 +27,15 @@ define([
   '../../../../components/complex/bs-payment-pse/index.component',
   '../../../../components/complex/bs-payment-bank-transfers/index.component',
   '../../../../components/complex/bs-payment-bank-slip/index.component',
-  '../../../../components/complex/bs-total-price-summary/index.component'
+  '../../../../components/complex/bs-total-price-summary/index.component',
+  '../../../../components/complex/bs-fare-hold-price-summary/index.component',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
-  strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService, range,
+  strDuration, strSimpleDate, sanitize, collUnique, priceFormat, appHostProxyService, range,
   jquiDialog, _, bsCardRefId, statsService, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, ApphostUIService, bsDetailSeatsPricesComponent,
   bsSummarySeatsPricesComponent, bsMultiplePaymentSelectorComponent, bsPaymentPseComponent,
-  bsPaymentBankTransfersComponent, bsPaymentBankSlipComponent,bsTotalPriceSummaryComponent
+  bsPaymentBankTransfersComponent, bsPaymentBankSlipComponent,
+  bsTotalPriceSummaryComponent, bsFareHoldPriceSummaryComponent
   ) {
   let wrapperInstance = {}
   $.noConflict(true)
@@ -1085,6 +1088,7 @@ define([
         .filter('range', range)
         .filter('sanitize', sanitize)
         .filter('unique', collUnique)
+        .filter('priceFormat', priceFormat)
         .directive('jquiDialog', jquiDialog)
         .directive('bsCardRefId', bsCardRefId)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
@@ -1096,6 +1100,7 @@ define([
         .component('bsPaymentBankTransfersComponent', bsPaymentBankTransfersComponent)
         .component('bsPaymentBankSlipComponent', bsPaymentBankSlipComponent)
         .component('bsTotalPriceSummaryComponent',bsTotalPriceSummaryComponent)
+        .component('bsFareHoldPriceSummaryComponent', bsFareHoldPriceSummaryComponent)
         .controller('PaymentController', PaymentController)
   })({})
 

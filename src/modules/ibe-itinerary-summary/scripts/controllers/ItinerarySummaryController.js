@@ -11,6 +11,7 @@ define([
   '../../../../scripts/filters/strSimpleDate',
   '../../../../scripts/filters/sanitize',
   '../../../../scripts/filters/collUnique',
+  '../../../../scripts/filters/priceFormat',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
@@ -19,10 +20,12 @@ define([
   'statsService',
   '../../../../scripts/services/hostUIService',
   '../../../../components/complex/bs-total-price-summary/index.component',
+  '../../../../components/complex/bs-fare-hold-price-summary/index.component',
 ], function($, angular, hostUIService,
   hostScrapService, hostProxyService, strDuration, strSimpleDate,
-  sanitize, collUnique, appHostProxyService, jquiDialog, bsItineraryPricingCard,
-  bsItineraryPricingCardPerPassenger, _, statsService, ApphostUIService,bsTotalPriceSummaryComponent) {
+  sanitize, collUnique, priceFormat, appHostProxyService, jquiDialog, bsItineraryPricingCard,
+  bsItineraryPricingCardPerPassenger, _, statsService, ApphostUIService,
+  bsTotalPriceSummaryComponent, bsFareHoldPriceSummaryComponent) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -603,6 +606,8 @@ define([
         }, 0)
       })
 
+      
+
       /**
        * Add the validation messages to the UI
        * errors: {
@@ -680,10 +685,12 @@ define([
         .filter('simpledate', strSimpleDate)
         .filter('sanitize', sanitize)
         .filter('unique', collUnique)
+        .filter('priceFormat', priceFormat)
         .directive('jquiDialog', jquiDialog)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)
         .component('bsTotalPriceSummaryComponent',bsTotalPriceSummaryComponent)
+        .component('bsFareHoldPriceSummaryComponent', bsFareHoldPriceSummaryComponent)
         .controller('ItinerarySummaryController', ItinerarySummaryController)
   })({})
 
