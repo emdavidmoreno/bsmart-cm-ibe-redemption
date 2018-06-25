@@ -178,6 +178,9 @@ define([
           if (locationBound.selectingValueForFirstTime) {
             locationBound.selectingValueForFirstTime = 0
           }
+          if(typeof ctrl.changePriceLock != 'undefined'){
+            ctrl.changePriceLock()
+          }
         }
 
         /**
@@ -236,6 +239,7 @@ define([
     bindings: {
       // object with states for the component
       states: '<?',
+      changePriceLock: '&?'
     },
 
     template:

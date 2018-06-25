@@ -127,11 +127,11 @@ block body
                     br
           include ../../../templates/partials/sellingClassDialog.jade
           include ../../../templates/partials/flightDetailsDialog.jade
-
+    
     div(data-bs-itinerary-pricing-card-per-passenger data-ui="ui")
     bs-total-price-summary-component(show-insurance="ui.showInsurance")
     //- div(data-bs-itinerary-pricing-card data-ui="ui")
-
+    bs-fare-hold-price-summary-component
     section.m-insurance(data-ng-if="ui.tavelInsurance && ui.tavelInsurance.display.head")
       h2(tabindex=0)
         | {{ui.tavelInsurance.display.head}}
@@ -182,8 +182,10 @@ block body
             .m-panel(data-ng-if='ui.payment.name == "0"')
               .content.content--border-bottom.content--border-dashed.content--small-vertical-padding.margin-bottom-sm.margin-top-sm(
                 data-ng-bind-html="ui.payment.info.reserveAndHold.desc | sanitize")
-    section
-      .m-card.m-card--muted(data-ng-repeat="message in ui.messages" ng-cloak tabindex=0)
+    section.m-messages-container(
+      data-ng-if="ui.messages.length > 0"
+    )
+      .m-card.m-card--muted(data-ng-repeat="message in ui.messages" ng-cloak)
         header.title
           h4.title-text.title-text--normal
             i.title-icon

@@ -148,17 +148,10 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
       LABEL_SEAT: 'Seat',
       LABEL_BUY:'Buy',
-      LABEL_AUTOCOMPLETE_FROM: "Search origin city. After typing 3 letters use up and down arrows to select from list",
-      LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list",
       LABEL_DEPART_DATE:"Departing date",
       LABEL_RETURN_DATE:"Returning date",
-      LABEL_FLIGHT_CLASS_INFO: "Extra information",
-      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Departing Date. Type in the date format using 2 numbers for day and month, and 4" +
-      " numbers for the year in the following order month/day/year. The date must be gr" +
-        "eater than or equal to the current date.",
-      LABEL_DATEPICKER_RETURN_FORMAT: "Returning Date. Type in the date format using 2 numbers for day and month, and 4" +
-      " numbers for the year in the following order month/day/year. The date must be gr" +
-        "eater than or equal to the current date.",
+      LABEL_AUTOCOMPLETE_FROM: "Search origin city. After typing 3 letters use up and down arrows to select from list",
+      LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list"
     })
 
 
@@ -313,6 +306,10 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_DATEPICKER_RETURN_FORMAT: "Fecha de retorno. Escriba el formato de fecha usando 2 números para el día y" +
       " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
         "be ser mayor o igual que la fecha actual.",
+      LABEL_DEPART_DATE:"Fecha de salida",
+      LABEL_RETURN_DATE:"Fecha de retorno",
+      LABEL_AUTOCOMPLETE_FROM: "Buscar ciudad de origen. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
+      LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista"
     })
 
     // portuguees translations

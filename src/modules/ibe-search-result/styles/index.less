@@ -27,6 +27,7 @@
   @import '../../../styles/blocks/flight-options.less';
   @import '../../../styles/blocks/classes-dialog.less';
   @import '../../../styles/blocks/itinerary-summary.less';
+  @import '../../../components/complex/bs-fare-hold/component.less';
 
   // ------------------------------
   // Helpers
@@ -164,9 +165,15 @@ button[disabled].btnBuyFlight{
   display: inline-block;
 }
 
-.m-dialog-head-hidden{
-  display: none;
-}
-#interstOuter{
+
+#interstOuter, #interstShimOuter{
   z-index: initial !important;
+}
+
+.show-fare-hold{
+  display: block;
+}
+
+.hide-fare-hold{
+  display: none;
 }
