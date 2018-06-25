@@ -147,12 +147,20 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BANK_TRANSFER: 'Bank Transfer',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
       LABEL_SEAT: 'Seat',
-      LABEL_BUY:'Buy',
+      LABEL_BUY:'Buy', 
       LABEL_DEPART_DATE:"Departing date",
       LABEL_RETURN_DATE:"Returning date",
       LABEL_AUTOCOMPLETE_FROM: "Search origin city. After typing 3 letters use up and down arrows to select from list",
-      LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list"
-    })
+      LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list",   
+      LABEL_FLIGHT_CLASS_INFO: "Extra Information",
+      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Fecha de salida. Escriba el formato de fecha usando 2 números para el día y" +
+      " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
+        "be ser mayor o igual que la fecha actual.",
+      LABEL_DATEPICKER_RETURN_FORMAT: "Fecha de retorno. Escriba el formato de fecha usando 2 números para el día y" +
+      " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
+        "be ser mayor o igual que la fecha actual.",
+      
+     })
 
 
     // spanish translations
