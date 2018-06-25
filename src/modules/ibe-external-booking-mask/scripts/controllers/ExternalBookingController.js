@@ -60,11 +60,18 @@ define([
 
       $scope.model = hostScrapService.getModel()
 
-      $scope.passengersExtraOptionsSelected = 0
+      $scope.passengersExtraOptionsSelected = false
 
       if(!hostScrapService.isFlightTypeSelected()) {
         hostScrapService.setHostFlightType('RT')
       }
+
+      $scope.$watch('passengersExtraOptionsSelected',function(newValue, oldValue){
+          if(newValue !== oldValue){
+            angular.element('#passengersExtraOptionsSelected').triggerHandler('click')
+            // angular.element('#myselector').triggerHandler('click');
+          }
+      })
 
       // UI
       let ui = {
@@ -182,7 +189,7 @@ define([
 
       if($scope.ui.passengers.children > 0 ||
         $scope.ui.passengers.infants > 0) {
-        $scope.passengersExtraOptionsSelected = 1
+        $scope.passengersExtraOptionsSelected = true
       }
 
       // sync the ui height to garanty footer correct positioning
@@ -374,6 +381,7 @@ define([
         .module('responsiveBookingEngine')
         .directive('jquiDatepicker', jquiDatepicker)
         .directive('jquiAutocomplete', jquiAutocomplete)
+        
         .controller('ExternalBookingController', ExternalBookingController)
   })({})
 
