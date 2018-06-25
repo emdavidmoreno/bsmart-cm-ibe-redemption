@@ -10,48 +10,67 @@ define([
     const SELECTOR_FARE_HOLD_OPTIONS = ".fare-hold__offers-item label"
     const SELECTOR_FARE_HOLD_CONTAINER = '.fare-hold'
     const SELECTOR_FARE_HOLD_BANNER = '.fare-hold__banner h3'
+
+    const waitToLoad = (condition, callbackFunction) => {
+        const promiseResolver = () => {
+          return new Promise(resolve => {
+            console.log("requesting animation")
+            requestAnimationFrame(resolve);
+          });
+        }
+    
+        if (scrapHelper.existFareHold() == false) {
+          return promiseResolver().then(() => waitToLoad(condition, callbackFunction));
+        } else {
+            if(typeof callbackFunction !== 'undefined')
+                callbackFunction.call(arguments);
+            return Promise.resolve(true);
+        }
+    
+    }
     
     var clearCheckedOptions = function(optionArray){
         optionArray.forEach((item)=>{
             item.checked = false
         })
     }
-
+    let assetsBaseUrl = "//@@HOST/app/modules/bsmart-cm-ibe/assets/images/"
+    let termsUrls = {
+        en: "https://www.copaair.com/en/terms-conditions-book-and-hold-fee",
+        pt: "https://www.copaair.com/pt/termos-condicoes-book-and-hold-fee",
+        es: "https://www.copaair.com/es/terminos-y-condiciones-de-book-and-hold-fee"
+    }
     let scrapHelper = {
-        getDescriptionImg: function(){
-            return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_TEXT).html()
+
+        getLoadingContent: function(){
+            return $jq("#interstitial").html()
         },
-        getDescriptionNote: function(){
-            return $jq(SELECTOR_FARE_HOLD_DESCRIPTION_NOTE).html()
+        headerBanner: function(){
+            return `<h3>
+                        <img src="${assetsBaseUrl}pricelock_01.png" alt="PriceLock">
+                    </h3>`
         },
-        getBannerImg: function(){
-            return $jq(SELECTOR_FARE_HOLD_BANNER).html()
+
+        descriptionBanner: function(){
+            let language = $jq("#currentLanguage").val()
+            return `<a href="${termsUrls[language]}" target="_blank">
+                        <img src="${assetsBaseUrl}pricelock_02_${language}.png" alt="Reserva ahora y 
+                        asegura tu tarifa por los siguientes días: La compra de PriceLock no es 
+                        reembolsable y no se aplica al precio del boleto. 
+                        Vea todos los términos y condiciones de PriceLock.">
+                        <span class="wcag-offscreen">Se abre en una nueva ventana</span>
+                    </a>`
         },
-        getFareHoldOffers: function(){
-            let result =[]
-            $jq(SELECTOR_FARE_HOLD_OPTIONS).each(function(index){                    
-                let label = $(this)
-                
-                result.push({
-                    checked: false,
-                    duration: label.find(SELECTOR_FARE_HOLD_ITEM_DURATION).text(),
-                    price: label.find(SELECTOR_FARE_HOLD_ITEM_PRICE).text(),
-                    currency: label.find(SELECTOR_FARE_HOLD_ITEM_CURRENCY).text(),
-                    changeStatus: function(){
-                        var checkedValue = !this.checked
-                        clearCheckedOptions(result)
-                        this.checked = checkedValue
-                        $($(".fare-hold__offers-item label")[index]).click()
-                        $($(".fare-hold__offers-item label")[index])
-                        .find('input').click()
-                       
-                    }
-                })
-            })
-            
-            return result
+        getPriceLockTitle: function(){
+            return $jq(".flight-offers__head h2").text()
         },
-        existFareHold: ()=> $jq(SELECTOR_FARE_HOLD_CONTAINER).length > 0
+        existFareHold: function(){
+            return $(SELECTOR_FARE_HOLD_CONTAINER).length > 0
+        },
+        getFareHoldText: function(){
+            return $('.fare-hold__text').html()
+        },
+        waitToLoad: waitToLoad,
 
     }
 

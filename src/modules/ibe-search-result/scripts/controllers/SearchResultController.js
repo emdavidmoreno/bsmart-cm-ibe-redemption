@@ -11,6 +11,7 @@ define([
   '../../../../scripts/filters/strSimpleDate',
   '../../../../scripts/filters/sanitize',
   '../../../../scripts/filters/collUnique',
+  '../../../../scripts/filters/priceFormat',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
   '../../../../components/complex/bs-fare-hold/index.component',
@@ -18,7 +19,7 @@ define([
   'lodash',
   '../../../../scripts/services/hostUIService',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
-  strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
+  strDuration, strSimpleDate, sanitize, collUnique, priceFormat, appHostProxyService,
   jquiDialog, bsFareHoldComponent, statsService, _, ApphostUIService) {
   let wrapperInstance = {}
 
@@ -249,7 +250,10 @@ define([
           data: {},
         },
         showContinueButton: 0,
-        fareHoldData: 'undefined',
+        fareHoldData: {
+          optionsLoaded: false,
+          priceOptions: []
+        },
         showFareHold: false,
         mediaInfoMessages: hostScrapService.getMediaInfoMessages(),
         clickBtnSelectFlightClass: function(isDeparture) {
@@ -288,11 +292,8 @@ define([
       $scope.$parent.showMiniSummary = true
 
       $scope.$parent.stepper.goToStep(1)
-
-
+      
       syncDefaultErrorMessages()
-
-      setFareHoldData()
 
       // sync the ui height to garanty footer correct positioning
       appHostProxyService.syncHeight($timeout)
@@ -370,7 +371,7 @@ define([
                 ui.showContinueButton = 1
                 // ui.showFareHold = true
               }  
-              if(!location.return){
+              if(!location.return && locationBound.selectingValueForFirstTime){
                 instance.flightYouSelect ++
               }           
             }
@@ -393,8 +394,10 @@ define([
         if (locationBound.selectingValueForFirstTime) {
           locationBound.selectingValueForFirstTime = 0
         }
-
-        setFareHoldData()
+        $scope.$evalAsync(()=>{
+          $scope.ui.fareHoldData.optionsLoaded = false
+        })
+        setDefaultFareHoldData()
       }
 
       $scope.closeDepartureLocationSummaryAction = function(location) {
@@ -793,22 +796,32 @@ define([
         $scope.$apply()
       }
 
-      function setFareHoldData(){
-        var promise = $interval(()=>{
-          if(hostScrapService.existFareHold() == true){
-            console.log("iteracion")
-            $timeout(()=>{
-              $scope.ui.fareHoldData = {
-                textDescription: hostScrapService.getDescriptionImg() || '',
-                linkDescription: hostScrapService.getDescriptionNote() || '',
-                priceOptions: hostScrapService.getFareHoldOffers() || [],
-                bannerImg: hostScrapService.getBannerImg() || '#',
-                existFareHold: hostScrapService.existFareHold() || false
-              } 
-            },0)            
-            $interval.cancel(promise)
-          }
-        },500)
+      let setFareHoldData = ()=>{
+        hostScrapService.collectFareHoldData()
+        .done((response)=>{             
+          $scope.$evalAsync(()=>{
+            $scope.ui.fareHoldData = {                
+              priceOptions: response.options,
+              optionsLoaded: true,
+              advertisement: response.advertisement,
+              showAds: response.showAds
+            } 
+            console.log("setted FH data", $scope.ui.fareHoldData)
+          })  
+        })
+      }
+
+      ApphostUIService.interceptAjaxCalls("AirSelectOWCFlight.do", setFareHoldData)
+
+      function setDefaultFareHoldData(){ 
+        $scope.$evalAsync(()=>{
+          $scope.ui.fareHoldData = {                
+            priceOptions: [],
+            optionsLoaded: false,
+            advertisement: '',
+            showAds : false
+          } 
+        }) 
       }
 
       // - visual helpers
@@ -840,6 +853,7 @@ define([
       .filter('simpledate', strSimpleDate)
       .filter('sanitize', sanitize)
       .filter('unique', collUnique)
+      .filter('priceFormat', priceFormat)
       .directive('jquiDialog', jquiDialog)
       .component('bsFareHoldComponent', bsFareHoldComponent)
       .controller('SearchResultController', SearchResultController)

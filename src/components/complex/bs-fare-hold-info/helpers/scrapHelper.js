@@ -15,10 +15,15 @@ define([
         return $(".componentTotal .colTotal").text()
     }
 
+    const showFareHoldInfo = () => {
+        return $("#idDetailsSubBlockExtraServicesBody_1").length > 0
+    }
+
     let scrapHelper = {        
         fareHoldTitle,
         fareHoldPrice,
-        fareHoldTotal
+        fareHoldTotal,
+        showFareHoldInfo
     }
 
     return scrapHelper

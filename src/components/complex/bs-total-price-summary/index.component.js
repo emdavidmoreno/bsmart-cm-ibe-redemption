@@ -30,16 +30,24 @@ define(['./helpers/scrapHelper'], function (helper) {
       ctrl.existSeatTable = helper.existSeatTable()
       ctrl.existCOP = helper.existCOP()
       ctrl.seatInfoList = helper.getPriceSeatsInfo()     
-      ctrl.totalPrice = helper.getTotalPrice()
+      ctrl.totalPrice = ctrl.getTotalPrice()
       ctrl.priceInfoList = helper.getPriceBaseInfo()
       ctrl.link = helper.getLinkOption()
       $timeout(function () {  
         ctrl.existInsuranceTable = helper.existInsuranceTable() 
         ctrl.priceInsuranceInfo = helper.getPriceInsuranceInfo() 
-        ctrl.totalPrice = helper.getTotalPrice()    
+        ctrl.totalPrice = ctrl.getTotalPrice()    
         ctrl.totalPriceLabel = helper.getTotalPriceLabel() 
+        ctrl.showComponent = helper.existPriceBlock() 
        }, 1000)
     }
+
+    ctrl.getTotalPrice = function(){      
+      let p = helper.getTotalPrice().split(" ");
+      return `${p[0]} ${$filter('priceFormat')(helper.formatPrice(p[0], p[1]))}`
+    }
+
+    //ctrl.getTotalPrice()
 
     ctrl.$onChanges = function (obj) {
       if (obj.showInsurance) {        
@@ -60,12 +68,12 @@ define(['./helpers/scrapHelper'], function (helper) {
     },
     /* eslint-disable max-len */
     template:
-    `<section>
+    `<section ng-if="$ctrl.showComponent">
         <div class="m-card m-card--warning">
           <div class="content price-summary" ng-cloak>
             <p>
               <strong>
-                {{ "LABEL_BASE_PRICE" | translate }} :
+                {{ "LABEL_BASE_PRICE" | translate }} + {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
               </strong>
               <span class="pull-right">
                 {{ $ctrl.priceInfoList[0] }}
@@ -79,7 +87,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                 {{ $ctrl.priceInfoList[1] }}
               </span>
             </p>
-            <p>
+            <!-- <p>
               <strong>
                 {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
               </strong>
@@ -89,17 +97,17 @@ define(['./helpers/scrapHelper'], function (helper) {
               <span data-ng-if="!$ctrl.existCOP" class="pull-right">
                 {{$ctrl.priceInfoList[1]}}
               </span>
-            </p>
+            </p> -->
                    
             <p>
               <strong>
                 {{ "LABEL_TAXES" | translate }} :
               </strong>
               <span data-ng-if="$ctrl.existCOP"  class="pull-right">
-                {{$ctrl.priceInfoList[3]}}
+                {{$ctrl.priceInfoList[2]}}
               </span>
               <span data-ng-if="!$ctrl.existCOP"  class="pull-right">
-                {{$ctrl.priceInfoList[2]}}
+                {{$ctrl.priceInfoList[1]}}
               </span>
             </p>
             <p data-ng-if="$ctrl.existInsuranceTable">
@@ -110,7 +118,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                  {{$ctrl.priceInsuranceInfo}}
               </span>
             </p>
-             <p data-ng-if="$ctrl.existSeatTable" data-ng-repeat="seatInfo in $ctrl.seatInfoList">
+            <!-- <p data-ng-if="$ctrl.existSeatTable" data-ng-repeat="seatInfo in $ctrl.seatInfoList">
               <span>
                 <strong>
                   {{ "LABEL_SEAT" | translate }}: {{ seatInfo.title }}
@@ -120,7 +128,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                   <div data-ng-bind-html="$ctrl.link | sanitize"> </div>
                 </span>
               </span>
-            </p>
+            </p> -->
           </div>
           <header class="title">
             <h4 class="title-text">

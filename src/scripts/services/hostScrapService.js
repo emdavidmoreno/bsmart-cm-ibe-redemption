@@ -87,7 +87,7 @@ define([], function() {
       else {
         $(".linkLogout").click();
       }
-    };
+    };    
 
     return hostScrapService;
   }

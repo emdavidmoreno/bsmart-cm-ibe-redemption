@@ -6,9 +6,31 @@ define([
 
     let bsFareHoldController = function($scope, $timeout, $interval){
 
-        var ctrl = this
-
-        var fareHold = {}
+        this.$onChanges = function(changes){
+            console.log("new changes: ", changes)
+            if(changes.priceOptions.currentValue.length > 0){
+                scrapHelper.waitToLoad(()=>scrapHelper.existFareHold).then((resolved) =>{
+                    console.log("resolved promise")
+                    if(resolved){
+                        $scope.$evalAsync(()=>{
+                            ctrl.existFareHold = ctrl.priceOptions.length > 0 ? true : false    
+                            ctrl.plTitle = scrapHelper.getPriceLockTitle()        
+                            ctrl.headerBanner = ""//scrapHelper.headerBanner()        
+                            ctrl.descriptionBanner = ""//scrapHelper.descriptionBanner()        
+                            ctrl.fareHoldText = scrapHelper.getFareHoldText()
+                        })
+                    }
+                    
+                })
+            }else{
+                $scope.$evalAsync(()=>{
+                    ctrl.existFareHold = false                        
+                })
+            }
+            
+        }
+        var ctrl = this        
+        ctrl.existFareHold = false
 
         $scope.$on("app:language-changed", function(){     
             syncUI();
@@ -29,9 +51,7 @@ define([
          */
         ctrl.$onInit = function() {
            syncUI();          
-          };
-
-        
+          };        
 
     }
     bsFareHoldController.$inject = ['$scope', '$timeout', '$interval'];
@@ -39,39 +59,48 @@ define([
     return {
         bindings: {
             states: "<?",
-            textDescription: "<",
-            linkDescription: "<",
             priceOptions: "<",
-            bannerImg: "<",
-            existFareHold: "<"
+            showFareHold: "<",
+            optionsLoaded: "<",
+            advertisement: "<",
+            showAds: "<"
         },
         controller: bsFareHoldController,
         template : `
-        <div class="fare-hold-container" >
+        <div class="fare-hold-container" data-ng-if="$ctrl.existFareHold">
             <section tabindex=0>
-                <h3>Flight Offers</h3> 
+                <h3> {{$ctrl.plTitle}} </h3> 
             </section>
             <div class="fare-hold-content text-center">
-                    <div class="fare-hold-content-row blue-bg" tabindex=0 
-                    data-ng-bind-html="$ctrl.bannerImg | sanitize">                        
+                <div class="loading-content" data-ng-if="$ctrl.optionsLoaded==false"></div>
+                <div data-ng-if="$ctrl.optionsLoaded==true">
+                    <div class="advertisement" data-ng-if="$ctrl.showAds" data-ng-bind-html="$ctrl.advertisement | sanitize"></div>
+                    <div data-ng-if="!$ctrl.showAds">
+                        <div ng-if="false" class="fare-hold-content-row blue-bg" tabindex=0 
+                        data-ng-bind-html="$ctrl.headerBanner | sanitize">                        
+                        </div>
+                        <div ng-if="false" class="fare-hold-content-row description blue-bg" tabindex=0 
+                        data-ng-bind-html="$ctrl.descriptionBanner | sanitize">
+                        </div>
+                        <div class="fare-hold-content-row fare-hold-text" tabindex=0
+                        data-ng-bind-html="$ctrl.fareHoldText | sanitize">
+                        </div>
+                        <div class="fare-hold-content-row options">                          
+                            <button class="btn btn-default" 
+                                aria-selected="{{option.checked}}"
+                                data-ng-class="{'selected': option.checked == true}"
+                                data-ng-repeat="option in $ctrl.priceOptions"
+                                data-ng-click="option.changeStatus(option)"
+                                > 
+                                <span class="fare-hold-duration">{{option.duration}}</span>
+                                <span class="fare-hold-price">
+                                    {{option.price}}
+                                </span>
+                            </button>                                    
+                        </div> 
                     </div>
-                    <div class="fare-hold-content-row description blue-bg"  
-                    data-ng-bind-html="$ctrl.textDescription | sanitize">
-                    </div>
-                <div class="fare-hold-content-row options">                          
-                        <button class="btn btn-default" 
-                            aria-selected="{{option.checked}}"
-                            data-ng-class="{'selected': option.checked == true}"
-                            data-ng-repeat="option in $ctrl.priceOptions"
-                            data-ng-click="option.changeStatus(option)"
-                            > 
-                            <span class="fare-hold-duration">{{option.duration}}</span>
-                            <span class="fare-hold-price">
-                                {{option.price}}
-                            </span>
-                        </button>
-                                    
-                    </div>                    
+                </div>
+                                   
             </div>
         </div>
         `

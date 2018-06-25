@@ -12,6 +12,7 @@ define([
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/filters/range',
   '../../../../scripts/filters/sanitize',
+  '../../../../scripts/filters/priceFormat',
   '../../../../scripts/directives/bs-card-ref-id',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card',
   '../../../../scripts/directives/bs-itinerary-pricing-card/bs-itinerary-pricing-card-per-passenger',
@@ -20,7 +21,7 @@ define([
   '../../../../components/complex/bs-total-price-summary/index.component',
   '../../../../components/complex/bs-fare-hold-price-summary/index.component',
 ], function($, angular, _, hostUIService, hostScrapService, hostProxyService,
-  strDuration, appHostProxyService, range, sanitize, bsCardRefId, bsItineraryPricingCard,
+  strDuration, appHostProxyService, range, sanitize, priceFormat, bsCardRefId, bsItineraryPricingCard,
   bsItineraryPricingCardPerPassenger, statsService, ApphostUIService,
   bsTotalPriceSummaryComponent,bsFareHoldPriceSummaryComponent) {
   let wrapperInstance = {}
@@ -592,6 +593,7 @@ define([
         .filter('duration', strDuration)
         .filter('range', range)
         .filter('sanitize', sanitize)
+        .filter('priceFormat', priceFormat)
         .directive('bsCardRefId', bsCardRefId)
         .directive('bsItineraryPricingCard', bsItineraryPricingCard)
         .directive('bsItineraryPricingCardPerPassenger', bsItineraryPricingCardPerPassenger)

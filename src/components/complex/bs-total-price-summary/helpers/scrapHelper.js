@@ -83,7 +83,7 @@ define(['jquery'], function ($jq) {
 
 
 
-  function formatPrice(currency, priceString) {
+  const formatPrice = function(currency, priceString) {
     let price
     if (priceString) {
       switch (currency) {
@@ -133,7 +133,9 @@ define(['jquery'], function ($jq) {
     //return "Total"
   }
 
-  
+  const existPriceBlock = () => {
+    return getPriceBaseInfo().length > 0
+  }
 
 
   return {
@@ -145,6 +147,8 @@ define(['jquery'], function ($jq) {
     getLinkOption,
     existCOP,
     getTotalPrice,
-    getTotalPriceLabel
+    getTotalPriceLabel,
+    formatPrice,
+    existPriceBlock
   }
 })
