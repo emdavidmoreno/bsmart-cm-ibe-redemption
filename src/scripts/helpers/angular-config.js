@@ -159,6 +159,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_DATEPICKER_RETURN_FORMAT: "Fecha de retorno. Escriba el formato de fecha usando 2 números para el día y" +
       " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
         "be ser mayor o igual que la fecha actual.",
+      LABEL_SIDE_MENU:"Press space key to open the menu and arrow keys to navigate through the options",
+      LABEL_CLOSE_SIDE_MENU:"Close menu",
       
      })
 
@@ -317,7 +319,9 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_DEPART_DATE:"Fecha de salida",
       LABEL_RETURN_DATE:"Fecha de retorno",
       LABEL_AUTOCOMPLETE_FROM: "Buscar ciudad de origen. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
-      LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista"
+      LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
+      LABEL_SIDE_MENU:"Presione tecla de espacion para abrir el menu y las teclas de flecha para navegar por las opciones",
+      LABEL_CLOSE_SIDE_MENU:"Cerrar menu",
     })
 
     // portuguees translations
@@ -471,6 +475,8 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_DATEPICKER_RETURN_FORMAT: "Data de retorno. Digite o formato da data usando 2 números por dia e mês e 4 " +
       "números para o ano na ordem seguinte mês / dia / ano. O data deve ser maior ou ig" +
         "ual a data atual.",
+      LABEL_SIDE_MENU:"Pressione a tecla espaço para abrir o menu e as teclas de seta para navegar pelas opções",
+      LABEL_CLOSE_SIDE_MENU:"Fechar menu",
     })
 
     // set default language
