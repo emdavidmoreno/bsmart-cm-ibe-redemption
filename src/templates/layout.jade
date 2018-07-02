@@ -3,9 +3,10 @@
     div.m-book-smart(data-ng-controller="AppController")
       block header
         nav.m-top-bar.brand-bar
-          a(rel="nofollow",class="logo",href="https://www.copaair.com/")
-            img.logo--image( src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png", alt="Logo")
-          i.menu(tabindex=0 data-ng-click="main.toggleSideMenu()" data-ng-keypress="main.toggleSideMenu()")
+          a(rel="nofollow" class="logo" href="https://www.copaair.com/" tabindex="0")
+            img.logo--image(src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo")
+          div(title="Menu" )
+            i.menu(tabindex="-1" title="Menu")
         div.m-sidebar-menu(aria-hidden="{{!main.isMenuShowed()}}")
           div.accordion
             a.accordion-item-title-without-icon(href="https://www.copaair.com/" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
@@ -40,7 +41,7 @@
               i.icon-action
           div.accordion
             h3.accordion-item-title(id="closeMenu" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}" data-ng-click="main.toggleSideMenu()" data-ng-keypress="main.toggleSideMenu()" )
-              | {{ 'LABEL_CLOSE_SIDE_MENU' | translate }} 
+              | {{ 'LABEL_CLOSE_SIDE_MENU' | translate }}
               i.icon-action
         div.m-sidebar-menu-wrapper
         div.l-mini-summary(ng-cloak tabindex=0)
