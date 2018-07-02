@@ -281,7 +281,23 @@ define([
             location.return.selectedClassIndex = option
             this.returnDialogIsOpen = false
           }
-          $("#flight-selecction-aria-help").append('<p aria-live="assertive" aria-atomic="true" aria-relevant="additions text">' + option.name + '</p>')
+          // accessibility part for this event
+          
+          var language = dataLayer[0].Language;
+          var wcatext = ''
+          switch(language){
+            case 'en':
+              wcatext = "Selected class: ";
+              break;
+            case 'es':
+              wcatext = "Clase seleccionada: ";
+              break;
+
+            case 'pt':
+              wcatext = "Classe selecionada: ";
+              break;
+          }
+          $("#flight-selecction-aria-help").append('<p aria-live="assertive" aria-atomic="true" aria-relevant="additions text">' + wcatext + option.name + '</p>')
         },
       }
 
