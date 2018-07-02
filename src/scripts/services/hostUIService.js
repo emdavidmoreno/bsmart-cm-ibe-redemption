@@ -51,7 +51,7 @@ define([], function () {
     }
 
     hostUIService.bindUI = function (html) {
-      $('.m-top-bar i.menu, #hamburger-menu-button').click(function () {
+      $('.m-top-bar i.menu').on('click keypress', function () {
         hostUIService.showMenu();
       });
       $('.m-sidebar-menu').click(function (event) {
