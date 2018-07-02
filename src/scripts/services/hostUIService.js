@@ -12,9 +12,9 @@ define([], function () {
     }
 
     hostUIService.bindUI = function (html) {
-      // $('.m-top-bar i.menu').on('click keypress', function () {
-      //   //hostUIService.showMenu();
-      // });
+      $('.m-top-bar i.menu, #hamburger-menu-button').click(function () {
+        hostUIService.showMenu();
+      });
       $('.m-sidebar-menu').click(function (event) {
         event.stopPropagation();
       });
@@ -74,7 +74,7 @@ define([], function () {
     hostUIService.hideCopaSideAd = function () {
       if($(".QSISlider").length)
          $(".QSISlider").remove();
-       
+
     }
 
 
