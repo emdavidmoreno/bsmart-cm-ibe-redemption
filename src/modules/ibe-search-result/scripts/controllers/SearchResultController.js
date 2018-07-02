@@ -256,7 +256,7 @@ define([
         },
         showFareHold: false,
         mediaInfoMessages: hostScrapService.getMediaInfoMessages(),
-        clickBtnSelectFlightClass: function(isDeparture) {
+        clickBtnSelectFlightClass: function(isDeparture, button) {
           if (ui.user_input_journey_type !== 'Multi City') {
             if (isDeparture) {
               ui.departureDialogIsOpen = true

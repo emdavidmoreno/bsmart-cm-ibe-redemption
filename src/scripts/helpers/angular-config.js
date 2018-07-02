@@ -161,6 +161,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
         "be ser mayor o igual que la fecha actual.",
       LABEL_SIDE_MENU:"Press space key to open the menu and arrow keys to navigate through the options",
       LABEL_CLOSE_SIDE_MENU:"Close menu",
+      LABEL_ESCAPE_CLOSE_DIALOG: 'Press scape to close the dialog.'
       
      })
 
@@ -322,6 +323,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
       LABEL_SIDE_MENU:"Presione tecla de espacion para abrir el menu y las teclas de flecha para navegar por las opciones",
       LABEL_CLOSE_SIDE_MENU:"Cerrar menu",
+      LABEL_ESCAPE_CLOSE_DIALOG: 'Presione la tecla escape para cerrar el dialogo.'
     })
 
     // portuguees translations
@@ -477,6 +479,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
         "ual a data atual.",
       LABEL_SIDE_MENU:"Pressione a tecla espaço para abrir o menu e as teclas de seta para navegar pelas opções",
       LABEL_CLOSE_SIDE_MENU:"Fechar menu",
+      LABEL_ESCAPE_CLOSE_DIALOG: 'Pressione a tecla scape para fechar a caixa de diálogo..'
     })
 
     // set default language
