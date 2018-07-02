@@ -51,9 +51,9 @@ define([], function () {
     }
 
     hostUIService.bindUI = function (html) {
-      // $('.m-top-bar i.menu').on('click keypress', function () {
-      //   //hostUIService.showMenu();
-      // });
+      $('.m-top-bar i.menu, #hamburger-menu-button').click(function () {
+        hostUIService.showMenu();
+      });
       $('.m-sidebar-menu').click(function (event) {
         event.stopPropagation();
       });
@@ -113,7 +113,7 @@ define([], function () {
     hostUIService.hideCopaSideAd = function () {
       if($(".QSISlider").length)
          $(".QSISlider").remove();
-       
+
     }
 
 
@@ -128,7 +128,7 @@ define([], function () {
         let c = condition()
         if (c) {
             console.log('buscando a nemo', condition)
-            req = window.requestAnimationFrame(step.bind(that, condition))          
+            req = window.requestAnimationFrame(step.bind(that, condition))
         } else {
           cancelAnimationFrame(req)
           dfd.resolve()
@@ -144,7 +144,7 @@ define([], function () {
       if(!urlContaining || typeof urlContaining == 'undefined')
         return ;
       if(!interceptorFunc || typeof interceptorFunc == 'undefined')
-        return ;  
+        return ;
 
       //saving original open function
       var open = window.XMLHttpRequest.prototype.open;
@@ -153,7 +153,7 @@ define([], function () {
       //assing new open function with interceptor
       window.XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
           this.addEventListener("readystatechange", function() {
-            
+
             //Request contains "urlContaining" and is ready
             if (this.readyState === 4 && url.indexOf(urlContaining) > -1) {
 
@@ -165,13 +165,13 @@ define([], function () {
                 method: method
               });
 
-              //call the interceptor function 
+              //call the interceptor function
               interceptorFunc.call(arguments)
 
             }
           }, false);
         open.apply(this, arguments);
-      };     
+      };
     }
 
 

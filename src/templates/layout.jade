@@ -3,10 +3,11 @@
     div.m-book-smart(data-ng-controller="AppController")
       block header
         nav.m-top-bar.brand-bar
-          a(rel="nofollow",class="logo",href="https://www.copaair.com/")
-            img.logo--image( src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png", alt="Logo")
-          i.menu(tabindex=0 data-ng-click="main.toggleSideMenu()" data-ng-keypress="main.toggleSideMenu()")
-        div.m-sidebar-menu(aria-hidden="{{!main.isMenuShowed()}}")
+          a(rel="nofollow" class="logo" href="https://www.copaair.com/" tabindex="0")
+            img.logo--image(src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo")
+          a(title="Menu Principal" href="#" id="hamburger-menu-button")
+            i.menu(tabindex="0" title="Menu")
+        div.m-sidebar-menu
           div.accordion
             a.accordion-item-title-without-icon(href="https://www.copaair.com/" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ 'LABEL_HOME' | translate }}
