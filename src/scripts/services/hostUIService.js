@@ -51,23 +51,28 @@ define([], function () {
     }
 
     hostUIService.bindUI = function (html) {
-      $('.m-top-bar i.menu').on('click keypress', function () {
-        hostUIService.showMenu();
-      });
+      // $('.m-top-bar i.menu').on('click keypress', function () {
+      //   hostUIService.showMenu();
+      // });
       $('.m-sidebar-menu').click(function (event) {
         event.stopPropagation();
       });
-      $('.accordion-item-title').click(function (event) {
+      $('.accordion-item-title').click( function (event) {
         var $currentAccordion = $(this).closest('.accordion');
 
         if ($currentAccordion.hasClass('accordion--expanded')) {
           $currentAccordion.removeClass('accordion--expanded');
+          $(this).attr('aria-expanded', 'false')
         } else {
           $('.accordion.accordion--expanded').removeClass('accordion--expanded');
           $currentAccordion.addClass('accordion--expanded');
+          $(this).attr('aria-expanded', 'true')
         }
 
       });
+      $('.accordion-item-title').on('keypress', function(event){
+        $(this).trigger('click')
+      })
     }
 
     hostUIService.showMenu = function () {
