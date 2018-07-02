@@ -176,11 +176,14 @@ block body
         option(value="8")
           | 8 {{ 'LABEL_ADULTS' | translate }}
       p(data-ng-show="!passengersExtraOptionsSelected")
-        a(data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"          
-          tabindex=0 
+        a(data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"
+          tabindex=0
           id="passengersExtraOptionsSelected"
           data-ng-keypress="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"
-          aria-expanded="{{passengersExtraOptionsSelected}}")
+          aria-expanded="{{passengersExtraOptionsSelected}}"
+          aria-label="{{ 'LABEL_PASSENGER_QUESTION' | translate }}"
+          href="#"
+          )
           | {{ 'LABEL_PASSENGER_QUESTION' | translate }}
       .l-extra-options(data-ng-show='passengersExtraOptionsSelected')
         label
@@ -239,8 +242,8 @@ block body
           | {{ 'LABEL_CABIN_ECONOMY' | translate }}
       label(ng-click="ui.cabinType.change('Business')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
-         input.radio--custom(type='radio' role="radio" 
-          name="ui.cabinType.value" 
+         input.radio--custom(type='radio' role="radio"
+          name="ui.cabinType.value"
           data-ng-model='ui.cabinType.value' value='Business')
         label
           | {{ 'LABEL_CABIN_BUSINESS' | translate }}
