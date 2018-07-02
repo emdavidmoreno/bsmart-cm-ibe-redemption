@@ -270,7 +270,7 @@ define([
           if (!isAvailable) {
             return
           }
-
+        
           location.departure.selectedClassIndex.selected = false
           option.selected = true
 
@@ -281,6 +281,7 @@ define([
             location.return.selectedClassIndex = option
             this.returnDialogIsOpen = false
           }
+          $("#flight-selecction-aria-help").append('<p aria-live="assertive" aria-atomic="true" aria-relevant="additions text">' + option.name + '</p>')
         },
       }
 

@@ -1,6 +1,6 @@
 extends ../../../templates/layout.jade
 
-block body
+block body  
   div.m-search-results(data-ng-controller="SearchResultController")
     .l-messages(ng-cloak)
       .m-message(data-ng-repeat="message in ui.messages"
@@ -93,10 +93,12 @@ block body
               span(data-ng-if="ui.user_input_journey_type!='Multi City'")
                 | {{ 'LABEL_FLIGHT_DOIT_OUTBOUND' | translate }}
             div
+              div#flight-selecction-aria-help.aria.sr-only(aria-live="assertive" role="log")
               h4(class="{{location.departure.selectedClassIndex.cssClass}}")
                 span(tabindex=0)
                   | {{location.departure.dates[0].date | date:'fullDate'}}
                 button.m-select-flight-class(
+                  aria-expanded="{{ui.departureDialogIsOpen}}"
                   data-ng-if="ui.user_input_journey_type!='Multi City'"
                   data-ng-click="ui.clickBtnSelectFlightClass(true)"
                   class="{{location.departure.selectedClassIndex.cssClass}}")
@@ -120,7 +122,7 @@ block body
                         data-ng-keypress="option.showDesc=!option.showDesc"
                         data-ng-click="option.showDesc=!option.showDesc")
                         i.icon--info-circled
-                    .m-item-col-right(tabindex=0
+                    .m-item-col-right(tabindex=0 role="option"
                       data-ng-keypress="ui.onSelectFlightClass(option, true, location)"
                       data-ng-click="ui.onSelectFlightClass(option, true, location)")
                       span.m-item-name
