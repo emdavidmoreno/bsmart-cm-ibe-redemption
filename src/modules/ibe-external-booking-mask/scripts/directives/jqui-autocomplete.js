@@ -69,7 +69,6 @@ define([
             break;
           case keyCode.DOWN:
             suppressKeyPress = true;
-            this._keyEvent( "next", event );
             break;
           case keyCode.ENTER:
             // when menu is open and has focus
@@ -83,7 +82,9 @@ define([
             break;
           case keyCode.TAB:
             suppressKeyPress = true;
-            this._keyEvent( "next", event );
+            if ( this.menu.element.is( ":visible" ) ) {
+              this._keyEvent( "next", event );
+            }
             break;
           case keyCode.ESCAPE:
             if ( this.menu.element.is( ":visible" ) ) {
