@@ -51,9 +51,15 @@ define([], function () {
     }
 
     hostUIService.bindUI = function (html) {
+<<<<<<< HEAD
       // $('.m-top-bar i.menu').on('click keypress', function () {
       //   hostUIService.showMenu();
       // });
+=======
+      $('.m-top-bar i.menu, #hamburger-menu-button').click(function () {
+        hostUIService.showMenu();
+      });
+>>>>>>> 2778e04dd5cb8ffe10c1f72efb668b76a583e909
       $('.m-sidebar-menu').click(function (event) {
         event.stopPropagation();
       });

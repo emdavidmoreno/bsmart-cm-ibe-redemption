@@ -44,7 +44,7 @@ block body
             data-ng-model='location.origin.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationOrigin'
-            aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}. {{ui.errors[$index].origin}}'            
+            aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}. {{ui.errors[$index].origin}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].origin}}
@@ -104,9 +104,9 @@ block body
           type="button"
           aria-expanded="{{location.ui.expanded}}"
           aria-label="{{'LABEL_FLIGHT' | translate}} {{$index + 1}}"
-          data-ng-click="ui.locations.expandAction(location)" 
+          data-ng-click="ui.locations.expandAction(location)"
         )
-          i.icon-action(            
+          i.icon-action(
             data-ng-class="{'icon--expanded': location.ui.expanded}")
       .flight-location(
         data-ng-class="{'show-field-error': ui.errors[$index + 1].origin }"
@@ -246,15 +246,15 @@ block body
     .l-cabin-type-group(ng-cloak role="radiogroup" aria-label='{{ "LABEL_CABIN_GROUP" | translate }}')
       label(data-ng-click="ui.cabinType.change('Economy')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}")
-        input.radio--custom(type='radio' role="radio" 
-          name="ui.cabinType.value" 
+        input.radio--custom(type='radio' role="radio"
+          name="ui.cabinType.value"
           data-ng-model='ui.cabinType.value' value='Economy'
           data-ng-change='ui.cabinType.change()')
         label
           | {{ 'LABEL_CABIN_ECONOMY' | translate }}
       label(ng-click="ui.cabinType.change('Business')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
-         input.radio--custom(type='radio' role="radio"
+        input.radio--custom(type='radio' role="radio"
           name="ui.cabinType.value"
           data-ng-model='ui.cabinType.value' value='Business')
         label
@@ -269,4 +269,3 @@ block body
     .l-action(ng-cloak)
       button(type="button" data-ng-click='submitFormAction()')
         | {{ 'LABEL_SEARCH' | translate }}
-    

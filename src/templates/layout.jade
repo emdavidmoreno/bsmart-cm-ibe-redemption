@@ -4,11 +4,10 @@
       block header
         nav.m-top-bar.brand-bar
           a(rel="nofollow" class="logo" href="https://www.copaair.com/" tabindex="0")
-            img.logo--image(src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo")          
-          i.menu(tabindex="0" title="Menu Principal" 
-            aria-expanded="{{main.isMenuShowed()}}" 
-            data-ng-click="main.toggleSideMenu()" data-ng-keypress="main.toggleSideMenu()" )
-        div.m-sidebar-menu
+            img.logo--image(src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo")
+          a(aria-label="Menu Principal" href="#" id="hamburger-menu-button")
+            i.menu(tabindex="0" title="Menu")
+        div.m-sidebar-menu(aria-hidden="{{!main.isMenuShowed()}}")
           div.accordion
             a.accordion-item-title-without-icon(href="https://www.copaair.com/" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ 'LABEL_HOME' | translate }}
@@ -42,7 +41,7 @@
               i.icon-action
           div.accordion
             h3.accordion-item-title(id="closeMenu" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}" data-ng-click="main.toggleSideMenu()" data-ng-keypress="main.toggleSideMenu()" )
-              | {{ 'LABEL_CLOSE_SIDE_MENU' | translate }} 
+              | {{ 'LABEL_CLOSE_SIDE_MENU' | translate }}
               i.icon-action
         div.m-sidebar-menu-wrapper
         div.l-mini-summary(ng-cloak tabindex=0)
