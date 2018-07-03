@@ -153,12 +153,12 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_AUTOCOMPLETE_FROM: "Search origin city. After typing 3 letters use up and down arrows to select from list",
       LABEL_AUTOCOMPLETE_TO: "Search destination city. After typing 3 letters use up and down arrows to select from list",   
       LABEL_FLIGHT_CLASS_INFO: "Extra Information",
-      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Fecha de salida. Escriba el formato de fecha usando 2 números para el día y" +
-      " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
-        "be ser mayor o igual que la fecha actual.",
-      LABEL_DATEPICKER_RETURN_FORMAT: "Fecha de retorno. Escriba el formato de fecha usando 2 números para el día y" +
-      " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
-        "be ser mayor o igual que la fecha actual.",
+      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Departing date. Type in the date format using 2 numbers for day and month and 4" +
+      " numbers for the year in the following order month/day/year. The year must be gr" +
+        "eater than or equal to the current year.",
+      LABEL_DATEPICKER_RETURN_FORMAT: "Returning date. Type in the date format using 2 numbers for day and month and 4" +
+      " numbers for the year in the following order month/day/year. The year must be gr" +
+        "eater than or equal to the current year.",
       LABEL_SIDE_MENU:"Press space key to open the menu and arrow keys to navigate through the options",
       LABEL_CLOSE_SIDE_MENU:"Close menu",
       LABEL_ESCAPE_CLOSE_DIALOG: 'Press scape to close the dialog.'

@@ -18,7 +18,7 @@
             h3.accordion-item-title(data-ng-click="main.openLoginDialog()" data-ng-keypress="main.openLoginDialog()" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ main.loginLabel }}
           div.accordion
-            h3.accordion-item-title(tabindex=0 aria-expanded="false")
+            h3.accordion-item-title(aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}" aria-expanded="false")
               | {{ 'LABEL_LANGUAGE' | translate }} ({{main.languageOptions[main.language].name}})
               i.icon-action
             div.accordion-item-content
