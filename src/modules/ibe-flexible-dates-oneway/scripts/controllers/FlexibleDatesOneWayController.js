@@ -12,6 +12,7 @@ define([
   '../../../../scripts/filters/collUnique',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
+  '../../../../components/complex/bs-fare-hold/index.component',
   'statsService',
   'lodash',
   '../../../../components/complex/bs-flexible-dates-calendar-area/index.component', // eslint-disable-line
@@ -19,7 +20,7 @@ define([
   '../../../../components/complex/bs-search-result/index.component',
 ], function($, angular, hostScrapService, hostProxyService,
   strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
-  jquiDialog, statsService, _, bsFlexibleDatesCalendarAreaComponent,
+  jquiDialog, bsFareHoldComponent, statsService, _, bsFlexibleDatesCalendarAreaComponent,
   bsBtnContinueComponent, bsSearchResultComponent) {
   let wrapperInstance = {}
 
@@ -53,7 +54,8 @@ define([
       $timeout,
       appHostProxyService,
       $filter,
-      $sce
+      $sce,
+      $interval
     ) {
       let instance = this
 
@@ -63,6 +65,7 @@ define([
 
       instance.init = function() {
         console.log('FlexibleDatesOneWayController init')
+        setFareHoldData()
       }
 
       $scope.$parent.showMiniSummary = true
@@ -77,6 +80,7 @@ define([
         commentBlock: hostScrapService.getCommentBlock(),
         messages: hostScrapService.getDefaultInfoMessages(),
         states: {},
+        fareHoldData: 'undefined',
         updateStates: (states) => {
           $timeout(() => {
             $scope.ui.states = angular.merge({}, $scope.ui.states, states)
@@ -121,6 +125,31 @@ define([
         hostScrapService.getSetChooseCurrency(selected)
       }
 
+      $scope.changePriceLock = function(){
+        setFareHoldData()
+      }
+
+      /**
+       * Helper functions
+       */
+
+      function setFareHoldData(){
+        var promise = $interval(()=>{
+          if(hostScrapService.existFareHold() == true){
+            console.log("iteracion")
+            $timeout(()=>{
+              $scope.ui.fareHoldData = {
+                textDescription: hostScrapService.getDescriptionImg() || '',
+                linkDescription: hostScrapService.getDescriptionNote() || '',
+                priceOptions: hostScrapService.getFareHoldOffers() || [],
+                bannerImg: hostScrapService.getBannerImg() || '#',
+                existFareHold: hostScrapService.existFareHold() || false
+              } 
+            },0)            
+            $interval.cancel(promise)
+          }
+        },500)
+      }
 
       // -------------------------------------------------------
       // listeners
@@ -137,6 +166,7 @@ define([
       'appHostProxyService',
       '$filter',
       '$sce',
+      '$interval'
     ]
 
     angular
@@ -146,6 +176,7 @@ define([
         .filter('sanitize', sanitize)
         .filter('unique', collUnique)
         .directive('jquiDialog', jquiDialog)
+        .component('bsFareHoldComponent', bsFareHoldComponent)
         .component('bsFlexibleDatesCalendarAreaComponent',
           bsFlexibleDatesCalendarAreaComponent
         )

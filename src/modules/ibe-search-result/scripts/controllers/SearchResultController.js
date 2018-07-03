@@ -11,14 +11,16 @@ define([
   '../../../../scripts/filters/strSimpleDate',
   '../../../../scripts/filters/sanitize',
   '../../../../scripts/filters/collUnique',
+  '../../../../scripts/filters/priceFormat',
   '../../../../scripts/services/hostProxyService',
   '../../../../scripts/directives/jqui-dialog',
+  '../../../../components/complex/bs-fare-hold/index.component',
   'statsService',
   'lodash',
   '../../../../scripts/services/hostUIService',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
-  strDuration, strSimpleDate, sanitize, collUnique, appHostProxyService,
-  jquiDialog, statsService, _, ApphostUIService) {
+  strDuration, strSimpleDate, sanitize, collUnique, priceFormat, appHostProxyService,
+  jquiDialog, bsFareHoldComponent, statsService, _, ApphostUIService) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -54,7 +56,9 @@ define([
       appHostProxyService,
       $filter,
       $sce,
-      ApphostUIService
+      ApphostUIService,
+      $interval
+
     ) {
       let instance = this
 
@@ -246,8 +250,13 @@ define([
           data: {},
         },
         showContinueButton: 0,
+        fareHoldData: {
+          optionsLoaded: false,
+          priceOptions: []
+        },
+        showFareHold: false,
         mediaInfoMessages: hostScrapService.getMediaInfoMessages(),
-        clickBtnSelectFlightClass: function(isDeparture) {
+        clickBtnSelectFlightClass: function(isDeparture, button) {
           if (ui.user_input_journey_type !== 'Multi City') {
             if (isDeparture) {
               ui.departureDialogIsOpen = true
@@ -261,7 +270,7 @@ define([
           if (!isAvailable) {
             return
           }
-
+        
           location.departure.selectedClassIndex.selected = false
           option.selected = true
 
@@ -272,6 +281,23 @@ define([
             location.return.selectedClassIndex = option
             this.returnDialogIsOpen = false
           }
+          // accessibility part for this event
+          
+          var language = dataLayer[0].Language;
+          var wcatext = ''
+          switch(language){
+            case 'en':
+              wcatext = "Selected class: ";
+              break;
+            case 'es':
+              wcatext = "Clase seleccionada: ";
+              break;
+
+            case 'pt':
+              wcatext = "Classe selecionada: ";
+              break;
+          }
+          $("#flight-selecction-aria-help").append('<p aria-live="assertive" aria-atomic="true" aria-relevant="additions text">' + wcatext + option.name + '</p>')
         },
       }
 
@@ -283,10 +309,8 @@ define([
       $scope.$parent.showMiniSummary = true
 
       $scope.$parent.stepper.goToStep(1)
-
-
+      
       syncDefaultErrorMessages()
-
 
       // sync the ui height to garanty footer correct positioning
       appHostProxyService.syncHeight($timeout)
@@ -297,15 +321,16 @@ define([
       // -------------------------------------------------------
       // binding functions
       // -------------------------------------------------------
-
+      
+      instance.flightYouSelect = 0
       $scope.selectFlightAction = function(flight, location, locationType, index, $event) {
         // TODO: Break this function in small reusable pieces
-
+        $event.stopPropagation();
         let locationBound = location.departure
         if (locationType === 'return') {
           locationBound = location.return
         }
-
+        
         let selectedClassIndex = locationBound.selectedClassIndex.id
         let infoClass = flight.info.classes[selectedClassIndex]
 
@@ -341,9 +366,11 @@ define([
           if (locationType === 'departure') {
             if (location.return && locationBound.selectingValueForFirstTime) {
               location.return.show = 1
+              instance.flightYouSelect ++
             } else {
               // TODO: mark the current as checked
               location.done = 1
+              instance.flightYouSelect ++
               if (ui.locations.length > 1) {
                 // TODO: Put this code in a helper
                 let areAllSummaryShowed = 1
@@ -359,12 +386,17 @@ define([
                 }
               } else {
                 ui.showContinueButton = 1
-              }
+                // ui.showFareHold = true
+              }  
+              if(!location.return && locationBound.selectingValueForFirstTime){
+                instance.flightYouSelect ++
+              }           
             }
           } else {
             // Show the general sumary and the button
             // See the mokup below
             ui.showContinueButton = 1
+            instance.flightYouSelect ++
             location.done =1
 
             // https://projects.invisionapp.com/d/main#/console/6681575/147006373/preview#project_console
@@ -372,16 +404,24 @@ define([
             // TODO: Add the code for open the next location here
           }
         }
-
+        
+        ui.showFareHold = instance.flightYouSelect % 2 == 0
+       
 
         if (locationBound.selectingValueForFirstTime) {
           locationBound.selectingValueForFirstTime = 0
         }
+        $scope.$evalAsync(()=>{
+          $scope.ui.fareHoldData.optionsLoaded = false
+        })
+        setDefaultFareHoldData()
       }
 
       $scope.closeDepartureLocationSummaryAction = function(location) {
         location.departure.show = 1
         location.departure.summary.show = 0
+        ui.showFareHold = false
+        instance.flightYouSelect --
         location.done = 0
         if (location.return) {
           location.return.show = 0
@@ -397,6 +437,8 @@ define([
       $scope.closeReturnLocationSummaryAction = function(location) {
         location.return.show = 1
         location.return.summary.show = 0
+        ui.showFareHold = false
+        instance.flightYouSelect --
         ui.showContinueButton = 0
         location.done = 0
       }
@@ -773,6 +815,34 @@ define([
         $scope.$apply()
       }
 
+      let setFareHoldData = ()=>{
+        hostScrapService.collectFareHoldData()
+        .done((response)=>{             
+          $scope.$evalAsync(()=>{
+            $scope.ui.fareHoldData = {                
+              priceOptions: response.options,
+              optionsLoaded: true,
+              advertisement: response.advertisement,
+              showAds: response.showAds
+            } 
+            console.log("setted FH data", $scope.ui.fareHoldData)
+          })  
+        })
+      }
+
+      ApphostUIService.interceptAjaxCalls("AirSelectOWCFlight.do", setFareHoldData)
+
+      function setDefaultFareHoldData(){ 
+        $scope.$evalAsync(()=>{
+          $scope.ui.fareHoldData = {                
+            priceOptions: [],
+            optionsLoaded: false,
+            advertisement: '',
+            showAds : false
+          } 
+        }) 
+      }
+
       // - visual helpers
 
       // -------------------------------------------------------
@@ -792,6 +862,7 @@ define([
       '$filter',
       '$sce',
       'ApphostUIService',
+      '$interval'
     ]
 
     angular
@@ -801,7 +872,9 @@ define([
       .filter('simpledate', strSimpleDate)
       .filter('sanitize', sanitize)
       .filter('unique', collUnique)
+      .filter('priceFormat', priceFormat)
       .directive('jquiDialog', jquiDialog)
+      .component('bsFareHoldComponent', bsFareHoldComponent)
       .controller('SearchResultController', SearchResultController)
   })({})
 
