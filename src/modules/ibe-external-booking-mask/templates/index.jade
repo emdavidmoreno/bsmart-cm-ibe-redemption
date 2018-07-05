@@ -44,7 +44,7 @@ block body
             data-ng-model='location.origin.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationOrigin'
-            aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}. {{ui.errors[$index].origin}}'
+            aria-label='{{"LABEL_FROM" | translate}}. {{ui.errors[$index].origin}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].origin}}
