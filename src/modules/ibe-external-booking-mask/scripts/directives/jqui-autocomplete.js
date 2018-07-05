@@ -17,7 +17,12 @@ define([
          bsLocationIndex: '@'
        },
        link: function($scope, $element) {
-         console.log('the other element is', $element)
+         // Adding some Accessibility attributes
+         $jq($element).attr('role', 'combobox')
+         .attr('aria-autocomplete', 'false')
+         .attr('aria-haspopup', "true")
+         .attr("aria-expanded", "false")
+         .attr('aria-activedescendant',"")
          $jq($element
            .bind( 'keydown', function( event ) {
             
@@ -25,6 +30,9 @@ define([
           .autocomplete({
             minLength: 3,
             autoFocus: true,
+            close: function(event, ui){
+              $jq($element).attr("aria-expanded", "false")
+            },
             source: function(request, response) {
               // get the locations codes
               hostProxyService
@@ -39,7 +47,9 @@ define([
                   response(resp);
               });
             },
-           focus: function() {
+           focus: function(event, ui) {
+            setAriaSelectedValue($element,$jq($jq($element).autocomplete('widget')),
+                                ui.item.locationName)
              // prevent value inserted on focus
              return false;
            },
@@ -66,12 +76,25 @@ define([
            },
           }).autocomplete( 'instance' )
            ._renderItem = function( ul, item ) {
-             return $jq( '<li role="presentation" aria-label="'+ item.locationName +'">' )
+             return $jq( '<li role="option" aria-selected="false" aria-label="'+ item.locationName +'">' )
                .append( '<span>' + item.locationName + '</span>' )
                .appendTo( ul );
            };
        }
      };
+   }
+
+   var setAriaSelectedValue = function(input, $optionList, selectedText){
+    $optionList.find('li').each(function(index, value){
+      var text = $(value).attr('aria-label');
+      if(!text.localeCompare(selectedText)){
+       $(value).attr('aria-selected', 'true');
+       $(input).attr('aria-activedescendant',value.id)
+
+      }else{
+       $(value).attr('aria-selected', 'false');
+      }
+    })
    }
 
   jquiAutocomplete.$inject = ['hostProxyService'];
