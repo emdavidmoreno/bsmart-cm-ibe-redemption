@@ -61,6 +61,8 @@ define([
              }, $scope.bsLocationIndex);
              $element.val( ui.item.locationName );
              $element.trigger('change');
+             var liveRegion = $jq($jq($element).autocomplete('widget')).next()
+             $jq(liveRegion).append(`<div> ${ui.item.locationName} selected</div>`)
              return false;
            },
            search: function( /*event, ui*/ ) {
@@ -71,7 +73,7 @@ define([
                  locationName: ''
                 }, $scope.bsLocationIndex);
                $element.val( '' );
-               $element.trigger('change');
+               $element.trigger('change');              
              }
            },
           }).autocomplete( 'instance' )

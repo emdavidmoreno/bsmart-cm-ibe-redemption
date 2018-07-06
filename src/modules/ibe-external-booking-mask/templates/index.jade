@@ -1,8 +1,8 @@
 extends ../../../templates/layout.jade
 
 block body
-  #wcag-datepicker-log.sr-only( aria-live="assertive" aria-relevant="additions text")
-  #wcag-datepicker.sr-only
+  #wcag-datepicker-log.sr-only(tabindex=-1 aria-live="assertive" aria-relevant="additions text")
+  #wcag-datepicker.sr-only(tabindex=-1)
     | el formato para escribir la fecha es mm/dd/yyyy
   .m-ibe-external-booking-mask(data-ng-controller="ExternalBookingController")
     .l-messages(ng-cloak role="alert" aria-live="assertive")
