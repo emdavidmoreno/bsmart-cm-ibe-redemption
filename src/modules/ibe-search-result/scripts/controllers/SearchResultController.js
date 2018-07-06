@@ -415,6 +415,26 @@ define([
           $scope.ui.fareHoldData.optionsLoaded = false
         })
         setDefaultFareHoldData()
+        // create text for accessibility liveRegion
+        if (locationType === 'return'){
+          $filter('translate')('LABEL_FLIGHT_INBOUND')
+        }
+        var text = (locationType === 'return')? $filter('translate')('LABEL_FLIGHT_INBOUND')+ '. ' : $filter('translate')('LABEL_FLIGHT_OUTBOUND')+ '. ' 
+            text += $scope.main.selectedChooseCurrency.shortName + " " 
+            text += (infoClass.price.cash_after_discount > 0)? $filter('priceFormat')(infoClass.price.cash_after_discount)+'.':
+                   $filter('priceFormat')(infoClass.price.cash)+'.'
+        flight.info.flight_list.map(function(item){
+          var f = $filter('translate')('LABEL_FLIGHT') + " " + item.number + " " + 
+                  $filter('translate')('LABEL_FROM') + " " +  item.origin_airport_code + " " + 
+                  $filter('simpledate')(item.departure_time) + " " +                  
+                  $filter('translate')('LABEL_TO') + " " + item.destination_airport_code + 
+                  " " + $filter('simpledate')(item.arrival_time)+'. ' 
+          text = text + f;
+        })
+        text += (flight.info.flight_list.length <= 1)? $filter('translate')('LABEL_FLIGHT_NO_STOPS'):
+                flight.info.flight_list.length -1 + " " + $filter('translate')('LABEL_FLIGHT_STOPS') + ". "
+        text +=  $filter('duration')(flight.info.duration) + "." 
+        $("#wcag-helper").append('<div>'+ text + "</div>")
       }
 
       $scope.closeDepartureLocationSummaryAction = function(location) {

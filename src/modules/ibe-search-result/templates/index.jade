@@ -155,7 +155,7 @@ block body
                     div(data-ng-repeat="fInfo in flight.info.flight_list")
                       span.departing
                         strong.time
-                          |  {{fInfo.departure_time | simpledate}} feer
+                          |  {{fInfo.departure_time | simpledate}}
                           sup(
                             data-ng-repeat="dec in fInfo.disclaimer"
                             data-ng-if="dec.field == 'departure_time'")
@@ -383,6 +383,7 @@ block body
       data-advertisement = "ui.fareHoldData.advertisement"
       data-show-ads ="ui.fareHoldData.showAds"
     )
+    #wcag-helper.sr-only(role="status" aria-live="assertive" aria-relevant="additions" tabindex=-1) 
     section
       .m-card.m-card--muted(tabindex=0 data-ng-repeat="message in ui.mediaInfoMessages" ng-cloak)
         header.title
@@ -395,6 +396,7 @@ block body
     .l-action(data-ng-show="ui.showContinueButton" ng-cloak)
       button(type="button" data-ng-click='continueButtonAction()')
         |  {{ 'LABEL_CONTINUE' | translate }}
+      
 
 
 
