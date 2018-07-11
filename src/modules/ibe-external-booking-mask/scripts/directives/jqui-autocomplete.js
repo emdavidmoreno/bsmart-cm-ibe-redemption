@@ -33,6 +33,17 @@ define([
             close: function(event, ui){
               $jq($element).attr("aria-expanded", "false")
             },
+            open: function(evnt, ui){
+              $jq($element).attr("aria-expanded", "true")
+
+            },
+            messages: {
+              noResults: "No search results.",
+              results: function( amount ) {
+                return "Combobox expanded with" + amount + ( amount > 1 ? " results" : " result" ) +
+                  " available.";
+              }
+            },
             source: function(request, response) {
               // get the locations codes
               hostProxyService
