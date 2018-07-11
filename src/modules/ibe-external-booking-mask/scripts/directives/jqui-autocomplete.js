@@ -87,7 +87,9 @@ define([
              $element.trigger('change');
              var liveRegion = $jq($jq($element).autocomplete('widget')).next()
              $jq(liveRegion).append(`<div> ${ui.item.locationName} selected</div>`)
-             focusNextElement($element)
+             if(event.keyCode != $jq.ui.keyCode.TAB){
+              focusNextElement($element)
+             }
              return false;
            },
            search: function( /*event, ui*/ ) {
