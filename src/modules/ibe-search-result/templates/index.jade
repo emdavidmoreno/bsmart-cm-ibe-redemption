@@ -86,7 +86,7 @@ block body
       div.m-flights
         div.m-departure(data-ng-show="location.departure.show" ng-cloak)
           .m-flight-options
-            h4.doit(tabindex=0)
+            h4.doit(tabindex=0 role="heading")
               i
               span(data-ng-if="ui.user_input_journey_type=='Multi City'")
                 | {{ 'LABEL_FLIGHT_DOIT_FLIGHT' | translate }}
