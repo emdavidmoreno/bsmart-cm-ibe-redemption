@@ -8,13 +8,26 @@ define([
   /**
    * Angular directive that create a wrapper for jQueryUI autocomplete
    */
+
+   var focusNextElement = (currentElement)=>{
+     var allElements = $jq('input'), pos = -1     
+     allElements.each(function(index,item){
+       if(item === currentElement[0]){
+          pos = index
+       }
+     })
+     if(pos >= 0 && (pos + 1) < allElements.length){
+       allElements[pos+1].focus()
+     }
+
+   }
   
    function jquiAutocomplete (hostProxyService) {
      return {
        restrict: 'A',
        scope: {
          bsUpdateLocation: '&',
-         bsLocationIndex: '@'
+         bsLocationIndex: '@',
        },
        link: function($scope, $element) {
          // Adding some Accessibility attributes
@@ -74,6 +87,7 @@ define([
              $element.trigger('change');
              var liveRegion = $jq($jq($element).autocomplete('widget')).next()
              $jq(liveRegion).append(`<div> ${ui.item.locationName} selected</div>`)
+             focusNextElement($element)
              return false;
            },
            search: function( /*event, ui*/ ) {
