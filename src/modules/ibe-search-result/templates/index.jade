@@ -22,8 +22,8 @@ block body
         .itinerary-summary-flight.itinerary-summary-flight--departure(
           data-ng-show="location.departure.summary.show")
           .title
-            .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'" tabindex=0)
-              | {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
+            .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
+              h4 {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
             span.close-text(
               tabindex=0
               data-ng-keypress="closeDepartureLocationSummaryAction(location)"
@@ -86,7 +86,7 @@ block body
       div.m-flights
         div.m-departure(data-ng-show="location.departure.show" ng-cloak)
           .m-flight-options
-            h4.doit(tabindex=0 role="heading")
+            h4.doit()
               i
               span(data-ng-if="ui.user_input_journey_type=='Multi City'")
                 | {{ 'LABEL_FLIGHT_DOIT_FLIGHT' | translate }}
@@ -203,6 +203,8 @@ block body
                        | {{flight.info.classes[location.departure.selectedClassIndex.id].price.cash | priceFormat:ui.total_price.currency_code }}
                      strong(data-ng-if="flight.info.classes[location.departure.selectedClassIndex.id].price.cash == -1")
                        | N/A
+                  .sr-only(id="outbound-flight-help-info-{{$index}}")
+                    | {{createHelpInfoText(location,flight,'departure')}}
                   include ../../../templates/partials/sellingClassDialog.jade
       .m-itinerary-summary(data-ng-show="location.departure.summary.show || !location.departure.selectingValueForFirstTime" ng-cloak)
         h4.title
@@ -270,12 +272,12 @@ block body
       div.m-flights
         div.m-return(data-ng-if="location.return" data-ng-show="location.return.show" ng-cloak)
           .m-flight-options.m-inbound-flight-options
-            h4.doit(tabindex=0)
+            h4.doit()
               i
               span
                 | {{ 'LABEL_FLIGHT_DOIT_INBOUND' | translate }}
             h4(class="{{location.return.selectedClassIndex.cssClass}}")
-              span(tabindex=0)
+              span()
                 | {{location.return.dates[0].date | date:'fullDate'}}
               button.m-select-flight-class(
                 data-ng-if="ui.user_input_journey_type!='Multi City'"
@@ -374,6 +376,7 @@ block body
                        | {{flight.info.classes[location.return.selectedClassIndex.id].price.cash | priceFormat:ui.total_price.currency_code }}
                   strong(data-ng-if="flight.info.classes[location.return.selectedClassIndex.id].price.cash == -1")
                        | N/A
+              .sr-only(id="inbound-flight-help-info-{{$index}}")
               include ../../../templates/partials/sellingClassDialog.jade
     bs-fare-hold-component(
       data-ng-class="{'show-fare-hold':ui.showFareHold==true,'hide-fare-hold':ui.showFareHold==false}"
