@@ -13,8 +13,8 @@ define([
   'statsService',
   '../../../../scripts/services/hostUIService',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
-  jquiDatepicker, jquiAutocomplete, appHostProxyService, s
-  tatsService, ApphostUIService) {
+  jquiDatepicker, jquiAutocomplete, appHostProxyService,
+  statsService, ApphostUIService) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
