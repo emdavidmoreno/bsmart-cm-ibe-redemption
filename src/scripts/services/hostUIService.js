@@ -86,6 +86,9 @@ define([], function () {
     hostUIService.hideMenu = function () {
       $('.m-sidebar-menu').css('left', '-100%');
       $('.m-sidebar-menu-wrapper').hide();//.css('display', 'none');
+      $('i.menu').focus()
+
+
     }
 
     hostUIService.isMenuShowed = function(){
