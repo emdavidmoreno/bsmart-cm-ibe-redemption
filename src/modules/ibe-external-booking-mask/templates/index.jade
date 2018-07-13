@@ -12,21 +12,24 @@ block body
         p {{message.content}}
     .l-flight-type-group(ng-cloak role="list" aria-label="{{ 'LABEL_JOURNEY_TYPE' | translate }}")
       button(type="button" class="btn btn-default" value='RT'
-        role="listitem"
+        role="button"
+        aria-label="{{'LABEL_ROUND_TRIP' | translate}}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("RT")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'RT'}"
       )
         | {{ 'LABEL_ROUND_TRIP' | translate }}
       button(type="button" class="btn btn-default"  value='OW'
-        role="listitem"
+        role="button"
+        aria-label="{{'LABEL_ONE_WAY' | translate}}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("OW")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'OW'}"
       )
         | {{ 'LABEL_ONE_WAY' | translate }}
       button(type="button" class="btn btn-default" value="MC"
-        role="listitem"
+        role="button"
+        aria-label="{{'LABEL_MULTI_CITY' | translate}}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("MC")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'MC'}"
@@ -194,7 +197,6 @@ block body
           data-ng-keypress="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"
           aria-expanded="{{passengersExtraOptionsSelected}}"
           aria-hidden="{{passengersExtraOptionsSelected}}"
-          aria-label="{{ 'LABEL_PASSENGER_QUESTION' | translate }}"
           href="#"
           )
           | {{ 'LABEL_PASSENGER_QUESTION' | translate }}

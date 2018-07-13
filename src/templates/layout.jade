@@ -2,22 +2,25 @@
   div.l-book-smart
     div.m-book-smart(data-ng-controller="AppController")
       block header
-        nav.m-top-bar.brand-bar
+        nav.m-top-bar.brand-bar(role="navbar")
           a(rel="nofollow" class="logo" href="https://www.copaair.com/" tabindex="0")
-            img.logo--image(src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo")
+            img.logo--image(src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="{{main.logoAltText}}")
           a(aria-label="Menu Principal" href="#" id="hamburger-menu-button")
-            i.menu(tabindex="0" title="Menu")
-        div.m-sidebar-menu(aria-hidden="{{!main.isMenuShowed()}}")
-          div.accordion
-            a.accordion-item-title-without-icon(href="https://www.copaair.com/" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
+            i.menu(tabindex="1" title="Menu")
+        div.m-sidebar-menu(aria-hidden="{{!main.isMenuShowed()}}" role="menubar")
+          div.accordion(role="menuitem")
+            a.accordion-item-title-without-icon(
+              href="https://www.copaair.com/"
+              aria-hidden="{{!main.isMenuShowed()}}"
+              tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ 'LABEL_HOME' | translate }}
-          div.accordion
+          div.accordion(role="menuitem")
             a.accordion-item-title-without-icon(href="/CMGS/ReservationSearch.do" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ 'LABEL_MMB' | translate }}
-          div.accordion(data-ng-if="main.isLoginAvailable")
+          div.accordion(data-ng-if="main.isLoginAvailable" role="menuitem")
             h3.accordion-item-title(data-ng-click="main.openLoginDialog()" data-ng-keypress="main.openLoginDialog()" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ main.loginLabel }}
-          div.accordion
+          div.accordion(role="menuitem")
             h3.accordion-item-title(tabindex=0 aria-expanded="false")
               | {{ 'LABEL_LANGUAGE' | translate }} ({{main.languageOptions[main.language].name}})
               i.icon-action
@@ -25,21 +28,21 @@
               select(data-ng-model='main.language'
                 data-ng-change='main.onChangeLanguage()'
                 data-ng-options='key as value.name for (key, value) in main.languageOptions')
-          div.accordion
+          div.accordion(role="menuitem")
             a.accordion-item-title-without-icon(href="http://www.copaair.com/sites/cc/en/informacion-de-viaje/pages/condiciones-generales-de-equipaje.aspx" target="_blank" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ 'LABEL_BAGAGGE_POLICE' | translate }}
-          div.accordion
+          div.accordion(role="menuitem")
             a.accordion-item-title-without-icon(href="https://www.copaair.com/sites/cc/en/informacion-de-viaje/pages/cargo-equipaje-socios-codigo-compartido.aspx" target="_blank" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ 'LABEL_PARTNER_BAGAGGE_POLICE' | translate }}
-          div.accordion
+          div.accordion(role="menuitem")
             a.accordion-item-title(href="{{main.menuItems.privacyPolicy.link}}" target="_blank" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ main.menuItems.privacyPolicy.label }}
               i.icon-action
-          div.accordion
+          div.accordion(role="menuitem")
             h3.accordion-item-title(data-ng-click="loadDesktopVersionAction()" data-ng-keypress="loadDesktopVersionAction()" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ 'LABEL_DESKTOP_VERSION' | translate }}
               i.icon-action
-          div.accordion
+          div.accordion(role="menuitem")
             h3.accordion-item-title(id="closeMenu" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}" data-ng-click="main.toggleSideMenu()" data-ng-keypress="main.toggleSideMenu()" )
               | {{ 'LABEL_CLOSE_SIDE_MENU' | translate }}
               i.icon-action
@@ -91,4 +94,4 @@
             | {{ 'LABEL_GENERIC_BODY' | translate }}
       block footer
       footer
-        img.logo--image( src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/star-alliance.png", alt="Logo")
+        img.logo--image( src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/star-alliance.png", alt="A STAR ALLIANCE MEMBER")
