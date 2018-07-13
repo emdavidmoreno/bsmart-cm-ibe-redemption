@@ -415,6 +415,26 @@ define([
           $scope.ui.fareHoldData.optionsLoaded = false
         })
         setDefaultFareHoldData()
+        // create text for accessibility liveRegion
+        if (locationType === 'return'){
+          $filter('translate')('LABEL_FLIGHT_INBOUND')
+        }
+        var text = (locationType === 'return')? $filter('translate')('LABEL_FLIGHT_INBOUND')+ '. ' : $filter('translate')('LABEL_FLIGHT_OUTBOUND')+ '. ' 
+            text += $scope.main.selectedChooseCurrency.shortName + " " 
+            text += (infoClass.price.cash_after_discount > 0)? $filter('priceFormat')(infoClass.price.cash_after_discount)+'.':
+                   $filter('priceFormat')(infoClass.price.cash)+'.'
+        flight.info.flight_list.map(function(item){
+          var f = $filter('translate')('LABEL_FLIGHT') + " " + item.number + " " + 
+                  $filter('translate')('LABEL_FROM') + " " +  item.origin_airport_code + " " + 
+                  $filter('simpledate')(item.departure_time) + " " +                  
+                  $filter('translate')('LABEL_TO') + " " + item.destination_airport_code + 
+                  " " + $filter('simpledate')(item.arrival_time)+'. ' 
+          text = text + f;
+        })
+        text += (flight.info.flight_list.length <= 1)? $filter('translate')('LABEL_FLIGHT_NO_STOPS'):
+                flight.info.flight_list.length -1 + " " + $filter('translate')('LABEL_FLIGHT_STOPS') + ". "
+        text +=  $filter('duration')(flight.info.duration) + ". Selected" 
+        $("#wcag-helper").append('<div>'+ text + "</div>")
       }
 
       $scope.closeDepartureLocationSummaryAction = function(location) {
@@ -681,6 +701,7 @@ define([
           }
 
           flights.forEach(function(flight) {
+            var wcag_text =" Selected " 
             flight.info.classes.forEach(function(cls, index) {
               updateExistedClass(cls, index)
 
@@ -707,6 +728,16 @@ define([
             })
 
             flight.info.flight_list.forEach(function(fInfo) {
+              wcag_text += $filter('translate')('LABEL_FLIGHT') + " " + fInfo.number + " " + 
+                      $filter('translate')('LABEL_FROM') + " " +  fInfo.origin_airport_code + " " + 
+                      $filter('simpledate')(fInfo.departure_time) + " " +                  
+                      $filter('translate')('LABEL_TO') + " " + fInfo.destination_airport_code + 
+                      " " + $filter('simpledate')(fInfo.arrival_time)+'. ' 
+              wcag_text += (flight.info.flight_list.length <= 1)? $filter('translate')('LABEL_FLIGHT_NO_STOPS')+ ". ":
+                      flight.info.flight_list.length -1 + " " + $filter('translate')('LABEL_FLIGHT_STOPS') + ". "
+              wcag_text +=  $filter('duration')(flight.info.duration) + "." 
+      
+               
               fInfo.numberEvent = function() {
                 hostUIService.swapToBSFlightDetailsLoadCallback()
                 fInfo.flightNumberHtmlNode[0].click()
@@ -720,6 +751,9 @@ define([
                 }, 0)
               }
             })
+
+            flight.info.wcag_text = wcag_text
+
           })
         }
         return availableClasses
@@ -752,6 +786,27 @@ define([
             $scope.ui.messages = value
           }, 0)
         })
+      }
+
+      $scope.createHelpInfoText = function(flight, locationType){
+
+        
+        var text = ". "
+            text += (locationType === 'return')? $filter('translate')('LABEL_FLIGHT_INBOUND')+ '. ' : $filter('translate')('LABEL_FLIGHT_OUTBOUND')+ '. ' 
+
+        flight.info.flight_list.map(function(item){
+          var f = $filter('translate')('LABEL_FLIGHT') + " " + item.number + " " + 
+                  $filter('translate')('LABEL_FROM') + " " +  item.origin_airport_code + " " + 
+                  $filter('simpledate')(item.departure_time) + " " +                  
+                  $filter('translate')('LABEL_TO') + " " + item.destination_airport_code + 
+                  " " + $filter('simpledate')(item.arrival_time)+'. ' 
+          text = text + f;
+        })
+        text += (flight.info.flight_list.length <= 1)? $filter('translate')('LABEL_FLIGHT_NO_STOPS'):
+                flight.info.flight_list.length -1 + " " + $filter('translate')('LABEL_FLIGHT_STOPS') + ". "
+        text +=  $filter('duration')(flight.info.duration) + "." 
+
+        return text
       }
 
       hostUIService.setHandlerFlightDetails(function(error, success) {

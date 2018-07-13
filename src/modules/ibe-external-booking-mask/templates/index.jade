@@ -1,9 +1,8 @@
 extends ../../../templates/layout.jade
 
 block body
-  #wcag-datepicker-log.sr-only( aria-live="assertive" aria-relevant="additions text")
-  #wcag-datepicker.sr-only
-    | el formato para escribir la fecha es mm/dd/yyyy
+  #wcag-datepicker-log.sr-only(tabindex=-1 aria-live="assertive" aria-relevant="additions text")
+  
   .m-ibe-external-booking-mask(data-ng-controller="ExternalBookingController")
     .l-messages(ng-cloak role="alert" aria-live="assertive")
       .m-message(data-ng-repeat="message in ui.messages"
@@ -47,7 +46,7 @@ block body
             data-ng-model='location.origin.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationOrigin'
-            aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}. {{ui.errors[$index].origin}}'
+            aria-label='{{"LABEL_FROM" | translate}}. {{ui.errors[$index].origin}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].origin}}
