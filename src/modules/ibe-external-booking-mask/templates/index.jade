@@ -11,21 +11,24 @@ block body
         p {{message.content}}
     .l-flight-type-group(ng-cloak role="list" aria-label="{{ 'LABEL_JOURNEY_TYPE' | translate }}")
       button(type="button" class="btn btn-default" value='RT'
-        role="listitem"
+        role="button"
+        aria-label="{{'LABEL_ROUND_TRIP' | translate}}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("RT")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'RT'}"
       )
         | {{ 'LABEL_ROUND_TRIP' | translate }}
       button(type="button" class="btn btn-default"  value='OW'
-        role="listitem"
+        role="button"
+        aria-label="{{'LABEL_ONE_WAY' | translate}}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("OW")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'OW'}"
       )
         | {{ 'LABEL_ONE_WAY' | translate }}
       button(type="button" class="btn btn-default" value="MC"
-        role="listitem"
+        role="button"
+        aria-label="{{'LABEL_MULTI_CITY' | translate}}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("MC")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'MC'}"
@@ -184,64 +187,67 @@ block body
           | 7 {{ 'LABEL_ADULTS' | translate }}
         option(value="8")
           | 8 {{ 'LABEL_ADULTS' | translate }}
-      p(data-ng-show="!passengersExtraOptionsSelected")
+      div.children-info
         a(data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"
-          tabindex=0
+          tabindex='0'
+          class="children-info__link"
           id="passengersExtraOptionsSelected"
+          data-ng-show="!passengersExtraOptionsSelected"
           data-ng-keypress="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"
           aria-expanded="{{passengersExtraOptionsSelected}}"
-          aria-label="{{ 'LABEL_PASSENGER_QUESTION' | translate }}"
+          aria-hidden="{{passengersExtraOptionsSelected}}"
           href="#"
           )
           | {{ 'LABEL_PASSENGER_QUESTION' | translate }}
-      .l-extra-options(data-ng-show='passengersExtraOptionsSelected')
-        label
-          | {{ 'LABEL_PASSENGER_ADULT' | translate }}
-          br
-          br
-          select(
-            data-ng-model='ui.passengers.adults'
-            data-ng-change='ui.passengers.onChangeAdults()')
-            option 1
-            option 2
-            option 3
-            option 4
-            option 5
-            option 6
-            option 7
-            option 8
-        label
-          | {{ 'LABEL_PASSENGER_CHILD' | translate }}
-          br
-          br
-          select(
-            data-ng-model='ui.passengers.children'
-            data-ng-change='ui.passengers.onChangeChildren()')
-            option 0
-            option 1
-            option 2
-            option 3
-            option 4
-            option 5
-            option 6
-            option 7
-        label()
-          | {{ 'LABEL_PASSENGER_INFANT' | translate }}
-          br
-          br
-          select(
-            data-ng-model='ui.passengers.infants'
-            data-ng-change='ui.passengers.onChangeInfants()')
-            option 0
-            option 1
-            option 2
-            option 3
-            option 4
-            option 5
-            option 6
-            option 7
-        span.text-message
-          | {{ ui.errors.guestTypes }}
+
+        .l-extra-options(data-ng-show='passengersExtraOptionsSelected')
+          label
+            | {{ 'LABEL_PASSENGER_ADULT' | translate }}
+            br
+            br
+            select(
+              data-ng-model='ui.passengers.adults'
+              data-ng-change='ui.passengers.onChangeAdults()')
+              option 1
+              option 2
+              option 3
+              option 4
+              option 5
+              option 6
+              option 7
+              option 8
+          label
+            | {{ 'LABEL_PASSENGER_CHILD' | translate }}
+            br
+            br
+            select(
+              data-ng-model='ui.passengers.children'
+              data-ng-change='ui.passengers.onChangeChildren()')
+              option 0
+              option 1
+              option 2
+              option 3
+              option 4
+              option 5
+              option 6
+              option 7
+          label()
+            | {{ 'LABEL_PASSENGER_INFANT' | translate }}
+            br
+            br
+            select(
+              data-ng-model='ui.passengers.infants'
+              data-ng-change='ui.passengers.onChangeInfants()')
+              option 0
+              option 1
+              option 2
+              option 3
+              option 4
+              option 5
+              option 6
+              option 7
+          span.text-message
+            | {{ ui.errors.guestTypes }}
     .l-cabin-type-group(ng-cloak role="radiogroup" aria-label='{{ "LABEL_CABIN_GROUP" | translate }}')
       label(data-ng-click="ui.cabinType.change('Economy')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}")

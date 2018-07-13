@@ -11,9 +11,10 @@ define([
   '../directives/jqui-autocomplete',
   '../../../../scripts/services/hostProxyService',
   'statsService',
-  '../../../../scripts/services/hostUIService'
+  '../../../../scripts/services/hostUIService',
 ], function($, angular, hostUIService, hostScrapService, hostProxyService,
-  jquiDatepicker, jquiAutocomplete, appHostProxyService, statsService, ApphostUIService) {
+  jquiDatepicker, jquiAutocomplete, appHostProxyService,
+  statsService, ApphostUIService) {
   let wrapperInstance = {}
 
   wrapperInstance.init = function(config, actionConfig) {
@@ -49,7 +50,7 @@ define([
 
       instance.init = function() {
         console.log('ExternalBookingController init')
-        hostProxyService.setupPopupListenerForScroll();
+        hostProxyService.setupPopupListenerForScroll()
       }
 
       // -------------------------------------------------------
@@ -62,15 +63,15 @@ define([
 
       $scope.passengersExtraOptionsSelected = false
 
-      if(!hostScrapService.isFlightTypeSelected()) {
+      if (!hostScrapService.isFlightTypeSelected()) {
         hostScrapService.setHostFlightType('RT')
       }
 
-      $scope.$watch('passengersExtraOptionsSelected',function(newValue, oldValue){
-          if(newValue !== oldValue){
-            angular.element('#passengersExtraOptionsSelected').triggerHandler('click')
-            // angular.element('#myselector').triggerHandler('click');
-          }
+      $scope.$watch('passengersExtraOptionsSelected', function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          // angular.element('#passengersExtraOptionsSelected').triggerHandler('click')
+          // angular.element('#myselector').triggerHandler('click');
+        }
       })
 
       // UI
@@ -187,7 +188,7 @@ define([
 
       syncDefaultErrorMessages()
 
-      if($scope.ui.passengers.children > 0 ||
+      if ($scope.ui.passengers.children > 0 ||
         $scope.ui.passengers.infants > 0) {
         $scope.passengersExtraOptionsSelected = true
       }
@@ -249,8 +250,8 @@ define([
        */
       function validationHelper(errors) {
         let validationErrors = errors.validationErrors
-        ApphostUIService.scrollToTop();
-        if(!validationErrors && errors.length > 0) {
+        ApphostUIService.scrollToTop()
+        if (!validationErrors && errors.length > 0) {
           validationErrors = []
           $.each(errors, function() {
             validationErrors.push({
@@ -262,7 +263,7 @@ define([
         }
         $.each(validationErrors, function(/* value, index*/) {
           let message = this // eslint-disable-line
-          if(message.property) {
+          if (message.property) {
             // validate an specific input
             // TODO: Implement this feature
             addMessageToInput(message.property, message.messages[0])
@@ -309,7 +310,7 @@ define([
           let found = false
           arrayErrors.forEach(function(errorType) {
             if (errorType === propertyName) {
-              if(!ui.errors[index]) {
+              if (!ui.errors[index]) {
                 ui.errors[index] = {}
               }
               ui.errors[index][type] = message
@@ -320,13 +321,13 @@ define([
         }
 
         let i = locationList.length - 1
-        for(; i >= 0; i--) {
+        for (; i >= 0; i--) {
           if (setMessageError(locationList[i].origin.errorTypes, i, 'origin')) {
             return
           }
           if (setMessageError(
             locationList[i].destination.errorTypes, i, 'destination')
-            ) {
+          ) {
             return
           }
           if (locationList[i].date.errorTypes &&
@@ -336,18 +337,18 @@ define([
           if (locationList[i].date.originErrorTypes &&
             setMessageError(
               locationList[i].date.originErrorTypes, i, 'departDate')
-            ) {
+          ) {
             return
           }
           if (locationList[i].date.destinationErrorTypes &&
             setMessageError(
               locationList[i].date.destinationErrorTypes, i, 'returnDate')
-            ) {
+          ) {
             return
           }
         }
 
-        if(propertyName === 'guestTypes') {
+        if (propertyName === 'guestTypes') {
           $scope.ui.errors.guestTypes = message
         }
       }
@@ -378,11 +379,11 @@ define([
       '$timeout', 'appHostProxyService', 'ApphostUIService']
 
     angular
-        .module('responsiveBookingEngine')
-        .directive('jquiDatepicker', jquiDatepicker)
-        .directive('jquiAutocomplete', jquiAutocomplete)
-        
-        .controller('ExternalBookingController', ExternalBookingController)
+      .module('responsiveBookingEngine')
+      .directive('jquiDatepicker', jquiDatepicker)
+      .directive('jquiAutocomplete', jquiAutocomplete)
+
+      .controller('ExternalBookingController', ExternalBookingController)
   })({})
 
   return wrapperInstance

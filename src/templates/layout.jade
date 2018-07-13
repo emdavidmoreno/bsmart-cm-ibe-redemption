@@ -17,7 +17,7 @@
           div.accordion(data-ng-if="main.isLoginAvailable" role="menuitem")
             h3.accordion-item-title(data-ng-click="main.openLoginDialog()" data-ng-keypress="main.openLoginDialog()" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ main.loginLabel }}
-          div.accordion
+          div.accordion(role="menuitem")
             h3.accordion-item-title( role="link" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}" aria-expanded="false")
               | {{ 'LABEL_LANGUAGE' | translate }} ({{main.languageOptions[main.language].name}})
               i.icon-action
@@ -35,11 +35,11 @@
             a.accordion-item-title(href="{{main.menuItems.privacyPolicy.link}}" target="_blank" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ main.menuItems.privacyPolicy.label }}
               i.icon-action
-          div.accordion
+          div.accordion(role="menuitem")
             a.accordion-item-title(data-ng-click="loadDesktopVersionAction()" data-ng-keypress="loadDesktopVersionAction()" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
               | {{ 'LABEL_DESKTOP_VERSION' | translate }}
               i.icon-action
-          div.accordion
+          div.accordion(role="menuitem")
             h3.accordion-item-title(role="link" id="closeMenu" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}" data-ng-click="main.toggleSideMenu()" data-ng-keypress="main.toggleSideMenu()" )
               | {{ 'LABEL_CLOSE_SIDE_MENU' | translate }}
               i.icon-action

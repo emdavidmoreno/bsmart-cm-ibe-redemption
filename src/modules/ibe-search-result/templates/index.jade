@@ -24,7 +24,7 @@ block body
           .title
             .title-text.title-text--primary(data-ng-if="ui.user_input_journey_type=='Round Trip'")
               h4 {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}
-            a.close-text(aria-expanded="false" role="link"
+            a.close-text( role="link"
               data-ng-keypress="closeDepartureLocationSummaryAction(location)"
               data-ng-click="closeDepartureLocationSummaryAction(location)")
               | {{ 'LABEL_SUMMARY_CLOSE_TITLE' | translate }}
@@ -55,7 +55,7 @@ block body
                       data-ng-if="dec.field == 'arrival_time'")
                       | {{location.disclaimer_mapping[dec.id].symbol}}
               .flight-number.text--linkify( 
-                tabindex=0 
+                tabindex=0 role="link"
                 data-ng-keypress="flight.numberEvent()"
                 data-ng-click="flight.numberEvent()")
                 | {{flight.number}}
@@ -214,15 +214,15 @@ block body
           .title
             .title-text.title-text--primary(tabindex=0 data-ng-if="ui.user_input_journey_type=='Round Trip'")
               | {{ 'LABEL_FLIGHT_INBOUND' | translate }}
-            a.close-text(
+            a.close-text(role="link"
               data-ng-click="closeReturnLocationSummaryAction(location)"
               data-ng-keypress="closeReturnLocationSummaryAction(location)")
               | {{ 'LABEL_SUMMARY_CLOSE_TITLE' | translate }}
-          .flight-list-title(tabindex=0)
+          .flight-list-title
               | {{location.return.dates[0].date | date:'MMMM d, y'}}
           .flight-list(data-ng-repeat="flight in location.return.summary.flight_list")
             .flight
-              .l-flight-detail(tabindex=0)
+              .l-flight-detail
                 .flight-detail.flight-detail--origin
                   span.location
                     | {{flight.origin_airport_code}}
@@ -244,7 +244,7 @@ block body
                       data-ng-repeat="dec in flight.disclaimer"
                       data-ng-if="dec.field == 'arrival_time'")
                       | {{location.disclaimer_mapping[dec.id].symbol}}
-              .flight-number.text--linkify(tabindex=0
+              a.flight-number.text--linkify(tabindex=0 role="link"
                 data-ng-click="flight.numberEvent()"
                 data-ng-keypress="flight.numberEvent()")
                 | {{flight.number}}
