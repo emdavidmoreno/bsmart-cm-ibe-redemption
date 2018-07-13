@@ -6,7 +6,7 @@
           a(rel="nofollow" class="logo" href="https://www.copaair.com/" tabindex="0")
             img.logo--image(src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo")
           
-          i.menu(tabindex="0" title="Menu Principal"  data-ng-keypress="main.toggleSideMenu()" data-ng-click="main.toggleSideMenu()")
+          i.menu(tabindex="0" title="Menu Principal"  data-ng-keypress="main.toggleSideMenu($event)" data-ng-click="main.toggleSideMenu($event)")
         div.m-sidebar-menu(aria-hidden="{{!main.isMenuShowed()}}")
           div.accordion
             a.accordion-item-title-without-icon(href="https://www.copaair.com/" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")
@@ -40,9 +40,9 @@
               | {{ 'LABEL_DESKTOP_VERSION' | translate }}
               i.icon-action
           div.accordion(role="menuitem")
-            h3.accordion-item-title(role="link" id="closeMenu" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}" data-ng-click="main.toggleSideMenu()" data-ng-keypress="main.toggleSideMenu()" )
+            a.accordion-item-title(role="link" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}" data-ng-click="hideMenu()" data-ng-keypress="hideMenu()" )
               | {{ 'LABEL_CLOSE_SIDE_MENU' | translate }}
-              i.icon-action
+            
         div.m-sidebar-menu-wrapper
         div.l-mini-summary(ng-cloak tabindex=0)
           div.l-mini-summary-top(ng-if="showMiniSummary")

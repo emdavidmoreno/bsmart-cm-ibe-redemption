@@ -236,6 +236,7 @@ define([
 
       $scope.hideMenu = function() {
         hostUIService.hideMenu()
+        main.isMenuOpen = false
       }
 
       $scope.loadDesktopVersionAction = function() {
