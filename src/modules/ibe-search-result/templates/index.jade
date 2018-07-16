@@ -104,14 +104,11 @@ block body
                   | {{location.departure.selectedClassIndex.name}}
               .dialog-container(data-jqui-dialog
                 data-bs-open-dialog="{{ui.departureDialogIsOpen}}"
-                data-bs-close-from-inner="ui.departureDialogIsOpen")
-                  .sr-only
-                    | {{'LABEL_ESCAPE_CLOSE_DIALOG' | translate}}
-                  .m-dialog-head-hidden
-                    span.close(
-                    data-ng-click="ui.departureDialogIsOpen=false"
-                    )
-                    | X                   
+                data-bs-close-from-inner="ui.departureDialogIsOpen")                
+                  .m-dialog-head
+                    span.close(tabindex=0 data-ng-click="ui.departureDialogIsOpen=false" 
+                    aria-label="{{ 'LABEL_CLOSE_DIALOG' | translate }}")
+                      | X                   
                   .m-dialog-item(
                     data-ng-repeat="option in location.departure.availableClasses track by option.name"
                     data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.selected}")
