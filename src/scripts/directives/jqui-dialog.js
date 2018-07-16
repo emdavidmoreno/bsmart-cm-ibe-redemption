@@ -45,7 +45,8 @@ define([
               firstTabStop = focusableElements[0];
               lastTabStop = focusableElements[focusableElements.length - 1];
               // Focus first child
-              if(firstTabStop && firstTabStop !== 'undefined')firstTabStop.focus();
+              //if(firstTabStop && firstTabStop !== 'undefined')firstTabStop.focus();
+              $element.focus()
             },
             close: function(){
               // if($scope.bsOpenDialog === 'true')
