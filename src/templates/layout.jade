@@ -6,7 +6,7 @@
           a(rel="nofollow" class="logo" href="https://www.copaair.com/" tabindex="0")
             img.logo--image(src="//@@HOST/app/modules/bsmart-cm-ibe/assets/images/logo.png" alt="Logo")
           
-          i.menu(tabindex="0" title="Menu Principal"  data-ng-keypress="main.toggleSideMenu($event)" data-ng-click="main.toggleSideMenu($event)")
+          i.menu(tabindex="0" title="Menu Principal" role="button" aria-expanded="{{main.isMenuShowed()}}"  data-ng-keypress="showMenu()" data-ng-click="showMenu()")
         div.m-sidebar-menu(aria-hidden="{{!main.isMenuShowed()}}")
           div.accordion
             a.accordion-item-title-without-icon(href="https://www.copaair.com/" aria-hidden="{{!main.isMenuShowed()}}" tabindex="{{main.isMenuShowed() ? '0':'-1'}}")

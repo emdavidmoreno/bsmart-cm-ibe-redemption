@@ -195,6 +195,7 @@ define([
         toggleSideMenu: function() {
           main.isMenuOpen = !main.isMenuOpen
           main.isMenuOpen ? hostUIService.showMenu() : hostUIService.hideMenu()
+          return false;
         },
         isMenuShowed: function() {
           return main.isMenuOpen
@@ -232,6 +233,7 @@ define([
 
       $scope.showMenu = function() {
         hostUIService.showMenu()
+        main.isMenuOpen = true
       }
 
       $scope.hideMenu = function() {
