@@ -3,11 +3,13 @@
 'use strict';
 define([
   'jquery',
-  '../../../../lib/jquery-ui/datepicker'
-], function($jq, datepicker) {
+  '../../../../lib/jquery-ui/datepicker',
+  '../../../../lib/jquery-ui/maskedinput',
+], function($jq, datepicker, maskedinput) {
   /**
    * Angular directive that create a wrapper for jQueryUI datepicker
    */
+  
   function jquiDatepicker() {
     var DP_ID_STR = 'dp_';
     var DP_SELECTOR_INIT = 'input[data-dp-id="';

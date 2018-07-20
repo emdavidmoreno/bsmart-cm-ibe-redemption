@@ -297,7 +297,7 @@ define([
               wcatext = "Classe selecionada: ";
               break;
           }
-          $("#flight-selecction-aria-help").append('<p aria-live="assertive" aria-atomic="true" aria-relevant="additions text">' + wcatext + option.name + '</p>')
+          $("#flight-selecction-aria-help").append('<span style="display:none;">' + wcatext + option.name + '</span>')
         },
       }
 

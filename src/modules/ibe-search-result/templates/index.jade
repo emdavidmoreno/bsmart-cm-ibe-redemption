@@ -92,7 +92,7 @@ block body
               span(data-ng-if="ui.user_input_journey_type!='Multi City'")
                 | {{ 'LABEL_FLIGHT_DOIT_OUTBOUND' | translate }}
             div
-              div#flight-selecction-aria-help.aria.sr-only(aria-live="assertive" role="log")
+              div#flight-selecction-aria-help.aria.sr-only(aria-live="polite" role="status")
               h4(class="{{location.departure.selectedClassIndex.cssClass}}")
                 span
                   | {{location.departure.dates[0].date | date:'fullDate'}}
