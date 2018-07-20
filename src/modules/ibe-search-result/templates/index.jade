@@ -12,7 +12,7 @@ block body
       data-ng-class="{'done': location.done}")
       div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak)
         strong {{$index + 1}}
-        span(tabindex=0)
+        span()
           | {{location.extra_info.geo.origin_city_name}}
           | ({{location.user_input_origin_airport_code}})
           | - {{location.extra_info.geo.destination_city_name}}
