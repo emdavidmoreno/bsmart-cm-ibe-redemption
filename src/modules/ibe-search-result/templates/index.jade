@@ -12,7 +12,7 @@ block body
       data-ng-class="{'done': location.done}")
       div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak)
         strong {{$index + 1}}
-        span(tabindex=0)
+        span()
           | {{location.extra_info.geo.origin_city_name}}
           | ({{location.user_input_origin_airport_code}})
           | - {{location.extra_info.geo.destination_city_name}}
@@ -97,21 +97,20 @@ block body
                 span
                   | {{location.departure.dates[0].date | date:'fullDate'}}
                 button.m-select-flight-class(
+                  aria-haspopup="dialog"
                   aria-expanded="{{ui.departureDialogIsOpen}}"
                   data-ng-if="ui.user_input_journey_type!='Multi City'"
                   data-ng-click="ui.clickBtnSelectFlightClass(true)"
                   class="{{location.departure.selectedClassIndex.cssClass}}")
                   | {{location.departure.selectedClassIndex.name}}
-              .dialog-container(data-jqui-dialog
+              .dialog-container(data-jqui-dialog tabindex="-1"
                 data-bs-open-dialog="{{ui.departureDialogIsOpen}}"
-                data-bs-close-from-inner="ui.departureDialogIsOpen")
-                  .sr-only
-                    | {{'LABEL_ESCAPE_CLOSE_DIALOG' | translate}}
-                  .m-dialog-head-hidden
-                    span.close(
-                    data-ng-click="ui.departureDialogIsOpen=false"
-                    )
-                    | X                   
+                data-bs-close-from-inner="ui.departureDialogIsOpen")                
+                  .m-dialog-head
+                    a.close(tabindex=0 role="link" data-ng-click="ui.departureDialogIsOpen=false" 
+                    data-ng-keypress="ui.departureDialogIsOpen=false" 
+                    aria-label="{{ 'LABEL_CLOSE_DIALOG' | translate }}")
+                      | X                   
                   .m-dialog-item(
                     data-ng-repeat="option in location.departure.availableClasses track by option.name"
                     data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.selected}")
@@ -281,18 +280,20 @@ block body
               span()
                 | {{location.return.dates[0].date | date:'fullDate'}}
               button.m-select-flight-class(
+                aria-haspopup="dialog"
+                  aria-expanded="{{ui.returnDialogIsOpen}}"
                 data-ng-if="ui.user_input_journey_type!='Multi City'"
                 data-ng-click="ui.clickBtnSelectFlightClass(false)"
                 class="{{location.return.selectedClassIndex.cssClass}}")
                 | {{location.return.selectedClassIndex.name}}
-            .dialog-container(data-jqui-dialog
+            .dialog-container(data-jqui-dialog tabindex="-1"
               data-bs-open-dialog="{{ui.returnDialogIsOpen}}"
               data-bs-close-from-inner="ui.returnDialogIsOpen")
-                .m-dialog-head-hidden
-                    span.close(
-                    data-ng-click="ui.returnDialogIsOpen=false"
-                    )
-                    | X
+                .m-dialog-head
+                    a.close(tabindex=0 role="link" data-ng-click="ui.returnDialogIsOpen=false" 
+                    data-ng-keypress="ui.returnDialogIsOpen=false"
+                    aria-label="{{ 'LABEL_CLOSE_DIALOG' | translate }}")
+                      | X                  
                 .m-dialog-item(
                   data-ng-repeat="option in location.return.availableClasses track by option.name"
                   data-ng-class="{'m-dialog-item-disabled': option.cheapestPrice === 'N/A', 'm-dialog-item-selected': option.name === location.return.selectedClassIndex.name}")

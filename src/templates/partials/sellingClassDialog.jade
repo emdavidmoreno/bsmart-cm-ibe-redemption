@@ -1,4 +1,4 @@
-.dialog-container(data-jqui-dialog
+.dialog-container(data-jqui-dialog tabindex="-1"
   data-bs-open-dialog="{{ui.sellingClass.openDialog}}"
   data-bs-last-active="{{ui.sellingClass.lastActive}}"
   data-bs-close-from-inner="ui.sellingClass.openDialog"
@@ -7,9 +7,10 @@
       .m-dialog-head
         span(data-ng-if="ui.sellingClass.isDeparture")
           | {{location.departure.selectedClassIndex.name}}
-        span.close(tabindex=0
-          aria-label="Close dialog"
+        a.close(tabindex=0 role="link"
+           aria-label="{{ 'LABEL_CLOSE_DIALOG' | translate }}"
           data-ng-click="ui.sellingClass.openDialog=false"
+          data-ng-keypress="ui.sellingClass.openDialog=false"
         )
           | X
         span(data-ng-if="!ui.sellingClass.isDeparture")

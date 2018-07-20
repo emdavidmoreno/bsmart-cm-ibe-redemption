@@ -37,7 +37,7 @@ define([
          .attr("aria-expanded", "false")
          .attr('aria-activedescendant',"")
          $jq($element
-           .bind( 'keydown', function( event ) {
+            .bind("keydown", function(event){
             
            }))
           .autocomplete({
@@ -46,16 +46,22 @@ define([
             close: function(event, ui){
               $jq($element).attr("aria-expanded", "false")
             },
-            open: function(evnt, ui){
+            open: function(event, ui){
               $jq($element).attr("aria-expanded", "true")
 
             },
             messages: {
               noResults: "No search results.",
               results: function( amount ) {
-                return "Combobox expanded with" + amount + ( amount > 1 ? " results" : " result" ) +
+                return "Combobox expanded with " + amount + ( amount > 1 ? " results" : " result" ) +
                   " available.";
               }
+            },
+            focus: function(event, ui){
+              setAriaSelectedValue($element,$jq($element).autocomplete('widget'), ui.item.locationName)
+              $element.val( ui.item.locationName );
+              $element.trigger('change');
+              return false;
             },
             source: function(request, response) {
               // get the locations codes
@@ -71,12 +77,6 @@ define([
                   response(resp);
               });
             },
-           focus: function(event, ui) {
-            setAriaSelectedValue($element,$jq($jq($element).autocomplete('widget')),
-                                ui.item.locationName)
-             // prevent value inserted on focus
-             return false;
-           },
            select: function( event, ui ) {
              $scope.bsUpdateLocation()({
                locationCode: ui.item.locationCode,
@@ -86,10 +86,10 @@ define([
              $element.val( ui.item.locationName );
              $element.trigger('change');
              var liveRegion = $jq($jq($element).autocomplete('widget')).next()
-             $jq(liveRegion).append(`<div> ${ui.item.locationName} selected</div>`)
-             if(event.keyCode != $jq.ui.keyCode.TAB){
-              focusNextElement($element)
-             }
+            $jq(liveRegion).append(`<div style="display:none"> ${ui.item.locationName} selected</div>`)
+              // if(event.keyCode != $jq.ui.keyCode.TAB){
+              //  focusNextElement($element)
+              // }
              return false;
            },
            search: function( /*event, ui*/ ) {
@@ -114,14 +114,14 @@ define([
    }
 
    var setAriaSelectedValue = function(input, $optionList, selectedText){
-    $optionList.find('li').each(function(index, value){
-      var text = $(value).attr('aria-label');
+    $optionList.find('li').each(function(index, listItem){
+      var text = $(listItem).attr('aria-label');
+      $(listItem).attr('aria-selected', 'true')
       if(!text.localeCompare(selectedText)){
-       $(value).attr('aria-selected', 'true');
-       $(input).attr('aria-activedescendant',value.id)
+       $(input).attr('aria-activedescendant',listItem.id)
 
       }else{
-       $(value).attr('aria-selected', 'false');
+       $(listItem).attr('aria-selected', 'false');
       }
     })
    }

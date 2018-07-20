@@ -8,6 +8,7 @@ personalRepoUrl: git@github.com:davidxll/booksmart.git
 dev:
  #host: 10.0.1.42:4443
  host: 10.0.1.210:4443   # EveryMundo IP
+ #host: 10.0.1.70:4443   # EveryMundo IP wired
  host: 192.168.1.99:4443 #El Gabinete IP
  backend_host: 45.55.73.28:4445
 

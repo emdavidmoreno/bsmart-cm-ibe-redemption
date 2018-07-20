@@ -1,11 +1,13 @@
-.dialog-container(data-jqui-dialog
+.dialog-container(data-jqui-dialog tabindex="-1"
   data-bs-open-dialog="{{ui.flightDetails.openDialog}}"
   data-bs-close-from-inner="ui.flightDetails.openDialog")
     .m-flight-details-dialog
       .m-dialog-head
         span
           | {{ui.flightDetails.data.dialogTitle}}
-        span.close(data-ng-click="ui.flightDetails.openDialog=false")
+        a.close(role="link" data-ng-click="ui.flightDetails.openDialog=false"
+          data-ng-keypress="ui.flightDetails.openDialog=false"
+          aria-label="{{ 'LABEL_CLOSE_DIALOG' | translate }}")
           | X
       .m-dialog-body
         div.m-loader.m-loader--dialog-internal(
