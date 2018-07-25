@@ -36,6 +36,7 @@ define([
      * @param {Object} hostProxyService
      * @param {Object} $timeout
      * @param {Object} appHostProxyService
+     * @param {Object} ApphostUIService
      *
      * @return {Object}
      */
