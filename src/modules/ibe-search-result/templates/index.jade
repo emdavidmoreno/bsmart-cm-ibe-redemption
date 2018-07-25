@@ -92,7 +92,6 @@ block body
               span(data-ng-if="ui.user_input_journey_type!='Multi City'")
                 | {{ 'LABEL_FLIGHT_DOIT_OUTBOUND' | translate }}
             div
-              div#flight-selecction-aria-help.aria.sr-only(aria-live="assertive" role="log")
               h4(class="{{location.departure.selectedClassIndex.cssClass}}")
                 span
                   | {{location.departure.dates[0].date | date:'fullDate'}}
@@ -102,6 +101,7 @@ block body
                   data-ng-if="ui.user_input_journey_type!='Multi City'"
                   data-ng-click="ui.clickBtnSelectFlightClass(true)"
                   class="{{location.departure.selectedClassIndex.cssClass}}")
+                  span.sr-only {{ 'LABEL_SELECTED_CLASS' | translate }} 
                   | {{location.departure.selectedClassIndex.name}}
               .dialog-container(data-jqui-dialog tabindex="-1"
                 data-bs-open-dialog="{{ui.departureDialogIsOpen}}"
@@ -285,6 +285,7 @@ block body
                 data-ng-if="ui.user_input_journey_type!='Multi City'"
                 data-ng-click="ui.clickBtnSelectFlightClass(false)"
                 class="{{location.return.selectedClassIndex.cssClass}}")
+                span.sr-only {{ 'LABEL_SELECTED_CLASS' | translate }} 
                 | {{location.return.selectedClassIndex.name}}
             .dialog-container(data-jqui-dialog tabindex="-1"
               data-bs-open-dialog="{{ui.returnDialogIsOpen}}"

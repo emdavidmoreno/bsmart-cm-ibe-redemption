@@ -11,6 +11,7 @@ define([
    *
    * @return {Object}
    */
+  
   function jquiDatepicker() {
     let DP_ID_STR = 'dp_'
     let DP_SELECTOR_INIT = 'input[data-dp-id="'
