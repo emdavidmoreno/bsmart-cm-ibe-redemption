@@ -8,25 +8,27 @@ define([
   /**
    * Angular directive that create a wrapper for jQueryUI autocomplete
    */
-  $jq.widget('ui.autocomplete', autocomplete,{
-    _create: function(){
-      var self = this;
-      this.element.bind('keydown', function(event){             
-        var keyCode = $jq.ui.keyCode;
-        if(event.keyCode == keyCode.TAB){
-          if(self.menu.active){
-            event.preventDefault();
-            event.stopPropagation();
-            event.keyCode = keyCode.DOWN
-          }
-        }
-      })
-      this._super();
-      console.log("autocomplete extendido")
-    }
-
+  /**
+   * Autocomplete extension widget to refactor methods
+   */
+  $jq.widget("ui.autocomplete", autocomplete, {    
+      _create: function(){
+        //Extension code here
+        var self = this;
+        this._super();
+        console.log("Extended Component")
+      },
+      _renderMenu: function(ul, items){
+        var that = this;
+        $jq.each( items, function( index, item ) {
+          that._renderItemData( ul, item );
+        });
+        $( ul ).attr('role', "listbox");
+      }
+    
   })
-   function jquiAutocomplete (hostProxyService) {
+
+  function jquiAutocomplete (hostProxyService) {
      return {
        restrict: 'A',
        scope: {
@@ -36,14 +38,21 @@ define([
        link: function($scope, $element) {
          $jq($element
            .bind( 'keydown', function( event ) {
-             if (event.keyCode === $jq.ui.keyCode.TAB &&
-               $jq(this).autocomplete('instance').menu.active) {
-                event.preventDefault();
-             }
+            //  if (event.keyCode === $jq.ui.keyCode.TAB &&
+            //    $jq(this).autocomplete('instance').menu.active) {
+            //     event.preventDefault();
+            //  }
            }))
           .autocomplete({
             minLength: 3,
             autoFocus: true,
+            messages: {
+              noResults: "No search results.",
+              results: function( amount ) {
+                return "List expanded with " + amount + ( amount > 1 ? " results" : " result" ) +
+                  " available.";
+              }
+            },
             source: function(request, response) {
               // get the locations codes
               hostProxyService
@@ -86,7 +95,7 @@ define([
           }).autocomplete( 'instance' )
            ._renderItem = function( ul, item ) {
              return $jq( '<li>' )
-               .append( '<span>' + item.locationName + '</span>' )
+               .append( '<span tabindex="0">' + item.locationName + '</span>' )
                .appendTo( ul );
            };
        }
