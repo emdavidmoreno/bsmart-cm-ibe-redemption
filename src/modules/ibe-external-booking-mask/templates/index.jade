@@ -68,8 +68,7 @@ block body
           data-ng-class="{'show-field-error': ui.errors[$index].departDate}" ng-cloak)
           .right-inner-addon
             i
-            input.form-control(type='text',
-              placeholder='{{ "LABEL_DEPARTURE_DATE" | translate }}'
+            input.form-control(type='date',
               id='fromOrigDate'
               data-ng-model='location.date.origin'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, true)'
@@ -85,8 +84,7 @@ block body
           ng-cloak)
           .right-inner-addon
             i
-            input.form-control(type='text'
-              placeholder='{{ "LABEL_ARRIVAL_DATE" | translate }}'
+            input.form-control(type='date'
               id='toDestDate'
               data-ng-model='location.date.destination'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, false)'

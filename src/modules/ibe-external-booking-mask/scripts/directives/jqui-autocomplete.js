@@ -23,6 +23,18 @@ define([
     }
 
   }
+  var setAriaSelectedValue = function(input, $optionList, selectedText){
+    $optionList.find('li').each(function(index, listItem){
+      var text = $(listItem).text();
+      $(listItem).attr('aria-selected', 'true')
+      if(!text.localeCompare(selectedText)){
+       $(input).attr('aria-activedescendant',listItem.id)
+
+      }else{
+       $(listItem).attr('aria-selected', 'false');
+      }
+    })
+   }
   
   function jquiAutocomplete (hostProxyService) {
      return {
@@ -36,11 +48,12 @@ define([
            .bind( 'keydown', function( event ) {
              if (event.keyCode === $jq.ui.keyCode.TAB &&
                $jq(this).autocomplete('instance').menu.active) {
-                event.preventDefault();
+                //event.preventDefault();
              }
            }))
           .autocomplete({
             minLength: 3,
+            autoFocus: true,
             messages: {
               noResults: "No search results.",
               results: function( amount ) {
@@ -63,14 +76,10 @@ define([
               });
             },
            focus: function(event, ui) {
-             // prevent value inserted on focus
-             $scope.bsUpdateLocation()({
-              locationCode: ui.item.locationCode,
-              locationType: ui.item.locationType,
-              locationName: ui.item.locationName
-            }, $scope.bsLocationIndex);
+             // prevent value inserted on focus             
             $element.val( ui.item.locationName );
             $element.trigger('change');
+            setAriaSelectedValue($element,$jq($element).autocomplete('widget'), ui.item.locationName)
              return false;
            },
            select: function( event, ui ) {
