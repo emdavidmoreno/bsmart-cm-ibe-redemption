@@ -11,23 +11,19 @@ define([
   /**
    * Autocomplete extension widget to refactor methods
    */
-  $jq.widget("ui.autocomplete", autocomplete, {    
-      _create: function(){
-        //Extension code here
-        var self = this;
-        this._super();
-        console.log("Extended Component")
-      },
-      _renderMenu: function(ul, items){
-        var that = this;
-        $jq.each( items, function( index, item ) {
-          that._renderItemData( ul, item );
-        });
-        $( ul ).attr('role', "listbox");
+  var focusNextElement = (currentElement)=>{
+    var allElements = $jq('input'), pos = -1     
+    allElements.each(function(index,item){
+      if(item === currentElement[0]){
+         pos = index
       }
-    
-  })
+    })
+    if(pos >= 0 && (pos + 1) < allElements.length){
+      allElements[pos+1].focus()
+    }
 
+  }
+  
   function jquiAutocomplete (hostProxyService) {
      return {
        restrict: 'A',
@@ -38,14 +34,13 @@ define([
        link: function($scope, $element) {
          $jq($element
            .bind( 'keydown', function( event ) {
-            //  if (event.keyCode === $jq.ui.keyCode.TAB &&
-            //    $jq(this).autocomplete('instance').menu.active) {
-            //     event.preventDefault();
-            //  }
+             if (event.keyCode === $jq.ui.keyCode.TAB &&
+               $jq(this).autocomplete('instance').menu.active) {
+                event.preventDefault();
+             }
            }))
           .autocomplete({
             minLength: 3,
-            autoFocus: true,
             messages: {
               noResults: "No search results.",
               results: function( amount ) {
@@ -67,8 +62,15 @@ define([
                   response(resp);
               });
             },
-           focus: function() {
+           focus: function(event, ui) {
              // prevent value inserted on focus
+             $scope.bsUpdateLocation()({
+              locationCode: ui.item.locationCode,
+              locationType: ui.item.locationType,
+              locationName: ui.item.locationName
+            }, $scope.bsLocationIndex);
+            $element.val( ui.item.locationName );
+            $element.trigger('change');
              return false;
            },
            select: function( event, ui ) {
@@ -79,6 +81,7 @@ define([
              }, $scope.bsLocationIndex);
              $element.val( ui.item.locationName );
              $element.trigger('change');
+             focusNextElement($element)
              return false;
            },
            search: function( /*event, ui*/ ) {
@@ -95,7 +98,7 @@ define([
           }).autocomplete( 'instance' )
            ._renderItem = function( ul, item ) {
              return $jq( '<li>' )
-               .append( '<span tabindex="0">' + item.locationName + '</span>' )
+               .append( '<span>' + item.locationName + '</span>' )
                .appendTo( ul );
            };
        }
