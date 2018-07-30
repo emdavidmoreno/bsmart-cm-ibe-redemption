@@ -41,7 +41,7 @@ block body
         data-ng-class="{'show-field-error': ui.errors[$index].origin }" ng-cloak)
         .left-inner-addon
           i
-          input.form-control(type='text'
+          select.form-control(type='text'
             placeholder='{{ "LABEL_FROM" | translate }}'
             data-ng-model='location.origin.locationName'
             data-jqui-autocomplete
@@ -54,7 +54,7 @@ block body
         data-ng-class="{'show-field-error': ui.errors[$index].destination }" ng-cloak)
         .left-inner-addon
           i
-          input.form-control(type='text'
+          select.form-control(type='text'
             placeholder='{{ "LABEL_TO" | translate }}'
             data-ng-model='location.destination.locationName'
             data-jqui-autocomplete
@@ -68,7 +68,8 @@ block body
           data-ng-class="{'show-field-error': ui.errors[$index].departDate}" ng-cloak)
           .right-inner-addon
             i
-            input.form-control(type='date',
+            input.form-control(type='text',
+              placeholder='{{ "LABEL_DEPARTURE_DATE" | translate }}'
               id='fromOrigDate'
               data-ng-model='location.date.origin'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, true)'
@@ -84,7 +85,8 @@ block body
           ng-cloak)
           .right-inner-addon
             i
-            input.form-control(type='date'
+            input.form-control(type='text'
+              placeholder='{{ "LABEL_ARRIVAL_DATE" | translate }}'
               id='toDestDate'
               data-ng-model='location.date.destination'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, false)'
@@ -113,7 +115,7 @@ block body
         data-ng-show="location.ui.expanded")
         .left-inner-addon(data-ng-show="location.ui.expanded")
           i
-          input.form-control(type='text'
+          select.form-control(type='text'
             placeholder='{{ "LABEL_FROM" | translate }}'
             data-ng-model='location.origin.locationName'
             data-jqui-autocomplete
@@ -126,7 +128,7 @@ block body
         data-ng-show="location.ui.expanded")
         .left-inner-addon
           i
-          input.form-control(type='text'
+          select.form-control(type='text'
             placeholder='{{ "LABEL_TO" | translate }}'
             data-ng-model='location.destination.locationName'
             data-jqui-autocomplete
