@@ -28,200 +28,212 @@ define([
        scope: {
          bsUpdateLocation: '&',
          bsLocationIndex: '@',
+         bsPlaceholder: '@',
+         bsAriaLabel: '@'
        },
        link: function($scope, $element) {
-        var cbSource = [];
-        hostProxyService
-          .getFromAirports("", function(resp) {
-            cbSource = resp.map(function(arr) {
-              return {
-                locationName: arr[0],
-                locationCode: arr[1],
-                locationType: arr[2]
-              };
-            });
-            //response(resp);
-        });
-        $jq.widget( "custom.combobox", {
-          _create: function() {
-            this.wrapper = $( "<span>" )
-              .addClass( "custom-combobox" )
-              .insertAfter( this.element );
-     
-            this.element.hide();
-            this._createAutocomplete();
-            this._createShowAllButton();
-          },
-     
-          _createAutocomplete: function() {
-            var selected = this.element.children( ":selected" ),
-                value = selected.val() ? selected.text() : "";
-     
-            this.input = $jq( "<input>" )
-              .appendTo( this.wrapper )
-              .val( value )
-              .attr( "title", "" )
-              .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
-              .autocomplete({
-                delay: 0,
-                minLength: 3,
-                select: function( event, ui ) {
-                  $scope.bsUpdateLocation()({
-                    locationCode: ui.item.locationCode,
-                    locationType: ui.item.locationType,
-                    locationName: ui.item.locationName
-                  }, $scope.bsLocationIndex);
-                  $jq(event.target).val( ui.item.locationName );
-                  $jq(event.target).trigger('change');
-                //   var liveRegion = $jq($jq($element).autocomplete('widget')).next()
-                //  $jq(liveRegion).append(`<div style="display:none"> ${ui.item.locationName} selected</div>`)
-                //    // if(event.keyCode != $jq.ui.keyCode.TAB){
-                //    //  focusNextElement($element)
-                //    // }
-                  return false;
-                },
-                source: function(request, response) {
-                  // get the locations codes
-                  hostProxyService
-                  .getFromAirports(request.term, function(resp) {
-                      resp = resp.map(function(arr) {
-                      return {
-                        label: arr[0],
-                        value: arr[0],
-                        locationName: arr[0],
-                        locationCode: arr[1],
-                        locationType: arr[2],
-                        option:{
-                          locationName: arr[0],
-                          locationCode: arr[1],
-                          locationType: arr[2]
-                        } 
-                      };
-                      });
-                      response(resp);
-                  });
-                },
-              })
-              // .tooltip({
-              //   classes: {
-              //     "ui-tooltip": "ui-state-highlight"
-              //   }
-              // });
-     
-            this._on( this.input, {
-              autocompleteselect: function( event, ui ) {
-                ui.item.option.selected = true;
-                this._trigger( "select", event, {
-                  item: ui.item.option
-                });
-              },
-     
-              autocompletechange: "_removeIfInvalid"
-            });
-          },
-     
-          _createShowAllButton: function() {
-            var input = this.input,
-              wasOpen = false;
-     
-            $jq( "<a>" )
-              .attr( "tabIndex", -1 )
-              .attr( "title", "Show All Items" )
-              //.tooltip()
-              .appendTo( this.wrapper )
-              // .button({
-              //   icons: {
-              //     primary: "ui-icon-triangle-1-s"
-              //   },
-              //   text: false
-              // })
-              .removeClass( "ui-corner-all" )
-              .addClass( "custom-combobox-toggle ui-corner-right" )
-              .on( "mousedown", function() {
-                wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-              })
-              .on( "click", function() {
-                input.trigger( "focus" );
-     
-                // Close if already visible
-                if ( wasOpen ) {
-                  return;
-                }
-     
-                // Pass empty string as value to search for, displaying all results
-                input.autocomplete( "search", "" );
-              });
-          },
-     
-          _source: function( request, response ) {
-              hostProxyService
-               .getFromAirports(request.term, function(resp) {
-                  resp = resp.map(function(arr) {
-                   return {
-                    label: arr[0],
-                    value: arr[0],
-                    option:{
-                      locationName: arr[0],
-                      locationCode: arr[1],
-                      locationType: arr[2]
-                    } 
-                   };
-                  });
-                  response(resp);
-              });
+         var $input = $jq('<input>');
+         var $select = $jq($element);
 
-            // var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-            // response( this.element.children( "option" ).map(function() {
-            //   var text = $( this ).text();
-            //   if ( this.value && ( !request.term || matcher.test(text) ) )
-            //     return {
-            //       label: text,
-            //       value: text,
-            //       option: this
-            //     };
-            // }) );
+        
+        $jq.widget("custom.combobox", {
+          // this options could be overwrite for an specif airline without
+          // touch this code
+          options: {
+              delay: 0,
+              minLength: 0,
+              source: $jq.proxy(this, "_source"),
+              appendTo: this.wrapper,
+              addAriaLabelledBy: null,
+              addAriaLabel: null,
+              messages: {
+                noResults: "No search results.",
+                results: function( amount ) {
+                  return "Combobox expanded with " + amount + ( amount > 1 ? " results" : " result" ) +
+                    " available.";
+                }
+              },
+              focus: function (event, ui) {
+                  // var menu = $jq(this).data("uiAutocomplete").menu.element,
+                  //         focused = menu.find("li:has(a.ui-state-focus)");
+                  // menu.find("li.ui-state-focus").removeClass('ui-state-focus');
+                  // focused.addClass('ui-state-focus');
+                 
+              },
+              createShowAllButton: 0,
           },
-     
-          _removeIfInvalid: function( event, ui ) {
-     
-            // Selected an item, nothing to do
-            if ( ui.item ) {
-              return;
-            }
-     
-            // Search for a match (case-insensitive)
-            var value = this.input.val(),
-              valueLowerCase = value.toLowerCase(),
-              valid = false;
-            this.element.children( "option" ).each(function() {
-              if ( $jq( this ).text().toLowerCase() === valueLowerCase ) {
-                this.selected = valid = true;
+          _create: function () {
+              this.wrapper = $jq("<span>")
+                      .addClass("custom-combobox")
+                      .insertAfter(this.element);
+  
+              this.options.appendTo = this.wrapper;
+              this.element.hide();
+              this._createAutocomplete();
+  
+              if (this.options.createShowAllButton) {
+                  this._createShowAllButton();
+              }
+  
+              // Add processing placeholder option
+              this.input.attr("placeholder", $scope.bsPlaceholder);
+          },
+          _createAutocomplete: function () {
+              var selected = this.element.children(':selected');
+              var value = selected.val() ? selected.text() : '';
+  
+              this.options.source = $jq.proxy(this, "_source");
+              this.options.select = function( event, ui ) { 
+                $scope.bsUpdateLocation()({
+                  locationCode: ui.item.locationCode,
+                  locationType: ui.item.locationType,
+                  locationName: ui.item.locationName
+                }, $scope.bsLocationIndex); 
+                $input.val( ui.item.locationName );
+                if(!ui.item.option.bubblig){
+                  ui.item.option.bubblig = true
+                }else{
+                  
+                }
+                $input.trigger('change');
+
+                if(event.keyCode != $jq.ui.keyCode.TAB){
+                  focusNextElement($input)
+                }  
                 return false;
               }
-            });
-     
-            // Found a match, nothing to do
-            if ( valid ) {
-              return;
-            }
-     
-            // Remove invalid value
-            this.input
-              .val( "" )
-              .attr( "title", value + " didn't match any item" )
-              //.tooltip( "open" );
-            this.element.val( "" );
-            this._delay(function() {
-              //this.input.tooltip( "close" ).attr( "title", "" );
-            }, 2500 );
-            this.input.autocomplete( "instance" ).term = "";
+  
+              // we need to merge the options parameters with
+              // the default ones
+              // this behavior allow that every airline can customize his own
+              // autocomplete parameters
+  
+              // autocompleteDefaultOptions = $jq.extend(autocompleteDefaultOptions, options);
+              this.input = $input
+                      .appendTo(this.wrapper)
+                      .val(value)
+                      .attr("title", "")
+                      .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                      .autocomplete(this.options);
+                      if(this.options.addAriaLabelledBy){
+                        this.input.attr("aria-labelledby", this.options.addAriaLabelledBy);
+                      };
+                      if(this.options.addAriaLabel){
+                        this.input.attr("aria-label", this.options.addAriaLabel);
+                      };
+              this.wrapper.find("ul").attr("tabIndex", '-1');
+
+              this.input.autocomplete('instance')
+              ._renderItem = function( ul, item ) {
+                return $jq( '<li>' )
+                  .append( '<span>' + item.locationName + '</span>' )
+                  .appendTo( ul );
+              };
+  
+              this._on(this.input, {
+                  autocompleteselect: function (event, ui) {
+                      ui.item.option.selected = true;
+                      ui.item.option.bubblig = false;
+                      //.ui-state-focus   
+                      
+                      this._trigger("select", event, {
+                          item: ui.item
+                      });
+                  },
+                  autocompletechange: "_removeIfInvalid"
+              });
           },
-     
-          _destroy: function() {
-            this.wrapper.remove();
-            this.element.show();
+          _createShowAllButton: function () {
+              var input = this.input,
+                  wasOpen = false;
+  
+              $jq("<a>")
+                      .attr("tabIndex", -1)
+                      .attr("title", "Show All Items")
+                      // .tooltip()
+                      .appendTo(this.wrapper)
+                      .button({
+                          icons: {
+                              primary: "ui-icon-triangle-1-s"
+                          },
+                          text: false
+                      })
+                      .removeClass("ui-corner-all")
+                      .addClass("custom-combobox-toggle ui-corner-right")
+                      .mousedown(function () {
+                          wasOpen = input.autocomplete("widget").is(":visible");
+                      })
+                      .click(function () {
+                          input.focus();
+  
+                          // Close if already visible
+                          if (wasOpen) {
+                              input.blur();
+                              return;
+                          }
+  
+                          // Pass empty string as value to search for, displaying all results
+                          input.autocomplete("search", "");
+                      });
+          },
+          _source: function (request, response) {
+            hostProxyService
+            .getFromAirports(request.term, function(resp) {
+               resp = resp.map(function(arr) {
+                return {
+                  locationName: arr[0],
+                  locationCode: arr[1],
+                  locationType: arr[2],
+                  option:{}
+                };
+               });
+               response(resp);
+           });
+          },
+          _removeIfInvalid: function (event, ui) {
+  
+              // Selected an item, nothing to do
+              if (ui.item) {
+                  return;
+              }
+  
+              // Search for a match (case-insensitive)
+              var value = this.input.val(),
+                      valueLowerCase = value.toLowerCase(),
+                      valid = false;
+              this.element.children("option").each(function () {
+                  if ($jq(this).text().toLowerCase() === valueLowerCase) {
+                      this.selected = valid = true;
+                      return false;
+                  }
+              });
+  
+              // Found a match, nothing to do
+              if (valid) {
+                  return;
+              }
+  
+              // Remove invalid value
+              this.input
+                      .val("")
+                      .attr("title", value + " didn't match any item");
+                      //.tooltip("open");
+              this.element.val("");
+              this._delay(function () {
+                 // this.input.tooltip("close").attr("title", "");
+              }, 2500);
+              try {
+                  this.input.autocomplete( "instance" ).term = "";
+              }
+              catch(err) {
+              }
+          },
+          _destroy: function () {
+              this.wrapper.remove();
+              this.element.show();
           }
-        });
+      });
+        
 
         $jq($element).combobox()
 

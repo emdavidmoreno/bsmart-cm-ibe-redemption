@@ -42,11 +42,11 @@ block body
         .left-inner-addon
           i
           select.form-control(type='text'
-            placeholder='{{ "LABEL_FROM" | translate }}'
+            data-bs-placeholder='{{ "LABEL_FROM" | translate }}'
             data-ng-model='location.origin.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationOrigin'
-            aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}. {{ui.errors[$index].origin}}'
+            data-bs-aria-label='{{"LABEL_AUTOCOMPLETE_FROM" | translate}}. {{ui.errors[$index].origin}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].origin}}
@@ -55,11 +55,11 @@ block body
         .left-inner-addon
           i
           select.form-control(type='text'
-            placeholder='{{ "LABEL_TO" | translate }}'
+            data-bs-placeholder='{{ "LABEL_TO" | translate }}'
             data-ng-model='location.destination.locationName'
             data-jqui-autocomplete
             data-bs-update-location='ui.locations.onChangeLocationDestination'
-            aria-label='{{"LABEL_AUTOCOMPLETE_TO" | translate}}. {{ui.errors[$index].destination}}'
+            data-bs-aria-label='{{"LABEL_AUTOCOMPLETE_TO" | translate}}. {{ui.errors[$index].destination}}'
             data-bs-location-index='{{$index}}')
         span.text-message
           | {{ui.errors[$index].destination}}
