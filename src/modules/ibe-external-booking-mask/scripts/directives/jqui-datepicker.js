@@ -4,8 +4,7 @@
 define([
   'jquery',
   '../../../../lib/jquery-ui/datepicker',
-  '../../../../scripts/helpers/jquery.maskedinput.min',
-], function($jq, datepicker, jqMaskedinput) {
+], function($jq, datepicker) {
   /**
    * Angular directive that create a wrapper for jQueryUI datepicker
    *
@@ -100,9 +99,10 @@ define([
         dpTotalAmount: '@?',
       },
       link: function(scope, $element, attrs, ngModelCtrl) {
-        // let i = 0
+        
         let options = {
           changeMonth: true,
+          dateFormat: "mm/dd/yy",
           minDate: 0,
           beforeShow: function(input, instance) {
             let dpDiv = instance.dpDiv
@@ -142,7 +142,7 @@ define([
           },
         }
 
-        $jq($element).mask('99/99/9999')
+        //$jq($element).mask('99/99/9999')
         // create options for select a Date Range
         if (angular.isDefined(scope.dpSiblingDate)) {
           if (angular.isDefined(scope.dpSiblingDate) &&
@@ -243,6 +243,7 @@ define([
         // setting datepicker
         $jq($element).datepicker(options)
         findLastSettedDateValue(scope.dpCurrentElement, scope.dpTotalAmount - 1)
+        
       },
     }
   }
