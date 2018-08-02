@@ -63,12 +63,13 @@ block body
           data-ng-class="{'show-field-error': ui.errors[$index].departDate}" ng-cloak)
           .right-inner-addon
             i
-            input.form-control(type='url',
+            input.form-control(type='url' role="textbox"
               placeholder='{{ "LABEL_DEPARTURE_DATE" | translate }}'
               id='fromOrigDate'
               data-ng-model='location.date.origin'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, true)'
               data-jqui-datepicker
+              aria-label='{{ "LABEL_DATEPICKER_DEPARTURE_FORMAT" | translate }}. {{ui.errors[$index].departDate}}'
               data-dp-is-from-date='true'
               data-dp-sibling-date='#toDestDate')
           span.text-message
@@ -79,12 +80,13 @@ block body
           ng-cloak)
           .right-inner-addon
             i
-            input.form-control(type='url'
+            input.form-control(type='url' role="textbox"
               placeholder='{{ "LABEL_ARRIVAL_DATE" | translate }}'
               id='toDestDate'
               data-ng-model='location.date.destination'
               data-ng-change='ui.locations.onChangeLocationDate(location, $index, false)'
               data-jqui-datepicker
+              aria-label='{{ "LABEL_DATEPICKER_RETURN_FORMAT" | translate }}. {{ui.errors[$index].returnDate}}'
               data-dp-is-from-date='false'
               data-dp-sibling-date='#fromOrigDate')
           span.text-message
