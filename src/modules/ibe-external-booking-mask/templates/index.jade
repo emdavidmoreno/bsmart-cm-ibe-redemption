@@ -132,7 +132,7 @@ block body
         .right-inner-addon(
           data-ng-class="{'show-field-error': ui.errors[$index + 1].departDate }")
           i
-          input.form-control(type='url'
+          input.form-control(type='url' role="textbox"
             placeholder='{{ "LABEL_DEPARTURE_DATE" | translate }}'
             data-dp-id="dp_{{$index}}"
             data-ng-model='location.date.origin'
