@@ -4,12 +4,12 @@ block body
   div.m-passenger-information(data-ng-controller="PassengerInformationController")
     .l-messages(data-ng-cloak role="alert" aria-live="assertive")
       .m-message(data-ng-repeat="message in ui.messages"
-        tabindex=0
+        
         data-ng-class="{error: message.type == 'error'}")
         i
         p(data-ng-bind-html="message.content")
     section
-      div(tabindex=0 class="m-card {{message.cssClass}}"
+      div( class="m-card {{message.cssClass}}"
         data-ng-repeat="message in ui.infoMessages"
         data-ng-if="message != null && message.bodyType === 'read_more'"
         data-ng-class="{'m-card--read-more' : message.openMoreInfo}" ng-cloak)
@@ -32,11 +32,11 @@ block body
     bs-fare-hold-price-summary-component
 
     section(data-ng-cloak)
-      h2(tabindex=0)
+      h2()
         | {{'LABEL_PASSENGER_INFO' | translate}}
       .m-card(data-ng-repeat="passenger in ui.passengers track by $index")
         header.title()
-          h4.title-text(tabindex=0)
+          h4.title-text()
             | {{passenger.type}}
         .content
           form.form-horizontal
@@ -226,7 +226,7 @@ block body
                   data-ng-model="passenger.redressNumber"
                   data-ng-change="passenger.setRedressNumber(passenger.redressNumber)")
     section(ng-cloak)
-      h2(tabindex=0)
+      h2()
         | {{'LABEL_CONTACT_INFORMATION' | translate}}
       div.m-card
         .content
@@ -281,8 +281,7 @@ block body
             span.text-message(data-ng-if="ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']")
               | {{ui.errors[0]['homePhone.phoneNumber'] || ui.errors[0]['homePhone.phoneNumberCountryCode']}}
     section
-      div(
-        tabindex=0
+      div(        
         class="m-card {{message.cssClass}}"
         data-ng-repeat="message in ui.infoMessages"
         data-ng-if="message != null && message.bodyType !== 'read_more'"
@@ -300,7 +299,7 @@ block body
         .actions.text-right(data-ng-if="message.bodyType === 'read_more'")
           span.action-item.action-item--text(data-ng-if="message.openMoreInfo" data-ng-click="message.openMoreInfo = !message.openMoreInfo")
             | {{'LABEL_READ_MORE' | translate}}
-    div(bs-card-ref-id tabindex=0)
+    div(bs-card-ref-id )
     .l-action(ng-show="ui.showContinueButton")
       button(
         type="button"
