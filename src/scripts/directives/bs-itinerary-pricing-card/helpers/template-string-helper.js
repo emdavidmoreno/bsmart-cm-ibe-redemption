@@ -12,13 +12,13 @@ define([], function() {
             data-ng-if="passenger_type.total_fare > 0"
           >
             <div class="content price-passenger-breakdown" ng-cloak>
-              <h3 class="title" tabindex=0>
+              <h3 class="title">
                 {{passenger_type.name}}
                 <span class="pull-right">
                   x{{ui.passengers["user_input_" + key]}}
                 </span>
               </h3>
-              <p tabindex=0>
+              <p>
                 <strong>
                   {{ "LABEL_BASE_PRICE" | translate }} :
                 </strong>
@@ -26,7 +26,7 @@ define([], function() {
                   {{ passenger_type.base_fare | number:2  }}
                 </span>
               </p>
-              <p tabindex=0>
+              <p>
                 <strong>
                   {{ "LABEL_TAXES" | translate }}
                 </strong>
@@ -34,7 +34,7 @@ define([], function() {
                   {{ passenger_type.taxes | number:2}}
                 </span>
               </p>
-              <p data-ng-if="passenger_type.fuel_surcharges >= 0" tabindex=0>
+              <p data-ng-if="passenger_type.fuel_surcharges >= 0">
                 <strong>
                   {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
                 </strong>
@@ -42,7 +42,7 @@ define([], function() {
                   {{ passenger_type.fuel_surcharges | number:2 }}
                 </span>
               </p>
-              <p tabindex=0 data-ng-if="ui.insurance.head && ui.insurance.body">
+              <p data-ng-if="ui.insurance.head && ui.insurance.body">
                 <strong>
                   {{ui.insurance.head}}
                 </strong>
@@ -52,7 +52,7 @@ define([], function() {
               </p>
             </div>
             <header class="title">
-              <h4 tabindex=0 class="title-text">
+              <h4 class="title-text">
                 {{ "LABEL_TOTAL_FARE" | translate }}
                 <strong class="title-text--right">
                   {{ui.total_price.currency_code}} {{ (passenger_type.total_fare  ) + ui.insurance.price_per_passenger | priceFormat:ui.total_price.currency_code }}
@@ -66,7 +66,7 @@ define([], function() {
       `<section data-ng-if="ui.total_price.taxes >= 0 && ui.total_price.fuel_surcharges >= 0">
         <div class="m-card m-card--warning">
           <div class="content price-summary" ng-cloak>
-            <p tabindex=0>
+            <p>
               <strong>
                 {{ "LABEL_BASE_PRICE" | translate }} :
               </strong>
@@ -74,7 +74,7 @@ define([], function() {
                 {{ ui.total_price.base_fare | number:2  }}
               </span>
             </p>
-            <p tabindex=0 class="price-discount" data-ng-repeat="discount in ui.discounts">
+            <p  class="price-discount" data-ng-repeat="discount in ui.discounts">
               <span>
                 {{ discount.name }}:
               </span>
@@ -82,7 +82,7 @@ define([], function() {
                 -{{ discount.price | number:2  }}
               </span>
             </p>
-            <p tabindex=0 data-ng-if="ui.total_price.taxes >= 0">
+            <p data-ng-if="ui.total_price.taxes >= 0">
               <strong>
                 {{ "LABEL_TAXES" | translate }}
               </strong>
@@ -90,7 +90,7 @@ define([], function() {
                 {{ ui.total_price.taxes | number:2}}
               </span>
             </p>
-            <p tabindex=0 data-ng-if="ui.total_price.fuel_surcharges >= 0">
+            <p data-ng-if="ui.total_price.fuel_surcharges >= 0">
               <strong>
                 {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
               </strong>
@@ -98,7 +98,7 @@ define([], function() {
                 {{ ui.total_price.fuel_surcharges | number:2 }}
               </span>
             </p>
-            <p tabindex=0 data-ng-if="ui.showPriceInsurance === true">
+            <p data-ng-if="ui.showPriceInsurance === true">
               <strong>
                 {{ui.insurance.head}}
               </strong>
@@ -111,7 +111,7 @@ define([], function() {
             </p>
           </div>
           <header class="title">
-            <h4 tabindex=0 class="title-text">
+            <h4 class="title-text">
               {{ "LABEL_TOTAL" | translate }}
               <strong class="title-text--right">
                 {{ui.total_price.currency_code}} {{ ui.total_price.cash | number:2 }}

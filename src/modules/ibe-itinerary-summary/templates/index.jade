@@ -7,13 +7,13 @@ block body
         data-ng-class="{error: message.type == 'error'}")
         p {{message.content}}
     section
-      h3(tabindex=0)
+      h3()
         | {{'LABEL_ITINERARY_SUMMARY'| translate}}
       div
         header.title
           h4.title-text
         .content(data-ng-repeat="location in ui.locations")
-          div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak tabindex=0)
+          div.m-header(data-ng-if="ui.user_input_journey_type=='Multi City'" ng-cloak)
             strong {{$index + 1}}
             span
               | {{location.extra_info.geo.origin_city_name}}
@@ -39,12 +39,12 @@ block body
                       data-ng-click="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=true")
                       span.sr-only {{ 'LABEL_FLIGHT_OUTBOUND' | translate }}. {{ flight.info.classes[0].name }}
                       | ({{flight.info.classes[0].sellingClass.text}})
-                .flight-list-title(tabindex=0)
+                .flight-list-title()
                     | {{location.departure.dates[0].date | date:'MMMM d, y'}}
                 div(data-ng-repeat="flightItem in flight")
                   .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
                     .flight
-                      .l-flight-detail(tabindex=0)
+                      .l-flight-detail()
                         .flight-detail.flight-detail--origin
                           span.location
                             | {{flight_list_item.origin_airport_code}}
@@ -69,7 +69,7 @@ block body
                         data-ng-keypress="flight_list_item.onclick()"
                         tabindex=0)
                         | {{flight_list_item.number}}
-                    .declaimer(data-ng-repeat="disc in flight_list_item.disclaimer | unique: 'id'" tabindex=0)
+                    .declaimer(data-ng-repeat="disc in flight_list_item.disclaimer | unique: 'id'" )
                       span(data-ng-if="disc.isOperateBy")
                         | {{disc.id}}
                       span(data-ng-if="!disc.isOperateBy")
@@ -89,12 +89,12 @@ block body
                       data-ng-keypress="flight.info.classes[0].sellingClass.onclick();ui.sellingClass.isDeparture=false")
                       span.sr-only {{ 'LABEL_FLIGHT_INBOUND' | translate }}. {{flight.info.classes[0].name}}
                       | ({{flight.info.classes[0].sellingClass.text}})
-                .flight-list-title(tabindex=0)
+                .flight-list-title()
                     | {{location.return.dates[0].date | date:'MMMM d, y'}}
                 div(data-ng-repeat="flightItem in flight")
                   .flight-list(data-ng-repeat="flight_list_item in flightItem.flight_list")
                     .flight
-                      .l-flight-detail(tabindex=0)
+                      .l-flight-detail()
                         .flight-detail.flight-detail--origin
                           span.location
                             | {{flight_list_item.origin_airport_code}}
@@ -133,9 +133,9 @@ block body
     //- div(data-bs-itinerary-pricing-card data-ui="ui")
     bs-fare-hold-price-summary-component
     section.m-insurance(data-ng-if="ui.tavelInsurance && ui.tavelInsurance.display.head")
-      h2(tabindex=0)
+      h2()
         | {{ui.tavelInsurance.display.head}}
-      .insurance-icon(data-ng-bind-html="ui.insuranceIcon | sanitize" tabindex=0)
+      .insurance-icon(data-ng-bind-html="ui.insuranceIcon | sanitize")
       .m-card
         .content
           .m-insurance-option
@@ -162,7 +162,7 @@ block body
     section(data-ng-if="ui.showPayment && ui.payment.info.toPay.head != '' && ui.payment.info.reserveAndHold.head != ''")
       h2
         | {{ 'LABEL_CHOOSE_PAYMENT_TYPE' | translate }}
-      .m-card(tabindex=0)
+      .m-card()
         .content
           div
             label
