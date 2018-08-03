@@ -100,6 +100,18 @@ define([
       },
       link: function(scope, $element, attrs, ngModelCtrl) {
         
+        ngModelCtrl.$formatters.push(modelValue=>{
+          var $return = modelValue;
+          return $return;
+        });
+        ngModelCtrl.$parsers.push(function(viewValue) {
+          return viewValue;
+        });
+        
+        ngModelCtrl.$validators.url = function(modelValue, viewValue){
+          return true;
+        }
+              
         let options = {
           changeMonth: true,
           dateFormat: "mm/dd/yy",
@@ -141,8 +153,7 @@ define([
             })
           },
         }
-
-        //$jq($element).mask('99/99/9999')
+        
         // create options for select a Date Range
         if (angular.isDefined(scope.dpSiblingDate)) {
           if (angular.isDefined(scope.dpSiblingDate) &&
@@ -232,7 +243,8 @@ define([
           addSelectedDateToLiveRegion(selectedDate)
 
           scope.$apply(function() {
-            ngModelCtrl.$setViewValue(selectedDate)
+            ngModelCtrl.$setViewValue(selectedDate);
+            ngModelCtrl.$render();
           })
           updateSiblingDatePickers(scope.dpCurrentElement,
             scope.dpTotalAmount, selectedDate)

@@ -71,7 +71,7 @@ define(['./helpers/scrapHelper'], function (helper) {
     `<section ng-if="$ctrl.showComponent">
         <div class="m-card m-card--warning">
           <div class="content price-summary" ng-cloak>
-            <p tabindex=0>
+            <p>
               <strong>
                 {{ "LABEL_BASE_PRICE" | translate }} + {{ "LABEL_FUEL_SUBCHARGES" | translate }} :
               </strong>
@@ -79,7 +79,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                 {{ $ctrl.priceInfoList[0] }}
               </span>
             </p>
-            <p data-ng-if="$ctrl.existCOP" tabindex=0>
+            <p data-ng-if="$ctrl.existCOP">
               <strong>
                 {{"Expo F"}} :
               </strong>
@@ -99,7 +99,7 @@ define(['./helpers/scrapHelper'], function (helper) {
               </span>
             </p> -->
                    
-            <p tabindex=0>
+            <p>
               <strong>
                 {{ "LABEL_TAXES" | translate }} :
               </strong>
@@ -110,7 +110,7 @@ define(['./helpers/scrapHelper'], function (helper) {
                 {{$ctrl.priceInfoList[1]}}
               </span>
             </p>
-            <p data-ng-if="$ctrl.existInsuranceTable" tabindex=0>
+            <p data-ng-if="$ctrl.existInsuranceTable">
               <strong>
                 {{ "LABEL_INSURANCE" | translate }} :
               </strong>
@@ -130,7 +130,7 @@ define(['./helpers/scrapHelper'], function (helper) {
               </span>
             </p> -->
           </div>
-          <header class="title" tabindex=0>
+          <header class="title">
             <h4 class="title-text">
               {{ $ctrl.totalPriceLabel }}
               <strong class="title-text--right">
