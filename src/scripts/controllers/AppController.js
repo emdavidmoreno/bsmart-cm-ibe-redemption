@@ -228,6 +228,7 @@ define([
           hostUIService.showLoader()
         } else {
           hostUIService.hideLoader()
+          $("#booksmart").focus()
         }
       }, true)
 
