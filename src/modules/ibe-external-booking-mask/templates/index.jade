@@ -245,18 +245,20 @@ block body
         span.text-message
           | {{ ui.errors.guestTypes }}
     .l-cabin-type-group(
-      ng-cloak role="radiogroup" aria-label='{{ "LABEL_WCAG_SELECT_TRIB_CABIN" | translate }}' tabindex=1)
+      ng-cloak role="radiogroup" aria-label='{{ "LABEL_WCAG_SELECT_TRIB_CABIN" | translate }}')
       label(data-ng-click="ui.cabinType.change('Economy')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}"
         aria-label='{{ "LABEL_WCAG_ECONOMY_CLASS" | translate }}')
-        input.radio--custom(type='radio' role="radio" data-ng-model='ui.cabinType.value' value='Economy'
-          data-ng-change='ui.cabinType.change()')
+        input.radio--custom(type='radio' role="radio" 
+          name="ui.cabinType.value" 
+          data-ng-model='ui.cabinType.value' value='Economy'
+          data-ng-change="ui.cabinType.change('Economy')")
         label
           | {{ 'LABEL_CABIN_ECONOMY' | translate }}
       label(ng-click="ui.cabinType.change('Business')"
         data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}"
         aria-label='{{ "LABEL_WCAG_EXECUTIVE_CLASS" | translate }}')
-         input.radio--custom(type='radio' role="radio"
+        input.radio--custom(type='radio' role="radio"
           name="ui.cabinType.value"
           data-ng-model='ui.cabinType.value' value='Business')
         label
