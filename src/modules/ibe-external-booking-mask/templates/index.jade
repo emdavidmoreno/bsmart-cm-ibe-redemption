@@ -7,9 +7,10 @@ block body
         data-ng-class="{error: message.type == 'error'}")
         i
         p {{message.content}}
-    .l-flight-type-group(ng-cloak role="list" aria-label="{{ 'LABEL_JOURNEY_TYPE' | translate }}")
+    .l-flight-type-group(ng-cloak role="list" aria-label="{{ 'LABEL_WCAG_SELECT_TRIP_TYPE' | translate }}")
       button(type="button" class="btn btn-default" value='RT'
         role="listitem"
+        aria-label="{{ 'LABEL_WCAG_TT_RT' | translate }}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("RT")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'RT'}"
@@ -17,6 +18,7 @@ block body
         | {{ 'LABEL_ROUND_TRIP' | translate }}
       button(type="button" class="btn btn-default"  value='OW'
         role="listitem"
+        aria-label="{{ 'LABEL_WCAG_TT_OW' | translate }}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("OW")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'OW'}"
@@ -24,6 +26,7 @@ block body
         | {{ 'LABEL_ONE_WAY' | translate }}
       button(type="button" class="btn btn-default" value="MC"
         role="listitem"
+        aria-label="{{ 'LABEL_WCAG_TT_MC' | translate }}"
         data-ng-model='ui.flightType.value'
         data-ng-click='ui.flightType.change("MC")'
         data-ng-class="{'btn--activated': ui.flightType.value === 'MC'}"
@@ -33,7 +36,8 @@ block body
       data-ng-if="ui.flightType.value != 'MC'",
       data-ng-repeat="location in ui.locations.list|limitTo:1")
       .flight-location.flight-location--from(
-        data-ng-class="{'show-field-error': ui.errors[$index].origin }" ng-cloak)
+        data-ng-class="{'show-field-error': ui.errors[$index].origin }" ng-cloak
+        aria-label='{{"LABEL_WCAG_SEARCH_DEP_CITY" | translate}}')
         .left-inner-addon
           i
           input.form-control(type='text'
@@ -46,7 +50,8 @@ block body
         span.text-message
           | {{ui.errors[$index].origin}}
       .flight-location.flight-location--to(
-        data-ng-class="{'show-field-error': ui.errors[$index].destination }" ng-cloak)
+        data-ng-class="{'show-field-error': ui.errors[$index].destination }" ng-cloak
+        aria-label='{{"LABEL_WCAG_SEARCH_DEST_CITY" | translate}}')
         .left-inner-addon
           i
           input.form-control(type='text'
@@ -148,19 +153,25 @@ block body
       button(type="button" class="btn btn-default" value='ED'
         data-ng-model='ui.flexible.value'
         data-ng-click='ui.flexible.change(false)'
+        aria-label='{{"LABEL_WCAG_EXACT_DATES" | translate}}'
         data-ng-class="{'btn--activated': ui.flexible.value === false}"
       )
         | {{ 'LABEL_EXACT_DATE' | translate }}
       button(type="button" class="btn btn-default"  value='FD'
         data-ng-model='ui.flexible.value'
+        aria-label='{{"LABEL_WCAG_FLEXIBLE_DATES" | translate}}'
         data-ng-click='ui.flexible.change(true)'
         data-ng-class="{'btn--activated': ui.flexible.value === true}"
       )
         | {{ 'LABEL_FLEXIBLE_DATE' | translate }}
 
-    .l-passengers(ng-cloak data-ng-class="{'show-field-error': ui.errors.guestTypes }")
-      select.select--safari-friendly(data-ng-show="!passengersExtraOptionsSelected"
-      data-ng-model='ui.passengers.adults' data-ng-change='ui.passengers.onChangeAdults()')
+    .l-passengers(
+      ng-cloak data-ng-class="{'show-field-error': ui.errors.guestTypes }")
+      select.select--safari-friendly(
+        data-ng-show="!passengersExtraOptionsSelected"
+        data-ng-model='ui.passengers.adults'
+        data-ng-change='ui.passengers.onChangeAdults()'
+        aria-label='{{"LABEL_WCAG_DROPDOWN_ADULT_COL" | translate}}')
         option(value="1")
           | 1 {{ 'LABEL_ADULT' | translate }}
         option(value="2")
@@ -178,10 +189,11 @@ block body
         option(value="8")
           | 8 {{ 'LABEL_ADULTS' | translate }}
       p(data-ng-show="!passengersExtraOptionsSelected")
-        a(data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"          
-          tabindex=0 
+        a(data-ng-click="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"
+          tabindex=0
           id="passengersExtraOptionsSelected"
           data-ng-keypress="passengersExtraOptionsSelected = !passengersExtraOptionsSelected"
+          aria-label='{{"LABEL_WCAG_TRAVEL_WITH_CHILD" | translate}}'
           aria-expanded="{{passengersExtraOptionsSelected}}")
           | {{ 'LABEL_PASSENGER_QUESTION' | translate }}
       .l-extra-options(data-ng-show='passengersExtraOptionsSelected')
@@ -232,24 +244,29 @@ block body
             option 7
         span.text-message
           | {{ ui.errors.guestTypes }}
-    .l-cabin-type-group(ng-cloak role="radiogroup" aria-label='{{ "LABEL_CABIN_GROUP" | translate }}')
+    .l-cabin-type-group(
+      ng-cloak role="radiogroup" aria-label='{{ "LABEL_WCAG_SELECT_TRIB_CABIN" | translate }}' tabindex=1)
       label(data-ng-click="ui.cabinType.change('Economy')"
-        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}")
+        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Economy'}"
+        aria-label='{{ "LABEL_WCAG_ECONOMY_CLASS" | translate }}')
         input.radio--custom(type='radio' role="radio" data-ng-model='ui.cabinType.value' value='Economy'
           data-ng-change='ui.cabinType.change()')
         label
           | {{ 'LABEL_CABIN_ECONOMY' | translate }}
       label(ng-click="ui.cabinType.change('Business')"
-        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}")
-         input.radio--custom(type='radio' role="radio" 
-          name="ui.cabinType.value" 
+        data-ng-class="{'cabin-type--selected': ui.cabinType.value === 'Business'}"
+        aria-label='{{ "LABEL_WCAG_EXECUTIVE_CLASS" | translate }}')
+         input.radio--custom(type='radio' role="radio"
+          name="ui.cabinType.value"
           data-ng-model='ui.cabinType.value' value='Business')
         label
           | {{ 'LABEL_CABIN_BUSINESS' | translate }}
 
-    .l-promo-code(ng-cloak data-ng-if="ui.flightType.value != 'MC'")
+    .l-promo-code(
+      ng-cloak data-ng-if="ui.flightType.value != 'MC'")
       input.form-control(type='text'
         placeholder='{{ "LABEL_PROMO_CODE" | translate }}'
+        aria-label='{{ "LABEL_WCAG_PROMO" | translate }}'
         data-ng-model='ui.promo_code.value',
         data-ng-change='ui.promo_code.change()'
         )

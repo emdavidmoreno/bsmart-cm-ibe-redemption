@@ -14,7 +14,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BOOK_YOUR_TRIP: 'Book your trip',
       LABEL_LANGUAGE: 'Language',
       LABEL_GENERIC_BODY: 'Generic body',
-      LABEL_JOURNEY_TYPE: "Select your Journey type",
+      LABEL_JOURNEY_TYPE: 'Select your Journey type',
       LABEL_ROUND_TRIP: 'Round Trip',
       LABEL_ONE_WAY: 'One Way',
       LABEL_MULTI_CITY: 'Multi City',
@@ -24,7 +24,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_FD_RETURN: 'Return',
       LABEL_FD_DEPART: 'Depart',
       LABEL_ARRIVAL_DATE: 'Return',
-      LABEL_CABIN_GROUP: "Select your Journey class",
+      LABEL_CABIN_GROUP: 'Select your Journey class',
       LABEL_CABIN_ECONOMY: 'Economy Class',
       LABEL_CABIN_BUSINESS: 'Business Class',
       LABEL_PASSENGER: 'Passenger',
@@ -147,24 +147,41 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BANK_TRANSFER: 'Bank Transfer',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
       LABEL_SEAT: 'Seat',
-      LABEL_BUY:'Buy', 
-      LABEL_DEPART_DATE:"Departing date",
-      LABEL_RETURN_DATE:"Returning date",
-      LABEL_AUTOCOMPLETE_FROM: "Search origin city. Type 3 or more letters and then navigate through the options to select from list",
-      LABEL_AUTOCOMPLETE_TO: "Search destination city. Type 3 or more letters and then navigate through the options to select from list",   
-      LABEL_FLIGHT_CLASS_INFO: "Extra Information",
-      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Departing date. Type in the date format using 2 numbers for day and month and 4" +
-      " numbers for the year in the following order month/day/year. The year must be gr" +
-        "eater than or equal to the current year.",
-      LABEL_DATEPICKER_RETURN_FORMAT: "Returning date. Type in the date format using 2 numbers for day and month and 4" +
-      " numbers for the year in the following order month/day/year. The year must be gr" +
-        "eater than or equal to the current year.",
-      LABEL_SIDE_MENU:"Press space key to open the menu and arrow keys to navigate through the options",
-      LABEL_CLOSE_SIDE_MENU:"Close menu",
+      LABEL_BUY: 'Buy',
+      LABEL_DEPART_DATE: 'Departing date',
+      LABEL_RETURN_DATE: 'Returning date',
+      LABEL_AUTOCOMPLETE_FROM: 'Search origin city. Type 3 or more letters and then navigate through the options to select from list',
+      LABEL_AUTOCOMPLETE_TO: 'Search destination city. Type 3 or more letters and then navigate through the options to select from list',
+      LABEL_FLIGHT_CLASS_INFO: 'Extra Information',
+      LABEL_DATEPICKER_DEPARTURE_FORMAT: 'Departing date. Type in the date format using 2 numbers for day and month and 4' +
+      ' numbers for the year in the following order month/day/year. The year must be gr' +
+        'eater than or equal to the current year.',
+      LABEL_DATEPICKER_RETURN_FORMAT: 'Returning date. Type in the date format using 2 numbers for day and month and 4' +
+      ' numbers for the year in the following order month/day/year. The year must be gr' +
+        'eater than or equal to the current year.',
+      LABEL_SIDE_MENU: 'Press space key to open the menu and arrow keys to navigate through the options',
+      LABEL_CLOSE_SIDE_MENU: 'Close menu',
       LABEL_CLOSE_DIALOG: 'Close dialog.',
-      LABEL_SELECTED_CLASS: "Selected class: ",
-      
-     })
+      LABEL_SELECTED_CLASS: 'Selected class: ',
+
+      LABEL_WCAG_MAIN_MENU: 'Main Menu',
+      LABEL_WCAG_COPA_LOGO: 'Copa Airlines Logo, go to copa Airlines homepage ',
+      LABEL_WCAG_BOOK_TRIP: 'Book your trip',
+      LABEL_WCAG_SELECT_TRIP_TYPE: 'Select your trip type',
+      LABEL_WCAG_TT_RT: 'Round trip',
+      LABEL_WCAG_TT_OW: 'One Way',
+      LABEL_WCAG_TT_MC: 'Multicity',
+      LABEL_WCAG_SEARCH_DEP_CITY: 'Search for departure city',
+      LABEL_WCAG_SEARCH_DEST_CITY: 'Search for destination city',
+      LABEL_WCAG_EXACT_DATES: 'Exact Dates',
+      LABEL_WCAG_FLEXIBLE_DATES: 'Flexible Dates',
+      LABEL_WCAG_DROPDOWN_ADULT_COL: 'Dropdown 1 adult collapsed',
+      LABEL_WCAG_TRAVEL_WITH_CHILD: 'Travel with children? Collapsed',
+      LABEL_WCAG_SELECT_TRIB_CABIN: 'Select your trip cabin',
+      LABEL_WCAG_ECONOMY_CLASS: 'Economy Class',
+      LABEL_WCAG_EXECUTIVE_CLASS: 'Executive class',
+      LABEL_WCAG_PROMO: 'Promo code? Edit',
+    })
 
 
     // spanish translations
@@ -173,7 +190,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BOOK_YOUR_TRIP: 'Reserve su viaje',
       LABEL_LANGUAGE: 'Idioma',
       LABEL_GENERIC_BODY: 'Contenedor genérico',
-      LABEL_JOURNEY_TYPE: "Seleccione su tipo de viaje",
+      LABEL_JOURNEY_TYPE: 'Seleccione su tipo de viaje',
       LABEL_ROUND_TRIP: 'Ida y vuelta',
       LABEL_ONE_WAY: 'Sólo ida',
       LABEL_MULTI_CITY: 'Multi-ciudad',
@@ -183,7 +200,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_ARRIVAL_DATE: 'Fecha de regreso',
       LABEL_FD_RETURN: 'Regreso',
       LABEL_FD_DEPART: 'Salida',
-      LABEL_CABIN_GROUP: "Selecione la clase de su viaje",
+      LABEL_CABIN_GROUP: 'Selecione la clase de su viaje',
       LABEL_CABIN_ECONOMY: 'Clase Económica',
       LABEL_CABIN_BUSINESS: 'Clase Ejecutiva',
       LABEL_PASSENGER: 'Pasajeros',
@@ -306,26 +323,44 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BANK_TRANSFER: 'Transferencia bancaria',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancário',
       LABEL_SEAT: 'Asiento',
-      LABEL_BUY:'Comprar',
-      LABEL_AUTOCOMPLETE_FROM: "Buscar ciudad de origen. Escriba 3 o mas letras y despues seleccione una opcion de la lista",
-      LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Escriba 3 o mas letras y despues seleccione una opcion de la lista",
-      LABEL_DEPART_DATE:"Fecha de salida",
-      LABEL_RETURN_DATE:"Fecha de retorno",
-      LABEL_FLIGHT_CLASS_INFO: "Información extra",
-      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Fecha de salida. Escriba el formato de fecha usando 2 números para el día y" +
-      " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
-        "be ser mayor o igual que la fecha actual.",
-      LABEL_DATEPICKER_RETURN_FORMAT: "Fecha de retorno. Escriba el formato de fecha usando 2 números para el día y" +
-      " el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de" +
-        "be ser mayor o igual que la fecha actual.",
-      LABEL_DEPART_DATE:"Fecha de salida",
-      LABEL_RETURN_DATE:"Fecha de retorno",
-      LABEL_AUTOCOMPLETE_FROM: "Buscar ciudad de origen. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
-      LABEL_AUTOCOMPLETE_TO: "Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista",
-      LABEL_SIDE_MENU:"Presione tecla de espacion para abrir el menu y las teclas de flecha para navegar por las opciones",
-      LABEL_CLOSE_SIDE_MENU:"Cerrar menu",
+      LABEL_BUY: 'Comprar',
+      LABEL_AUTOCOMPLETE_FROM: 'Buscar ciudad de origen. Escriba 3 o mas letras y despues seleccione una opcion de la lista',
+      LABEL_AUTOCOMPLETE_TO: 'Buscar ciudad de destino. Escriba 3 o mas letras y despues seleccione una opcion de la lista',
+      LABEL_DEPART_DATE: 'Fecha de salida',
+      LABEL_RETURN_DATE: 'Fecha de retorno',
+      LABEL_FLIGHT_CLASS_INFO: 'Información extra',
+      LABEL_DATEPICKER_DEPARTURE_FORMAT: 'Fecha de salida. Escriba el formato de fecha usando 2 números para el día y' +
+      ' el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de' +
+        'be ser mayor o igual que la fecha actual.',
+      LABEL_DATEPICKER_RETURN_FORMAT: 'Fecha de retorno. Escriba el formato de fecha usando 2 números para el día y' +
+      ' el mes y 4 números para el año en el siguiente orden mes / día / año. La fecha de' +
+        'be ser mayor o igual que la fecha actual.',
+      LABEL_DEPART_DATE: 'Fecha de salida',
+      LABEL_RETURN_DATE: 'Fecha de retorno',
+      LABEL_AUTOCOMPLETE_FROM: 'Buscar ciudad de origen. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista',
+      LABEL_AUTOCOMPLETE_TO: 'Buscar ciudad de destino. Después de escribir 3 letras, use las flechas hacia arriba y hacia abajo para seleccionar de la lista',
+      LABEL_SIDE_MENU: 'Presione tecla de espacion para abrir el menu y las teclas de flecha para navegar por las opciones',
+      LABEL_CLOSE_SIDE_MENU: 'Cerrar menu',
       LABEL_CLOSE_DIALOG: 'Cerrar el dialogo.',
-      LABEL_SELECTED_CLASS: "Clase seleccionada: ",
+      LABEL_SELECTED_CLASS: 'Clase seleccionada: ',
+
+      LABEL_WCAG_MAIN_MENU: 'Menu Principal',
+      LABEL_WCAG_COPA_LOGO: 'Logo de Copa Airlines, ir a la pagina de inicio de copa airlines',
+      LABEL_WCAG_BOOK_TRIP: 'Reserve Su Viaje',
+      LABEL_WCAG_SELECT_TRIP_TYPE: 'Seleccione su tipo de viaje',
+      LABEL_WCAG_TT_RT: 'Ida y Vuelta',
+      LABEL_WCAG_TT_OW: 'Solo Ida',
+      LABEL_WCAG_TT_MC: 'Multiciudad',
+      LABEL_WCAG_SEARCH_DEP_CITY: 'Buscar ciudad de origen',
+      LABEL_WCAG_SEARCH_DEST_CITY: 'Buscar ciudad de destino',
+      LABEL_WCAG_EXACT_DATES: 'Fechas exactas',
+      LABEL_WCAG_FLEXIBLE_DATES: 'Fechas flexibles',
+      LABEL_WCAG_DROPDOWN_ADULT_COL: 'Cuadro combinado 1 adulto contraído',
+      LABEL_WCAG_TRAVEL_WITH_CHILD: 'Viaja con niños? Contraído enlace',
+      LABEL_WCAG_SELECT_TRIB_CABIN: 'Seleccione la clase de su viaje agrupación',
+      LABEL_WCAG_ECONOMY_CLASS: 'Clase Economica',
+      LABEL_WCAG_EXECUTIVE_CLASS: 'Clase ejecutiva',
+      LABEL_WCAG_PROMO: 'Codigo Promocional? Edición',
     })
 
     // portuguees translations
@@ -334,7 +369,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_BOOK_YOUR_TRIP: 'Reserve a sua viagem',
       LABEL_LANGUAGE: 'Language',
       LABEL_GENERIC_BODY: 'Body genérico',
-      LABEL_JOURNEY_TYPE: "Selecione seu tipo de viagem",
+      LABEL_JOURNEY_TYPE: 'Selecione seu tipo de viagem',
       LABEL_ROUND_TRIP: 'Ida e volta',
       LABEL_ONE_WAY: 'Somente ida',
       LABEL_MULTI_CITY: 'Múltiplas cidades',
@@ -344,7 +379,7 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_ARRIVAL_DATE: 'Data de regresso',
       LABEL_FD_RETURN: 'Regresso',
       LABEL_FD_DEPART: 'Partida',
-      LABEL_CABIN_GROUP: "Selecione sua classe de viagem",
+      LABEL_CABIN_GROUP: 'Selecione sua classe de viagem',
       LABEL_CABIN_ECONOMY: 'Classe Económica',
       LABEL_CABIN_BUSINESS: 'Classe Executiva',
       LABEL_PASSENGER: 'Passageiros',
@@ -466,23 +501,41 @@ define(['angular-translate', 'tmhDynamicLocale'], function() {
       LABEL_DEBIT_CARD_ISSUE_COLOMBIA: 'Depósitos contas de poupança / corrente emitido na Colômbia.',
       LABEL_BANK_TRANSFER: 'Transferência bancária',
       LABEL_BOLETO_BANCARIO: 'Boleto Bancario',
-      LABEL_SEAT:'Assento',
-      LABEL_BUY:'Comprar',
-      LABEL_AUTOCOMPLETE_FROM: "Pesquisar cidade de origem. Digite 3 ou mais letras e, em seguida, selecione uma opção na lista",
-      LABEL_AUTOCOMPLETE_TO: "Pesquisar cidade de destino. Digite 3 ou mais letras e, em seguida, selecione uma opção na lista",
-      LABEL_DEPART_DATE:"Data de partida",
-      LABEL_RETURN_DATE:"Data de retorno",
-      LABEL_FLIGHT_CLASS_INFO: "Informação extra",
-      LABEL_DATEPICKER_DEPARTURE_FORMAT: "Data de partida. Digite o formato da data usando 2 números por dia e mês e 4 " +
-      "números para o ano na ordem seguinte mês / dia / ano. O data deve ser maior ou ig" +
-        "ual a data atual.",
-      LABEL_DATEPICKER_RETURN_FORMAT: "Data de retorno. Digite o formato da data usando 2 números por dia e mês e 4 " +
-      "números para o ano na ordem seguinte mês / dia / ano. O data deve ser maior ou ig" +
-        "ual a data atual.",
-      LABEL_SIDE_MENU:"Pressione a tecla espaço para abrir o menu e as teclas de seta para navegar pelas opções",
-      LABEL_CLOSE_SIDE_MENU:"Fechar menu",
+      LABEL_SEAT: 'Assento',
+      LABEL_BUY: 'Comprar',
+      LABEL_AUTOCOMPLETE_FROM: 'Pesquisar cidade de origem. Digite 3 ou mais letras e, em seguida, selecione uma opção na lista',
+      LABEL_AUTOCOMPLETE_TO: 'Pesquisar cidade de destino. Digite 3 ou mais letras e, em seguida, selecione uma opção na lista',
+      LABEL_DEPART_DATE: 'Data de partida',
+      LABEL_RETURN_DATE: 'Data de retorno',
+      LABEL_FLIGHT_CLASS_INFO: 'Informação extra',
+      LABEL_DATEPICKER_DEPARTURE_FORMAT: 'Data de partida. Digite o formato da data usando 2 números por dia e mês e 4 ' +
+      'números para o ano na ordem seguinte mês / dia / ano. O data deve ser maior ou ig' +
+        'ual a data atual.',
+      LABEL_DATEPICKER_RETURN_FORMAT: 'Data de retorno. Digite o formato da data usando 2 números por dia e mês e 4 ' +
+      'números para o ano na ordem seguinte mês / dia / ano. O data deve ser maior ou ig' +
+        'ual a data atual.',
+      LABEL_SIDE_MENU: 'Pressione a tecla espaço para abrir o menu e as teclas de seta para navegar pelas opções',
+      LABEL_CLOSE_SIDE_MENU: 'Fechar menu',
       LABEL_CLOSE_DIALOG: 'Fechar a caixa de diálogo..',
-      LABEL_SELECTED_CLASS: "Classe selecionada: ",
+      LABEL_SELECTED_CLASS: 'Classe selecionada: ',
+
+      LABEL_WCAG_MAIN_MENU: 'Menu Principal',
+      LABEL_WCAG_COPA_LOGO: 'Logótipo da Copa Airlines, ir para a página principal da copa airlines',
+      LABEL_WCAG_BOOK_TRIP: 'Reserve a sua viagem',
+      LABEL_WCAG_SELECT_TRIP_TYPE: 'Escolha o seu tipo de viagem',
+      LABEL_WCAG_TT_RT: 'Ida e volta',
+      LABEL_WCAG_TT_OW: 'Somente ida',
+      LABEL_WCAG_TT_MC: 'Multiplas cidades',
+      LABEL_WCAG_SEARCH_DEP_CITY: 'Pesquisar a cidade de origem',
+      LABEL_WCAG_SEARCH_DEST_CITY: 'Pesquisar a cidade de destino',
+      LABEL_WCAG_EXACT_DATES: 'Datas exatas',
+      LABEL_WCAG_FLEXIBLE_DATES: 'Datas flexíveis',
+      LABEL_WCAG_DROPDOWN_ADULT_COL: 'O dropdown 1 adulto fechado',
+      LABEL_WCAG_TRAVEL_WITH_CHILD: 'Viajando com crianças? fechado',
+      LABEL_WCAG_SELECT_TRIB_CABIN: 'Escolha a sua classe de viagem',
+      LABEL_WCAG_ECONOMY_CLASS: 'Classe Economica',
+      LABEL_WCAG_EXECUTIVE_CLASS: 'Classe executiva',
+      LABEL_WCAG_PROMO: 'Codigo Promocional? Edição',
     })
 
     // set default language
