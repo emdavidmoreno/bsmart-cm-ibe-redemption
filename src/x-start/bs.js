@@ -43,7 +43,7 @@
           {
             "name": "Copa Airlines Responsive Booking",
             "thenSet": [{
-              "name": "bsmart-cm-ibe",
+              "name": "bsmart-cm-ibe-redemption",
               "mainFilePath": "",
               "variables": [{
                 url:  document.URL,
@@ -78,18 +78,18 @@
         s;
     if(w.require){
       w.bSRequire = require.config({
-          baseUrl: "https://" + Bs.conf.clientHost + "/app/modules/bsmart-cm-ibe/",
+          baseUrl: "https://" + Bs.conf.clientHost + "/app/modules/bsmart-cm-ibe-redemption/",
           context: "bs1.0.0",
       });
-      w.bSRequire( ["require", "https://" + Bs.conf.clientHost + "/app/modules/bsmart-cm-ibe/_core/init.js"],
+      w.bSRequire( ["require", "https://" + Bs.conf.clientHost + "/app/modules/bsmart-cm-ibe-redemption/_core/init.js"],
         function() {}
       );
     } else{
       s = d.createElement('script');
       s.type = 'text/javascript';
       s.async = true;
-      s.src = 'https://' + Bs.conf.clientHost + '/app/modules/bsmart-cm-ibe/lib/require/require.js';
-      s.setAttribute('data-main', 'https://' + Bs.conf.clientHost + '/app/modules/bsmart-cm-ibe/_core/init');
+      s.src = 'https://' + Bs.conf.clientHost + '/app/modules/bsmart-cm-ibe-redemption/lib/require/require.js';
+      s.setAttribute('data-main', 'https://' + Bs.conf.clientHost + '/app/modules/bsmart-cm-ibe-redemption/_core/init');
       document.body.appendChild(s);
     }
 

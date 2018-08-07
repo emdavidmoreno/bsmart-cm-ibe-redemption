@@ -34,7 +34,7 @@ define([
             item.checked = false
         })
     }
-    let assetsBaseUrl = "//@@HOST/app/modules/bsmart-cm-ibe/assets/images/"
+    let assetsBaseUrl = "//@@HOST/app/modules/bsmart-cm-ibe-redemption/assets/images/"
     let termsUrls = {
         en: "https://www.copaair.com/en/terms-conditions-book-and-hold-fee",
         pt: "https://www.copaair.com/pt/termos-condicoes-book-and-hold-fee",

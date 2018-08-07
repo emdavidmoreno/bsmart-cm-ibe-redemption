@@ -6,11 +6,11 @@ define([], function() {
     insertNodeCommand: {
       selector: 'body',
       command: 'appendTo',
-      template: @@bsmart-cm-ibe-ibe-flexible-dates-oneway-cc__template
+      template: @@bsmart-cm-ibe-redemption-ibe-flexible-dates-oneway-cc__template
     },
     stylesFilesPath: [
-    '//@@HOST/app/modules/bsmart-cm-ibe/modules/' +
-      'ibe-flexible-dates/styles/@@FILE_PATH--app--css/modules/bsmart-cm-ibe/modules/ibe-flexible-dates/styles/index.css',
+    '//@@HOST/app/modules/bsmart-cm-ibe-redemption/modules/' +
+      'ibe-flexible-dates/styles/@@FILE_PATH--app--css/modules/bsmart-cm-ibe-redemption/modules/ibe-flexible-dates/styles/index.css',
     ]
   };
   instance.getConfig = function() {

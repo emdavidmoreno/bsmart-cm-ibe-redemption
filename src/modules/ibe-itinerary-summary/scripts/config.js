@@ -6,11 +6,11 @@ define([], function() {
     insertNodeCommand: {
       selector: 'body',
       command: 'appendTo',
-      template: @@bsmart-cm-ibe-ibe-itinerary-summary__template
+      template: @@bsmart-cm-ibe-redemption-ibe-itinerary-summary__template
     },
     stylesFilesPath: [
-    '//@@HOST/app/modules/bsmart-cm-ibe/modules/' +
-      'ibe-itinerary-summary/styles/@@FILE_PATH--app--css/modules/bsmart-cm-ibe/modules/ibe-itinerary-summary/styles/index.css',
+    '//@@HOST/app/modules/bsmart-cm-ibe-redemption/modules/' +
+      'ibe-itinerary-summary/styles/@@FILE_PATH--app--css/modules/bsmart-cm-ibe-redemption/modules/ibe-itinerary-summary/styles/index.css',
     ]
   };
   instance.getConfig = function() {

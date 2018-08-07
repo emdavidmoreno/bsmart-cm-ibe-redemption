@@ -2,7 +2,7 @@ module.exports = {
     getRequireConfig: function () {
         return {
                 options: {
-                    baseUrl: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe',
+                    baseUrl: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe-redemption',
                     paths: {
                         jquery: 'empty:',
                         angular: 'empty:',
@@ -30,7 +30,7 @@ module.exports = {
                         './modules/ibe-external-booking-mask/scripts/init',
                         './modules/ibe-external-booking-mask/scripts/app'
                     ],
-                    out: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe/modules/ibe-external-booking-mask/module.dist.js',
+                    out: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe-redemption/modules/ibe-external-booking-mask/module.dist.js',
                     error: function (done, err) {
                         console.log(err);
                         done();

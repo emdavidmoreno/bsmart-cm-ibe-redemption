@@ -10,7 +10,7 @@ define([], function() {
       template: ''
     },
     stylesFilesPath: [
-    '//@@HOST/app/modules/copa-responsive-booking/styles/@@FILE_PATH--app--css/modules/bsmart-cm-ibe/styles/index.css'
+    '//@@HOST/app/modules/copa-responsive-booking/styles/@@FILE_PATH--app--css/modules/bsmart-cm-ibe-redemption/styles/index.css'
     ]
   };
   instance.getConfig = function() {

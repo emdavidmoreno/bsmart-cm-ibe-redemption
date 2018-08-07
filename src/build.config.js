@@ -2,7 +2,7 @@ module.exports = {
     getRequireConfig: function () {
         return {
                 options: {
-                    baseUrl: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe',
+                    baseUrl: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe-redemption',
                     paths: {
                         jquery: 'empty:',
                         angular: './lib/angular/angular.min',
@@ -37,7 +37,7 @@ module.exports = {
                         './scripts/init',
                         './scripts/app'
                     ],
-                    out: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe/module.dist.js',
+                    out: '<%= package.directories.deploy %>/app/modules/bsmart-cm-ibe-redemption/module.dist.js',
                     error: function (done, err) {
                         console.log(err);
                         done();

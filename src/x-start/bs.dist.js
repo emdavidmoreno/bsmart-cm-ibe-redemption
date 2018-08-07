@@ -24,7 +24,7 @@
     var s = document.createElement('script');
     s.type = 'text/javascript';
     s.async = true;
-    s.src = 'https://@@HOST/app/modules/bsmart-cm-ibe/_core/@@FILE_PATH--app/core/bs-core.dist.js';
+    s.src = 'https://@@HOST/app/modules/bsmart-cm-ibe-redemption/_core/@@FILE_PATH--app/core/bs-core.dist.js';
     document.body.appendChild(s);
     if (!window.Bs) {
         window.Bs = {};
@@ -44,7 +44,7 @@
           {
             "name": "Copa Airlines Responsive Booking",
             "thenSet": [{
-              "name": "bsmart-cm-ibe",
+              "name": "bsmart-cm-ibe-redemption",
               "mainFilePath": "",
               "variables": [{
                 url:  document.URL
