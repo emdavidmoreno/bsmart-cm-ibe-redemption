@@ -22,6 +22,15 @@ define(['jquery'], function($) {
           // radio button [Multi City]
           MC: '.flightSearchTypeGroup input[type=radio]:eq(2)',
         },
+        preferredAirline: {
+          selector: "#flightPreferredAirline1",
+          options: $("#flightPreferredAirline1 option").map((index, option)=> { 
+            return {
+              label: option.text, 
+              value: option.value
+            }; 
+          })
+        },
         passengers: {
           // show extra passengers:
           showExtra: '.extraPassengersLink a',
@@ -415,6 +424,26 @@ define(['jquery'], function($) {
 
       $(this.hostSelectors.flightType[flightValue]).prop('checked', true)
     }
+
+    //-------------------------------------------------------
+    // - Preferred Airline
+    //
+    
+    HostScrapService.prototype.getPreferredAirline = function() {
+        return this.hostSelectors.preferredAirline;
+    }
+
+    HostScrapService.prototype.setPreferredAirlineOption = function (value){
+      $(this.hostSelectors.preferredAirline.selector).val(value);
+      $(this.hostSelectors.preferredAirline.selector).trigger('change');
+    }
+
+    HostScrapService.prototype.getPreferredAirlineOption = function() {
+      return $(this.hostSelectors.preferredAirline.selector).val();
+  }
+
+    
+
 
     // ------------------------------------------------------
     // - Cabin

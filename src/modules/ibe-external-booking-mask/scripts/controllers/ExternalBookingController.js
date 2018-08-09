@@ -89,6 +89,17 @@ define([
             $scope.ui.flexible.value = hostScrapService.isFlexible()
           },
         },
+        /**
+         * Preferred Airline
+         */
+        preferredAirline: {
+          model: hostScrapService.getPreferredAirlineOption(),
+          options: hostScrapService.getPreferredAirline().options,
+          onChangePreferredAirline: function(){
+            console.log($scope.ui.preferredAirline.model)
+            hostScrapService.setPreferredAirlineOption($scope.ui.preferredAirline.model)
+          }
+        },
         // Business Class => Business
         // Economy Class => Economy
         cabinType: {
